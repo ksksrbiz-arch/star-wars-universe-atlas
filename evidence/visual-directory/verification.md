@@ -23,3 +23,11 @@ Production build passes. Map-density browser checks pass at 1440 and 390 pixels:
 Disposable PostgreSQL tests pass for the merged publication generator: additive catalog/world/appearance/sequence publication, full-payload verification, idempotent replay preserving timestamps, and rollback on conflicting data or baseline identity. Deterministic artifact identity, world validation and map digest checks pass. Reconciled source tests pass for all 14 new world placements; coverage remains 283 associations across 187 titles, with 76 mapped destinations.
 
 Final build assets: `index-BpYNZ6yk.js`, `index-Dl9MN9eY.css`, `Galaxy-BwCCa0xs.js`, `Galaxy-DAA9VngG.css`, `CinematicBloom-BcBoadKL.js`. Screenshot captures, including the corrected SVG source icons, are retained outside the repository at `/workspace/directory-qa/final-directory-320.png` and `/workspace/directory-qa/final-related-320.png`. Map-density output is under `/workspace/directory-qa/evidence/map-density/`.
+
+## Live rollout verification
+
+Commit `d5873cb` deployed to https://star-wars-universe-atlas.skdev-371.workers.dev on November 7, 2026. Live HTML references the final entry assets, and all five JavaScript/CSS assets listed above match the local production build byte for byte.
+
+Live production browser checks pass for directory entry/focus/hash and filtering at 1440/390/320 pixels; seeded-watch counts, collection boundaries, unmapped restrictions and keyboard behavior; explicit related-world disclosure/close/reset and independent Journey reveal; and all eight dossier source links, keyboard disclosures, caveats, portraits and responsive layouts at 1440/390/320 pixels. Watch progress remains unchanged throughout these checks.
+
+All four live API payload digests match the reconciled manifest: 193 catalog items, 76 mapped worlds, 283 associations and five sequences. Verification used read-only requests; no database write occurred. Raw asset/API results are retained at `/workspace/directory-qa/live-assets-api.json`.
