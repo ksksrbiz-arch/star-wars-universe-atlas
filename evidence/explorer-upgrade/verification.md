@@ -19,3 +19,11 @@ November 7, 2026. Three parallel implementation agents plus root integration.
 - `node scripts/test-journey.mjs`: title links, source-order navigation, Andor/Hoth warps, mobile layout, no page errors.
 
 Screenshots: `desktop.png`, `mobile.png`, plus refreshed reference-map snapshots. Browser automation used Chromium158 with software WebGL and emulated mobile. No physical-device frame-rate measurement was made. No geographic facts or coverage counts changed. Progress is not cloud-synchronized; simultaneous cross-tab writes are last-write-wins. Complete spoiler filtering is not claimed. Live rollout is verified separately after the main-branch build.
+
+## Live release
+
+Application commit `a527f6df15be7f7474b4cf1c61f9c3dcccabf84f` deployed automatically through successful Cloudflare build `f3b1e3cb-f088-44a6-8784-2a4d29cccdb5`.
+
+Public URL: https://star-wars-universe-atlas.skdev-371.workers.dev
+
+On the deployed build, `test-deployment`, `test-destination-links`, `test-world-explorer`, `test-journey-progress`, and `test-progress-upgrade` all passed. Live checks cover six database-backed catalog endpoints, read-only API behavior, desktop/mobile warp and skip, search and region filters, shareable destinations, journey resume/advance, merge-only imports, cross-tab progress, storage denial and no browser errors. The data counts remain 185 titles, 62 mapped worlds, and 171 relationships. These checks use temporary browser contexts and do not modify server catalog data.
