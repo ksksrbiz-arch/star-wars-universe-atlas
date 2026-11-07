@@ -11,3 +11,7 @@ Combined TypeScript/Vite/Worker builds, ICM, catalog, chronology, connection, jo
 The database transaction was applied to the verified Neon atlas database using TLS WebSocket. Publication catalog-sha256-5eb5bc657541683188e259dfea2998b6485a49320ac77c5519111d6ab18b7d82 was verified against the stored marker and full payloads. Public APIs subsequently matched all three manifest digests: 193 catalog records, 5 sequences and 245 appearances.
 
 Agent drafts were transferred from an obsolete shell executor; all final build, browser, publication and integration checks were rerun in the current workspace. The existing large-chunk build warning remains.
+
+## Live release verification
+
+Commit `133b635` is deployed. All four production assets (entry JavaScript, CSS, Galaxy and optional Bloom) byte-match the fresh build of that exact commit. Live API checks verified all three content digests and six endpoints at 193 titles, five sequences and 245 connections. Desktop/mobile navigation, fit controls at desktop/390/320px, resize/reset, keyboard navigation, and Ahsoka collection/Journey/spoiler/unmapped-world checks passed without browser errors. The initial older bundle was observed during rollout; the completed release was subsequently verified.
