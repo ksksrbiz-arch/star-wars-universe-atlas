@@ -32,7 +32,10 @@
     "test:world-search": "node scripts/test-world-explorer.mjs",
     "test:progress": "node scripts/test-progress-upgrade.mjs",
     "test:journey-progress": "node scripts/test-journey-progress.mjs",
-    "test:destination-links": "node scripts/test-destination-links.mjs"
+    "test:destination-links": "node scripts/test-destination-links.mjs",
+    "test:worker": "node scripts/test-worker.mjs",
+    "test:ui-repairs": "node scripts/test-ui-repairs.mjs",
+    "test:map-resilience": "node scripts/test-map-resilience.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",

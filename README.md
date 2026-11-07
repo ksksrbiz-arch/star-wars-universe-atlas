@@ -30,9 +30,9 @@ Eight general destinations in [data.ts](src/data.ts) combine with 54 additional 
 | Catalog group | Included |
 |---|---:|
 | Original trilogy | 3 films |
-| Andor | 24 episodes, seasons 1â€“2 |
-| The Clone Wars (2008) | 133 episodes, seasons 1â€“7, plus the theatrical film |
-| The Mandalorian | 24 episodes, seasons 1â€“3 |
+| Andor | 24 episodes, seasons 1–2 |
+| The Clone Wars (2008) | 133 episodes, seasons 1–7, plus the theatrical film |
+| The Mandalorian | 24 episodes, seasons 1–3 |
 
 The 181 regular episodes and four films are a bounded audit cohort, not all Star Wars movies/shows. Nine promotional/Legacy specials, the 2003 Clone Wars series, and The Mandalorian and Grogu film are excluded. The 62 worlds do not constitute complete geographic coverage. Story/location coverage is partial and independently counted in [journey data review](evidence/journey-data-review.md). An unjoined story has no verified relationship in this pass; it may be unaudited or reviewed without a named planet link.
 
@@ -41,7 +41,7 @@ The 181 regular episodes and four films are a bounded audit cohort, not all Star
 - Episode titles, numbering, air dates, and selected runtime fields derive from [TVmaze](https://www.tvmaze.com/api), with CC BY-SA attribution retained. All 181 imported episode titles/dates/numbers match the audit CSV; both input-file SHA-256 values match the recorded metadata as checked November 7, 2026.
 - Film dates retain source caveats in [catalog.generated.json](src/catalog.generated.json). Empire's provider date is May 17, 1980, with premiere/theatrical/territory meaning unresolved. Return of the Jedi retains May 25, 1983, supported by an official anniversary article despite a conflicting film landing-page date. These are not a definitive worldwide release calendar.
 - Release chronology remains separate from [collection viewing sequences](src/chronology.ts), which cover all 185 catalog IDs. Clone Wars uses its complete official chronological order including the film; the other collections use film/episode narrative order. Embedded flashbacks are retained, not globally reordered. No exact BBY/ABY calendar is asserted.
-- External bridge references cover Rogue One, Book of Boba Fett chapters 5â€“7, and Revenge of the Sith overlap. They are not phantom catalog/progress items. The base catalog metadata's chronology flag describes its release-only import; the separately sourced chronology module now owns collection sequences.
+- External bridge references cover Rogue One, Book of Boba Fett chapters 5–7, and Revenge of the Sith overlap. They are not phantom catalog/progress items. The base catalog metadata's chronology flag describes its release-only import; the separately sourced chronology module now owns collection sequences.
 - All 133 Clone Wars episode runtimes are null because the audit found the same suspect 30-minute provider value throughout. Four film runtimes remain null pending edition-specific verification. Other episode runtimes are provider values, not independently checked streaming durations; no exact full-marathon total is supported.
 - No provider summaries or image assets are imported into the catalog. World descriptions are short original reference text. Planet illustrations are original procedural artwork, not screen stills.
 - Geography and political conditions can vary by era. Coruscant's Return of the Jedi appearance is edition-dependent. Story links distinguish present scenes, flashbacks and destruction where supported. Complete spoiler filtering, exhaustive scene/event links, character journeys, and a full canon/continuity model remain unimplemented.
@@ -63,3 +63,7 @@ Latest completed checks and limitations: [Story journeys verification](evidence/
 ## Exploration and progress update
 
 Search mapped destinations by name, grid, or region; filter by region and share a destination link. Journey controls resume the first unwatched chapter in collection story order and can mark watched while advancing. The watchlist accepts version-1 JSON backups, merges valid catalog IDs without erasing existing progress, and reports unsupported entries. See [verification](evidence/explorer-upgrade/verification.md).
+
+## Bug-sweep regression checks
+
+After `npm ci`, start `npm run dev`, then run `npm run test:worker`, `npm run test:ui-repairs`, and `npm run test:map-resilience`. Browser scripts accept `ATLAS_URL` to target a specific running checkout (default `http://localhost:4173`); this avoids accidentally checking another server. The Worker regression uses mocked database and R2 bindings and does not require credentials.

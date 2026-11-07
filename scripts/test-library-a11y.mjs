@@ -4,7 +4,7 @@ import {writeFile} from 'node:fs/promises';
 const browser=await chromium.launch();
 const page=await browser.newPage({viewport:{width:320,height:844}});
 const checks=[];
-await page.goto('http://localhost:4173/#library');
+await page.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#library");
 await page.locator('.catalog-item').first().waitFor();
 assert.equal(await page.getByRole('heading',{level:1}).count(),1);checks.push('One exposed page heading; hidden galaxy heading excluded');
 const search=page.getByRole('textbox',{name:'Search films and episodes'});
@@ -31,7 +31,7 @@ const watched=page.locator('.watched-button').first();const box=await watched.bo
 const summaryBox=await page.locator('.catalog-details summary').first().boundingBox();assert.ok(summaryBox.height>=44);
 checks.push('Mobile watch toggle and record disclosure targets at least44px high; watch44px wide');
 for(const route of ['library','timeline','watch']){
- await page.goto('http://localhost:4173/#'+route);await page.locator('.library-view').waitFor();
+ await page.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#"+route);await page.locator('.library-view').waitFor();
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,route+' overflow');
  assert.equal(await page.getByRole('heading',{level:1}).count(),1);
  await page.screenshot({path:'evidence/a11y-'+route+'-320.png'});

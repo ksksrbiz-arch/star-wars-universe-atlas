@@ -22,25 +22,34 @@ export function useWatchProgress() {
   const [initial] = useState(read);
   const [watchedIds, setWatchedIds] = useState(initial.ids);
   const current = useRef(initial.ids);
+  const unsaved = useRef(false);
   const [storageWarning, setWarning] = useState(initial.warning);
   function update(next: Set<string>) { current.current = next; setWatchedIds(next); }
   function persist(next: Set<string>) {
     update(next);
-    try { localStorage.setItem(KEY, JSON.stringify({version: 1, watchedIds: [...next]})); setWarning(''); return true; }
-    catch { setWarning('This browser could not save progress. Export it before closing this visit.'); return false; }
+    try { localStorage.setItem(KEY, JSON.stringify({version: 1, watchedIds: [...next]})); unsaved.current = false; setWarning(''); return true; }
+    catch { unsaved.current = true; setWarning('This browser could not save progress. Export it before closing this visit.'); return false; }
   }
   useEffect(() => {
     function sync(event: StorageEvent) {
-      if (event.storageArea !== localStorage || (event.key !== KEY && event.key !== null)) return;
-      try { update(event.newValue ? parseProgress(event.newValue).ids : new Set()); setWarning(''); }
-      catch { setWarning('Another tab saved unreadable progress. Your current progress has been kept.'); }
+      if (event.key !== KEY && event.key !== null) return;
+      try { if (event.storageArea !== localStorage) return; } catch { return; }
+      if (unsaved.current) return;
+      // Read the latest saved value, rather than an older queued storage event.
+      const saved = read();
+      if (!saved.warning) { update(saved.ids); setWarning(''); }
+      else setWarning('Another tab saved unreadable progress. Your current progress has been kept.');
     }
     window.addEventListener('storage', sync);
     return () => window.removeEventListener('storage', sync);
   }, []);
+  function latestIds() {
+    const saved = read();
+    return new Set(!unsaved.current && !saved.warning ? saved.ids : current.current);
+  }
   function toggleWatched(id: string) {
     if (!validIds.has(id)) return;
-    const next = new Set(current.current);
+    const next = latestIds();
     next.has(id) ? next.delete(id) : next.add(id);
     persist(next);
   }
@@ -48,10 +57,8 @@ export function useWatchProgress() {
     if (file.size > MAX_BACKUP_BYTES) return {ok: false, message: 'This file is too large. Choose an atlas JSON backup smaller than 256 KB.'};
     try {
       const parsed = parseProgress(await file.text());
-      const next = new Set(current.current);
-      // Include any changes saved by another tab while the file was being read.
-      const saved = read();
-      if (!saved.warning) saved.ids.forEach(id => next.add(id));
+      // Include changes saved while reading the file, preserving unsaved session edits.
+      const next = latestIds();
       const before = next.size;
       parsed.ids.forEach(id => next.add(id));
       const savedSuccessfully = persist(next);

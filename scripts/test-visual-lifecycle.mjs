@@ -21,15 +21,18 @@ async function start(name) {
   await page.locator('.transit-panel').waitFor();
 }
 try {
-  await page.goto('http://localhost:4173/#galaxy');
+  await page.clock.install();
+  await page.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#galaxy");
   await page.locator('canvas').waitFor();
   await page.getByRole('combobox', { name: 'Graphics quality' }).selectOption('balanced');
   const initial = await current();
+  // Freeze travel time while scheduling controls; advance frames explicitly for partial warps.
+  await page.clock.pauseAt(await page.evaluate(() => Date.now() + 1000));
   for (let i = 0; i < 3; i++) {
     stage = `cancel cycle ${i + 1}`;
     await start('Alderaan');
     assert.equal(await page.getByRole('combobox', { name: 'Graphics quality' }).isDisabled(), true);
-    await page.waitForTimeout(150);
+    await page.clock.runFor(150);
     await page.getByRole('button', { name: 'Cancel', exact: true }).click();
     await settled();
     assert.equal(await current(), initial);
@@ -59,7 +62,7 @@ try {
   await page.getByRole('switch', { name: 'Reduce motion' }).evaluate(button => button.click());
   await waitCurrent('Alderaan'); await settled();
   assert.equal(await page.getByRole('switch', { name: 'Reduce motion' }).getAttribute('aria-checked'), 'true');
-  await page.waitForTimeout(2200);
+  await page.clock.fastForward(2200);
   assert.equal(await current(), 'Alderaan');
   await page.getByRole('switch', { name: 'Reduce motion' }).evaluate(button => button.click());
   checks.push('Enabling reduced motion mid-warp settles immediately; the old animation cannot produce a delayed second arrival.');
@@ -68,8 +71,9 @@ try {
   await page.getByRole('combobox', { name: 'Graphics quality' }).selectOption('cinematic');
   await start('Yavin 4');
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.waitForTimeout(100);
+  await page.clock.runFor(100);
   await page.setViewportSize({ width: 844, height: 390 });
+  await page.clock.resume();
   await waitCurrent('Yavin 4'); await settled();
   assert.equal(await page.getByRole('combobox', { name: 'Graphics quality' }).isEnabled(), true);
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
