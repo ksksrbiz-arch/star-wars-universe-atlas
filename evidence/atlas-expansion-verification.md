@@ -10,3 +10,9 @@ Validated on Node 24 with Playwright Chromium/software WebGL:
 - New story-search test passed search/collection intersection, hidden-title protection, empty-state reset, destination filter reset, 390px layout, and Journey deep links.
 
 Build retains its large-chunk warning. These are emulated viewport checks, not physical-device performance measurements. The independent database API retains its 171-link publication; application deployment changes the bundled frontend data only.
+
+## Live deployment
+
+Application commit `64017cd` was pushed to `main` and deployed by Cloudflare Builds. The live index JavaScript, CSS, and Galaxy bundle matched the local validated artifacts byte-for-byte (SHA-256). Live deployment checks passed all six API endpoints, health, 404/405 behavior, 1440px desktop and 390px mobile map/warp/skip/Journey navigation, no overflow, and no browser errors. The new story-search checks also passed against the live URL. Node HTTP verification used the inherited proxy via `NODE_USE_ENV_PROXY=1`.
+
+Live URL: https://star-wars-universe-atlas.skdev-371.workers.dev
