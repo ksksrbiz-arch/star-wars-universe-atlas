@@ -23,3 +23,12 @@ Publication now includes mapped-world payload digests and guarded additive world
 The complete reviewed additive transaction then succeeded on Neon project young-hall-18334569, branch br-bitter-violet-ak7la0ve, database atlas. Public API full-payload digests verified76 worlds,283 appearances,193 works and5 sequences. Runtime credentials/permissions were unchanged. Explicit database expectations were updated only after verification.
 
 These browser checks use Chromium/software WebGL and emulated viewports, not physical-device performance measurements. Large-chunk warnings remain. No complete spoiler safety, exhaustive geography, continuous character itinerary or cloud progress synchronization is claimed. Live application deployment is recorded below after verification.
+
+
+## Live release
+
+Application commit `b01fc31aec9567a2d92fb411fcb409abbe4c6d99` deployed successfully through Cloudflare build `066646ac-7774-480e-b692-a965983f34c4`.
+
+Public URL: https://star-wars-universe-atlas.skdev-371.workers.dev
+
+Production checks passed: test-deployment (all six API endpoints, mapped-world/catalog/sequence/appearance payload digests, read-only API behavior, desktop/mobile map and warp/skip), test-mapped-expansion (all14 new choices, grids, Lothal jump, Ahsoka mapped stops, Peridea exclusion), test-map-density (76 labels, no visible optional-label overlap, selected-edge bounds and keyboard focus), and test-guided-journey (desktop/mobile/narrow layouts and spoiler/progress boundaries). No browser errors were reported. Publication-row identity and world digest were also read back directly from Neon. Updated production screenshots and JSON results are committed with this record.
