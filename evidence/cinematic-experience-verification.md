@@ -17,3 +17,7 @@ The media adds38,031bytes on narrow screens or143,878bytes on desktop. The4K der
 ## Concurrent release integration
 
 Integrated main's galaxy-depth/corridor improvements and already-published 270-connection dataset. Revalidated the combined build, data/publication/provenance checks, production desktop/mobile/reduced graphics (zero settled idle draws, Cancel/Skip, no errors), responsive media/fallback/map-access and audio-control tests against the merged source. No database mutation was needed for this experience release.
+
+## Live verification
+
+Release `425bd7c` is live. Five JavaScript/CSS assets and all three NASA images match the validated local bytes. Images under `/visuals/` return correct JPEG/WebP content types. Live media, fallback, map-focus, audio-control and desktop/mobile navigation tests passed without errors. The API still matches the 270-connection publication, including complete catalog/sequence/appearance digests and all six endpoints.
