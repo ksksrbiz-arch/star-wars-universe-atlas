@@ -28,3 +28,5 @@ main{padding-top:28px}.page-intro{align-items:flex-end;margin-bottom:34px}.page-
 @media(prefers-reduced-motion:reduce){.planet-orbit,.galaxy-loading svg{animation:none}.destination-card:hover,.jump-button:hover{transform:none}}
 /* Keep single-icon arrival and multi-icon jump labels centered together. */
 .jump-button>svg:first-child,.jump-button>svg:last-child,.jump-button>svg:last-child:not(:first-child){margin:0}
+/* Shared destination actions span the mobile dossier, like source links. */
+.destination-share{grid-column:1/-1;min-width:0}.destination-share button{width:100%;border-radius:7px}.destination-share [role=status]:empty{display:none}

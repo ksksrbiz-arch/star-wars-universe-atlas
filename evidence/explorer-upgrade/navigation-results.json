@@ -1,5 +1,5 @@
 {
-  "base": "http://localhost:4173",
+  "base": "http://localhost:4183",
   "checks": [
     "Desktop1440 destination deep link, reload, reduced-motion jump, share/copy fallback, invalid route and section navigation",
     "Mobile390 destination deep link, reload, reduced-motion jump, share/copy fallback, invalid route and section navigation"
