@@ -13,3 +13,11 @@ Live database publication is pending secure ATLAS_DATABASE_URL and independently
 ## Frontend deployment
 
 Commit13fc4f0 is live. Deployed JavaScript/CSS/Galaxy assets exactly match the tested build. Production episode-highlighting and desktop/mobile navigation checks passed without browser errors. The live API still matches the separately recorded171-row baseline digest; it has not received the prepared231-row publication.
+
+## Database publication completed
+
+The user verified endpoint `ep-sparkling-darkness-akvy5haf-pooler.c-3.us-west-2.aws.neon.tech` and supplied the writer connection securely. Read-only identity verification confirmed database `atlas`, role `atlas_owner`, and171 existing appearances. Direct TCP was refused in this environment; Neon’s official serverless client connected over TLS WebSocket through the inherited HTTPS proxy with certificate verification enabled.
+
+The exact regenerated SQL/manifest and endpoint were checked before applying the transaction. Publication `appearances-sha256-e235fe4241739f53cbd0b7b85e32cd810e8d50ba4916274b0add6dcf62e730b5` committed successfully. Both the stored publication marker and all231 database payloads matched the reviewed manifest. The public health endpoint reported231 appearances and the complete `/api/appearances` payload digest matched. The default deployment-test baseline now tracks this verified publication (179 covered titles).
+
+The live deployment regression suite passed using the new manifest: six APIs, full appearance digest,404/405 protections, desktop/mobile map/warp/skip/Journey navigation and no overflow or browser errors.
