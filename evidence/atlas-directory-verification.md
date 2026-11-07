@@ -12,3 +12,9 @@ Verified on Node 24 and Playwright Chromium/software WebGL:
 - Directory and Journey screenshots at 1440px and 390px were inspected without clipping or overlap.
 
 The build retains the existing large-chunk warning. Mobile checks are emulated, not physical-device performance claims. The separately published database API remains at its 171-association snapshot; this release changes the bundled frontend dataset.
+
+## Live verification
+
+Application commit `bad6d1c` deployed successfully through the main-branch Cloudflare build. Live JavaScript, CSS, and Galaxy bundle bytes matched the final local build. Live deployment checks passed database health, six read-only APIs, 404/405 behavior, desktop/mobile map transitions and Journey navigation with no browser errors. Directory and Journey browsing suites also passed against production, including independent reveals, focus, unmapped-world restrictions, episode-code variants, research filters, watch-state preservation, and 390/320px layouts.
+
+URL: https://star-wars-universe-atlas.skdev-371.workers.dev
