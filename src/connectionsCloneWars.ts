@@ -769,4 +769,167 @@ export const CLONE_WARS_CONNECTIONS: PlanetConnection[] = [
     "sourceUrl": "https://www.starwars.com/series/clone-wars/the-lost-one-episode-gallery",
     "note": "The story gallery confirms the Jedi land at the Pyke fortress on Oba Diah and locate Silman there. The earlier wreck investigation is on a separate unnamed moon and is not merged with the planet."
   }
+,
+  // Remaining-title review: explicit episode events and documented named-location identity joins.
+  {
+    "itemId": "clone-wars-s01e07",
+    "worldId": "ruusan-moon",
+    "worldName": "Ruusan moon",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/duel-of-the-droids-episode-gallery",
+    "note": "The story gallery places Skytop Station in the skies of the Ruusan moon. This is a moon/atmospheric-station association, not a Ruusan surface landing."
+  },
+  {
+    "itemId": "clone-wars-s01e09",
+    "worldId": "rodia",
+    "worldName": "Rodia",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/cloak-of-darkness-episode-gallery",
+    "note": "The story gallery confirms departure from Rodia before the shipboard mission. Coruscant is only a proposed destination in the synopsis."
+  },
+  {
+    "itemId": "clone-wars-s01e10",
+    "worldId": "vassek-third-moon",
+    "worldName": "Vassek’s third moon",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/lair-of-grievous-episode-gallery",
+    "note": "The story gallery names Vassek’s third moon and confirms Nahdar Vebb has reached its surface. The parent planet is not substituted for the moon."
+  },
+  {
+    "itemId": "clone-wars-s02e13",
+    "worldId": "mandalore",
+    "worldName": "Mandalore",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/voyage-of-temptation-episode-gallery",
+    "note": "Departure/orbital association: the story gallery explicitly shows the Coronet leaving Mandalore; Obi-Wan’s recalled earlier mission is not the evidence for this join."
+  },
+  {
+    "itemId": "clone-wars-s02e20",
+    "worldId": "vanqor",
+    "worldName": "Vanqor",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/death-trap-episode-gallery",
+    "note": "Orbital association: the story gallery places the sabotaged Endurance over Vanqor, then describes its plunge toward the world. No Boba Fett surface visit is asserted."
+  },
+  {
+    "itemId": "clone-wars-s03e15",
+    "worldId": "mortis",
+    "worldName": "Mortis",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/overlords-episode-gallery",
+    "note": "The episode gallery describes the Jedi landing on a mysterious world and explicitly names their present setting as Mortis in the visions’ dialogue. The mystical setting has no conventional map placement; visions are not additional world visits."
+  },
+  {
+    "itemId": "clone-wars-s03e19",
+    "worldId": "lola-sayu",
+    "worldName": "Lola Sayu",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/counterattack-episode-gallery",
+    "note": "The episode gallery locates the stranded Citadel rescue team behind the blockades of Lola Sayu as the Council prepares extraction."
+  },
+  {
+    "itemId": "clone-wars-s04e16",
+    "worldId": "nal-hutta",
+    "worldName": "Nal Hutta",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/friends-and-enemies-episode-gallery",
+    "note": "The story gallery explicitly describes the fugitives crashing on Nal Hutta and Anakin and Ahsoka arriving there. A proposed Serenno rendezvous is excluded."
+  },
+  {
+    "itemId": "clone-wars-s05e07",
+    "worldId": "ilum",
+    "worldName": "Ilum",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/a-test-of-strength-episode-gallery",
+    "note": "Departure association: the episode gallery explicitly describes the Crucible leaving Ilum. The prior Gathering recap alone is not used as new scene evidence."
+  },
+  {
+    "itemId": "clone-wars-s05e10",
+    "worldId": "coruscant",
+    "worldName": "Coruscant",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/secret-weapons-episode-gallery",
+    "note": "The exact episode gallery places the briefing in the Jedi Temple. The official location identity is corroborated by https://www.starwars.com/databank/jedi-temple, which locates that temple on Coruscant. This is a named-location join, not inheritance from another episode."
+  },
+  {
+    "itemId": "clone-wars-s05e13",
+    "worldId": "abafar",
+    "worldName": "Abafar",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/point-of-no-return-episode-gallery",
+    "note": "Departure/orbital association: the story gallery places the shuttle leaving Abafar and approaching its orbiting cruiser. The separate Carida system/space-station arrival is not a claimed planet landing."
+  },
+  {
+    "itemId": "clone-wars-s05e14",
+    "worldId": "zanbar",
+    "worldName": "Zanbar",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/eminence-episode-gallery",
+    "note": "The story gallery confirms arrival at the moon Zanbar and the Death Watch camp. No parent planet or map grid is inferred."
+  },
+  {
+    "itemId": "clone-wars-s05e14",
+    "worldId": "mustafar",
+    "worldName": "Mustafar",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/eminence-episode-gallery",
+    "note": "The story gallery names Mustafar and immediately describes the fleet landing at Black Sun’s cliffside facility; it is not merely a proposed destination."
+  },
+  {
+    "itemId": "clone-wars-s05e14",
+    "worldId": "nal-hutta",
+    "worldName": "Nal Hutta",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/eminence-episode-gallery",
+    "note": "The story gallery explicitly places Maul, Savage, and Vizsla before the Hutt Council on Nal Hutta. Jabba attends this meeting by hologram."
+  },
+  {
+    "itemId": "clone-wars-s05e14",
+    "worldId": "tatooine",
+    "worldName": "Tatooine",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/eminence-episode-gallery",
+    "note": "The story gallery names the retreat to Jabba’s Tatooine palace, then confirms Maul and Vizsla’s forces arrive and enter that palace. Jabba’s earlier hologram on Nal Hutta is distinguished from this visit."
+  },
+  {
+    "itemId": "clone-wars-s05e18",
+    "worldId": "coruscant",
+    "worldName": "Coruscant",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/the-jedi-who-knew-too-much-episode-gallery",
+    "note": "The story gallery explicitly places Anakin’s pursuit of Ahsoka at an opening into Coruscant’s underworld."
+  },
+  {
+    "itemId": "clone-wars-s06e03",
+    "worldId": "kamino",
+    "worldName": "Kamino",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/fugitive-episode-gallery",
+    "note": "The episode gallery explicitly places Fives and AZI-3 in Tipoca City. https://www.starwars.com/databank/tipoca-city identifies that city as the central hub of Kamino. The proposed later Coruscant transfer is excluded."
+  },
+  {
+    "itemId": "clone-wars-s06e09",
+    "worldId": "zardossa-stix",
+    "worldName": "Zardossa Stix",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/the-disappeared-part-ii-episode-gallery",
+    "note": "The story gallery places the captive queen’s arrival and the rescue pursuit on the desert moon Zardossa Stix. Bardotta’s abduction recap alone is not counted as a new scene."
+  },
+  {
+    "itemId": "clone-wars-s06e12",
+    "worldId": "force-planet",
+    "worldName": "Force planet (unnamed)",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/destiny-episode-gallery",
+    "note": "The episode gallery confirms Yoda’s landing on the unnamed world inside the nebula. The exact episode guide indexes it as Force Planet and explicitly says it has no specific name. This descriptive identity has no coordinates; Moraband is only Yoda’s next destination."
+  },
+  {
+    "itemId": "clone-wars-s07e07",
+    "worldId": "oba-diah",
+    "worldName": "Oba Diah",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/dangerous-debt-episode-guide",
+    "note": "The exact episode guide’s story gallery places the trio in the Pyke prison and stronghold; its location index identifies Pyke Stronghold. https://www.starwars.com/databank/pyke-stronghold locates that named fortress on Oba Diah. No recalled Martez-family events become new visits."
+  },
+  {
+    "itemId": "clone-wars-s07e08",
+    "worldId": "oba-diah",
+    "worldName": "Oba Diah",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/together-again-episode-guide",
+    "note": "The episode story gallery explicitly places Ahsoka’s sabotage in the Pyke complex on Oba Diah."
+  },
+  {
+    "itemId": "clone-wars-s07e08",
+    "worldId": "coruscant",
+    "worldName": "Coruscant",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/together-again-episode-guide",
+    "note": "The episode story gallery explicitly confirms the trio’s return to Coruscant. Tracing Maul’s signal to Mandalore is not counted as Ahsoka visiting Mandalore."
+  },
+  {
+    "itemId": "clone-wars-s04e14",
+    "worldId": "carlac",
+    "worldName": "Carlac",
+    "sourceUrl": "https://www.starwars.com/news/the-clone-wars-rewatch-a-friend-in-need",
+    "note": "The exact episode rewatch explicitly places Lux’s ill-fated alliance with Death Watch on the frigid world of Carlac."
+  }
 ];

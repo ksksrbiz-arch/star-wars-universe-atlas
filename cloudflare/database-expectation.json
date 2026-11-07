@@ -1,0 +1,12 @@
+{
+  "id": "initial-2026-11-07",
+  "works": 185,
+  "worlds": 62,
+  "appearances": 171,
+  "sequences": 4,
+  "regions": 8,
+  "routes": 5,
+  "note": "Last verified database snapshot. This is independent of the frontend bundled connection count. Update only after successful database publication and live verification.",
+  "sha256": "bf2db16cab2d529867ba1b25c77537c2341bf093e12d8d7c03c070788bef4414",
+  "coveredTitles": 127
+}

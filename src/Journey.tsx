@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'motion/react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { ArrowLeft, ArrowRight, Check, ChevronRight, Compass, ExternalLink, Eye, LockKeyhole, MapPin, Search } from 'lucide-react';
 
@@ -18,6 +18,7 @@ import './journey.css';
 type Props = {
 
   watchedIds: ReadonlySet<string>;
+  onLocationDisclosure?: (value: { itemId: string; revealed: boolean }) => void;
 
   onSelectStop: (itemId: string, worldId: string) => void;
 
@@ -31,7 +32,12 @@ type Props = {
 
 
 
-export default function Journey({ watchedIds, onSelectStop, activeItemId, onActiveItemChange, onToggleWatched }: Props) {
+function LocationDisclosure({ itemId, revealed, onChange }: { itemId: string; revealed: boolean; onChange?: Props['onLocationDisclosure'] }) {
+  useLayoutEffect(() => { onChange?.({ itemId, revealed }); }, [itemId, revealed, onChange]);
+  return null;
+}
+
+export default function Journey({ onLocationDisclosure, watchedIds, onSelectStop, activeItemId, onActiveItemChange, onToggleWatched }: Props) {
 
   const reduceMotion = useReducedMotion();
   const [sequenceId, setSequenceId] = useState(STORY_SEQUENCES[0]?.id ?? '');
@@ -113,6 +119,7 @@ export default function Journey({ watchedIds, onSelectStop, activeItemId, onActi
 
 
   return <section className="journey-panel" aria-label="Story journeys">
+    <LocationDisclosure itemId={item.id} revealed={revealedIds.has(item.id)} onChange={onLocationDisclosure}/>
 
     <div className="journey-intro"><div><span className="journey-kicker"><Compass size={13}/> FOLLOW THE STORY</span><h1>A galaxy, one chapter at a time.</h1><p>Choose a story. Discover its worlds. Keep your place.</p><p className="journey-coverage">{new Set(CONNECTIONS.map(connection => connection.itemId)).size} / {CATALOG.length} titles with sourced location links · Partial appearance coverage</p></div><span className="journey-mode-badge">CURATED STORY ORDER</span></div>
 
@@ -160,7 +167,7 @@ export default function Journey({ watchedIds, onSelectStop, activeItemId, onActi
         <div className="journey-search"><label htmlFor="journey-title-search"><Search size={15}/><span>Find a chapter</span></label><input id="journey-title-search" type="search" placeholder="Title or episode code, e.g. S01E02" value={query} onChange={event => { setQuery(event.target.value); setResultLimit(6); }} aria-controls="journey-search-results" autoComplete="off"/>
 
           <div className="journey-coverage-filter"><label htmlFor="journey-coverage-filter">Location research</label><select id="journey-coverage-filter" value={coverageFilter} onChange={event => { setCoverageFilter(event.target.value as typeof coverageFilter); setResultLimit(6); }}><option value="all">All {items.length} chapters</option><option value="linked">With sourced links ({linkedCount})</option><option value="unreviewed">Not yet linked ({items.length - linkedCount})</option></select></div>
-          <p className="journey-browse-note">Sourced links are partial. Unlinked chapters are unreviewed, not evidence of no locations. Browsing keeps location names hidden.</p>
+          <p className="journey-browse-note">Sourced links are partial. A missing link does not establish that a chapter has no locations. Browsing keeps location names hidden.</p>
           {browsing && <div className="journey-search-results" id="journey-search-results" role="region" aria-label="Chapter search results"><span className="journey-search-count" role="status">{matches.length ? `${matches.length} matching ${matches.length === 1 ? 'chapter' : 'chapters'} in story order` : 'No matching chapters in this collection.'}</span>{matches.slice(0, resultLimit).map(result => <button key={result.id} aria-current={result.id === item.id ? 'true' : undefined} onClick={() => selectItem(result.id)}><span>{result.title}<small>{result.kind === 'film' ? 'Film' : `S${String(result.season).padStart(2, '0')} · E${String(result.episode).padStart(2, '0')}`} · {linkedIds.has(result.id) ? 'Sourced location links' : 'Locations not yet linked'}</small></span><ArrowRight size={15}/></button>)}{matches.length > resultLimit && <button className="journey-more-results" onClick={() => setResultLimit(limit => limit + 12)}>Show more chapters ({matches.length - resultLimit} remaining)</button>}</div>}
 
 

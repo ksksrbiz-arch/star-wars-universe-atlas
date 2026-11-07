@@ -1,0 +1,37 @@
+import { chromium } from 'playwright';
+import assert from 'node:assert/strict';
+const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
+try {
+ const page=await browser.newPage({viewport:{width:1280,height:900},reducedMotion:'reduce'});
+ const errors=[];page.on('pageerror',error=>errors.push(error.message));
+ const url=process.env.ATLAS_URL || 'http://localhost:4173';
+ await page.goto(`${url}/#journey/andor-s01e01`);
+ await page.locator('canvas').waitFor();
+ assert.equal(await page.locator('[data-episode-location]').count(),0);
+ await page.getByRole('button',{name:'Reveal locations for this title'}).click();
+ await page.locator('[data-episode-location="ferrix"]').waitFor({state:'attached'});
+ const highlighted=await page.locator('[data-episode-location]').evaluateAll(nodes=>nodes.map(node=>node.getAttribute('data-episode-location')).sort());
+ assert.deepEqual(highlighted,['ferrix','kenari']);
+ assert.match(await page.locator('.episode-map-key').innerText(),/no supported map position/);
+ assert.equal(await page.locator('[data-episode-location="morlana-one"]').count(),0);
+ await page.getByRole('button',{name:'Reset map view',exact:true}).click();
+ assert.equal(await page.locator('[data-episode-location]').count(),2);
+ await page.getByRole('button',{name:'Next story chapter',exact:true}).click();
+ assert.equal(await page.locator('[data-episode-location]').count(),0);
+ assert.equal(await page.locator('.episode-map-key').count(),0);
+ await page.evaluate(()=>{location.hash='#galaxy'});
+ await page.getByRole('region',{name:'World search'}).waitFor();
+ assert.equal(await page.locator('[data-episode-location]').count(),0);
+ await page.evaluate(()=>localStorage.setItem('galactic-atlas.watch.v1',JSON.stringify({version:1,watchedIds:['andor-s01e01']})));
+ await page.goto(`${url}/#journey/andor-s01e01`);
+ await page.reload();
+ await page.locator('[data-episode-location="ferrix"]').waitFor({state:'attached'});
+ await page.getByRole('button',{name:'Mark unwatched',exact:true}).click();
+ assert.equal(await page.locator('[data-episode-location]').count(),0);
+ assert.equal(await page.locator('.episode-map-key').count(),0);
+ await page.setViewportSize({width:390,height:844});
+ await page.getByRole('button',{name:'Reveal locations for this title'}).click();
+ assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+ assert.deepEqual(errors,[]);
+ console.log('PASS: hidden locations, exact sourced mapped highlights, unmapped exclusion, reset, chapter/view cleanup, watched removal and reduced-motion/mobile layout');
+} finally {await browser.close();}

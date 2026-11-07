@@ -1,9 +1,9 @@
 {
   "checkedOn": "2026-11-07",
   "catalogItems": 185,
-  "relationships": 208,
-  "titlesWithLocationEvidence": 160,
-  "titlesWithoutLocationEvidence": 25,
+  "relationships": 231,
+  "titlesWithLocationEvidence": 179,
+  "titlesWithoutLocationEvidence": 6,
   "mapPlacements": 62,
   "referenceTraced": 27,
   "cellCentered": 35,
@@ -18,7 +18,7 @@
     },
     "clone-wars": {
       "catalog": 134,
-      "withLocations": 111
+      "withLocations": 130
     },
     "mandalorian": {
       "catalog": 24,
@@ -44,32 +44,19 @@
     "Rishi moon",
     "Quarzite",
     "Bothawui",
-    "Oba Diah"
+    "Oba Diah",
+    "Ruusan moon",
+    "Vassek’s third moon",
+    "Zanbar",
+    "Zardossa Stix",
+    "Force planet (unnamed)",
+    "Carlac"
   ],
   "unlinkedTitleIds": [
     "clone-wars-s01e02",
     "clone-wars-s01e03",
     "clone-wars-s01e04",
-    "clone-wars-s01e07",
-    "clone-wars-s01e09",
-    "clone-wars-s01e10",
-    "clone-wars-s02e13",
-    "clone-wars-s02e20",
-    "clone-wars-s03e15",
-    "clone-wars-s03e19",
-    "clone-wars-s04e14",
-    "clone-wars-s04e16",
-    "clone-wars-s05e07",
-    "clone-wars-s05e10",
-    "clone-wars-s05e13",
-    "clone-wars-s05e14",
-    "clone-wars-s05e18",
-    "clone-wars-s06e03",
-    "clone-wars-s06e09",
-    "clone-wars-s06e12",
     "mandalorian-s01e06",
-    "clone-wars-s07e07",
-    "clone-wars-s07e08",
     "clone-wars-s07e12",
     "mandalorian-s02e08"
   ],

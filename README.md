@@ -12,7 +12,7 @@ Reference-map geography update: [verification and scope](evidence/reference-map-
 
 ## Run
 
-Integrated relationship coverage is 208 links across 160 of 185 titles and 80 world names. Twenty-five titles have no current link. Only 62 worlds have supported map placements; title coverage does not establish complete scene coverage.
+Integrated relationship coverage is 231 links across 179 of 185 titles and 86 world names. Six titles have no current link. Only 62 worlds have supported map placements; title coverage does not establish complete scene coverage.
 
 Requires a current Node version supported by Vite (Node 26 used during development).
 

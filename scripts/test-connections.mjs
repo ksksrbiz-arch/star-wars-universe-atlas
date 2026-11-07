@@ -41,3 +41,16 @@ assert(!pairs.has('clone-wars-s04e15:naboo'), 'A future festival kidnapping plan
 assert(!pairs.has('clone-wars-s02e08:dantooine'), 'A requested medical-supply destination is not an arrival');
 assert.match(CONNECTIONS.find(c => c.itemId === 'clone-wars-s01e06' && c.worldId === 'bothawui').note, /orbital setting/i);
 assert.match(CONNECTIONS.find(c => c.itemId === 'clone-wars-s06e10' && c.worldId === 'oba-diah').note, /separate unnamed moon/i);
+
+// Remaining-title audit: reviewed evidence and explicit boundaries.
+for (const pair of ["clone-wars-s01e07:ruusan-moon", "clone-wars-s01e09:rodia", "clone-wars-s01e10:vassek-third-moon", "clone-wars-s02e13:mandalore", "clone-wars-s02e20:vanqor", "clone-wars-s03e15:mortis", "clone-wars-s03e19:lola-sayu", "clone-wars-s04e16:nal-hutta", "clone-wars-s05e07:ilum", "clone-wars-s05e10:coruscant", "clone-wars-s05e13:abafar", "clone-wars-s05e14:zanbar", "clone-wars-s05e14:mustafar", "clone-wars-s05e14:nal-hutta", "clone-wars-s05e14:tatooine", "clone-wars-s05e18:coruscant", "clone-wars-s06e03:kamino", "clone-wars-s06e09:zardossa-stix", "clone-wars-s06e12:force-planet", "clone-wars-s07e07:oba-diah", "clone-wars-s07e08:oba-diah", "clone-wars-s07e08:coruscant", "clone-wars-s04e14:carlac"]) assert(pairs.has(pair), `Missing reviewed remaining-title association: ${pair}`);
+assert(!pairs.has('clone-wars-s01e07:ruusan'), 'Ruusan moon must remain separate from the parent planet');
+assert(!pairs.has('clone-wars-s01e10:vassek'), 'Vassek third moon is not the parent planet');
+assert(!pairs.has('clone-wars-s06e12:moraband'), 'Setting course for Moraband is not an arrival in Destiny');
+assert(!pairs.has('clone-wars-s07e08:mandalore'), 'A traced holographic signal is not Ahsoka visiting Mandalore');
+assert(!pairs.has('clone-wars-s04e16:serenno'), 'Proposed rendezvous is not a verified landing');
+for (const entry of CONNECTION_COVERAGE.reviewedWithoutPlanetLink) {
+  assert(ids.has(entry.itemId));
+  assert(!covered.has(entry.itemId), `Reviewed gap already has a connection: ${entry.itemId}`);
+  assert.equal(new URL(entry.sourceUrl).hostname, 'www.starwars.com');
+}
