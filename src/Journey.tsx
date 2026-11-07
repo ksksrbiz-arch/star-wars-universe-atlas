@@ -110,6 +110,7 @@ export default function Journey({ watchedIds, onSelectStop, activeItemId, onActi
 
       {STORY_SEQUENCES.map((entry, entryIndex) => {
 
+        const collectionWatched = entry.itemIds.filter(id => watchedIds.has(id)).length;
         const color = SERIES.find(series => series.id === entry.id)?.color ?? ['#F2B96B', '#E38167', '#65DBFF', '#9FCB85'][entryIndex % 4];
 
         return <button key={entry.id} className={`journey-collection ${entry.id === sequence.id ? 'is-active' : ''}`} aria-pressed={entry.id === sequence.id}
@@ -118,7 +119,7 @@ export default function Journey({ watchedIds, onSelectStop, activeItemId, onActi
 
           onClick={() => { setSequenceId(entry.id); setQuery(''); setProgressMessage(''); if (entry.itemIds[0]) onActiveItemChange(entry.itemIds[0]); }}>
 
-          <span className="journey-collection-number">0{entryIndex + 1}<span/></span><strong>{SERIES.find(series => series.id === entry.id)?.title ?? entry.title}</strong><span className="journey-collection-meta">{entry.itemIds.length} chapters <ChevronRight size={14}/></span>
+          <span className="journey-collection-number">0{entryIndex + 1}<span/></span><strong>{SERIES.find(series => series.id === entry.id)?.title ?? entry.title}</strong><span className="journey-collection-meta">{entry.itemIds.length} chapters <ChevronRight size={14}/></span><span className="journey-collection-progress" aria-hidden="true"><span style={{ width: `${collectionWatched / entry.itemIds.length * 100}%` }}/></span><span className="journey-collection-watched">{collectionWatched ? `${collectionWatched} watched` : 'Begin the journey'}</span>
 
         </button>;
 
@@ -164,13 +165,13 @@ export default function Journey({ watchedIds, onSelectStop, activeItemId, onActi
 
         <div className="journey-worlds-heading"><span className="journey-kicker"><MapPin size={13}/> WORLDS IN THIS CHAPTER</span>{showLocations && connections.length > 0 && <span>{connections.length} linked</span>}</div>
 
-        {connections.length === 0 ? <div className="journey-gap"><Compass size={28} strokeWidth={1}/><h3>A part of the map still to chart.</h3><p>Location evidence is not yet linked for this title. You can continue through the story while this gap is researched.</p><span>RESEARCH GAP · NO STOPS INFERRED</span></div> : !showLocations ? <div className="journey-spoiler"><LockKeyhole size={27} strokeWidth={1.2}/><h3>Let the story surprise you.</h3><p>You haven’t marked this title watched. Its location connections are hidden until you choose to reveal them.</p><button onClick={reveal}><Eye size={15}/> Reveal locations for this title</button><small>This won’t change your watch progress.</small></div> : <>
+        {connections.length === 0 ? <div className="journey-gap"><span className="journey-state-orbit" aria-hidden="true"><Compass size={28} strokeWidth={1}/></span><h3>A part of the map still to chart.</h3><p>Location evidence is not yet linked for this title. You can continue through the story while this gap is researched.</p><span>RESEARCH GAP · NO STOPS INFERRED</span></div> : !showLocations ? <div className="journey-spoiler"><span className="journey-state-orbit" aria-hidden="true"><LockKeyhole size={27} strokeWidth={1.2}/></span><h3>Let the story surprise you.</h3><p>You haven’t marked this title watched. Its location connections are hidden until you choose to reveal them.</p><button onClick={reveal}><Eye size={15}/> Reveal locations for this title</button><small>This won’t change your watch progress.</small></div> : <>
 
           <div className="journey-stop-list">{connections.map((connection, connectionIndex) => {
 
             const world = ALL_WORLDS.find(w => w.id === connection.worldId);
 
-            return <article className="journey-stop" key={`${connection.itemId}-${connection.worldId}-${connectionIndex}`}><span className="journey-stop-dot" style={{ background: world?.color ?? '#5e7288' }}/><div><h3>{connection.worldName}</h3><p>{world ? world.region : 'Position not mapped in this atlas'}</p><p className="journey-stop-note">{connection.note}</p><a className="journey-stop-source" href={connection.sourceUrl} target="_blank" rel="noreferrer">Appearance source <ExternalLink size={10}/></a></div><button disabled={!world} onClick={() => world && onSelectStop(item.id, world.id)} aria-label={world ? `Show ${connection.worldName} on map` : `${connection.worldName}: map unavailable`}>{world ? <><span>Show on map</span><ArrowRight size={15}/></> : <span>Map unavailable</span>}</button></article>;
+            return <article className="journey-stop" style={{ '--stop-color': world?.color ?? '#5e7288', '--stop-delay': `${Math.min(connectionIndex, 5) * 40}ms` } as React.CSSProperties} key={`${connection.itemId}-${connection.worldId}-${connectionIndex}`}><span className="journey-stop-dot" aria-hidden="true"/><div><h3>{connection.worldName}</h3><p>{world ? world.region : 'Position not mapped in this atlas'}</p><p className="journey-stop-note">{connection.note}</p><a className="journey-stop-source" href={connection.sourceUrl} target="_blank" rel="noreferrer">Appearance source <ExternalLink size={10}/></a></div><button disabled={!world} onClick={() => world && onSelectStop(item.id, world.id)} aria-label={world ? `Show ${connection.worldName} on map` : `${connection.worldName}: map unavailable`}>{world ? <><span>Show on map</span><ArrowRight size={15}/></> : <span>Map unavailable</span>}</button></article>;
 
           })}</div><p className="journey-route-note">These are title-level appearances, not a single character’s travel itinerary. No within-title stop order or continuous travel route is implied.</p>
 
