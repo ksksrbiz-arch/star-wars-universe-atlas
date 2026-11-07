@@ -32,3 +32,7 @@ The concurrent release added destination search/sharing and JSON progress import
 No deployment or production-database changes were performed. Worker tests mock Postgres/R2 bindings. Browser emulation does not establish physical-device performance or hardware-context-loss recovery. Vite still warns about chunks over 500 kB; software WebGL emitted ReadPixels stall warnings but no lifecycle errors. LocalStorage is not transactional for truly simultaneous cross-tab writes. Crowded overview markers can overlap; the finder exposes every supported destination. Existing partial story coverage and unsupported geography remain explicit, with no invented lore links.
 
 Generated historical screenshots/results were not replaced wholesale; this document records this sweep separately.
+
+## Merge integration
+
+Integrated visual-polish main commit 7337c24, retaining styled loading/story cards plus fallback and expansion repairs. Production build and test-ui-repairs, test-map-resilience, test-visual-ui, test-world-stories, and test-visual-lifecycle passed. Increased the lifecycle test clock setup margin after a scheduling-only pause-in-the-past failure; rerun passed with no browser errors.

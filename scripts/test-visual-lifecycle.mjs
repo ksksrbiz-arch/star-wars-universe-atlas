@@ -27,7 +27,7 @@ try {
   await page.getByRole('combobox', { name: 'Graphics quality' }).selectOption('balanced');
   const initial = await current();
   // Freeze travel time while scheduling controls; advance frames explicitly for partial warps.
-  await page.clock.pauseAt(await page.evaluate(() => Date.now() + 100));
+  await page.clock.pauseAt(await page.evaluate(() => Date.now() + 1000));
   for (let i = 0; i < 3; i++) {
     stage = `cancel cycle ${i + 1}`;
     await start('Alderaan');
