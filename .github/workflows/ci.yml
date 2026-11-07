@@ -1,8 +1,8 @@
 name: Atlas checks
 on:
-  push:
-    branches: [main]
-  pull_request:
+  # GitHub Actions is account-billing-locked. Cloudflare Builds runs automatic checks.
+  # Restore push/pull_request triggers after that account issue is resolved.
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
@@ -17,3 +17,4 @@ jobs:
       - run: npm ci
       - run: npm run build && npm run build:worker
       - run: npm run check:icm && npm run test:catalog && npm run test:connections && npm run test:chronology && npm run test:journey-data && npm run test:reference-data
+
