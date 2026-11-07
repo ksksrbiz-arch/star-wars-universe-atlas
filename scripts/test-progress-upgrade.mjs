@@ -1,3 +1,5 @@
+import {readFile as readCatalogFile} from 'node:fs/promises';
+const catalogCount=JSON.parse(await readCatalogFile(new URL('../src/catalog.generated.json',import.meta.url),'utf8')).items.length;
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { writeFile } from 'node:fs/promises';
@@ -29,12 +31,12 @@ for(const invalid of ['{broken', {version:2,watchedIds:[a]}, {version:1,watchedI
 }
 checks.push('Malformed, unsupported version, invalid list and oversized imports preserve saved progress');
 await page.reload();
-await page.locator('.watch-progress-card').filter({hasText:'2 of 185 watched'}).waitFor();
+await page.locator('.watch-progress-card').filter({hasText:`2 of ${catalogCount} watched`}).waitFor();
 const peer = await context.newPage();
 await peer.goto(`${base}/#watch`);
-await peer.locator('.watch-progress-card').filter({hasText:'2 of 185 watched'}).waitFor();
+await peer.locator('.watch-progress-card').filter({hasText:`2 of ${catalogCount} watched`}).waitFor();
 await page.getByRole('button',{name:/Mark unwatched:/}).first().click();
-await peer.locator('.watch-progress-card').filter({hasText:'1 of 185 watched'}).waitFor();
+await peer.locator('.watch-progress-card').filter({hasText:`1 of ${catalogCount} watched`}).waitFor();
 checks.push('Progress persists on reload and watched/unwatched changes synchronize to another open tab');
 const downloadEvent = page.waitForEvent('download');
 await page.getByRole('button',{name:'Export watch progress',exact:true}).click();
@@ -47,7 +49,7 @@ await restrictedContext.addInitScript(() => { Storage.prototype.setItem = () => 
 const restricted = await restrictedContext.newPage();
 await restricted.goto(`${base}/#watch`);
 await restricted.locator('input[type=file]').setInputFiles({name:'backup.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({version:1,watchedIds:[a]}))});
-await restricted.locator('.watch-progress-card').filter({hasText:'1 of 185 watched'}).waitFor();
+await restricted.locator('.watch-progress-card').filter({hasText:`1 of ${catalogCount} watched`}).waitFor();
 await restricted.locator('.progress-import-result').filter({hasText:'Imported for this visit only'}).waitFor();
 await restricted.locator('.storage-warning').filter({hasText:'could not save progress'}).waitFor();
 checks.push('Blocked storage retains imported progress for the visit and clearly asks for export');

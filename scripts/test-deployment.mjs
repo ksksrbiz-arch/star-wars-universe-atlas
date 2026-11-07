@@ -1,5 +1,5 @@
 import {chromium} from 'playwright';
-import {appearanceDigest} from './appearance-publication.mjs';
+import {appearanceDigest,datasetDigest} from './appearance-publication.mjs';
 import assert from 'node:assert/strict';
 import {writeFile,mkdir,readFile} from 'node:fs/promises';
 const base=process.env.ATLAS_URL||'https://star-wars-universe-atlas.skdev-371.workers.dev';
@@ -13,7 +13,7 @@ for(const key of ['sequences','regions','routes']) assert.ok(Number.isSafeIntege
 await mkdir('evidence/deployment',{recursive:true});
 const checks=[];
 const health=await fetch(base+'/api/health');assert.equal(health.status,200);const data=await health.json();assert.deepEqual({works:data.works,worlds:data.worlds,appearances:data.appearances},{works:expected.works,worlds:expected.worlds,appearances:expected.appearances});checks.push(`Live database counts match explicit expectation ${expected.id}; independent of bundled frontend data`);
-for(const [endpoint,count]of [['catalog',expected.works],['worlds',expected.worlds],['appearances',expected.appearances],['sequences',expectedCounts.sequences],['regions',expectedCounts.regions],['routes',expectedCounts.routes]]){const r=await fetch(base+'/api/'+endpoint);assert.equal(r.status,200);const items=(await r.json()).items;assert.equal(items.length,count);if(endpoint==='appearances'){assert.equal(appearanceDigest(items),expected.sha256,'Published appearance content differs from the explicit expected publication');if(expected.coveredTitles!==undefined)assert.equal(new Set(items.map(item=>item.itemId)).size,expected.coveredTitles);}}
+for(const [endpoint,count]of [['catalog',expected.works],['worlds',expected.worlds],['appearances',expected.appearances],['sequences',expectedCounts.sequences],['regions',expectedCounts.regions],['routes',expectedCounts.routes]]){const r=await fetch(base+'/api/'+endpoint);assert.equal(r.status,200);const items=(await r.json()).items;assert.equal(items.length,count);if(endpoint==='catalog' && expected.catalogSha256)assert.equal(datasetDigest(items),expected.catalogSha256,'Published catalog content mismatch');if(endpoint==='sequences' && expected.sequencesSha256)assert.equal(datasetDigest(items),expected.sequencesSha256,'Published sequences content mismatch');if(endpoint==='appearances'){assert.equal(appearanceDigest(items),expected.sha256,'Published appearance content differs from the explicit expected publication');if(expected.coveredTitles!==undefined)assert.equal(new Set(items.map(item=>item.itemId)).size,expected.coveredTitles);}}
 checks.push('All six public catalog endpoints return expected records; full appearance payload digest matches reviewed expectation');
 assert.equal((await fetch(base+'/api/not-found')).status,404);
 assert.equal((await fetch(base+'/api/catalog',{method:'POST'})).status,405);

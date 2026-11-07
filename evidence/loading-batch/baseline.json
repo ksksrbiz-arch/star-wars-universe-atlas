@@ -1,0 +1,76 @@
+{
+  "environment": "Chromium software WebGL, fresh contexts, local uncompressed static server; optional remote fonts blocked consistently. gzip sum computed from actually requested production JS files. Byte/loading evidence only, not device FPS or latency benchmark.",
+  "results": [
+    {
+      "scenario": "library-desktop",
+      "requestedJsBytes": 591108,
+      "requestedJsGzipBytes": 164250,
+      "resources": [
+        {
+          "path": "/assets/index-o0lcn4zH.js",
+          "encodedBodySize": 591108,
+          "decodedBodySize": 591108
+        }
+      ],
+      "canvasCount": 0,
+      "errors": []
+    },
+    {
+      "scenario": "galaxy-mobile",
+      "requestedJsBytes": 1627631,
+      "requestedJsGzipBytes": 438151,
+      "resources": [
+        {
+          "path": "/assets/index-o0lcn4zH.js",
+          "encodedBodySize": 591108,
+          "decodedBodySize": 591108
+        },
+        {
+          "path": "/assets/Galaxy-CrTx0mfi.js",
+          "encodedBodySize": 1036523,
+          "decodedBodySize": 1036523
+        }
+      ],
+      "canvasCount": 1,
+      "errors": []
+    },
+    {
+      "scenario": "galaxy-reduced",
+      "requestedJsBytes": 1627631,
+      "requestedJsGzipBytes": 438151,
+      "resources": [
+        {
+          "path": "/assets/index-o0lcn4zH.js",
+          "encodedBodySize": 591108,
+          "decodedBodySize": 591108
+        },
+        {
+          "path": "/assets/Galaxy-CrTx0mfi.js",
+          "encodedBodySize": 1036523,
+          "decodedBodySize": 1036523
+        }
+      ],
+      "canvasCount": 1,
+      "errors": []
+    },
+    {
+      "scenario": "galaxy-cinematic",
+      "requestedJsBytes": 1627631,
+      "requestedJsGzipBytes": 438151,
+      "resources": [
+        {
+          "path": "/assets/index-o0lcn4zH.js",
+          "encodedBodySize": 591108,
+          "decodedBodySize": 591108
+        },
+        {
+          "path": "/assets/Galaxy-CrTx0mfi.js",
+          "encodedBodySize": 1036523,
+          "decodedBodySize": 1036523
+        }
+      ],
+      "canvasCount": 1,
+      "errors": []
+    }
+  ]
+}

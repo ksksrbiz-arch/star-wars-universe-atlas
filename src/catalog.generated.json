@@ -1,9 +1,19 @@
 {
   "metadata": {
     "auditDate": "2026-11-07",
-    "scope": "Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3.",
-    "coreCount": 185,
-    "regularEpisodeCount": 181,
+    "scope": "Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1.",
+    "coreCount": 193,
+    "regularEpisodeCount": 189,
+    "originalAuditCohortCount": 185,
+    "extensionCollections": [
+      {
+        "seriesId": "ahsoka",
+        "season": 1,
+        "count": 8,
+        "sourceFile": "ahsoka-season-1-source.json",
+        "note": "Complete first season only; no season 2 future stubs."
+      }
+    ],
     "filmCount": 4,
     "excludedSpecialCount": 9,
     "chronologySupported": false,
@@ -35,11 +45,15 @@
     "sourceFiles": [
       {
         "name": "episode-coverage.csv",
-        "sha256": "061bd8b1b777fd149a1f24926c937e710c874406321275d035918e83a5aba6fa"
+        "sha256": "965816b817f19e0fb1293a6fe8dcd8df3cfb6c60afc9a26b6d58df4c0306965c"
       },
       {
         "name": "original-trilogy-coverage.csv",
-        "sha256": "cc760fb155d896387337f5beca12e40e53bdba880d7db6d9ac0ca38fa7b3ab19"
+        "sha256": "eccdf7ab71428e587d69651770ee333100344ea3719c40252bd7e506f9fd361e"
+      },
+      {
+        "name": "ahsoka-season-1-source.json",
+        "sha256": "f07393eb7f612cdf64fb013eb0318071a6b45ae629a9855767cd03d8916315e5"
       }
     ],
     "excludedSpecials": [
@@ -2168,6 +2182,102 @@
       "runtimeMinutes": 39,
       "runtimeNote": "Provider runtime; streaming duration and credit treatment not independently verified.",
       "sourceUrl": "https://www.tvmaze.com/episodes/2494396/the-mandalorian-3x08-chapter-24-the-return"
+    },
+    {
+      "id": "ahsoka-s01e01",
+      "title": "Part One: Master and Apprentice",
+      "seriesId": "ahsoka",
+      "kind": "episode",
+      "season": 1,
+      "episode": 1,
+      "releaseDate": "2023-08-22",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending streaming-edition and credit-treatment verification.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2565324/ahsoka-1x01-part-one-master-and-apprentice"
+    },
+    {
+      "id": "ahsoka-s01e02",
+      "title": "Part Two: Toil and Trouble",
+      "seriesId": "ahsoka",
+      "kind": "episode",
+      "season": 1,
+      "episode": 2,
+      "releaseDate": "2023-08-22",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending streaming-edition and credit-treatment verification.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2565328/ahsoka-1x02-part-two-toil-and-trouble"
+    },
+    {
+      "id": "ahsoka-s01e03",
+      "title": "Part Three: Time to Fly",
+      "seriesId": "ahsoka",
+      "kind": "episode",
+      "season": 1,
+      "episode": 3,
+      "releaseDate": "2023-08-29",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending streaming-edition and credit-treatment verification.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2565329/ahsoka-1x03-part-three-time-to-fly"
+    },
+    {
+      "id": "ahsoka-s01e04",
+      "title": "Part Four: Fallen Jedi",
+      "seriesId": "ahsoka",
+      "kind": "episode",
+      "season": 1,
+      "episode": 4,
+      "releaseDate": "2023-09-05",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending streaming-edition and credit-treatment verification.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2565330/ahsoka-1x04-part-four-fallen-jedi"
+    },
+    {
+      "id": "ahsoka-s01e05",
+      "title": "Part Five: Shadow Warrior",
+      "seriesId": "ahsoka",
+      "kind": "episode",
+      "season": 1,
+      "episode": 5,
+      "releaseDate": "2023-09-12",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending streaming-edition and credit-treatment verification.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2565331/ahsoka-1x05-part-five-shadow-warrior"
+    },
+    {
+      "id": "ahsoka-s01e06",
+      "title": "Part Six: Far, Far Away",
+      "seriesId": "ahsoka",
+      "kind": "episode",
+      "season": 1,
+      "episode": 6,
+      "releaseDate": "2023-09-19",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending streaming-edition and credit-treatment verification.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2565332/ahsoka-1x06-part-six-far-far-away"
+    },
+    {
+      "id": "ahsoka-s01e07",
+      "title": "Part Seven: Dreams and Madness",
+      "seriesId": "ahsoka",
+      "kind": "episode",
+      "season": 1,
+      "episode": 7,
+      "releaseDate": "2023-09-26",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending streaming-edition and credit-treatment verification.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2565333/ahsoka-1x07-part-seven-dreams-and-madness"
+    },
+    {
+      "id": "ahsoka-s01e08",
+      "title": "Part Eight: The Jedi, the Witch, and the Warlord",
+      "seriesId": "ahsoka",
+      "kind": "episode",
+      "season": 1,
+      "episode": 8,
+      "releaseDate": "2023-10-03",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending streaming-edition and credit-treatment verification.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2565334/ahsoka-1x08-part-eight-the-jedi-the-witch-and-the-warlord"
     },
     {
       "id": "andor-s02e01",

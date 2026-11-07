@@ -1,0 +1,73 @@
+{
+  "retrievedOn": "2026-11-07",
+  "provider": "TVmaze",
+  "sourceUrl": "https://api.tvmaze.com/shows/52343/episodes",
+  "license": "CC BY-SA",
+  "scope": "Ahsoka season 1 only; future season stubs and specials excluded.",
+  "episodes": [
+    {
+      "id": 2565324,
+      "name": "Part One: Master and Apprentice",
+      "season": 1,
+      "number": 1,
+      "airdate": "2023-08-22",
+      "url": "https://www.tvmaze.com/episodes/2565324/ahsoka-1x01-part-one-master-and-apprentice"
+    },
+    {
+      "id": 2565328,
+      "name": "Part Two: Toil and Trouble",
+      "season": 1,
+      "number": 2,
+      "airdate": "2023-08-22",
+      "url": "https://www.tvmaze.com/episodes/2565328/ahsoka-1x02-part-two-toil-and-trouble"
+    },
+    {
+      "id": 2565329,
+      "name": "Part Three: Time to Fly",
+      "season": 1,
+      "number": 3,
+      "airdate": "2023-08-29",
+      "url": "https://www.tvmaze.com/episodes/2565329/ahsoka-1x03-part-three-time-to-fly"
+    },
+    {
+      "id": 2565330,
+      "name": "Part Four: Fallen Jedi",
+      "season": 1,
+      "number": 4,
+      "airdate": "2023-09-05",
+      "url": "https://www.tvmaze.com/episodes/2565330/ahsoka-1x04-part-four-fallen-jedi"
+    },
+    {
+      "id": 2565331,
+      "name": "Part Five: Shadow Warrior",
+      "season": 1,
+      "number": 5,
+      "airdate": "2023-09-12",
+      "url": "https://www.tvmaze.com/episodes/2565331/ahsoka-1x05-part-five-shadow-warrior"
+    },
+    {
+      "id": 2565332,
+      "name": "Part Six: Far, Far Away",
+      "season": 1,
+      "number": 6,
+      "airdate": "2023-09-19",
+      "url": "https://www.tvmaze.com/episodes/2565332/ahsoka-1x06-part-six-far-far-away"
+    },
+    {
+      "id": 2565333,
+      "name": "Part Seven: Dreams and Madness",
+      "season": 1,
+      "number": 7,
+      "airdate": "2023-09-26",
+      "url": "https://www.tvmaze.com/episodes/2565333/ahsoka-1x07-part-seven-dreams-and-madness"
+    },
+    {
+      "id": 2565334,
+      "name": "Part Eight: The Jedi, the Witch, and the Warlord",
+      "season": 1,
+      "number": 8,
+      "airdate": "2023-10-03",
+      "url": "https://www.tvmaze.com/episodes/2565334/ahsoka-1x08-part-eight-the-jedi-the-witch-and-the-warlord"
+    }
+  ]
+}

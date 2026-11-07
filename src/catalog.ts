@@ -19,6 +19,7 @@ export const SERIES = [
   { id: 'ot', title: 'Original trilogy', color: '#F2B96B' },
   { id: 'andor', title: 'Andor', color: '#E38167' },
   { id: 'clone-wars', title: 'The Clone Wars', color: '#65DBFF' },
+  { id: 'ahsoka', title: 'Ahsoka · season 1', color: '#DAA2F2' },
   { id: 'mandalorian', title: 'The Mandalorian', color: '#9FCB85' },
 ] as const;
 
