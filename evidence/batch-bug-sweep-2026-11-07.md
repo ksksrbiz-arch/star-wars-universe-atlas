@@ -1,6 +1,6 @@
 # Batch bug sweep — November 7, 2026
 
-Baseline: `d0921ac`. Three parallel repair agents covered UI/progress, map/navigation, and backend/data; integration validation used the resulting combined changes on `fix/batch-bug-sweep`.
+Baseline: `d0921ac`; integrated concurrent main release `0ac6832` before final validation. Three parallel repair agents covered UI/progress, map/navigation, and backend/data; integration validation used the resulting combined changes on `fix/batch-bug-sweep`.
 
 ## Repairs
 
@@ -21,9 +21,11 @@ Passed: `npm ci` (0 reported vulnerabilities), `npm run build`, `npm run build:w
 
 Passed data/backend scripts: test-catalog, test-connections, test-chronology, test-journey-data, test-reference-data, test-worker.
 
-Passed browser scripts: test-ui, test-platform, test-expanded-map, test-library-a11y, test-touch, test-journey, test-journey-accessibility, test-world-stories, test-shared-grid, test-visual-ui, test-visual-graphics, test-visual-lifecycle, test-reference-map, test-ui-repairs, test-map-resilience.
+Passed browser scripts: test-ui, test-platform, test-expanded-map, test-library-a11y, test-touch, test-journey, test-journey-accessibility, test-world-stories, test-shared-grid, test-visual-ui, test-visual-graphics, test-visual-lifecycle, test-reference-map, test-ui-repairs, test-map-resilience, test-world-explorer, test-destination-links, test-progress-upgrade, test-journey-progress (19 browser suites on the combined version).
 
 Initial failures were investigated: the map test still expected eight markers, and two tests raced a live two-second transit before clicking Cancel. Updated tests passed without weakening the arrival/cancel assertions. The platform test was rerun after its remaining hardcoded navigation URLs were made configurable.
+
+The concurrent release added destination search/sharing and JSON progress import. Conflicts were resolved preserving those features and applying the same storage safeguards to imports. Both production builds and all 19 browser suites were rerun after integration. The resilience test now waits for Galaxy visibility before selecting a destination after section navigation.
 
 ## Limits
 

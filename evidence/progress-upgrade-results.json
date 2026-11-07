@@ -1,0 +1,11 @@
+{
+  "browser": "158.0.8127.18",
+  "checks": [
+    "Merge adds valid unique IDs, retains existing progress and reports unknown IDs",
+    "Malformed, unsupported version, invalid list and oversized imports preserve saved progress",
+    "Progress persists on reload and watched/unwatched changes synchronize to another open tab",
+    "JSON export and 390px layout work",
+    "Blocked storage retains imported progress for the visit and clearly asks for export"
+  ],
+  "errors": []
+}

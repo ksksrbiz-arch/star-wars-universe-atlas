@@ -30,6 +30,7 @@ for (const webgl of [false, true]) {
         await page.evaluate(hash => { location.hash = hash; }, target);
         await page.waitForTimeout(2300);
         await page.getByRole('link', { name: 'Galaxy', exact: true }).click();
+        await page.locator('.page-intro h1').waitFor({ state: 'visible' });
         await page.locator('.transit-panel').waitFor({ state: 'detached' });
         assert.equal(await current(), 'Tatooine', `${target} must cancel the pending arrival`);
       }

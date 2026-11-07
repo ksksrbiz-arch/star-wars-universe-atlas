@@ -25,16 +25,19 @@ type Props = {
 
   onActiveItemChange: (id: string) => void;
 
+  onToggleWatched?: (id: string) => void;
+
 };
 
 
 
-export default function Journey({ watchedIds, onSelectStop, activeItemId, onActiveItemChange }: Props) {
+export default function Journey({ watchedIds, onSelectStop, activeItemId, onActiveItemChange, onToggleWatched }: Props) {
 
   const reduceMotion = useReducedMotion();
   const [sequenceId, setSequenceId] = useState(STORY_SEQUENCES[0]?.id ?? '');
 
   const [query, setQuery] = useState('');
+  const [progressMessage, setProgressMessage] = useState('');
 
   const [revealedIds, setRevealedIds] = useState<Set<string>>(() => new Set());
 
@@ -67,6 +70,7 @@ export default function Journey({ watchedIds, onSelectStop, activeItemId, onActi
   const watchedCount = items.filter(entry => watchedIds.has(entry.id)).length;
 
   const isWatched = watchedIds.has(item.id);
+  const firstUnwatched = items.find(entry => !watchedIds.has(entry.id));
 
   const showLocations = isWatched || revealedIds.has(item.id);
 
@@ -82,7 +86,15 @@ export default function Journey({ watchedIds, onSelectStop, activeItemId, onActi
 
   const matches = normalizedQuery ? items.filter(entry => `${entry.title} ${entry.season ? `s${entry.season}e${entry.episode} season ${entry.season} episode ${entry.episode}` : ''}`.toLowerCase().includes(normalizedQuery)) : [];
 
-  const selectItem = (id: string) => { onActiveItemChange(id); setQuery(''); };
+  const selectItem = (id: string) => { onActiveItemChange(id); setQuery(''); setProgressMessage(''); };
+
+  const completeChapter = () => {
+    if (!onToggleWatched) return;
+    if (!isWatched) onToggleWatched(item.id);
+    const next = items[index + 1];
+    if (next) { selectItem(next.id); setProgressMessage(`${item.title} marked watched. Next chapter: ${next.title}.`); }
+    else setProgressMessage(firstUnwatched && firstUnwatched.id !== item.id ? `${item.title} marked watched. Earlier chapters remain unwatched.` : 'Collection complete. Every chapter is marked watched.');
+  };
 
   const reveal = () => setRevealedIds(previous => new Set([...previous, item.id]));
 
@@ -104,7 +116,7 @@ export default function Journey({ watchedIds, onSelectStop, activeItemId, onActi
 
           style={{ '--journey-accent': color } as React.CSSProperties}
 
-          onClick={() => { setSequenceId(entry.id); setQuery(''); if (entry.itemIds[0]) onActiveItemChange(entry.itemIds[0]); }}>
+          onClick={() => { setSequenceId(entry.id); setQuery(''); setProgressMessage(''); if (entry.itemIds[0]) onActiveItemChange(entry.itemIds[0]); }}>
 
           <span className="journey-collection-number">0{entryIndex + 1}<span/></span><strong>{SERIES.find(series => series.id === entry.id)?.title ?? entry.title}</strong><span className="journey-collection-meta">{entry.itemIds.length} chapters <ChevronRight size={14}/></span>
 
@@ -125,6 +137,12 @@ export default function Journey({ watchedIds, onSelectStop, activeItemId, onActi
         <div className="journey-current"><motion.div key={item.id} initial={reduceMotion ? false : { opacity: 0, y: 7 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : .22, ease: "easeOut" }}><span className="journey-item-meta">{item.kind === 'film' ? 'FEATURE FILM' : `SEASON ${item.season} · EPISODE ${item.episode}`}</span><h2>{item.title}</h2><span className={`journey-watch-status ${isWatched ? 'is-watched' : ''}`}>{isWatched ? <Check size={12}/> : <span className="journey-empty-dot"/>}{isWatched ? 'Watched' : 'Not marked watched'}</span></motion.div><div className="journey-step-controls"><button disabled={index === 0} aria-label="Previous story chapter" onClick={() => selectItem(items[index - 1].id)}><ArrowLeft size={19}/></button><button disabled={index === items.length - 1} aria-label="Next story chapter" onClick={() => selectItem(items[index + 1].id)}><ArrowRight size={19}/></button></div></div>
 
 
+
+        <div className="journey-watch-actions">
+          {onToggleWatched && <><button className="journey-complete" onClick={completeChapter}><Check size={15}/>{isWatched ? (index < items.length - 1 ? 'Continue to next chapter' : 'Confirm collection progress') : (index < items.length - 1 ? 'Mark watched & continue' : 'Mark final chapter watched')}</button>{isWatched && <button className="journey-unwatch" onClick={() => { onToggleWatched(item.id); setProgressMessage(`${item.title} marked unwatched.`); }}>Mark unwatched</button>}</>}
+          <p className="journey-action-status" role="status" aria-live="polite">{progressMessage}</p>
+        </div>
+        <div className="journey-resume"><div><span>{firstUnwatched ? 'NEXT UNWATCHED IN STORY ORDER' : 'COLLECTION COMPLETE'}</span><strong>{firstUnwatched?.title ?? 'Every chapter watched'}</strong><small>{firstUnwatched ? 'First unwatched chapter in this collection; locations stay hidden.' : 'Revisit any chapter below.'}</small></div>{firstUnwatched && <button disabled={firstUnwatched.id === item.id} onClick={() => selectItem(firstUnwatched.id)}>{firstUnwatched.id === item.id ? 'You are here' : 'Resume'}<ArrowRight size={15}/></button>}</div>
 
         <div className="journey-search"><label htmlFor="journey-title-search"><Search size={15}/><span>Find a chapter</span></label><input id="journey-title-search" type="search" placeholder="Search titles or S1E2…" value={query} onChange={event => setQuery(event.target.value)} aria-controls="journey-search-results" autoComplete="off"/>
 

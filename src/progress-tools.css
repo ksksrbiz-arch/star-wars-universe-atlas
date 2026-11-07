@@ -1,0 +1,12 @@
+.progress-tools { margin: 24px 0; padding: 22px; border: 1px solid #284351; border-radius: 14px; background: linear-gradient(115deg,#112531,#0a151e); }
+.progress-tools h2 { margin: 0 0 8px; font-size: 21px; color: #f2eee5; }
+.progress-tools p { max-width: 720px; color: #a8bbc5; line-height: 1.6; font-size: 14px; }
+.progress-tools-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.progress-tools .backup-button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; margin: 0; min-height: 44px; }
+.progress-tools .backup-button:focus-visible { outline: 2px solid #7ddde5; outline-offset: 4px; }
+.progress-tools .backup-button:disabled { opacity: .6; cursor: wait; }
+.progress-file-input { display: none; }
+.progress-tools .progress-import-result { margin-bottom: 0; color: #9fe3cf; }
+.progress-tools .progress-import-result:empty { display: none; }
+.progress-tools .progress-import-result.is-error { color: #ffc38f; }
+@media(max-width:480px) { .progress-tools { padding: 16px; } .progress-tools-actions > button { width: 100%; } }

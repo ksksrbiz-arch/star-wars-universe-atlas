@@ -1,6 +1,6 @@
 {
   "url": "https://star-wars-universe-atlas.skdev-371.workers.dev",
-  "checkedAt": "2026-11-07T21:17:47.293Z",
+  "checkedAt": "2026-11-07T21:35:24.566Z",
   "checks": [
     "Live Hyperdrive/Postgres health and catalog counts",
     "All six public catalog endpoints return expected records",

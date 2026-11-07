@@ -4,7 +4,7 @@ Live preview: https://star-wars-universe-atlas.skdev-371.workers.dev
 
 Cloudflare Workers hosts the app and read-only API, with dedicated Neon Postgres through Hyperdrive and separate R2 media buckets. Main-branch application changes build, validate, and deploy through Cloudflare Builds. See [deployment setup](docs/DEPLOYMENT.md). User watch progress remains browser-local.
 
-Local interactive prototype with 62 schematic map destinations (eight general, 53 direct journey placements, and the Endor parent-system placement), a 185-item film/episode catalog, four sourced collection viewing sequences, and partial story/location relationships. The implementation includes galaxy navigation, cinematic jumps, reduced motion, library/release-timeline views, and browser-local watch progress. These are implementation features; current-batch browser validation is not established by this README.
+Deployed interactive atlas with 62 schematic map destinations (eight general, 53 direct journey placements, and the Endor parent-system placement), a 185-item film/episode catalog, four sourced collection viewing sequences, and partial story/location relationships. The implementation includes galaxy navigation, cinematic jumps, reduced motion, library/release-timeline views, and browser-local watch progress. Release checks are recorded in [deployment verification](evidence/deployment/verification.md).
 
 Latest visual upgrade details and validation: [visual verification](evidence/visual-upgrades-verification.md). Graphics settings, layered galaxy rendering, two-second warp effects, and reduced-motion-aware interface transitions are implemented locally.
 
@@ -18,7 +18,7 @@ Requires a current Node version supported by Vite (Node 26 used during developme
 
 ```sh
 npm ci
-npm run dev
+npm run dev -- --port 4173
 ```
 
 Open http://localhost:4173. Keep the terminal running. Production build: `npm run build`. ICM validation: `npm run check:icm`. Catalog validation: `node scripts/test-catalog.mjs`. Browser checks: install Chromium with `npx playwright install chromium`, start the dev server, then `npm run test:ui`. Listing a command here does not mean that it passed for the latest source revision.
@@ -46,9 +46,9 @@ The 181 regular episodes and four films are a bounded audit cohort, not all Star
 - No provider summaries or image assets are imported into the catalog. World descriptions are short original reference text. Planet illustrations are original procedural artwork, not screen stills.
 - Geography and political conditions can vary by era. Coruscant's Return of the Jedi appearance is edition-dependent. Story links distinguish present scenes, flashbacks and destruction where supported. Complete spoiler filtering, exhaustive scene/event links, character journeys, and a full canon/continuity model remain unimplemented.
 
-Normal application builds use the checked-in catalog and need no live API. To regenerate it from the local audit files, run `python scripts/build-catalog.py`; its default input folder is the prototype's parent, or use `--audit-dir` to specify another folder containing the two CSVs. The generator records the inputs' hashes and does not make network requests.
+Normal application builds use the checked-in catalog and need no live API. To regenerate it from the local audit files, run `python scripts/build-catalog.py`; its default input folder is `docs/`, or use `--audit-dir` to specify another folder containing the two CSVs. The generator records the inputs' hashes and does not make network requests.
 
-The prototype uses React, Vite, Three.js/R3F and Drei. Navigation currently uses local React state and CSS interface transitions; the larger plan proposes XState and Motion when navigation grows. Watch progress is stored in this browser and can be exported; no account, cloud sync, or import flow is established. The browser uses its bundled catalog rather than the deployed read-only API; it loads no remote images or audio. Google Fonts supplies optional Barlow Condensed and DM Sans typography; system sans-serif fallbacks apply without it. Deployment setup and its separate live verification are documented in [deployment setup](docs/DEPLOYMENT.md).
+The prototype uses React, Vite, Three.js/R3F and Drei. Navigation currently uses local React state and CSS interface transitions; the larger plan proposes XState and Motion when navigation grows. Watch progress is browser-local, synchronizes across open tabs, and supports JSON export and merge-only import. No accounts or cloud progress sync are implemented. The UI uses its bundled catalog snapshot; a read-only live API is available separately. No remote images or audio are loaded. Google Fonts supplies optional Barlow Condensed and DM Sans typography; system sans-serif fallbacks apply without it. Cloudflare hosts the live preview linked above; deployment configuration and limits are in `docs/DEPLOYMENT.md`.
 
 Development follows the scoped ICM contracts under [context/](context/CONTEXT.md). The checker comes from Keith's ICM kit with a Windows file-URL entry-point fix. Current-batch browser checks, device performance, and deployment must be reported separately with their actual evidence.
 
@@ -59,6 +59,10 @@ Prior local checks are recorded in [verification](evidence/verification.md) for 
 Latest completed checks and limitations: [Story journeys verification](evidence/journey-verification.md). Machine-readable coverage inventory: [journey-coverage.json](evidence/journey-coverage.json).
 
 
+
+## Exploration and progress update
+
+Search mapped destinations by name, grid, or region; filter by region and share a destination link. Journey controls resume the first unwatched chapter in collection story order and can mark watched while advancing. The watchlist accepts version-1 JSON backups, merges valid catalog IDs without erasing existing progress, and reports unsupported entries. See [verification](evidence/explorer-upgrade/verification.md).
 
 ## Bug-sweep regression checks
 
