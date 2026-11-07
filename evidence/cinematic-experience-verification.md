@@ -13,3 +13,7 @@ Checks passed:
 - High-density rendering/lettering; production desktop/mobile/reduced-motion travel, Cancel/Skip and zero settled idle draws in both tested quality modes, without page errors.
 
 The media adds38,031bytes on narrow screens or143,878bytes on desktop. The4K derivative is1,617,056bytes and only requested explicitly. UI additions increase JavaScript modestly; no speed/FPS improvement is claimed. Tests use Chromium software WebGL and emulated viewports, not physical-device certification.
+
+## Concurrent release integration
+
+Integrated main's galaxy-depth/corridor improvements and already-published 270-connection dataset. Revalidated the combined build, data/publication/provenance checks, production desktop/mobile/reduced graphics (zero settled idle draws, Cancel/Skip, no errors), responsive media/fallback/map-access and audio-control tests against the merged source. No database mutation was needed for this experience release.
