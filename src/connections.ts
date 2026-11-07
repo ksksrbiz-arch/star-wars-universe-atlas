@@ -1,3 +1,5 @@
+import { CLONE_WARS_EXPANSION } from './connectionsCloneWarsExpansion.ts';
+import { LIVE_ACTION_EXPANSION } from './connectionsLiveActionExpansion.ts';
 import { AHSOKA_CONNECTIONS } from './connectionsAhsoka.ts';
 import { CLONE_WARS_CONNECTIONS } from './connectionsCloneWars.ts';
 
@@ -7,6 +9,8 @@ export type PlanetConnection = {
   worldName: string;
   sourceUrl: string;
   note: string;
+  /** Explicit episode evidence only; omitted when the setting context is not established. */
+  context?: 'surface' | 'orbit' | 'flashback' | 'vision' | 'destruction';
   /** Only supplied when source evidence establishes within-title progression. */
   sequence?: number;
 };
@@ -128,6 +132,7 @@ const additional: [string, string, string, string, string][] = [
 ];
 CONNECTIONS.push(...additional.map(record => connection(...record)));
 CONNECTIONS.push(...CLONE_WARS_CONNECTIONS);
+CONNECTIONS.push(...LIVE_ACTION_EXPANSION, ...CLONE_WARS_EXPANSION);
 CONNECTIONS.push(...AHSOKA_CONNECTIONS);
 
 export const CONNECTION_COVERAGE = {

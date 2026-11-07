@@ -24,14 +24,14 @@ void main(){
  float spiral=a*3.+r*17.-grain*2.8-turbulence*.85;
  float arms=pow(.5+.5*sin(spiral),5.);
  float rim=pow(.5+.5*sin(spiral-.65),9.);
- float disc=exp(-r*2.7)*(1.-smoothstep(.5,1.,r));
+ float disc=exp(-r*2.45)*(1.-smoothstep(.54,1.05,r));
  float lanes=pow(.5+.5*sin(spiral+.42+noise(p*63.)*.6),12.);
  float wisps=fbm(p*48.+vec2(8.,2.));
  float veil=fbm(p*9.+vec2(15.,7.))*exp(-r*r*2.8);
  vec3 c=vec3(.009,.019,.031);
  c+=vec3(.105,.23,.29)*veil*.24;
- c+=vec3(.12,.30,.66)*arms*disc*(.18+grain*.83)*.9;
- c+=vec3(.17,.46,.59)*rim*disc*(.15+wisps)*.58;
+ c+=vec3(.11,.32,.62)*arms*disc*(.24+grain*.9)*1.08;
+ c+=vec3(.12,.52,.65)*rim*disc*(.2+wisps)*.68;
  c*=1.-lanes*disc*.66;
  // Cool hydrogen clouds and warm star-forming knots: illustrative, not locations.
  float knots=pow(max(0.,wisps-.32)*2.2,3.);
@@ -75,18 +75,20 @@ export default function GalaxyAtmosphere({ quality = 'balanced', reducedMotion }
     const positions = new Float32Array(count * 3)
     const colors = new Float32Array(count * 3)
     const sizes = new Float32Array(count)
-    const gold = new THREE.Color('#bda076'), blue = new THREE.Color('#7ba6bc'), tint = new THREE.Color()
+    const gold = new THREE.Color('#e4c692'), blue = new THREE.Color('#8dbbd9'), tint = new THREE.Color()
     for (let i = 0; i < count; i++) {
-      const radius = Math.pow(random(), .67) * .9
+      // Sparse inter-arm stars add depth without another draw call or frame loop.
+      const ambient = i % 6 === 0
+      const radius = Math.pow(random(), ambient ? .5 : .67) * (ambient ? 1.04 : .9)
       const arm = i % 3
       const spread = (random() + random() - 1) * (.07 + radius * .19)
       // Same broad arm orientation as the shader, with independent soft scatter.
-      const angle = (Math.PI / 2 + arm * Math.PI * 2 - radius * 17) / 3 + spread
+      const angle = ambient ? random() * Math.PI * 2 : (Math.PI / 2 + arm * Math.PI * 2 - radius * 17) / 3 + spread
       const x = Math.cos(angle) * radius, y = Math.sin(angle) * radius / 1.22
       positions[i * 3] = (x * .94 + y * .342) * 18.5
       positions[i * 3 + 1] = (-x * .342 + y * .94) * 15.5
       positions[i * 3 + 2] = -1.35 + random() * .16
-      tint.copy(gold).lerp(blue, random() > .72 ? .86 : random() * .35).multiplyScalar(.48 + random() * .6)
+      tint.copy(gold).lerp(blue, Math.min(1, radius * 1.35 + random() * .25)).multiplyScalar((ambient ? .3 : .48) + random() * .6)
       colors.set([tint.r, tint.g, tint.b], i * 3)
       sizes[i] = random() > .985 ? 3.5 : .7 + random() * 1.25
     }

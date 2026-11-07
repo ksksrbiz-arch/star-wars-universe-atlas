@@ -45,7 +45,8 @@
     "test:publication": "node scripts/test-appearance-publication.mjs",
     "test:episode-highlights": "node scripts/test-episode-highlights.mjs",
     "test:episode-map-controls": "node scripts/test-episode-map-controls.mjs",
-    "test:optional-bloom": "node scripts/test-optional-bloom.mjs"
+    "test:optional-bloom": "node scripts/test-optional-bloom.mjs",
+    "test:connection-context": "node scripts/test-connection-context.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",

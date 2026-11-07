@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import CorridorGlow from './CorridorGlow'
 import { HYPERSPACE_ROUTES, type HyperspaceRoute } from './hyperspaceRoutes'
 
 function Corridor({ route }: { route: HyperspaceRoute }) {
@@ -9,10 +10,10 @@ function Corridor({ route }: { route: HyperspaceRoute }) {
     }
     return new Float32Array(vertices)
   }, [route])
-  return <lineSegments raycast={() => undefined} renderOrder={8}>
+  return <><CorridorGlow points={route.points} color={route.color}/><lineSegments raycast={() => undefined} renderOrder={8}>
     <bufferGeometry><bufferAttribute attach="attributes-position" args={[positions, 3]} /></bufferGeometry>
     <lineBasicMaterial color={route.color} transparent opacity={.83} depthWrite={false} depthTest={false} toneMapped={false} />
-  </lineSegments>
+  </lineSegments></>
 }
 
 /** Static geography overlay: independent of camera travel and episode connections. */

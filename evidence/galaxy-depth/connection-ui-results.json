@@ -1,0 +1,9 @@
+{
+  "base": "http://localhost:4173",
+  "checks": [
+    "New Kenari link remains hidden until revealed, labels flashback, and jumps using existing sourced placement",
+    "Segra-Milo orbit label retains disabled map action; unknown geography is not placed",
+    "Expanded Clone Wars scene links render source context without mobile overflow"
+  ],
+  "errors": []
+}
