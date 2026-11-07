@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { motion, MotionConfig } from 'motion/react';
 
-import { ArrowLeft, ArrowRight, Check, ChevronRight, Compass, ExternalLink, Focus, Globe2, Info, Orbit, Radar, Rocket, Sparkles, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, ChevronRight, Compass, ExternalLink, Focus, Globe2, Info, Orbit, Radar, Rocket, Sparkles, X, BookOpen, Route, Clock3, BookmarkCheck } from 'lucide-react';
 
 const Galaxy = lazy(() => import('./Galaxy'));
 
@@ -237,7 +237,7 @@ export default function App() {
 
 
 
-  return <MotionConfig reducedMotion={reducedMotion ? 'always' : 'never'} transition={{duration:.28,ease:[.22,1,.36,1]}}><div className="atlas-app">
+  return <MotionConfig reducedMotion={reducedMotion ? 'always' : 'never'} transition={{duration:.28,ease:[.22,1,.36,1]}}><div className="atlas-app" data-reduced-motion={reducedMotion}>
 
     <motion.header initial={{opacity:0,y:-8}} animate={{opacity:1,y:0}} className="app-header">
 
@@ -249,7 +249,7 @@ export default function App() {
 
 
 
-    <nav className="platform-nav" aria-label="Atlas sections">{(['galaxy','journey','library','timeline','watch'] as View[]).map(item => <a key={item} href={`#${item}`} aria-current={view === item ? 'page' : undefined} onClick={() => { if (phase === 'warping') cancel(); }}>{item === 'watch' ? 'My watchlist' : item === 'timeline' ? 'Release timeline' : item[0].toUpperCase()+item.slice(1)}{item === 'watch' && <span>{watchedIds.size}</span>}</a>)}<span className="catalog-count">{ALL_WORLDS.length} MAPPED WORLDS · {CATALOG.length} STORIES</span></nav>
+    <nav className="platform-nav" aria-label="Atlas sections">{(['galaxy','journey','library','timeline','watch'] as View[]).map(item => <a key={item} href={`#${item}`} aria-current={view === item ? 'page' : undefined} onClick={() => { if (phase === 'warping') cancel(); }}>{(() => { const Icon = {galaxy:Orbit,journey:Route,library:BookOpen,timeline:Clock3,watch:BookmarkCheck}[item]; return <Icon size={16} aria-hidden="true"/>; })()}{item === 'watch' ? 'My watchlist' : item === 'timeline' ? 'Release timeline' : item[0].toUpperCase()+item.slice(1)}{item === 'watch' && <span>{watchedIds.size}</span>}</a>)}<span className="catalog-count">{ALL_WORLDS.length} MAPPED WORLDS · {CATALOG.length} STORIES</span></nav>
 
       {showInfo && <section className="about-panel" aria-label="About this prototype"><div><strong>A small window into a much larger galaxy.</strong><p>This explorer connects 62 mapped worlds with a curated 185-title catalog and sourced story journeys. Positions represent published grid cells on a schematic map; transitions are cinematic, not measured routes. It is not a complete Star Wars catalog.</p><p>Original interface and planet illustrations. Star Wars belongs to Lucasfilm. This is an unofficial fan project.</p></div><button className="icon-button" onClick={() => setShowInfo(false)} aria-label="Close prototype information"><X size={18}/></button></section>}
 
@@ -278,7 +278,7 @@ export default function App() {
 
         <div className={`map-stage ${phase === 'warping' ? 'is-warping' : 'is-navigating'}`} data-quality={quality}>
 
-          <div className="galaxy-canvas">{galaxyMounted && <Suspense fallback={<div style={{padding:32,color:'#8daabb'}}>Charting the galaxy…</div>}><Galaxy worlds={mapWorlds} selectedId={currentId} previewId={previewId} targetId={targetId} phase={phase} reducedMotion={reducedMotion} quality={quality} regionsVisible={regionsVisible} routesVisible={routesVisible} gridVisible={gridVisible} onSelect={selectWorld} onArrive={arrive} resetKey={resetKey}/></Suspense>}</div>
+          <div className="galaxy-canvas">{galaxyMounted && <Suspense fallback={<div className="galaxy-loading" role="status"><Orbit size={32} aria-hidden="true"/><strong>Charting the galaxy…</strong><span>Preparing your navigation view</span></div>}><Galaxy worlds={mapWorlds} selectedId={currentId} previewId={previewId} targetId={targetId} phase={phase} reducedMotion={reducedMotion} quality={quality} regionsVisible={regionsVisible} routesVisible={routesVisible} gridVisible={gridVisible} onSelect={selectWorld} onArrive={arrive} resetKey={resetKey}/></Suspense>}</div>
 
           <div className="map-heading"><span className="eyebrow">GALAXY VIEW</span><span className="map-coordinate"><span className="live-dot"/> {phase === 'warping' ? 'HYPERSPACE TRANSIT' : 'NAVIGATION ONLINE'}</span></div>
 
@@ -329,11 +329,13 @@ export default function App() {
       {view === 'galaxy' && <div className="world-stories-panel"><WorldStories worldId={preview.id} worldName={preview.name} watchedIds={watchedIds}/></div>}
       <section hidden={view === 'journey'} className="destinations" aria-label="Choose a destination"><div className="destinations-heading"><span className="eyebrow">CHART YOUR COURSE</span><span>01—{String(WORLDS.length).padStart(2,'0')} <span className="slash">/</span> CURATED WORLDS</span></div><div className="destination-grid">{WORLDS.map((world:World,index:number) => <button key={world.id} className={`destination-card ${previewId === world.id ? 'is-selected' : ''}`} onClick={() => selectWorld(world.id)} disabled={phase === 'warping'} aria-pressed={previewId === world.id}><span className={`destination-thumb thumb-${world.id}`} style={{'--planet-color':world.color} as React.CSSProperties}/><span className="destination-copy"><span>{String(index+1).padStart(2,'0')} <i/> {world.region}</span><strong>{world.name}</strong></span><span className="destination-indicator">{world.id === currentId ? <span className="here-dot"/> : <ArrowRight size={18}/>}</span></button>)}</div></section>
 
-      <footer className="app-footer"><span><Compass size={14}/> A LITTLE CURIOSITY. A WHOLE GALAXY.</span><button className={`motion-toggle ${reducedMotion ? 'is-on' : ''}`} role="switch" aria-checked={reducedMotion} onClick={() => {if(phase==='warping') arrive();setReducedMotion(!reducedMotion);}}><span className="toggle-track"><span/></span> Reduce motion</button></footer>
+
 
       <div className="sr-only" aria-live="polite" aria-atomic="true">{announcement}</div>
 
     </main>
+
+      <footer className="app-footer"><span><Compass size={14}/> A LITTLE CURIOSITY. A WHOLE GALAXY.</span><button className={`motion-toggle ${reducedMotion ? 'is-on' : ''}`} role="switch" aria-checked={reducedMotion} onClick={() => {if(phase==='warping') arrive();setReducedMotion(!reducedMotion);}}><span className="toggle-track"><span/></span> Reduce motion</button></footer>
 
   </div></MotionConfig>;
 
