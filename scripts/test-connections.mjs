@@ -16,6 +16,7 @@ for (const connection of CONNECTIONS) {
   if (names.has(connection.worldId)) assert.equal(names.get(connection.worldId), connection.worldName);
   names.set(connection.worldId, connection.worldName);
   assert(!('x' in connection) && !('y' in connection), 'Evidence must not invent map coordinates');
+  if (connection.context) assert(['surface','orbit','flashback','vision','destruction'].includes(connection.context), 'Unknown appearance context');
   assert.equal(connection.sequence, undefined, 'This evidence pass supports no travel sequence');
 }
 assert.match(CONNECTIONS.find(c => c.itemId === 'andor-s01e01' && c.worldId === 'kenari').note, /flashback/i);

@@ -13,6 +13,8 @@ import { ALL_WORLDS } from './journeyWorlds';
 
 import './journey.css';
 
+const CONTEXT_LABELS = {surface: 'Surface setting', orbit: 'Orbital setting', flashback: 'Flashback', vision: 'Vision', destruction: 'Destruction scene'};
+
 
 
 type Props = {
@@ -193,7 +195,7 @@ export default function Journey({ onLocationDisclosure, watchedIds, onSelectStop
 
             const world = ALL_WORLDS.find(w => w.id === connection.worldId);
 
-            return <article className="journey-stop" style={{ '--stop-color': world?.color ?? '#5e7288', '--stop-delay': `${Math.min(connectionIndex, 5) * 40}ms` } as React.CSSProperties} key={`${connection.itemId}-${connection.worldId}-${connectionIndex}`}><span className="journey-stop-dot" aria-hidden="true"/><div><h3>{connection.worldName}</h3><p>{world ? `Mapped · ${world.region}` : 'Unmapped · appearance linked, position not established'}</p><p className="journey-stop-note">{connection.note}</p><a className="journey-stop-source" href={connection.sourceUrl} target="_blank" rel="noreferrer">Appearance source <ExternalLink size={10}/></a></div><button disabled={!world} onClick={() => world && onSelectStop(item.id, world.id)} aria-label={world ? `Show ${connection.worldName} on map` : `${connection.worldName}: map unavailable`}>{world ? <><span>Show on map</span><ArrowRight size={15}/></> : <span>Map unavailable</span>}</button></article>;
+            return <article className="journey-stop" style={{ '--stop-color': world?.color ?? '#5e7288', '--stop-delay': `${Math.min(connectionIndex, 5) * 40}ms` } as React.CSSProperties} key={`${connection.itemId}-${connection.worldId}-${connectionIndex}`}><span className="journey-stop-dot" aria-hidden="true"/><div><h3>{connection.worldName}</h3>{connection.context && <span className={`appearance-context context-${connection.context}`}>{CONTEXT_LABELS[connection.context]}</span>}<p>{world ? `Mapped · ${world.region}` : 'Unmapped · appearance linked, position not established'}</p><p className="journey-stop-note">{connection.note}</p><a className="journey-stop-source" href={connection.sourceUrl} target="_blank" rel="noreferrer">Appearance source <ExternalLink size={10}/></a></div><button disabled={!world} onClick={() => world && onSelectStop(item.id, world.id)} aria-label={world ? `Show ${connection.worldName} on map` : `${connection.worldName}: map unavailable`}>{world ? <><span>Show on map</span><ArrowRight size={15}/></> : <span>Map unavailable</span>}</button></article>;
 
           })}</div><p className="journey-route-note">These are title-level appearances, not a single character’s travel itinerary. No within-title stop order or continuous travel route is implied.</p>
 

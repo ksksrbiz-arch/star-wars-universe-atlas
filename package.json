@@ -49,7 +49,8 @@
     "test:media": "node scripts/test-media-provenance.mjs",
     "test:experience-media": "node scripts/test-experience-media.mjs",
     "test:audio": "node scripts/test-interface-audio.mjs",
-    "test:map-lettering": "node scripts/test-map-lettering.mjs"
+    "test:map-lettering": "node scripts/test-map-lettering.mjs",
+    "test:connection-context": "node scripts/test-connection-context.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",
