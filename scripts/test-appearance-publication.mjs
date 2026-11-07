@@ -56,6 +56,8 @@ try {
  await reset();await client.query("UPDATE atlas_appearances SET payload=payload || '{\"note\":\"conflicting evidence\"}'::jsonb WHERE work_id=$1 AND world_id=$2",[CONNECTIONS[0].itemId,CONNECTIONS[0].worldId]);await rejects(/conflicts/);
  await reset();await client.query('INSERT INTO atlas_appearances VALUES($1,$2,$3)',[CONNECTIONS[0].itemId,'unexpected-world',{}]);await rejects(/conflicts/);
  await reset();await client.query('DELETE FROM atlas_publications');await rejects(/initial publication/);
+ await reset();await client.query("UPDATE atlas_works SET payload=payload || '{\"title\":\"conflicting title\"}'::jsonb WHERE id=$1",[catalog.items[0].id]);await rejects(/catalog conflicts/);await client.query('UPDATE atlas_works SET payload=$1 WHERE id=$2',[catalog.items[0],catalog.items[0].id]);
+ await reset();await client.query('UPDATE atlas_sequence_items SET position=99999 WHERE sequence_id=$1 AND position=1',[STORY_SEQUENCES.find(s=>!s.id.includes('ahsoka')).id]);await rejects(/sequence order conflicts/);
  await reset();await client.query("UPDATE atlas_sequences SET payload=payload || '{\"description\":\"conflict\"}'::jsonb");await rejects(/sequence conflicts/);
  await reset();await client.query("INSERT INTO atlas_worlds VALUES('unexpected-world','A-1','{}')");await rejects(/baseline/);
  console.log('PASS conflict/unknown appearance/missing publication/baseline mismatch abort without partial inserts or publication');

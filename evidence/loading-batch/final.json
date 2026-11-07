@@ -1,0 +1,81 @@
+{
+  "environment": "Chromium software WebGL, fresh contexts, local uncompressed static server; optional remote fonts blocked consistently. gzip sum computed from actually requested production JS files. Byte/loading evidence only, not device FPS or latency benchmark.",
+  "results": [
+    {
+      "scenario": "library-desktop",
+      "requestedJsBytes": 599900,
+      "requestedJsGzipBytes": 166079,
+      "resources": [
+        {
+          "path": "/assets/index-BGFbcNzA.js",
+          "encodedBodySize": 166079,
+          "decodedBodySize": 599900
+        }
+      ],
+      "canvasCount": 0,
+      "errors": []
+    },
+    {
+      "scenario": "galaxy-mobile",
+      "requestedJsBytes": 1555316,
+      "requestedJsGzipBytes": 418501,
+      "resources": [
+        {
+          "path": "/assets/index-BGFbcNzA.js",
+          "encodedBodySize": 166079,
+          "decodedBodySize": 599900
+        },
+        {
+          "path": "/assets/Galaxy-mTvU5c5s.js",
+          "encodedBodySize": 252422,
+          "decodedBodySize": 955416
+        }
+      ],
+      "canvasCount": 1,
+      "errors": []
+    },
+    {
+      "scenario": "galaxy-reduced",
+      "requestedJsBytes": 1555316,
+      "requestedJsGzipBytes": 418501,
+      "resources": [
+        {
+          "path": "/assets/index-BGFbcNzA.js",
+          "encodedBodySize": 166079,
+          "decodedBodySize": 599900
+        },
+        {
+          "path": "/assets/Galaxy-mTvU5c5s.js",
+          "encodedBodySize": 252422,
+          "decodedBodySize": 955416
+        }
+      ],
+      "canvasCount": 1,
+      "errors": []
+    },
+    {
+      "scenario": "galaxy-cinematic",
+      "requestedJsBytes": 1638355,
+      "requestedJsGzipBytes": 441043,
+      "resources": [
+        {
+          "path": "/assets/index-BGFbcNzA.js",
+          "encodedBodySize": 166079,
+          "decodedBodySize": 599900
+        },
+        {
+          "path": "/assets/Galaxy-mTvU5c5s.js",
+          "encodedBodySize": 252422,
+          "decodedBodySize": 955416
+        },
+        {
+          "path": "/assets/CinematicBloom-CtLOmRAZ.js",
+          "encodedBodySize": 22542,
+          "decodedBodySize": 83039
+        }
+      ],
+      "canvasCount": 1,
+      "errors": []
+    }
+  ]
+}

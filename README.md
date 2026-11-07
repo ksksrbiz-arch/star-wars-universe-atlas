@@ -4,7 +4,7 @@ Live preview: https://star-wars-universe-atlas.skdev-371.workers.dev
 
 Cloudflare Workers hosts the app and read-only API, with dedicated Neon Postgres through Hyperdrive and separate R2 media buckets. Main-branch application changes build, validate, and deploy through Cloudflare Builds. See [deployment setup](docs/DEPLOYMENT.md). User watch progress remains browser-local.
 
-Deployed interactive atlas with 62 schematic map destinations (eight general, 53 direct journey placements, and the Endor parent-system placement), a 185-item film/episode catalog, four sourced collection viewing sequences, and partial story/location relationships. The implementation includes galaxy navigation, cinematic jumps, reduced motion, library/release-timeline views, and browser-local watch progress. Release checks are recorded in [deployment verification](evidence/deployment/verification.md).
+Deployed interactive atlas with 62 schematic map destinations (eight general, 53 direct journey placements, and the Endor parent-system placement), a 193-item film/episode catalog, five sourced collection viewing sequences, and partial story/location relationships. The implementation includes galaxy navigation, cinematic jumps, reduced motion, library/release-timeline views, and browser-local watch progress. Release checks are recorded in [deployment verification](evidence/deployment/verification.md).
 
 Latest visual upgrade details and validation: [visual verification](evidence/visual-upgrades-verification.md). Graphics settings, layered galaxy rendering, two-second warp effects, and reduced-motion-aware interface transitions are implemented locally.
 
@@ -12,7 +12,7 @@ Reference-map geography update: [verification and scope](evidence/reference-map-
 
 ## Run
 
-Integrated relationship coverage is 231 links across 179 of 185 titles and 86 world names. Six titles have no current link. Only 62 worlds have supported map placements; title coverage does not establish complete scene coverage.
+Integrated relationship coverage is 245 links across 187 of 193 titles and 91 world names. Six titles have no current link. Only 62 worlds have supported map placements; title coverage does not establish complete scene coverage.
 
 Requires a current Node version supported by Vite (Node 26 used during development).
 
@@ -33,14 +33,16 @@ Eight general destinations in [data.ts](src/data.ts) combine with 54 additional 
 | Andor | 24 episodes, seasons 1–2 |
 | The Clone Wars (2008) | 133 episodes, seasons 1–7, plus the theatrical film |
 | The Mandalorian | 24 episodes, seasons 1–3 |
+| Ahsoka | 8 episodes, season 1 |
 
-The 181 regular episodes and four films are a bounded audit cohort, not all Star Wars movies/shows. Nine promotional/Legacy specials, the 2003 Clone Wars series, and The Mandalorian and Grogu film are excluded. The 62 worlds do not constitute complete geographic coverage. Story/location coverage is partial and independently counted in [journey data review](evidence/journey-data-review.md). An unjoined story has no verified relationship in this pass; it may be unaudited or reviewed without a named planet link.
+The original 181 regular episodes and four films remain a distinct 185-item audit cohort. Eight Ahsoka season-one episodes are added from a separate TVmaze source snapshot, bringing the current catalog to 193 items. This is a bounded collection, not all Star Wars movies/shows. Nine promotional/Legacy specials, the 2003 Clone Wars series, and The Mandalorian and Grogu film are excluded. The 62 worlds do not constitute complete geographic coverage. Story/location coverage is partial and independently counted in [journey data review](evidence/journey-data-review.md). An unjoined story has no verified relationship in this pass; it may be unaudited or reviewed without a named planet link.
 
 ## Source fidelity and limits
 
 - Episode titles, numbering, air dates, and selected runtime fields derive from [TVmaze](https://www.tvmaze.com/api), with CC BY-SA attribution retained. All 181 imported episode titles/dates/numbers match the audit CSV; both input-file SHA-256 values match the recorded metadata as checked November 7, 2026.
 - Film dates retain source caveats in [catalog.generated.json](src/catalog.generated.json). Empire's provider date is May 17, 1980, with premiere/theatrical/territory meaning unresolved. Return of the Jedi retains May 25, 1983, supported by an official anniversary article despite a conflicting film landing-page date. These are not a definitive worldwide release calendar.
-- Release chronology remains separate from [collection viewing sequences](src/chronology.ts), which cover all 185 catalog IDs. Clone Wars uses its complete official chronological order including the film; the other collections use film/episode narrative order. Embedded flashbacks are retained, not globally reordered. No exact BBY/ABY calendar is asserted.
+- Ahsoka season one uses a separate [metadata snapshot](docs/ahsoka-season-1-source.json); its eight runtimes are withheld, and future-season stubs are excluded. Its 14 episode/world associations retain vision and orbital-arrival caveats; see [source review](evidence/ahsoka-source-review.md).
+- Release chronology remains separate from [collection viewing sequences](src/chronology.ts), which cover all 193 catalog IDs. Clone Wars uses its complete official chronological order including the film; the other collections use film/episode narrative order. Embedded flashbacks are retained, not globally reordered. No exact BBY/ABY calendar is asserted.
 - External bridge references cover Rogue One, Book of Boba Fett chapters 5–7, and Revenge of the Sith overlap. They are not phantom catalog/progress items. The base catalog metadata's chronology flag describes its release-only import; the separately sourced chronology module now owns collection sequences.
 - All 133 Clone Wars episode runtimes are null because the audit found the same suspect 30-minute provider value throughout. Four film runtimes remain null pending edition-specific verification. Other episode runtimes are provider values, not independently checked streaming durations; no exact full-marathon total is supported.
 - No provider summaries or image assets are imported into the catalog. World descriptions are short original reference text. Planet illustrations are original procedural artwork, not screen stills.

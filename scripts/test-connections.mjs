@@ -54,3 +54,13 @@ for (const entry of CONNECTION_COVERAGE.reviewedWithoutPlanetLink) {
   assert(!covered.has(entry.itemId), `Reviewed gap already has a connection: ${entry.itemId}`);
   assert.equal(new URL(entry.sourceUrl).hostname, 'www.starwars.com');
 }
+
+// Ahsoka episode evidence distinguishes visions, orbital arrivals and future destinations.
+const ahsoka = CONNECTIONS.filter(link => link.itemId.startsWith('ahsoka-'));
+assert.equal(ahsoka.length, 14);
+assert.equal(new Set(ahsoka.map(link=>link.itemId)).size, 8);
+assert.match(ahsoka.find(link=>link.itemId==='ahsoka-s01e05'&&link.worldId==='mandalore').note,/Vision.*not present-day/i);
+assert.match(ahsoka.find(link=>link.itemId==='ahsoka-s01e08'&&link.worldId==='dathomir').note,/orbital.*not a claimed surface/i);
+assert(!pairs.has('ahsoka-s01e04:peridea'),'Calculating a route is not arriving at Peridea');
+assert(!pairs.has('ahsoka-s01e05:lothal'),'Related World Between Worlds biography is not episode-specific Lothal evidence');
+assert.match(ahsoka.find(link=>link.worldId==='peridea').note,/another galaxy/);

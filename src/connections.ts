@@ -1,3 +1,4 @@
+import { AHSOKA_CONNECTIONS } from './connectionsAhsoka.ts';
 import { CLONE_WARS_CONNECTIONS } from './connectionsCloneWars.ts';
 
 export type PlanetConnection = {
@@ -127,11 +128,12 @@ const additional: [string, string, string, string, string][] = [
 ];
 CONNECTIONS.push(...additional.map(record => connection(...record)));
 CONNECTIONS.push(...CLONE_WARS_CONNECTIONS);
+CONNECTIONS.push(...AHSOKA_CONNECTIONS);
 
 export const CONNECTION_COVERAGE = {
   checkedOn: '2026-11-07',
   status: 'Curated, incomplete evidence batches',
-  scope: 'Original-trilogy films, the 2008 Clone Wars film, and selected episode/world relationships from Andor, The Clone Wars (2008), and The Mandalorian. Having a relationship does not mean every location in that title is covered.',
+  scope: 'Original-trilogy films, the 2008 Clone Wars film, and selected episode/world relationships from Andor, The Clone Wars (2008), The Mandalorian, and Ahsoka season one. Having a relationship does not mean every location in that title is covered.',
   relationshipCount: CONNECTIONS.length,
   coveredItemIds: [...new Set(CONNECTIONS.map(connection => connection.itemId))],
   semantics: 'Title/world associations include planets, moons, surrounding orbital action, and explicitly labeled flashbacks or destruction scenes. They are not a single character’s itinerary.',

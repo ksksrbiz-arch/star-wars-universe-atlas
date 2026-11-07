@@ -1,8 +1,8 @@
 {
   "checkedOn": "2026-11-07",
-  "catalogItems": 185,
-  "relationships": 231,
-  "titlesWithLocationEvidence": 179,
+  "catalogItems": 193,
+  "relationships": 245,
+  "titlesWithLocationEvidence": 187,
   "titlesWithoutLocationEvidence": 6,
   "mapPlacements": 62,
   "referenceTraced": 27,
@@ -12,10 +12,6 @@
       "catalog": 3,
       "withLocations": 3
     },
-    "andor": {
-      "catalog": 24,
-      "withLocations": 24
-    },
     "clone-wars": {
       "catalog": 134,
       "withLocations": 130
@@ -23,6 +19,14 @@
     "mandalorian": {
       "catalog": 24,
       "withLocations": 22
+    },
+    "andor": {
+      "catalog": 24,
+      "withLocations": 24
+    },
+    "ahsoka": {
+      "catalog": 8,
+      "withLocations": 8
     }
   },
   "unplacedAssociatedWorlds": [
@@ -50,7 +54,12 @@
     "Zanbar",
     "Zardossa Stix",
     "Force planet (unnamed)",
-    "Carlac"
+    "Carlac",
+    "Arcana",
+    "Lothal",
+    "Seatos",
+    "Corellia",
+    "Peridea"
   ],
   "unlinkedTitleIds": [
     "clone-wars-s01e02",

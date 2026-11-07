@@ -283,12 +283,17 @@ function Scene(props: Props) {
 
   const episodeOffsets = new Map<string, [number, number]>()
   const highlighted = props.worlds.filter(world => props.highlightedIds?.has(world.id)).sort((a, b) => a.name.localeCompare(b.name))
-  for (const world of highlighted) {
-    const nearby = highlighted.filter(other => Math.hypot(other.x - world.x, other.y - world.y) < .18)
-    if (nearby.length > 1) {
-      const index = nearby.findIndex(other => other.id === world.id)
-      episodeOffsets.set(world.id, [0, (index - (nearby.length - 1) / 2) * 52])
+  const pending = new Set(highlighted.map(world => world.id))
+  for (const start of highlighted) {
+    if (!pending.delete(start.id)) continue
+    const cluster = [start]
+    for (let i = 0; i < cluster.length; i++) for (const other of highlighted) {
+      if (pending.has(other.id) && Math.hypot(other.x - cluster[i].x, other.y - cluster[i].y) < .18) {
+        pending.delete(other.id); cluster.push(other)
+      }
     }
+    cluster.sort((a, b) => a.name.localeCompare(b.name))
+    if (cluster.length > 1) cluster.forEach((world, index) => episodeOffsets.set(world.id, [0, (index - (cluster.length - 1) / 2) * 52]))
   }
   const from = props.worlds.find(w => w.id === props.selectedId)
   const preview = props.worlds.find(w => w.id === props.previewId)

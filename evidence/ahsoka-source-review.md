@@ -1,8 +1,8 @@
-# Ahsoka season 1 source review and pending connection plan
+# Ahsoka season 1 source review
 
-Retrieved November 7, 2026. Catalog metadata implementation adds the complete eight-episode first season from TVmaze show52343, preserving the original185 audit cohort. Future S2 stub excluded. `docs/ahsoka-season-1-source.json` contains only titles, dates, numbering and URLs; runtime withheld, no summaries/artwork. Provider dates remain as reported (US evening release dates, not a normalized worldwide calendar). Catalog/chronology tests passed in transfer executor; receiving workspace must rerun.
+Retrieved November 7, 2026. Catalog metadata implementation adds the complete eight-episode first season from TVmaze show52343, preserving the original185 audit cohort. Future S2 stub excluded. `docs/ahsoka-season-1-source.json` contains only titles, dates, numbering and URLs; runtime withheld, no summaries/artwork. Provider dates remain as reported (US evening release dates, not a normalized worldwide calendar). Catalog, chronology, connection and journey-data tests passed again in the current workspace.
 
-The following **14 connections are researched proposals, NOT implemented in this transfer**. Source captions were fetched and read from exact official episode guides. No new coordinates or scene itinerary.
+The following **14 connections are implemented** in `connectionsAhsoka.ts`. Source captions were fetched and read from exact official episode guides. No new coordinates or scene itinerary.
 
 | Part | worldId / name | Exact source and short quote | Caveat |
 |---|---|---|---|
@@ -26,3 +26,7 @@ The following **14 connections are researched proposals, NOT implemented in this
 No new rows recommended. Official rewatch articles for [Rising Malevolence](https://www.starwars.com/news/the-clone-wars-rewatch-rising-malevolence), [Shadow of Malevolence](https://www.starwars.com/news/the-clone-wars-rewatch-shadow-of-malevolence), [Destroy Malevolence](https://www.starwars.com/news/the-clone-wars-rewatch-destroy-malevolence), and [Victory and Death](https://www.starwars.com/news/the-clone-wars-rewatch-victory-and-death) supply no named planet/moon identity stronger than the existing reviews. The [Prisoner highlights](https://www.starwars.com/news/bounty-hunting-highlights-the-mandalorian-chapter-6-the-prisoner) remain a prison-ship mission.
 
 For The Rescue, [Who Is Boba Fett?](https://www.starwars.com/news/who-is-boba-fett) says “Boba Fett claimed Jabba’s throne on Tatooine”; [Boba’s Databank](https://www.starwars.com/databank/boba-fett) describes returning to Tatooine to kill Bib Fortuna; the [announcement](https://www.starwars.com/news/the-book-of-boba-fett) identifies the finale end-credit sequence. These corroborate a possible scene-identity join but no single reviewed exact-episode statement supplies Tatooine. Conservatively retain the sixth gap; do not claim an absence of appearances.
+
+## Current integration
+
+Catalog: 193 items, 189 episodes and four films; five viewing sequences. Relationships: 245 associations across 187 titles and 91 world identities; six reviewed gaps remain. All eight Ahsoka episodes have at least one link, not exhaustive appearance coverage. Arcana, Lothal, Seatos, Corellia and Peridea are textual associations without new map positions. Source URLs were fetched again in the current workspace.

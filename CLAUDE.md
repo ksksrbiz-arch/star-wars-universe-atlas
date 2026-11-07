@@ -1,6 +1,6 @@
 # Workflow router
 
-Status: local platform prototype, November 7, 2026: 62 schematic worlds, 185 catalog items, four collection viewing sequences, and partial story/location links. This router scopes development; it does not certify current-batch browser validation.
+Status: local platform prototype, November 7, 2026: 62 schematic worlds, 193 catalog items, five collection viewing sequences, and partial story/location links. This router scopes development; it does not certify current-batch browser validation.
 
 | Task | Load | Do not load |
 |---|---|---|
