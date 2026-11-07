@@ -13,3 +13,6 @@
 .world-explorer-empty{font-size:12px;line-height:1.5;color:#afc6d3;margin:12px 0 0}
 @media(max-width:900px){.world-explorer-fields{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.world-explorer-reset{width:fit-content;justify-self:end}}
 @media(max-width:480px){.world-explorer{padding:12px}.world-explorer-heading{font-size:9px;gap:7px}.world-explorer-fields{gap:10px}.world-explorer-search{grid-column:1/-1}.world-explorer-fields label{font-size:10px}.world-explorer-fields select{font-size:11px}.world-explorer-reset{grid-column:1/-1;justify-self:start}.world-explorer-destination{min-width:0}}
+/* Keep destination names readable and mobile form text comfortably sized. */
+@media(max-width:720px){.world-explorer-fields input,.world-explorer-fields select{font-size:16px}.world-explorer-fields label{font-size:12px}}
+@media(max-width:480px){.world-explorer-fields{grid-template-columns:minmax(0,1fr)}.world-explorer-heading{flex-wrap:wrap;row-gap:7px}}
