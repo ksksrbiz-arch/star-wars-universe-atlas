@@ -1,6 +1,6 @@
 # Context index
 
-Status: local platform prototype, November 7, 2026. There are 62 schematic map destinations: eight general worlds, 53 direct journey placements, and Endor's parent-system placement. The catalog exposes 185 watchable items: 181 regular episodes and four films across the original trilogy, Andor, The Clone Wars (2008), and The Mandalorian. Nine specials are excluded. Four sourced collection viewing sequences cover all 185 items. Story/location relationships are a partial evidence pass; see [review](../evidence/journey-data-review.md).
+Status: deployed platform preview, November 7, 2026. There are 62 schematic map destinations: eight general worlds, 53 direct journey placements, and Endor's parent-system placement. The catalog exposes 185 watchable items: 181 regular episodes and four films across the original trilogy, Andor, The Clone Wars (2008), and The Mandalorian. Nine specials are excluded. Four sourced collection viewing sequences cover all 185 items. Story/location relationships are a partial evidence pass; see [review](../evidence/journey-data-review.md).
 
 ## Workflows
 
@@ -26,5 +26,5 @@ Geographic source and schematic projection are documented in the data module. Ei
 
 All 181 episode titles, dates, and season/episode numbers match the audit CSV; both catalog input hashes match. Source metadata retains attribution and release-type caveats. All Clone Wars episode runtimes and all four film runtimes are withheld. The chronology module adds the complete official Clone Wars viewing order and numbered narrative orders for the other collections. Flashbacks remain within their episodes; no exact global BBY/ABY chronology is asserted.
 
-Library/release-timeline/watch views and browser-local progress are implemented independently of the world map. Complete event/character links, comprehensive spoiler controls, authenticated media ingestion, and cloud sync remain future work. This documentation update does not establish current-batch browser tests, a benchmark, complete physical-device coverage, or public deployment. Final integrated verification belongs to the QA/release handoff.
+Library/release-timeline/watch views and browser-local progress are implemented independently of the world map. Complete event/character links, comprehensive spoiler controls, authenticated media ingestion, and cloud sync remain future work. Cloudflare hosts the public preview with a read-only Neon/Postgres API through Hyperdrive and separate R2 buckets. Release evidence is in `evidence/deployment/`. Browser-local watch progress now supports merge-only backup import and cross-tab synchronization; destination search/share and first-unwatched journey controls are documented in `evidence/explorer-upgrade/verification.md`. No physical-device performance claim is made.
 

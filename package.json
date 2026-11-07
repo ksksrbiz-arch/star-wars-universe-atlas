@@ -28,7 +28,11 @@
     "test:reference-data": "node scripts/test-reference-data.mjs",
     "build:worker": "node scripts/build-worker.mjs",
     "deploy": "node scripts/deploy-cloudflare.mjs",
-    "db:prepare": "node scripts/prepare-db-seed.mjs"
+    "db:prepare": "node scripts/prepare-db-seed.mjs",
+    "test:world-search": "node scripts/test-world-explorer.mjs",
+    "test:progress": "node scripts/test-progress-upgrade.mjs",
+    "test:journey-progress": "node scripts/test-journey-progress.mjs",
+    "test:destination-links": "node scripts/test-destination-links.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",

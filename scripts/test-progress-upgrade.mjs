@@ -1,0 +1,58 @@
+import { chromium } from 'playwright';
+import assert from 'node:assert/strict';
+import { writeFile } from 'node:fs/promises';
+const base = process.env.ATLAS_URL || 'http://localhost:4173';
+const browser = await chromium.launch();
+const context = await browser.newContext({viewport:{width:390,height:844}});
+const page = await context.newPage();
+const errors = []; page.on('pageerror', e => errors.push(e.message));
+const key = 'galactic-atlas.watch.v1';
+const a = 'ot-a-new-hope', b = 'ot-empire-strikes-back';
+const checks = [];
+await page.goto(`${base}/#watch`);
+await page.getByRole('button',{name:'Import watch progress',exact:true}).waitFor();
+async function upload(value) {
+  await page.locator('input[type=file]').setInputFiles({name:'backup.json',mimeType:'application/json',buffer:Buffer.from(typeof value === 'string' ? value : JSON.stringify(value))});
+  await page.getByRole('button',{name:'Import watch progress',exact:true}).waitFor();
+}
+async function ids() { return page.evaluate(key => JSON.parse(localStorage.getItem(key)).watchedIds, key); }
+await upload({version:1,watchedIds:[a]});
+await page.getByRole('status').filter({hasText:'1 watched title added'}).waitFor();
+await upload({version:1,watchedIds:[b,b,'unknown-title']});
+await page.getByRole('status').filter({hasText:'1 unknown title was ignored'}).waitFor();
+assert.deepEqual(new Set(await ids()),new Set([a,b]));
+checks.push('Merge adds valid unique IDs, retains existing progress and reports unknown IDs');
+for(const invalid of ['{broken', {version:2,watchedIds:[a]}, {version:1,watchedIds:[42]}, {version:1}, 'x'.repeat(262145)]) {
+  await upload(invalid);
+  await page.locator('.progress-import-result.is-error').waitFor();
+  assert.deepEqual(new Set(await ids()),new Set([a,b]));
+}
+checks.push('Malformed, unsupported version, invalid list and oversized imports preserve saved progress');
+await page.reload();
+await page.locator('.watch-progress-card').filter({hasText:'2 of 185 watched'}).waitFor();
+const peer = await context.newPage();
+await peer.goto(`${base}/#watch`);
+await peer.locator('.watch-progress-card').filter({hasText:'2 of 185 watched'}).waitFor();
+await page.getByRole('button',{name:/Mark unwatched:/}).first().click();
+await peer.locator('.watch-progress-card').filter({hasText:'1 of 185 watched'}).waitFor();
+checks.push('Progress persists on reload and watched/unwatched changes synchronize to another open tab');
+const downloadEvent = page.waitForEvent('download');
+await page.getByRole('button',{name:'Export watch progress',exact:true}).click();
+assert.equal((await downloadEvent).suggestedFilename(),'galactic-atlas-watch-progress.json');
+assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+checks.push('JSON export and 390px layout work');
+await page.screenshot({path:'evidence/progress-upgrade-mobile.png',fullPage:true});
+const restrictedContext = await browser.newContext();
+await restrictedContext.addInitScript(() => { Storage.prototype.setItem = () => { throw new DOMException('Storage blocked','SecurityError'); }; });
+const restricted = await restrictedContext.newPage();
+await restricted.goto(`${base}/#watch`);
+await restricted.locator('input[type=file]').setInputFiles({name:'backup.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({version:1,watchedIds:[a]}))});
+await restricted.locator('.watch-progress-card').filter({hasText:'1 of 185 watched'}).waitFor();
+await restricted.locator('.progress-import-result').filter({hasText:'Imported for this visit only'}).waitFor();
+await restricted.locator('.storage-warning').filter({hasText:'could not save progress'}).waitFor();
+checks.push('Blocked storage retains imported progress for the visit and clearly asks for export');
+await restrictedContext.close();
+assert.deepEqual(errors,[]);
+await writeFile('evidence/progress-upgrade-results.json',JSON.stringify({browser:await browser.version(),checks,errors},null,2));
+console.log(JSON.stringify({checks,errors},null,2));
+await browser.close();

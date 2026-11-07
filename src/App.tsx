@@ -17,6 +17,9 @@ import Library from './Library';
 import Journey from './Journey';
 import WorldStories from './WorldStories';
 import ReferenceOverview from './ReferenceOverview';
+import WorldExplorer from './WorldExplorer';
+import ProgressTools from './ProgressTools';
+import ShareDestination from './ShareDestination';
 import { HYPERSPACE_ROUTES } from './hyperspaceRoutes';
 import { ALL_WORLDS } from './journeyWorlds';
 
@@ -27,6 +30,8 @@ import { useWatchProgress } from './useWatchProgress';
 
 
 type View = 'journey' | 'galaxy' | 'library' | 'timeline' | 'watch';
+
+const readWorld = () => { const id = location.hash.split('/')[1]; return location.hash.startsWith('#galaxy/') && ALL_WORLDS.some(world => world.id === id) ? id : WORLDS[0].id; };
 
 const readView = (): View => ['journey','library','timeline','watch'].includes(location.hash.slice(1).split('/')[0]) ? location.hash.slice(1).split('/')[0] as View : 'galaxy';
 
@@ -61,15 +66,15 @@ export default function App() {
   const [galaxyMounted, setGalaxyMounted] = useState(() => ['galaxy','journey'].includes(readView()));
   useEffect(() => { if (view === 'galaxy' || view === 'journey') setGalaxyMounted(true); }, [view]);
 
-  const { watchedIds, toggleWatched, storageWarning, exportProgress } = useWatchProgress();
+  const { watchedIds, toggleWatched, storageWarning, exportProgress, importProgress } = useWatchProgress();
 
-  useEffect(() => { const change = () => {setView(readView()); const id = location.hash.split('/')[1]; if (CATALOG.some(item => item.id === id)) setActiveItemId(id);}; window.addEventListener('hashchange', change); return () => window.removeEventListener('hashchange', change); }, []);
+  useEffect(() => { const change = () => { setView(readView()); setTargetId(null); setPhase('idle'); const id = location.hash.split('/')[1]; setActiveItemId(CATALOG.some(item => item.id === id) ? id : null); if (readView() === 'galaxy') setPreviewId(readWorld()); }; window.addEventListener('hashchange', change); return () => window.removeEventListener('hashchange', change); }, []);
 
   const [activeItemId, setActiveItemId] = useState<string | null>(() => { const id = location.hash.split('/')[1]; return CATALOG.some(item => item.id === id) ? id : null; });
   const [journeyStatus, setJourneyStatus] = useState('Choose a story, reveal its locations, then select a mapped stop.');
   const [currentId, setCurrentId] = useState(WORLDS[0].id);
 
-  const [previewId, setPreviewId] = useState(WORLDS[0].id);
+  const [previewId, setPreviewId] = useState(readWorld);
 
   const [targetId, setTargetId] = useState<string | null>(null);
 
@@ -123,6 +128,7 @@ export default function App() {
     if (phase === 'warping') return;
 
     setPreviewId(id);
+    if (view === 'galaxy') window.history.replaceState(null, '', `#galaxy/${id}`);
 
     const world = ALL_WORLDS.find(w => w.id === id);
 
@@ -249,10 +255,10 @@ export default function App() {
 
     {storageWarning && <p className="storage-warning" role="status">{storageWarning}</p>}
 
-    {view !== 'galaxy' && view !== 'journey' && <main className="platform-main"><Library mode={view} watchedIds={watchedIds} onToggleWatched={toggleWatched}/>{view === 'watch' && <button className="backup-button" onClick={exportProgress}>Export watch progress</button>}<p className="catalog-attribution">Episode metadata: <a href="https://www.tvmaze.com" target="_blank" rel="noreferrer">TVmaze</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA</a>. Curated catalog; title-level location links are still being researched. Progress stays in this browser.</p></main>}
+    {view !== 'galaxy' && view !== 'journey' && <main className="platform-main"><Library mode={view} watchedIds={watchedIds} onToggleWatched={toggleWatched}/>{view === 'watch' && <ProgressTools exportProgress={exportProgress} importProgress={importProgress}/>}<p className="catalog-attribution">Episode metadata: <a href="https://www.tvmaze.com" target="_blank" rel="noreferrer">TVmaze</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA</a>. Curated catalog; title-level location links are still being researched. Progress stays in this browser.</p></main>}
 
     <main id="atlas" hidden={view !== 'galaxy' && view !== 'journey'}>
-      {view === 'journey' && <><Journey watchedIds={watchedIds} onSelectStop={selectJourneyStop} activeItemId={activeItemId} onActiveItemChange={id => {if(phase === 'warping') cancel();setActiveItemId(id);setPreviewId(currentId);window.history.replaceState(null, '', `#journey/${id}`);setJourneyStatus('Choose a revealed mapped location to preview your next stop.');}}/><p className="journey-map-status" role="status">{journeyStatus}</p></>}
+      {view === 'journey' && <><Journey onToggleWatched={toggleWatched} watchedIds={watchedIds} onSelectStop={selectJourneyStop} activeItemId={activeItemId} onActiveItemChange={id => {if(phase === 'warping') cancel();setActiveItemId(id);setPreviewId(currentId);window.history.replaceState(null, '', `#journey/${id}`);setJourneyStatus('Choose a revealed mapped location to preview your next stop.');}}/><p className="journey-map-status" role="status">{journeyStatus}</p></>}
 
       <div className="page-intro" hidden={view === 'journey'}><div><div className="eyebrow"><span className="small-line"/> EXPLORE THE GALAXY</div><h1>Your next story is out there<span>.</span></h1></div><p>62 worlds. A galaxy of stories.<br/>Choose a destination and make the jump.</p></div>
 
@@ -265,7 +271,7 @@ export default function App() {
       <div className="flight-toolbar"><div><span className="flight-mark"/><span>GALACTIC NAVIGATION</span><small>{phase === 'warping' ? 'TRANSIT ACTIVE' : 'SYSTEM READY'}</small></div><label>Graphics <select aria-label="Graphics quality" value={quality} disabled={phase === 'warping'} onChange={event=>setQuality(event.target.value as 'balanced'|'cinematic')}><option value="balanced">Balanced</option><option value="cinematic">Cinematic</option></select></label></div>
       <div className="reference-controls" aria-label="Map layers">
         <div className="layer-switches"><label><input type="checkbox" checked={regionsVisible} onChange={e=>setRegionsVisible(e.target.checked)}/> Regions</label><label><input type="checkbox" checked={routesVisible} onChange={e=>setRoutesVisible(e.target.checked)}/> Hyperspace routes</label><label><input type="checkbox" checked={gridVisible} onChange={e=>setGridVisible(e.target.checked)}/> Grid</label></div>
-        <label className="world-finder">Find a world <select aria-label="Find a mapped world" value={previewId} disabled={phase==='warping'} onChange={e=>selectWorld(e.target.value)}>{[...ALL_WORLDS].sort((a,b)=>a.name.localeCompare(b.name)).map(w=><option key={w.id} value={w.id}>{w.name} · {w.grid}</option>)}</select></label>
+        <WorldExplorer selectedId={previewId} disabled={phase === 'warping'} onSelect={selectWorld}/>
       </div>
       <details className="reference-key"><summary>Map key &amp; reference</summary><p>Colored boundaries and five major hyperspace lanes follow the supplied galaxy-map reference as approximate visual traces. Published system grids remain the placement source; traced positions are identified in each destination’s position note. Story connections are separate from these routes.</p><ul className='route-legend-list'>{HYPERSPACE_ROUTES.map(route=><li key={route.id}><i style={{background:route.color}}/>{route.number}. {route.name}</li>)}</ul><p>Zoom for smaller world labels. <a href="http://www.swgalaxymap.com/" target="_blank" rel="noreferrer">SW Galaxy Map reference ↗</a></p></details>
       <section className="explorer" aria-label="Galaxy explorer">
@@ -309,6 +315,8 @@ export default function App() {
           <a className="source-link" href={preview.sourceUrl} target="_blank" rel="noreferrer">Read world source <ExternalLink size={12}/></a>
 
           <a className="source-link" href={GEOGRAPHY_SOURCE} target="_blank" rel="noreferrer">View geographic source <ExternalLink size={12}/></a>
+
+          <ShareDestination worldId={preview.id} worldName={preview.name}/>
 
           <details className="position-note"><summary>About this position</summary><p>{preview.uncertainty}</p></details>
 
