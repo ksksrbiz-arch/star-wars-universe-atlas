@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { CONNECTIONS } from './connections';
 import { ALL_WORLDS } from './journeyWorlds';
 import './related-worlds.css';
@@ -14,8 +15,8 @@ export default function RelatedWorlds({ itemId, title, currentWorldId }: { itemI
    {links.length ? <ul>{links.map(link => {
     const mapped = ALL_WORLDS.some(world => world.id === link.worldId);
     return <li key={link.worldId}>
-     {mapped ? <a className="related-world-link" href={`#galaxy/${link.worldId}`}>Preview {link.worldName} on map <span aria-hidden="true">↗</span></a> : <strong>{link.worldName} <small>Position not mapped</small></strong>}
-     <p>{link.note}</p><a className="related-world-source" href={link.sourceUrl} target="_blank" rel="noopener noreferrer">Official source for {link.worldName} ↗</a>
+     {mapped ? <a className="related-world-link" href={`#galaxy/${link.worldId}`}>Preview {link.worldName} on map <ArrowUpRight size={13} aria-hidden="true"/></a> : <strong>{link.worldName} <small>Position not mapped</small></strong>}
+     <p>{link.note}</p><a className="related-world-source" href={link.sourceUrl} target="_blank" rel="noopener noreferrer">Official source for {link.worldName} <ArrowUpRight size={13} aria-hidden="true"/></a>
     </li>;
    })}</ul> : <p>No other location is linked in this review. That does not establish the absence of other settings.</p>}
   </div>}

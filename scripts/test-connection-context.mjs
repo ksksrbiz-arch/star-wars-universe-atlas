@@ -17,8 +17,8 @@ try {
  checks.push('New Kenari link remains hidden until revealed, labels flashback, and jumps using existing sourced placement');
  await page.goto(base+'/#journey/andor-s01e11');await page.getByRole('button',{name:'Reveal locations for this title'}).click();
  const orbital=page.locator('.journey-stop').filter({has:page.getByRole('heading',{name:'Segra-Milo',exact:true})});
- assert.equal(await orbital.locator('.appearance-context').textContent(),'Orbital setting');assert(await orbital.getByRole('button',{name:'Segra-Milo: map unavailable'}).isDisabled());
- checks.push('Segra-Milo orbit label retains disabled map action; unknown geography is not placed');
+ assert.equal(await orbital.locator('.appearance-context').textContent(),'Orbital setting');assert(await orbital.getByRole('button',{name:'Show Segra-Milo on map'}).isEnabled());
+ checks.push('Segra-Milo orbit label retains scene context with independently sourced map action');
  await page.goto(base+'/#journey/clone-wars-s02e03');await page.getByRole('button',{name:'Reveal locations for this title'}).click();
  for(const name of ['Coruscant','Rodia','Naboo'])assert.equal(await page.locator('.journey-stop').filter({has:page.getByRole('heading',{name,exact:true})}).locator('.appearance-context').textContent(),'Surface setting');
  await mkdir('evidence/galaxy-depth',{recursive:true});await page.locator('.journey-worlds').screenshot({path:'evidence/galaxy-depth/expanded-episode-mobile.png'});

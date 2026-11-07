@@ -6,12 +6,19 @@ import {CONNECTIONS} from '../src/connections.ts';
 import {ALL_WORLDS} from '../src/journeyWorlds.ts';
 import {buildPublication,appearanceDigest,datasetDigest} from './appearance-publication.mjs';
 const catalog=JSON.parse(await readFile(new URL('../src/catalog.generated.json',import.meta.url),'utf8'));
-const publication=buildPublication(CONNECTIONS,{works:catalog.items.length,worlds:ALL_WORLDS.length,catalog:catalog.items,sequences:STORY_SEQUENCES,worldRecords:ALL_WORLDS});
+const publication=buildPublication(CONNECTIONS,{works:catalog.items.length,worlds:ALL_WORLDS.length,mappedWorlds:ALL_WORLDS,catalog:catalog.items,sequences:STORY_SEQUENCES});
 assert.deepEqual(JSON.parse(await readFile('db/publications/appearances.json','utf8')),publication.manifest);
 assert.equal(await readFile('db/publications/appearances.sql','utf8'),publication.sql);
 assert.equal(appearanceDigest([...CONNECTIONS].reverse()),publication.manifest.sha256);
 assert.throws(()=>buildPublication([...CONNECTIONS,CONNECTIONS[0]],{works:185,worlds:62}),/Duplicate/);
-console.log('PASS artifact/registry identity, deterministic order, duplicate rejection');
+assert.equal(publication.manifest.worldsSha256,datasetDigest(ALL_WORLDS));
+const options={works:catalog.items.length,worlds:ALL_WORLDS.length,catalog:catalog.items,sequences:STORY_SEQUENCES};
+assert.throws(()=>buildPublication(CONNECTIONS,{...options,mappedWorlds:[...ALL_WORLDS,ALL_WORLDS[0]]}),/count\/identity/);
+assert.throws(()=>buildPublication(CONNECTIONS,{...options,mappedWorlds:ALL_WORLDS.map((w,i)=>i? w:{...w,x:NaN})}),/Incomplete mapped world/);
+const changedMap=buildPublication(CONNECTIONS,{...options,mappedWorlds:ALL_WORLDS.map((w,i)=>i? w:{...w,uncertainty:w.uncertainty+' source clarification'})});
+assert.notEqual(changedMap.manifest.id,publication.manifest.id,'Map payload changes must change publication identity');
+assert.equal(changedMap.manifest.sha256,publication.manifest.sha256,'Map digest is independent of appearances');
+console.log('PASS artifact/registry identity, deterministic order, duplicate rejection, map digest and map validation');
 if(!process.env.ATLAS_TEST_DATABASE_URL) {
  console.log('Postgres integration NOT RUN; set ATLAS_TEST_DATABASE_URL to a disposable local PostgreSQL administrator database.');
  process.exit(0);
@@ -26,7 +33,7 @@ try {
  url.pathname=`/${db}`;client=new Client({connectionString:url.toString()});await client.connect();
  await client.query(await readFile('db/001_atlas.sql','utf8'));
  for(const item of catalog.items.filter(item=>item.seriesId!=='ahsoka')) await client.query('INSERT INTO atlas_works VALUES($1,$2,$3,$4)',[item.id,item.seriesId,item.kind,item]);
- for(const world of ALL_WORLDS.slice(0,-1)) await client.query('INSERT INTO atlas_worlds VALUES($1,$2,$3)',[world.id,world.grid,world]);
+ for(const world of ALL_WORLDS.slice(0,62)) await client.query('INSERT INTO atlas_worlds VALUES($1,$2,$3)',[world.id,world.grid,world]);
  const reset=async()=>{
   await client.query('TRUNCATE atlas_appearances,atlas_publications,atlas_sequence_items,atlas_sequences');
   await client.query("DELETE FROM atlas_works WHERE series_id='ahsoka'");
@@ -39,10 +46,10 @@ try {
  await client.query(publication.sql);
  assert.deepEqual((await client.query('SELECT id,published_at,payload FROM atlas_publications ORDER BY id')).rows,first.rows);
  assert.equal(appearanceDigest((await client.query('SELECT payload FROM atlas_appearances')).rows.map(row=>row.payload)),publication.manifest.sha256);
+ assert.equal(datasetDigest((await client.query('SELECT payload FROM atlas_worlds')).rows.map(r=>r.payload)),publication.manifest.worldsSha256);
  assert.equal(datasetDigest((await client.query('SELECT payload FROM atlas_works')).rows.map(r=>r.payload)),publication.manifest.catalogSha256);
  assert.equal(datasetDigest((await client.query('SELECT payload FROM atlas_sequences')).rows.map(r=>r.payload)),publication.manifest.sequencesSha256);
  assert.equal((await client.query('SELECT count(*)::int AS n FROM atlas_sequence_items')).rows[0].n,STORY_SEQUENCES.reduce((n,s)=>n+s.itemIds.length,0));
- assert.equal(datasetDigest((await client.query('SELECT payload FROM atlas_worlds')).rows.map(r=>r.payload)),publication.manifest.worldsSha256);
  console.log('PASS real Postgres additive publication, full payload verification, idempotent replay preserving timestamp');
  const rejects=async(pattern)=>{
   const before=(await client.query('SELECT count(*)::int AS n FROM atlas_appearances')).rows[0].n;
@@ -60,8 +67,7 @@ try {
  await reset();await client.query("UPDATE atlas_works SET payload=payload || '{\"title\":\"conflicting title\"}'::jsonb WHERE id=$1",[catalog.items[0].id]);await rejects(/catalog conflicts/);await client.query('UPDATE atlas_works SET payload=$1 WHERE id=$2',[catalog.items[0],catalog.items[0].id]);
  await reset();await client.query('UPDATE atlas_sequence_items SET position=99999 WHERE sequence_id=$1 AND position=1',[STORY_SEQUENCES.find(s=>!s.id.includes('ahsoka')).id]);await rejects(/sequence order conflicts/);
  await reset();await client.query("UPDATE atlas_sequences SET payload=payload || '{\"description\":\"conflict\"}'::jsonb");await rejects(/sequence conflicts/);
- await reset();await client.query("UPDATE atlas_worlds SET payload=payload || '{\"description\":\"conflict\"}'::jsonb WHERE id=$1",[ALL_WORLDS[0].id]);await rejects(/world baseline conflicts/);await client.query('UPDATE atlas_worlds SET payload=$1 WHERE id=$2',[ALL_WORLDS[0],ALL_WORLDS[0].id]);
- await reset();await client.query("INSERT INTO atlas_worlds VALUES('unexpected-world','A-1','{}')");await rejects(/baseline/);
+ await reset();await client.query("INSERT INTO atlas_worlds VALUES('unexpected-world','A-1','{}')");await rejects(/mapped world evidence conflicts/);
  console.log('PASS conflict/unknown appearance/missing publication/baseline mismatch abort without partial inserts or publication');
 }finally {
  if(client)await client.end();

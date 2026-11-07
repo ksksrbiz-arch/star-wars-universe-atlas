@@ -1,0 +1,8 @@
+{
+  "base": "https://star-wars-universe-atlas.skdev-371.workers.dev",
+  "checks": [
+    "1440px: all 14 new destinations selectable, source grids retained, Lothal jump, Ahsoka mapped stops and Peridea exclusion",
+    "390px: all 14 new destinations selectable, source grids retained, Lothal jump, Ahsoka mapped stops and Peridea exclusion"
+  ],
+  "errors": []
+}

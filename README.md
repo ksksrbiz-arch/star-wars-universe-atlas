@@ -87,3 +87,5 @@ Tatooine, Coruscant, Hoth, Naboo, Bespin, Dagobah, Yavin 4 and Endor’s forest 
 Browse worlds from the hero to open a 97-world directory with original illustrations, sourced regions, reviewed terrain categories, and watch-progress filters. Unmapped worlds retain neutral symbols and no map action. Counts use watched titles; including unwatched collection links requires an explicit reveal.
 
 Revealed story cards offer a separate “Explore linked worlds” disclosure with per-location evidence and map previews where supported. Revealing a title does not automatically reveal its other settings. The current frontend reconciles 14 sourced placements and 13 associations already present in the live database; see [geography review](evidence/reconciled-world-geography.md) and [association review](evidence/live-associations-reconciliation.md).
+
+Latest dense-map label and placement work: [mapped-world release](evidence/mapped-batch/release.md).

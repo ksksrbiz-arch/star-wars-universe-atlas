@@ -65,3 +65,9 @@ assert.match(ahsoka.find(link=>link.itemId==='ahsoka-s01e08'&&link.worldId==='da
 assert(!pairs.has('ahsoka-s01e04:peridea'),'Calculating a route is not arriving at Peridea');
 assert(!pairs.has('ahsoka-s01e05:lothal'),'Related World Between Worlds biography is not episode-specific Lothal evidence');
 assert.match(ahsoka.find(link=>link.worldId==='peridea').note,/another galaxy/);
+
+// Atmospheric and orbital scenes do not silently become surface visits or near-name joins.
+assert.match(CONNECTIONS.find(c=>c.itemId==='clone-wars-s01e13'&&c.worldId==='quell').note,/atmospheric combat.*not a claimed surface/i);
+assert.equal(CONNECTIONS.find(c=>c.itemId==='clone-wars-s06e01'&&c.worldId==='ringo-vinda').context,'orbit');
+assert(pairs.has('clone-wars-s03e10:raxus'));
+assert(!pairs.has('clone-wars-s03e10:raxus-prime'));

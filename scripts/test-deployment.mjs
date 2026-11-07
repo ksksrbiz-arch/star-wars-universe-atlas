@@ -13,7 +13,7 @@ for(const key of ['sequences','regions','routes']) assert.ok(Number.isSafeIntege
 await mkdir('evidence/deployment',{recursive:true});
 const checks=[];
 const health=await fetch(base+'/api/health');assert.equal(health.status,200);const data=await health.json();assert.deepEqual({works:data.works,worlds:data.worlds,appearances:data.appearances},{works:expected.works,worlds:expected.worlds,appearances:expected.appearances});checks.push(`Live database counts match explicit expectation ${expected.id}; independent of bundled frontend data`);
-for(const [endpoint,count]of [['catalog',expected.works],['worlds',expected.worlds],['appearances',expected.appearances],['sequences',expectedCounts.sequences],['regions',expectedCounts.regions],['routes',expectedCounts.routes]]){const r=await fetch(base+'/api/'+endpoint);assert.equal(r.status,200);const items=(await r.json()).items;assert.equal(items.length,count);if(endpoint==='catalog' && expected.catalogSha256)assert.equal(datasetDigest(items),expected.catalogSha256,'Published catalog content mismatch');if(endpoint==='sequences' && expected.sequencesSha256)assert.equal(datasetDigest(items),expected.sequencesSha256,'Published sequences content mismatch');if(endpoint==='worlds' && expected.worldsSha256)assert.equal(datasetDigest(items),expected.worldsSha256,'Published worlds content mismatch');if(endpoint==='appearances'){assert.equal(appearanceDigest(items),expected.sha256,'Published appearance content differs from the explicit expected publication');if(expected.coveredTitles!==undefined)assert.equal(new Set(items.map(item=>item.itemId)).size,expected.coveredTitles);}}
+for(const [endpoint,count]of [['catalog',expected.works],['worlds',expected.worlds],['appearances',expected.appearances],['sequences',expectedCounts.sequences],['regions',expectedCounts.regions],['routes',expectedCounts.routes]]){const r=await fetch(base+'/api/'+endpoint);assert.equal(r.status,200);const items=(await r.json()).items;assert.equal(items.length,count);if(endpoint==='worlds' && expected.worldsSha256)assert.equal(datasetDigest(items),expected.worldsSha256,'Published map content mismatch');if(endpoint==='catalog' && expected.catalogSha256)assert.equal(datasetDigest(items),expected.catalogSha256,'Published catalog content mismatch');if(endpoint==='sequences' && expected.sequencesSha256)assert.equal(datasetDigest(items),expected.sequencesSha256,'Published sequences content mismatch');if(endpoint==='appearances'){assert.equal(appearanceDigest(items),expected.sha256,'Published appearance content differs from the explicit expected publication');if(expected.coveredTitles!==undefined)assert.equal(new Set(items.map(item=>item.itemId)).size,expected.coveredTitles);}}
 checks.push('All six public catalog endpoints return expected records; full appearance payload digest matches reviewed expectation');
 assert.equal((await fetch(base+'/api/not-found')).status,404);
 assert.equal((await fetch(base+'/api/catalog',{method:'POST'})).status,405);
@@ -26,7 +26,7 @@ try{
   const page=await browser.newPage({viewport:mobile?{width:390,height:844}:{width:1440,height:1050},isMobile:mobile,hasTouch:mobile});
   page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
   await page.clock.install();await page.goto(base);await page.getByRole('button',{name:'Explore Hoth',exact:true}).waitFor();
-  assert.equal(await page.locator('canvas').count(),1);assert.equal(await page.getByLabel('Find a mapped world').locator('option').count(),76);
+  assert.equal(await page.locator('canvas').count(),1);assert.equal(await page.getByLabel('Find a mapped world').locator('option').count(),expected.worlds);
   await page.waitForTimeout(500);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   await page.locator('.map-stage').screenshot({path:`evidence/deployment/live-${mobile?'mobile':'desktop'}-map.png`});
   await page.getByLabel('Find a mapped world').selectOption('hoth');
@@ -38,7 +38,7 @@ try{
   await page.getByRole('button',{name:'Skip animation'}).click();await page.clock.runFor(100);
   assert.equal(await page.locator('.current-location strong').innerText(),'Hoth');
   await page.clock.resume();await page.getByRole('link',{name:'Journey',exact:true}).click();await page.locator('.journey-current h2').waitFor();
-  checks.push(`Live ${mobile?'390px mobile':'1440px desktop'} map,62worlds,warp/skip,Journey navigation and nooverflow`);
+  checks.push(`Live ${mobile?'390px mobile':'1440px desktop'} map,${expected.worlds}worlds,warp/skip,Journey navigation and nooverflow`);
   await page.close();
  }
  assert.deepEqual(errors,[]);

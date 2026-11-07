@@ -57,7 +57,9 @@
     "test:directory-filters": "node scripts/test-directory-filters.mjs",
     "test:visual-directory": "node scripts/test-visual-world-directory.mjs",
     "test:related-worlds": "node scripts/test-related-worlds.mjs",
-    "test:reconciled-worlds": "node scripts/test-reconciled-worlds.mjs"
+    "test:reconciled-worlds": "node scripts/test-reconciled-worlds.mjs",
+    "test:mapped-expansion": "node scripts/test-mapped-expansion.mjs",
+    "test:map-density": "node scripts/test-map-density.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",

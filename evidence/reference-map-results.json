@@ -1,10 +1,10 @@
 {
-  "checkedAt": "2026-11-07T21:37:36.569Z",
+  "checkedAt": "2026-11-07T23:28:59.003Z",
   "environment": "Headless Chromium software WebGL; no physical-device performance claim.",
   "results": [
     {
       "mode": "desktop",
-      "mappedOptions": 62,
+      "mappedOptions": 76,
       "regionLabels": 9,
       "routeLabels": 5,
       "gridLabels": 42,
@@ -15,7 +15,7 @@
     },
     {
       "mode": "mobile",
-      "mappedOptions": 62,
+      "mappedOptions": 76,
       "regionLabels": 9,
       "routeLabels": 5,
       "gridLabels": 42,
@@ -26,7 +26,7 @@
     },
     {
       "mode": "reduced",
-      "mappedOptions": 62,
+      "mappedOptions": 76,
       "regionLabels": 9,
       "routeLabels": 5,
       "gridLabels": 42,

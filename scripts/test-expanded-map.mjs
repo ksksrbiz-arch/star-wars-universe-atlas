@@ -1,3 +1,4 @@
+import { ALL_WORLDS } from '../src/journeyWorlds.ts';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
@@ -18,9 +19,9 @@ try {
     await finder.waitFor();
     await page.getByRole('button', { name: 'Explore Mandalore', exact: true }).waitFor();
     const destinations = await finder.locator('option').evaluateAll(options => options.map(option => ({ id: option.value, name: option.textContent.split(' · ')[0] })));
-    assert.equal(destinations.length, 76, 'All 76 supported worlds are available in the finder');
-    assert.equal(new Set(destinations.map(world => world.id)).size, 76, 'Finder has no duplicate destinations');
-    assert.equal(await page.locator('button[aria-label^="Explore "]').count(), 76, 'Every supported world has a map marker');
+    assert.equal(destinations.length, ALL_WORLDS.length, 'All supported supported worlds are available in the finder');
+    assert.equal(new Set(destinations.map(world => world.id)).size, ALL_WORLDS.length, 'Finder has no duplicate destinations');
+    assert.equal(await page.locator('button[aria-label^="Explore "]').count(), ALL_WORLDS.length, 'Every supported world has a map marker');
     const select = async name => {
       const world = destinations.find(entry => entry.name === name);
       assert.ok(world, `Destination ${name} exists`);
@@ -31,7 +32,7 @@ try {
       await select(world.name);
       assert.equal(await page.locator('.current-location strong').innerText(), 'Tatooine', 'Preview must not commit destination');
     }
-    // With 76 labels and valid shared grid cells, marker overlap is expected at
+    // With many labels and valid shared grid cells, marker overlap is expected at
     // overview scale. The finder must provide an accessible route to every world.
     await page.getByRole('button', { name: 'Reset map view', exact: true }).click();
     await select('Hoth');
@@ -69,7 +70,7 @@ try {
     await select('Mandalore');
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
     assert.deepEqual(errors, [], 'No browser page errors');
-    results.push({ viewport, destinations: 76, checks: ['All 76 finder destinations select their correct dossier', 'Every supported world has a map marker', 'Preview does not change current destination', 'Cancel restores departure world and dossier without delayed arrival', 'Skip commits Hoth', 'Same-grid Hoth-to-Bespin animated jump completes', 'Back restores Hoth', 'Library to Galaxy roundtrip preserves current world and finder works', 'Resize preserves destination and finder remains usable', 'No horizontal overflow', 'No page errors'], errors });
+    results.push({ viewport, destinations: ALL_WORLDS.length, checks: ['All supported finder destinations select their correct dossier', 'Every supported world has a map marker', 'Preview does not change current destination', 'Cancel restores departure world and dossier without delayed arrival', 'Skip commits Hoth', 'Same-grid Hoth-to-Bespin animated jump completes', 'Back restores Hoth', 'Library to Galaxy roundtrip preserves current world and finder works', 'Resize preserves destination and finder remains usable', 'No horizontal overflow', 'No page errors'], errors });
     await page.close();
   }
   await writeFile('evidence/expanded-map-results.json', JSON.stringify({ date: '2026-11-07', environment: 'Playwright Chromium with software WebGL; mobile emulation, not physical-device performance evidence', results }, null, 2));

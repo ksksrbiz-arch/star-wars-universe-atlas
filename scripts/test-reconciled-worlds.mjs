@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { RECONCILED_WORLDS } from '../src/reconciledWorlds.ts';
+import { MAPPED_WORLDS_EXPANSION as RECONCILED_WORLDS } from '../src/mappedWorldsExpansion.ts';
 import { ALL_WORLDS } from '../src/journeyWorlds.ts';
 import { gridToDisplay } from '../src/data.ts';
 const expected={abafar:['O-6','Outer Rim Territories'],adelphi:['P-17','Outer Rim Territories'],arcana:['M-5','Outer Rim Territories'],bothawui:['R-14','Mid Rim'],carlac:['K-5','Outer Rim Territories'],corellia:['M-11','Core Worlds'],lothal:['U-7','Outer Rim Territories'],'lotho-minor':['I-17','Outer Rim Territories'],'oba-diah':['T-10','Outer Rim Territories'],quarzite:['M-13','Inner Rim'],quell:['Q-6','Outer Rim Territories'],'ringo-vinda':['R-7','Mid Rim'],seatos:['M-19','Outer Rim Territories'],'segra-milo':['R-7','Outer Rim Territories']};
