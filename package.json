@@ -28,7 +28,10 @@
     "test:reference-data": "node scripts/test-reference-data.mjs",
     "build:worker": "node scripts/build-worker.mjs",
     "deploy": "node scripts/deploy-cloudflare.mjs",
-    "db:prepare": "node scripts/prepare-db-seed.mjs"
+    "db:prepare": "node scripts/prepare-db-seed.mjs",
+    "test:worker": "node scripts/test-worker.mjs",
+    "test:ui-repairs": "node scripts/test-ui-repairs.mjs",
+    "test:map-resilience": "node scripts/test-map-resilience.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",

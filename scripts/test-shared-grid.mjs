@@ -5,7 +5,7 @@ const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
 const page=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
 const errors=[];page.on('pageerror',e=>errors.push(e.message));
 try{
-await page.goto('http://localhost:4173/#journey/clone-wars-s02e06');
+await page.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#journey/clone-wars-s02e06");
 await page.getByRole('button',{name:'Reveal locations for this title'}).click();
 await page.getByRole('button',{name:'Show Geonosis on map',exact:true}).click();
 await page.locator('.map-stage').scrollIntoViewIfNeeded();

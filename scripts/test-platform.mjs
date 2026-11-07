@@ -4,7 +4,7 @@ import { writeFile } from 'node:fs/promises';
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
 const page=await browser.newPage({viewport:{width:1440,height:1000}});
 const errors=[];page.on('pageerror',e=>errors.push(e.message));const checks=[];
-await page.goto('http://localhost:4173/#library');
+await page.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#library");
 await page.getByRole('heading',{name:'Every story starts somewhere.'}).waitFor();
 assert.equal(await page.locator('.catalog-item').count(),24);
 await page.getByRole('button',{name:'Load 24 more',exact:true}).click();
@@ -29,7 +29,7 @@ await page.screenshot({path:'evidence/platform-timeline.png',fullPage:true});che
 await page.getByRole('link',{name:/My watchlist/}).click();assert.match(await page.locator('.watch-progress-card').innerText(),/1 of 185 watched/);
 const downloadPromise=page.waitForEvent('download');await page.getByRole('button',{name:'Export watch progress'}).click();const download=await downloadPromise;assert.equal(download.suggestedFilename(),'galactic-atlas-watch-progress.json');
 await page.screenshot({path:'evidence/platform-watch.png',fullPage:true});checks.push('Watch totals, next title and JSON export');
-for (const width of [390,320]) {await page.setViewportSize({width,height:844});for (const route of ['library','timeline','watch']) {await page.goto(`http://localhost:4173/#${route}`);await page.locator('.library-view').waitFor();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`${route} ${width}px overflow`);} }
+for (const width of [390,320]) {await page.setViewportSize({width,height:844});for (const route of ['library','timeline','watch']) {await page.goto(`${process.env.ATLAS_URL || 'http://localhost:4173'}/#${route}`);await page.locator('.library-view').waitFor();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`${route} ${width}px overflow`);} }
 await page.screenshot({path:'evidence/platform-mobile.png',fullPage:true});checks.push('Library timeline watch pages fit390px and320px widths');
 await page.evaluate(()=>localStorage.setItem('galactic-atlas.watch.v1','bad json'));await page.reload();await page.locator('.storage-warning').waitFor();checks.push('Corrupt storage recovers with visible notice');
 await page.evaluate(()=>localStorage.removeItem('galactic-atlas.watch.v1'));

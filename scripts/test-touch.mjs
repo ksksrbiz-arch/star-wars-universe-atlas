@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { writeFile } from 'node:fs/promises';
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
 const page=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
-await page.goto('http://localhost:4173');
+await page.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "");
 await page.getByRole('button',{name:'Explore Alderaan',exact:true}).waitFor();
 const cdp=await page.context().newCDPSession(page);
 const marker=()=>page.getByRole('button',{name:'Explore Alderaan',exact:true}).boundingBox();

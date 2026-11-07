@@ -17,6 +17,7 @@ import Library from './Library';
 import Journey from './Journey';
 import WorldStories from './WorldStories';
 import ReferenceOverview from './ReferenceOverview';
+import MapBoundary from './MapBoundary';
 import { HYPERSPACE_ROUTES } from './hyperspaceRoutes';
 import { ALL_WORLDS } from './journeyWorlds';
 
@@ -63,7 +64,6 @@ export default function App() {
 
   const { watchedIds, toggleWatched, storageWarning, exportProgress } = useWatchProgress();
 
-  useEffect(() => { const change = () => {setView(readView()); const id = location.hash.split('/')[1]; if (CATALOG.some(item => item.id === id)) setActiveItemId(id);}; window.addEventListener('hashchange', change); return () => window.removeEventListener('hashchange', change); }, []);
 
   const [activeItemId, setActiveItemId] = useState<string | null>(() => { const id = location.hash.split('/')[1]; return CATALOG.some(item => item.id === id) ? id : null; });
   const [journeyStatus, setJourneyStatus] = useState('Choose a story, reveal its locations, then select a mapped stop.');
@@ -86,6 +86,7 @@ export default function App() {
   const [routesVisible, setRoutesVisible] = useState(true);
   const [gridVisible, setGridVisible] = useState(true);
   const [showInfo, setShowInfo] = useState(false);
+  const [mapUnavailable, setMapUnavailable] = useState(false);
 
   const [announcement, setAnnouncement] = useState('Galaxy ready. Choose a world to explore.');
 
@@ -97,6 +98,8 @@ export default function App() {
 
   const detail = DETAILS[preview.id] || {subtitle: 'A stop on your story journey',terrain: 'Not cataloged',kind: 'System grid',quote: ''};
   const mapWorlds = useMemo(() => view === 'journey' ? ALL_WORLDS.filter(w => [currentId, previewId, targetId].includes(w.id)) : ALL_WORLDS, [view, currentId, previewId, targetId]);
+  useEffect(() => { const change = () => {if (phase === 'warping') cancel(); setView(readView()); const id = location.hash.split('/')[1]; if (CATALOG.some(item => item.id === id)) setActiveItemId(id);}; window.addEventListener('hashchange', change); return () => window.removeEventListener('hashchange', change); }, [phase, currentId, view]);
+
   function selectJourneyStop(itemId: string, worldId: string) {
     if (phase === 'warping') cancel();
     setActiveItemId(itemId); window.history.replaceState(null, '', `#journey/${itemId}`); setPreviewId(worldId);
@@ -157,13 +160,13 @@ export default function App() {
 
     revealMap();
 
-    if (reducedMotion) {
+    if (reducedMotion || mapUnavailable) {
 
       setHistory(h => [...h, currentId]);
 
       setCurrentId(previewId);
 
-      setAnnouncement(`Arrived at ${preview.name}. Motion reduced.`);
+      setAnnouncement(`Arrived at ${preview.name}. ${mapUnavailable ? 'Map unavailable; instant arrival.' : 'Motion reduced.'}`);
       if (view === 'journey') setJourneyStatus(`Arrived at ${preview.name}. Choose another location or continue to the next chapter.`);
 
     } else {
@@ -272,7 +275,7 @@ export default function App() {
 
         <div className={`map-stage ${phase === 'warping' ? 'is-warping' : 'is-navigating'}`} data-quality={quality}>
 
-          <div className="galaxy-canvas">{galaxyMounted && <Suspense fallback={<div style={{padding:32,color:'#8daabb'}}>Charting the galaxy…</div>}><Galaxy worlds={mapWorlds} selectedId={currentId} previewId={previewId} targetId={targetId} phase={phase} reducedMotion={reducedMotion} quality={quality} regionsVisible={regionsVisible} routesVisible={routesVisible} gridVisible={gridVisible} onSelect={selectWorld} onArrive={arrive} resetKey={resetKey}/></Suspense>}</div>
+          <div className="galaxy-canvas">{galaxyMounted && <MapBoundary onUnavailable={() => { setMapUnavailable(true); if (phase === 'warping') cancel(); }}><Suspense fallback={<div style={{padding:32,color:'#8daabb'}}>Charting the galaxy…</div>}><Galaxy worlds={mapWorlds} selectedId={currentId} previewId={previewId} targetId={targetId} phase={phase} reducedMotion={reducedMotion} quality={quality} regionsVisible={regionsVisible} routesVisible={routesVisible} gridVisible={gridVisible} onSelect={selectWorld} onArrive={arrive} resetKey={resetKey}/></Suspense></MapBoundary>}</div>
 
           <div className="map-heading"><span className="eyebrow">GALAXY VIEW</span><span className="map-coordinate"><span className="live-dot"/> {phase === 'warping' ? 'HYPERSPACE TRANSIT' : 'NAVIGATION ONLINE'}</span></div>
 
@@ -304,7 +307,7 @@ export default function App() {
 
           <div className="story-connection"><span className="story-icon"><Globe2 size={17}/></span><div><span>STORY CONNECTION</span><strong>{preview.film}</strong></div></div>
 
-          <div className="jump-area"><button className={`jump-button ${previewId === currentId ? 'at-destination' : ''}`} onClick={jump} disabled={previewId === currentId || phase === 'warping'}>{previewId === currentId ? <><Check size={17}/> You are here</> : <><Rocket size={17}/> Jump to {preview.name}<ArrowRight size={17}/></>}</button><p>{previewId === currentId ? 'Select another world to continue exploring.' : reducedMotion ? 'Instant arrival · reduced motion enabled' : 'Cinematic transition · no simulated travel time'}</p></div>
+          <div className="jump-area"><button className={`jump-button ${previewId === currentId ? 'at-destination' : ''}`} onClick={jump} disabled={previewId === currentId || phase === 'warping'}>{previewId === currentId ? <><Check size={17}/> You are here</> : <><Rocket size={17}/> Jump to {preview.name}<ArrowRight size={17}/></>}</button><p>{previewId === currentId ? 'Select another world to continue exploring.' : mapUnavailable ? 'Instant arrival (interactive map unavailable)' : reducedMotion ? 'Instant arrival · reduced motion enabled' : 'Cinematic transition · no simulated travel time'}</p></div>
 
           <a className="source-link" href={preview.sourceUrl} target="_blank" rel="noreferrer">Read world source <ExternalLink size={12}/></a>
 

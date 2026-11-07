@@ -16,5 +16,5 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build && npm run build:worker
-      - run: npm run check:icm && npm run test:catalog && npm run test:connections && npm run test:chronology && npm run test:journey-data && npm run test:reference-data
+      - run: npm run check:icm && npm run test:catalog && npm run test:connections && npm run test:chronology && npm run test:journey-data && npm run test:reference-data && npm run test:worker
 

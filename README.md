@@ -48,7 +48,7 @@ The 181 regular episodes and four films are a bounded audit cohort, not all Star
 
 Normal application builds use the checked-in catalog and need no live API. To regenerate it from the local audit files, run `python scripts/build-catalog.py`; its default input folder is the prototype's parent, or use `--audit-dir` to specify another folder containing the two CSVs. The generator records the inputs' hashes and does not make network requests.
 
-The prototype uses React, Vite, Three.js/R3F and Drei. Navigation currently uses local React state and CSS interface transitions; the larger plan proposes XState and Motion when navigation grows. Watch progress is stored in this browser and can be exported; no account, cloud sync, or import flow is established. No live API, remote images, or audio are used at runtime. Google Fonts supplies optional Barlow Condensed and DM Sans typography; system sans-serif fallbacks apply without it. No production deployment is established by this README.
+The prototype uses React, Vite, Three.js/R3F and Drei. Navigation currently uses local React state and CSS interface transitions; the larger plan proposes XState and Motion when navigation grows. Watch progress is stored in this browser and can be exported; no account, cloud sync, or import flow is established. The browser uses its bundled catalog rather than the deployed read-only API; it loads no remote images or audio. Google Fonts supplies optional Barlow Condensed and DM Sans typography; system sans-serif fallbacks apply without it. Deployment setup and its separate live verification are documented in [deployment setup](docs/DEPLOYMENT.md).
 
 Development follows the scoped ICM contracts under [context/](context/CONTEXT.md). The checker comes from Keith's ICM kit with a Windows file-URL entry-point fix. Current-batch browser checks, device performance, and deployment must be reported separately with their actual evidence.
 
@@ -59,3 +59,7 @@ Prior local checks are recorded in [verification](evidence/verification.md) for 
 Latest completed checks and limitations: [Story journeys verification](evidence/journey-verification.md). Machine-readable coverage inventory: [journey-coverage.json](evidence/journey-coverage.json).
 
 
+
+## Bug-sweep regression checks
+
+After `npm ci`, start `npm run dev`, then run `npm run test:worker`, `npm run test:ui-repairs`, and `npm run test:map-resilience`. Browser scripts accept `ATLAS_URL` to target a specific running checkout (default `http://localhost:4173`); this avoids accidentally checking another server. The Worker regression uses mocked database and R2 bindings and does not require credentials.

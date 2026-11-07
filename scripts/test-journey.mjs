@@ -5,7 +5,7 @@ const browser = await chromium.launch({args:['--enable-unsafe-swiftshader']});
 const page = await browser.newPage({viewport:{width:1440,height:1000}});
 const errors=[];page.on('pageerror',e=>errors.push(e.message));const checks=[];
 try {
-await page.goto('http://localhost:4173/#journey/ot-empire-strikes-back');
+await page.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#journey/ot-empire-strikes-back");
 await page.locator('.journey-current h2').waitFor();
 assert.equal(await page.locator('.journey-current h2').innerText(),'The Empire Strikes Back');
 assert.equal(await page.locator('.journey-stop').count(),0);
@@ -21,14 +21,14 @@ assert.equal(await page.locator('.journey-current h2').innerText(),'Return of th
 assert.equal(await page.locator('.journey-stop').count(),0);
 assert.equal(await page.evaluate(()=>localStorage.getItem('galactic-atlas.watch.v1')),null);
 checks.push('Next chapter follows narrative sequence and preserves spoiler boundary without marking watched');
-await page.goto('http://localhost:4173/#journey/andor-s01e01');
+await page.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#journey/andor-s01e01");
 assert.match(await page.locator('.journey-current h2').innerText(),/Kassa/);
 await page.getByRole('button',{name:'Reveal locations for this title'}).click();
 await page.getByRole('button',{name:'Show Ferrix on map',exact:true}).click();
 await page.getByRole('button',{name:'Jump to Ferrix',exact:true}).first().click();
 await page.waitForFunction(()=>document.querySelector('.current-location strong')?.textContent==='Ferrix');
 checks.push('Andor deep link reaches newly charted Ferrix with complete animated arrival');
-await page.goto('http://localhost:4173/#library');
+await page.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#library");
 await page.locator('.collection-tabs').getByRole('button',{name:/The Clone Wars/}).click();
 await page.getByRole('combobox',{name:'Sort order'}).selectOption('story');
 assert.equal(await page.locator('.catalog-item h2').first().innerText(),'Cat and Mouse');
@@ -41,7 +41,7 @@ checks.push('Official CW story order and per-title Library→Journey links');
 await page.screenshot({path:'evidence/journey-desktop.png',fullPage:true});
 for (const width of [390,320]) {
  await page.setViewportSize({width,height:844});
- await page.goto('http://localhost:4173/#journey/ot-empire-strikes-back');
+ await page.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#journey/ot-empire-strikes-back");
  await page.locator('.journey-current h2').waitFor();
  const reveal = page.getByRole('button',{name:'Reveal locations for this title'}); if (await reveal.count()) await reveal.click();
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);

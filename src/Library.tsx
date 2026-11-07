@@ -31,7 +31,10 @@ export default function Library({watchedIds,onToggleWatched,initialQuery='',mode
   const actualOrder = supportsStoryOrder ? order : 'release';
   const queried = useMemo(() => seriesItems.filter(item => {
     const series = SERIES.find(s=>s.id===item.seriesId);
-    return `${item.title} ${series?.title||''} ${item.kind} ${item.season?`season ${item.season}`:''}`.toLowerCase().includes(query.trim().toLowerCase());
+    const normalized = query.trim().toLowerCase();
+    const episodeQuery = normalized.match(/^s(\d+)e(\d+)$/) ?? normalized.match(/^season\s+(\d+)\s+episode\s+(\d+)$/);
+    if (episodeQuery) return item.season === Number(episodeQuery[1]) && item.episode === Number(episodeQuery[2]);
+    return `${item.title} ${series?.title||''} ${item.kind} ${item.season !== undefined ? `season ${item.season} episode ${item.episode}` : ''}`.toLowerCase().includes(normalized);
   }),[seriesItems,query]);
   const sorted = useMemo(() => [...queried].sort(actualOrder==='story'?(a,b)=>((storyRanks.get(a.id)||0)-(storyRanks.get(b.id)||0)):releaseSort),[queried,actualOrder,storyRanks]);
   const filtered = sorted.filter(item => status==='all' || (status==='watched'?watchedIds.has(item.id):!watchedIds.has(item.id)));
