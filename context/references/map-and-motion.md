@@ -1,6 +1,6 @@
 # Map and motion contract
 
-Renderers consume the shared ALL_WORLDS registry in [journeyWorlds.ts](../../src/journeyWorlds.ts). The base [data.ts](../../src/data.ts) A–U/1–21 display window maps cell centers to x/y in [-1,1]. Twenty-seven registry positions are refined by approximate reference-image traces constrained to their published cells; 35 retain cell centers. x increases right; y increases up. SVG screen y must be inverted. This is a presentation window, not a claim of galaxy extent or physical scale.
+Renderers consume the shared ALL_WORLDS registry in [journeyWorlds.ts](../../src/journeyWorlds.ts). The base [data.ts](../../src/data.ts) A–U/1–21 display window maps cell centers to x/y in [-1,1]. Twenty-seven registry positions are refined by approximate reference-image traces constrained to their published cells; 49 retain cell centers. x increases right; y increases up. SVG screen y must be inverted. This is a presentation window, not a claim of galaxy extent or physical scale.
 
 Published grid cells identify systems. Yavin 4 uses parent Yavin's cell. The camera may travel between display positions, but animation duration is not canonical distance or elapsed story time. Illustrative planet spheres and decorative stars are not factual imagery.
 

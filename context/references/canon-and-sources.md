@@ -1,6 +1,6 @@
 # Canon and source contract
 
-[Base worlds](../../src/data.ts) and [journey worlds](../../src/journeyWorlds.ts) combine to 62 schematic destinations. The official appendix supports published system grids; setting and appearance sources support separate claims. Endor and Yavin 4 retain parent-system qualifications. A system grid does not establish an exact planet position or a story appearance.
+[Base worlds](../../src/data.ts) and [journey worlds](../../src/journeyWorlds.ts) combine to 76 schematic destinations. The official appendix supports published system grids; setting and appearance sources support separate claims. Endor and Yavin 4 retain parent-system qualifications. A system grid does not establish an exact planet position or a story appearance.
 
 Keep claim evidence distinct: screen appearance, parent system, published grid, and illustrative appearance are separate assertions. Published chronology must distinguish release order, story order, exact dates, and uncertain intervals. Future Canon/Legends and edition fields must not be inferred from names alone.
 

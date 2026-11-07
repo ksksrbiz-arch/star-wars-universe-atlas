@@ -1,6 +1,6 @@
 # Context index
 
-Status: deployed platform preview, November 7, 2026. There are 62 schematic map destinations: eight general worlds, 53 direct journey placements, and Endor's parent-system placement. The catalog exposes 193 watchable items: 189 regular episodes and four films across the original trilogy, Andor, The Clone Wars (2008), The Mandalorian, and Ahsoka season one. Nine specials are excluded. Five sourced collection viewing sequences cover all 193 items. Story/location relationships are a partial evidence pass; see [review](../evidence/journey-data-review.md).
+Status: deployed platform preview, November 7, 2026. There are 76 schematic map destinations: eight general worlds, 67 direct journey placements, and Endor's parent-system placement. The catalog exposes 193 watchable items: 189 regular episodes and four films across the original trilogy, Andor, The Clone Wars (2008), The Mandalorian, and Ahsoka season one. Nine specials are excluded. Five sourced collection viewing sequences cover all 193 items. Story/location relationships are a partial evidence pass; see [review](../evidence/journey-data-review.md).
 
 ## Workflows
 
@@ -20,7 +20,7 @@ Status: deployed platform preview, November 7, 2026. There are 62 schematic map 
 
 ## Current evidence
 
-Integrated relationships: 270 links, 187 covered titles, 93 distinct worlds, and 6 titles without current links. Coverage is partial even for covered titles. The 62 mapped destinations and 93 relationship-world names measure different things; unsupported placements remain textual.
+Integrated relationships: 283 links, 187 covered titles, 96 distinct worlds, and 6 titles without current links. Coverage is partial even for covered titles. The 76 mapped destinations and 96 relationship-world names measure different things; unsupported placements remain textual.
 
 Geographic source and schematic projection are documented in the data module. Eight world names/grids were checked against the earlier official-appendix audit; all current entries match. Official Databank pages support the broad setting descriptions, with era/edition limits retained. Hoth and Bespin share cell K-18; Yavin 4 uses the parent-system cell.
 

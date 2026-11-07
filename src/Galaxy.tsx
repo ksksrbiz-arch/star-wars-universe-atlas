@@ -28,6 +28,7 @@ function Html({ children, position, style, zIndexRange = [12, 1], minZoom = 0 }:
   const point = useMemo(() => new THREE.Vector3(), [])
   useEffect(() => {
     const container = document.createElement('div')
+    container.dataset.mapHtml = 'true'
     Object.assign(container.style, { position: 'absolute', top: '0', left: '0', pointerEvents: 'none', visibility: 'hidden' })
     gl.domElement.parentElement?.appendChild(container)
     const domRoot = createRoot(container)
@@ -137,13 +138,62 @@ function LabelLeader({ offset, minZoom = 0 }: { offset: [number, number]; minZoo
   </lineSegments>
 }
 
+const featuredWorlds = new Set(['tatooine','alderaan','yavin','coruscant','hoth','bespin','dagobah','mandalore'])
+const haloVertex = `varying vec2 vUv; void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`
+const haloFragment = `varying vec2 vUv;uniform vec3 tint;void main(){float r=length(vUv-.5)*2.;float glow=exp(-r*r*5.)*(1.-smoothstep(.72,1.,r));gl_FragColor=vec4(tint,glow*.35);}`
+
+/** Only optional zoom-level labels yield to overlaps. Current, preview and chapter
+ * labels stay present; every destination also remains available in the finder. */
+function LabelDeclutter() {
+  const {gl,size} = useThree()
+  useFrame(() => {
+    const root = gl.domElement.parentElement
+    if (!root) return
+    const bounds = gl.domElement.getBoundingClientRect()
+    const labels = [...root.querySelectorAll<HTMLButtonElement>('.world-map-label')]
+      .sort((a,b) => Number(b.dataset.labelPriority)-Number(a.dataset.labelPriority) || (a.textContent ?? '').localeCompare(b.textContent ?? ''))
+    const occupied: DOMRect[] = []
+    for (const label of labels) {
+      const container = label.closest<HTMLElement>('[data-map-html]')
+      if (!container || container.style.visibility !== 'visible') continue
+      label.style.translate = 'none'
+      let rect = label.getBoundingClientRect()
+      const essential = Number(label.dataset.labelPriority)>0 || label === document.activeElement
+      // Clamp labels for on-screen priority markers, never move their source dots.
+      const anchor = container.getBoundingClientRect()
+      const onScreen = anchor.left >= bounds.left && anchor.left <= bounds.right && anchor.top >= bounds.top && anchor.top <= bounds.bottom
+      let dx = 0, dy = 0
+      if (essential && onScreen) {
+        dx = Math.max(bounds.left+5-rect.left, Math.min(0,bounds.right-5-rect.right))
+        dy = Math.max(bounds.top+5-rect.top, Math.min(0,bounds.bottom-5-rect.bottom))
+        if (dx || dy) { label.style.translate = `${dx}px ${dy}px`; rect = new DOMRect(rect.x+dx,rect.y+dy,rect.width,rect.height) }
+      }
+      label.dataset.labelClamped = String(Boolean(dx || dy))
+      const clipped = rect.left < bounds.left+4 || rect.right > bounds.right-4 || rect.top < bounds.top+4 || rect.bottom > bounds.bottom-4
+      const overlaps = occupied.some(other => rect.left < other.right+4 && rect.right > other.left-4 && rect.top < other.bottom+4 && rect.bottom > other.top-4)
+      const hidden = !essential && (clipped || overlaps)
+      label.dataset.decluttered = String(hidden)
+      if (!hidden) occupied.push(rect)
+    }
+  })
+  // Keep resize in the component lifecycle without creating a continuous loop.
+  return <group name={`map-label-layout-${size.width}-${size.height}`} />
+}
+
 function WorldMarker({ world, highlighted, selected, previewed, disabled, onSelect, sharedOffset }: { sharedOffset?: [number, number]; world: World; highlighted: boolean; selected: boolean; previewed: boolean; disabled: boolean; onSelect: Props['onSelect'] }) {
   const drag = useRef({ x: 0, y: 0, moved: false })
+  const { size } = useThree()
   const color = selected ? '#ffd49b' : previewed ? '#c4edf5' : highlighted ? '#dbb9ff' : '#91b9c8'
   const offset = sharedOffset ?? labelOffsets[world.id] ?? [0, 0]
-  const minZoom = selected || previewed || highlighted || ['tatooine','alderaan','yavin','coruscant','hoth','bespin','dagobah','mandalore'].includes(world.id) ? 0 : 55
+  const priority = selected || previewed ? 3 : highlighted ? 2 : featuredWorlds.has(world.id) ? 1 : 0
+  const haloUniforms = useMemo(() => ({tint: {value: new THREE.Color(color)}}), [color])
+  const minZoom = priority > 0 ? 0 : Math.max(24, Math.min(55, size.width / 9))
   return <group position={[world.x * 10, world.y * 10, .1]}>
     <LabelLeader offset={offset} minZoom={minZoom} />
+    {(selected || previewed || highlighted) && <mesh position={[0,0,-.015]} raycast={()=>undefined}>
+      <circleGeometry args={[highlighted ? .56 : .46,48]}/>
+      <shaderMaterial vertexShader={haloVertex} fragmentShader={haloFragment} uniforms={haloUniforms} transparent depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false}/>
+    </mesh>}
     <mesh><circleGeometry args={[selected ? .115 : .068, 24]} /><meshBasicMaterial color={color} /></mesh>
     {highlighted && <mesh><ringGeometry args={[.40, .445, 48]} /><meshBasicMaterial color="#c49aff" transparent opacity={.95} depthWrite={false}/></mesh>}
     {selected && <>
@@ -151,14 +201,14 @@ function WorldMarker({ world, highlighted, selected, previewed, disabled, onSele
       <mesh><ringGeometry args={[.33, .338, 64]} /><meshBasicMaterial color="#dbad72" transparent opacity={.24} /></mesh>
     </>}
     {previewed && !selected && <mesh><ringGeometry args={[.2, .215, 48]} /><meshBasicMaterial color="#a3d9e6" transparent opacity={.8} /></mesh>}
-    <Html center position={[0, -.39, .2]} zIndexRange={[12, 1]} minZoom={selected || previewed || highlighted || ['tatooine','alderaan','yavin','coruscant','hoth','bespin','dagobah','mandalore'].includes(world.id) ? 0 : 55}>
-      <button className={`world-map-label${selected ? ' is-current' : ''}${previewed ? ' is-preview' : ''}${highlighted ? ' is-episode' : ''}`} data-episode-location={highlighted ? world.id : undefined} title={`${world.name} · source grid ${world.grid}${highlighted ? ' · Sourced chapter location; no visit order implied' : ''}`} disabled={disabled}
+    <Html center position={[0, -.39, .2]} zIndexRange={[12, 1]} minZoom={minZoom}>
+      <button className={`world-map-label${selected ? ' is-current' : ''}${previewed ? ' is-preview' : ''}${highlighted ? ' is-episode' : ''}`} data-label-priority={priority} data-world-id={world.id} data-episode-location={highlighted ? world.id : undefined} title={`${world.name} · source grid ${world.grid}${highlighted ? ' · Sourced chapter location; no visit order implied' : ''}`} disabled={disabled}
         onPointerDown={(e) => { drag.current = { x: e.clientX, y: e.clientY, moved: false }; e.currentTarget.setPointerCapture(e.pointerId) }}
         onPointerMove={(e) => { if (e.buttons && Math.hypot(e.clientX - drag.current.x, e.clientY - drag.current.y) > 6) drag.current.moved = true }}
         onPointerCancel={() => { drag.current.moved = true }}
         onClick={(e) => { e.stopPropagation(); if (e.detail === 0 || !drag.current.moved) onSelect(world.id) }} aria-label={`Explore ${world.name}`} aria-pressed={selected}
         style={{ color, cursor: disabled ? 'default' : 'pointer', fontSize: selected || highlighted ? 12 : 11, fontWeight: selected || highlighted ? 600 : 500, padding: '12px 10px', minHeight: 44, transform: `translate(${offset[0]}px, ${offset[1]}px)`, textShadow: '0 2px 8px #000, 0 0 5px #000', letterSpacing: '.035em', whiteSpace: 'nowrap', fontFamily: 'inherit', opacity: disabled ? .35 : 1, transition: 'opacity 180ms' }}>
-        {world.name}
+        <span className="map-label-symbol" aria-hidden="true">{selected ? '●' : previewed ? '◇' : highlighted ? '◆' : '·'}</span><span>{world.name}</span>
       </button>
     </Html>
   </group>
@@ -307,6 +357,7 @@ function Scene(props: Props) {
     {props.gridVisible && <ReferenceGridLabels/>}
     {from && preview && from.id !== preview.id && (from.x !== preview.x || from.y !== preview.y) && <PreviewConnection from={from} to={preview} />}
     {props.worlds.map(w => <WorldMarker key={w.id} sharedOffset={episodeOffsets.get(w.id) ?? (() => {const siblings = props.worlds.filter(other => other.grid === w.grid && (['tatooine','alderaan','yavin','coruscant','hoth','bespin','dagobah','mandalore'].includes(other.id) || other.id === props.selectedId || other.id === props.previewId || props.highlightedIds?.has(other.id))); return siblings.length > 1 && !siblings.every(other => ['hoth','bespin'].includes(other.id)) ? [0, (siblings.findIndex(other => other.id === w.id) - (siblings.length-1)/2)*52] as [number,number] : undefined;})()} world={w} highlighted={props.highlightedIds?.has(w.id) ?? false} selected={w.id === props.selectedId} previewed={w.id === props.previewId} disabled={props.phase === 'warping'} onSelect={props.onSelect} />)}
+    <LabelDeclutter />
     <WarpEffect progressRef={warpProgress} active={props.phase === 'warping'} reducedMotion={props.reducedMotion} quality={props.quality} />
     <OrbitControls onStart={() => {fitted.current.active = false}} ref={controls} makeDefault enableRotate={false} enableDamping dampingFactor={.12} enablePan={props.phase === 'idle'} enableZoom={props.phase === 'idle'} minZoom={limits[0]} maxZoom={limits[1]} zoomSpeed={.7} panSpeed={.8} screenSpacePanning mouseButtons={{ LEFT: THREE.MOUSE.PAN, MIDDLE: THREE.MOUSE.DOLLY, RIGHT: THREE.MOUSE.PAN }} touches={{ ONE: THREE.TOUCH.PAN, TWO: THREE.TOUCH.DOLLY_PAN }} />
   </>

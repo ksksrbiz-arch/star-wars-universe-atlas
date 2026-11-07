@@ -75,8 +75,8 @@ for(const world of ALL_WORLDS) {
     traced++;
   } else {assert.deepEqual({x:world.x,y:world.y},center);retained++;}
 }
-assert.equal(traced,27);assert.equal(retained,35);
-checks.push('27 reference-traced world symbols remain within published cells; 35 untraced worlds retain their existing grid centers.');
+assert.equal(traced,27);assert.equal(retained,ALL_WORLDS.length-27);
+checks.push(`27 reference-traced world symbols remain within published cells; ${retained} untraced worlds retain grid centers.`);
 
 const report={checkedOn:'2026-11-07',checks,counts:{regions:GALACTIC_REGIONS.length,routes:HYPERSPACE_ROUTES.length,tracedWorlds:traced,gridCenterWorlds:retained},limitations:['Geometry checks establish internal consistency, not independent cartographic accuracy.','Routes are simplified visual traces; missing branches, intermediate systems, and era availability are not inferred.','Reference-image resolution and label density limit exact symbol and border placement.']};
 await writeFile('evidence/reference-data-results.json',JSON.stringify(report,null,2));

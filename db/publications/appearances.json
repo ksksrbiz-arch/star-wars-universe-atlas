@@ -1,10 +1,11 @@
 {
-  "id": "catalog-sha256-5a2fbd9be2a39f2ae2596902bdc7659a3e804b1996deb9dae420329c5c5249d5",
-  "sha256": "bfbf39219a288d93fe1e875447aefb37a5556433b289aad685f97c9027d37686",
+  "id": "catalog-sha256-830d2d213e3009a8e609cc57c6b2a8dda9bddba31bdd4d721751d86ff690171c",
+  "sha256": "bac8db5d587ffe0a7b09b68486d271c6018013694db3fd4b0c175b0b38e126f6",
   "works": 193,
-  "worlds": 62,
-  "appearances": 270,
+  "worlds": 76,
+  "appearances": 283,
   "coveredTitles": 187,
+  "worldsSha256": "ee7e18f1b2794b5ca8839f6070bdd0645d4bf5d9363a98df0da972fcce35eb0e",
   "catalogSha256": "dab929295d55904835c936cb192ef6c032ebb4bfbd9651983c345136563e9b77",
   "sequencesSha256": "9959824685ddf9a2b6142c1ec04e34e90e32c7c6212fcaa02ca10f8ee4b1b6bf",
   "sequences": 5

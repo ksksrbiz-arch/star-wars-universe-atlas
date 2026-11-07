@@ -7,3 +7,12 @@
 @media(hover:hover){.world-map-label:hover:not(:disabled){background:#122b3bea;border-color:#8ec4d67a;box-shadow:0 0 14px #75cbe31a}}
 @media(prefers-reduced-motion:reduce){.world-map-label{transition:none!important}}
 .atlas-app[data-reduced-motion='true'] .world-map-label{transition:none!important}
+
+/* Optional labels are culled in screen space as the view gets dense. */
+.world-map-label[data-decluttered='true']{visibility:hidden;pointer-events:none}
+.world-map-label{display:inline-flex;align-items:center;gap:5px}
+.map-label-symbol{font-size:11px;line-height:1;flex:0 0 auto;opacity:.85}
+.world-map-label:not(.is-current):not(.is-preview):not(.is-episode) .map-label-symbol{font-size:15px;opacity:.6}
+.world-map-label.is-current{box-shadow:0 2px 12px #0007,inset 0 0 14px #c49a3a12}
+.world-map-label.is-preview:not(.is-current){border-color:#8cddea8a;box-shadow:0 2px 12px #0007,inset 0 0 14px #64cfe818}
+.world-map-label.is-episode:not(.is-current):not(.is-preview){box-shadow:0 2px 12px #0007,inset 0 0 14px #b78be818}

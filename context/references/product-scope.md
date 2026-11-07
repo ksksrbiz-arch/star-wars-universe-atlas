@@ -1,6 +1,6 @@
 # Product scope
 
-Movies and shows first. The local prototype has 62 schematic destinations: eight general worlds, 53 additional direct system-grid placements, and Endor’s forest moon using a documented parent-system join. It combines galaxy navigation, cinematic travel, dossiers, a film/episode library, release timeline, collection viewing sequences, partial story/location relationships, and browser-local progress.
+Movies and shows first. The local prototype has 76 schematic destinations: eight general worlds, 67 additional direct system-grid placements, and Endor’s forest moon using a documented parent-system join. It combines galaxy navigation, cinematic travel, dossiers, a film/episode library, release timeline, collection viewing sequences, partial story/location relationships, and browser-local progress.
 
 The bounded catalog contains 193 items: three original-trilogy films, Andor's 24 episodes, The Clone Wars (2008)'s 133 episodes and film, The Mandalorian's 24 episodes, and Ahsoka season one's eight episodes. The original 185-item audit cohort is preserved separately from the Ahsoka source snapshot. Nine promotional/Legacy specials are excluded. The 2003 Clone Wars series, The Mandalorian and Grogu film, books, comics, games, and Legends are outside this slice.
 

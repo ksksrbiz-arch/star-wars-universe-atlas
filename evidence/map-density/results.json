@@ -1,0 +1,25 @@
+{
+  "checks": [
+    {
+      "width": 1440,
+      "total": 76,
+      "zoomed": 76,
+      "culled": 61,
+      "optional": 7,
+      "overlaps": 0,
+      "selectedAlwaysAvailable": true,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "total": 76,
+      "zoomed": 76,
+      "culled": 64,
+      "optional": 4,
+      "overlaps": 0,
+      "selectedAlwaysAvailable": true,
+      "errors": []
+    }
+  ],
+  "note": "Desktop Chromium software WebGL; emulated viewports, no physical-device FPS measurement."
+}
