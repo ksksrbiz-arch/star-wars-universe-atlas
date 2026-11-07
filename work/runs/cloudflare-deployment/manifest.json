@@ -1,0 +1,16 @@
+{
+  "status": "complete",
+  "appCommit": "a230aff26a0febdcb5ef374cfe64a65caa90024e",
+  "buildId": "2cb2cbb9-2c3f-4774-95a7-b2a4a83e7bc0",
+  "deploymentId": "062430696fba48a2b30a09b42864a8ef",
+  "url": "https://star-wars-universe-atlas.skdev-371.workers.dev",
+  "repository": "ksksrbiz-arch/star-wars-universe-atlas",
+  "handoff": "evidence/deployment/verification.md",
+  "checks": "Cloudflare build/data checks and live desktop/mobile/API checks passed",
+  "limitations": [
+    "GitHub Actions account billing lock; Cloudflare Builds used for automatic checks",
+    "Browser-local user progress",
+    "Neon free plan; no recovery drill",
+    "No custom domain or media processing pipeline"
+  ]
+}
