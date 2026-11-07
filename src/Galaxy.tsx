@@ -58,6 +58,7 @@ type Props = {
   routesVisible?: boolean
   gridVisible?: boolean
   quality?: GalaxyQuality
+  highlightedIds?: ReadonlySet<string>
   worlds: World[]
   selectedId: string
   targetId: string | null
@@ -134,21 +135,22 @@ function LabelLeader({ offset, minZoom = 0 }: { offset: [number, number]; minZoo
   </lineSegments>
 }
 
-function WorldMarker({ world, selected, previewed, disabled, onSelect, sharedOffset }: { sharedOffset?: [number, number]; world: World; selected: boolean; previewed: boolean; disabled: boolean; onSelect: Props['onSelect'] }) {
+function WorldMarker({ world, highlighted, selected, previewed, disabled, onSelect, sharedOffset }: { sharedOffset?: [number, number]; world: World; highlighted: boolean; selected: boolean; previewed: boolean; disabled: boolean; onSelect: Props['onSelect'] }) {
   const drag = useRef({ x: 0, y: 0, moved: false })
-  const color = selected ? '#ffd49b' : previewed ? '#c4edf5' : '#91b9c8'
+  const color = selected ? '#ffd49b' : previewed ? '#c4edf5' : highlighted ? '#dbb9ff' : '#91b9c8'
   const offset = sharedOffset ?? labelOffsets[world.id] ?? [0, 0]
-  const minZoom = selected || previewed || ['tatooine','alderaan','yavin','coruscant','hoth','bespin','dagobah','mandalore'].includes(world.id) ? 0 : 55
+  const minZoom = selected || previewed || highlighted || ['tatooine','alderaan','yavin','coruscant','hoth','bespin','dagobah','mandalore'].includes(world.id) ? 0 : 55
   return <group position={[world.x * 10, world.y * 10, .1]}>
     <LabelLeader offset={offset} minZoom={minZoom} />
     <mesh><circleGeometry args={[selected ? .115 : .068, 24]} /><meshBasicMaterial color={color} /></mesh>
+    {highlighted && <mesh><ringGeometry args={[.40, .445, 48]} /><meshBasicMaterial color="#c49aff" transparent opacity={.95} depthWrite={false}/></mesh>}
     {selected && <>
       <mesh><ringGeometry args={[.23, .242, 64]} /><meshBasicMaterial color="#dbad72" transparent opacity={.8} /></mesh>
       <mesh><ringGeometry args={[.33, .338, 64]} /><meshBasicMaterial color="#dbad72" transparent opacity={.24} /></mesh>
     </>}
     {previewed && !selected && <mesh><ringGeometry args={[.2, .215, 48]} /><meshBasicMaterial color="#a3d9e6" transparent opacity={.8} /></mesh>}
-    <Html center position={[0, -.39, .2]} zIndexRange={[12, 1]} minZoom={selected || previewed || ['tatooine','alderaan','yavin','coruscant','hoth','bespin','dagobah','mandalore'].includes(world.id) ? 0 : 55}>
-      <button disabled={disabled}
+    <Html center position={[0, -.39, .2]} zIndexRange={[12, 1]} minZoom={selected || previewed || highlighted || ['tatooine','alderaan','yavin','coruscant','hoth','bespin','dagobah','mandalore'].includes(world.id) ? 0 : 55}>
+      <button data-episode-location={highlighted ? world.id : undefined} title={highlighted ? "Sourced location in this chapter; no visit order implied" : undefined} disabled={disabled}
         onPointerDown={(e) => { drag.current = { x: e.clientX, y: e.clientY, moved: false }; e.currentTarget.setPointerCapture(e.pointerId) }}
         onPointerMove={(e) => { if (e.buttons && Math.hypot(e.clientX - drag.current.x, e.clientY - drag.current.y) > 6) drag.current.moved = true }}
         onPointerCancel={() => { drag.current.moved = true }}
@@ -263,7 +265,7 @@ function Scene(props: Props) {
     {props.regionsVisible && GALACTIC_REGION_LABELS.map(label=><Html key={label.id} position={label.position} style={{pointerEvents:'none'}} zIndexRange={[3,1]}><span className="region-map-label" style={{borderLeft:`2px solid ${label.color}`}}>{label.name}</span></Html>)}
     {props.gridVisible && <ReferenceGridLabels/>}
     {from && preview && from.id !== preview.id && (from.x !== preview.x || from.y !== preview.y) && <PreviewConnection from={from} to={preview} />}
-    {props.worlds.map(w => <WorldMarker key={w.id} sharedOffset={(() => {const siblings = props.worlds.filter(other => other.grid === w.grid && (['tatooine','alderaan','yavin','coruscant','hoth','bespin','dagobah','mandalore'].includes(other.id) || other.id === props.selectedId || other.id === props.previewId)); return siblings.length > 1 && !siblings.every(other => ['hoth','bespin'].includes(other.id)) ? [0, (siblings.findIndex(other => other.id === w.id) - (siblings.length-1)/2)*52] as [number,number] : undefined;})()} world={w} selected={w.id === props.selectedId} previewed={w.id === props.previewId} disabled={props.phase === 'warping'} onSelect={props.onSelect} />)}
+    {props.worlds.map(w => <WorldMarker key={w.id} sharedOffset={(() => {const siblings = props.worlds.filter(other => other.grid === w.grid && (['tatooine','alderaan','yavin','coruscant','hoth','bespin','dagobah','mandalore'].includes(other.id) || other.id === props.selectedId || other.id === props.previewId || props.highlightedIds?.has(other.id))); return siblings.length > 1 && !siblings.every(other => ['hoth','bespin'].includes(other.id)) ? [0, (siblings.findIndex(other => other.id === w.id) - (siblings.length-1)/2)*52] as [number,number] : undefined;})()} world={w} highlighted={props.highlightedIds?.has(w.id) ?? false} selected={w.id === props.selectedId} previewed={w.id === props.previewId} disabled={props.phase === 'warping'} onSelect={props.onSelect} />)}
     <WarpEffect progressRef={warpProgress} active={props.phase === 'warping'} reducedMotion={props.reducedMotion} quality={props.quality} />
     <OrbitControls ref={controls} makeDefault enableRotate={false} enableDamping dampingFactor={.12} enablePan={props.phase === 'idle'} enableZoom={props.phase === 'idle'} minZoom={limits[0]} maxZoom={limits[1]} zoomSpeed={.7} panSpeed={.8} screenSpacePanning mouseButtons={{ LEFT: THREE.MOUSE.PAN, MIDDLE: THREE.MOUSE.DOLLY, RIGHT: THREE.MOUSE.PAN }} touches={{ ONE: THREE.TOUCH.PAN, TWO: THREE.TOUCH.DOLLY_PAN }} />
   </>

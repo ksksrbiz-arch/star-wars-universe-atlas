@@ -38,7 +38,12 @@
     "test:map-resilience": "node scripts/test-map-resilience.mjs",
     "test:world-story-search": "node scripts/test-world-story-search.mjs",
     "test:world-directory": "node scripts/test-world-directory.mjs",
-    "test:journey-browse": "node scripts/test-journey-browse.mjs"
+    "test:journey-browse": "node scripts/test-journey-browse.mjs",
+    "db:prepare-publication": "node scripts/prepare-appearance-publication.mjs",
+    "db:check-publication": "node scripts/apply-appearance-publication.mjs",
+    "db:publish": "node scripts/apply-appearance-publication.mjs --apply",
+    "test:publication": "node scripts/test-appearance-publication.mjs",
+    "test:episode-highlights": "node scripts/test-episode-highlights.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",

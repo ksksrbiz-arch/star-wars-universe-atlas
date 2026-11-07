@@ -1,12 +1,20 @@
 import {chromium} from 'playwright';
+import {appearanceDigest} from './appearance-publication.mjs';
 import assert from 'node:assert/strict';
-import {writeFile,mkdir} from 'node:fs/promises';
+import {writeFile,mkdir,readFile} from 'node:fs/promises';
 const base=process.env.ATLAS_URL||'https://star-wars-universe-atlas.skdev-371.workers.dev';
+const expectationSource=process.env.ATLAS_DB_EXPECTATION_FILE || new URL('../cloudflare/database-expectation.json',import.meta.url);
+const expected=JSON.parse(await readFile(expectationSource,'utf8'));
+for(const key of ['works','worlds','appearances']) assert.ok(Number.isSafeInteger(expected[key]) && expected[key]>0,`Invalid database expectation: ${key}`);
+assert.ok(typeof expected.id==='string' && expected.id.length>0,'Database expectation must name its intended publication');
+assert.match(expected.sha256,/^[0-9a-f]{64}$/,'Database expectation must include the reviewed appearance payload digest');
+const expectedCounts={...{sequences:4,regions:8,routes:5},...expected};
+for(const key of ['sequences','regions','routes']) assert.ok(Number.isSafeInteger(expectedCounts[key]) && expectedCounts[key]>0,`Invalid database expectation: ${key}`);
 await mkdir('evidence/deployment',{recursive:true});
 const checks=[];
-const health=await fetch(base+'/api/health');assert.equal(health.status,200);const data=await health.json();assert.deepEqual({works:data.works,worlds:data.worlds,appearances:data.appearances},{works:185,worlds:62,appearances:171});checks.push('Live Hyperdrive/Postgres health and catalog counts');
-for(const [endpoint,count]of [['catalog',185],['worlds',62],['appearances',171],['sequences',4],['regions',8],['routes',5]]){const r=await fetch(base+'/api/'+endpoint);assert.equal(r.status,200);assert.equal((await r.json()).items.length,count);}
-checks.push('All six public catalog endpoints return expected records');
+const health=await fetch(base+'/api/health');assert.equal(health.status,200);const data=await health.json();assert.deepEqual({works:data.works,worlds:data.worlds,appearances:data.appearances},{works:expected.works,worlds:expected.worlds,appearances:expected.appearances});checks.push(`Live database counts match explicit expectation ${expected.id}; independent of bundled frontend data`);
+for(const [endpoint,count]of [['catalog',expected.works],['worlds',expected.worlds],['appearances',expected.appearances],['sequences',expectedCounts.sequences],['regions',expectedCounts.regions],['routes',expectedCounts.routes]]){const r=await fetch(base+'/api/'+endpoint);assert.equal(r.status,200);const items=(await r.json()).items;assert.equal(items.length,count);if(endpoint==='appearances'){assert.equal(appearanceDigest(items),expected.sha256,'Published appearance content differs from the explicit expected publication');if(expected.coveredTitles!==undefined)assert.equal(new Set(items.map(item=>item.itemId)).size,expected.coveredTitles);}}
+checks.push('All six public catalog endpoints return expected records; full appearance payload digest matches reviewed expectation');
 assert.equal((await fetch(base+'/api/not-found')).status,404);
 assert.equal((await fetch(base+'/api/catalog',{method:'POST'})).status,405);
 assert.equal((await fetch(base+'/media/nonexistent-verification-object')).status,404);
@@ -34,6 +42,6 @@ try{
   await page.close();
  }
  assert.deepEqual(errors,[]);
-}finally{await browser.close();await writeFile('evidence/deployment/live-results.json',JSON.stringify({url:base,checkedAt:new Date().toISOString(),checks,errors,limitation:'Software WebGL and emulated mobile; not physical-device performance measurements'},null,2));}
+}finally{await browser.close();await writeFile('evidence/deployment/live-results.json',JSON.stringify({url:base,checkedAt:new Date().toISOString(),databaseExpectation:expected,appearanceContentVerified:true,publicationRowIdentityVerified:false,checks,errors,limitation:'Appearance content digest verified; publication-row identity is not exposed by the API. Software WebGL and emulated mobile; not physical-device performance measurements'},null,2));}
 console.log(JSON.stringify({checks,errors},null,2));
 

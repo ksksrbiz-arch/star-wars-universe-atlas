@@ -137,10 +137,38 @@ export const CONNECTION_COVERAGE = {
   semantics: 'Title/world associations include planets, moons, surrounding orbital action, and explicitly labeled flashbacks or destruction scenes. They are not a single character’s itinerary.',
   evidenceBasis: 'Most links use named settings in official synopses or episode commentary. Notes explicitly identify a smaller set based on the exact episode guide’s named location index; these establish an association, not a particular scene or character visit. Generic character biographies and broad world-to-series appearances are not episode evidence.',
   ordering: 'No within-title sequence has been assigned. Array order is editorial grouping, not story order or travel order.',
-  omissions: 'Missing relationships and uncovered titles mean not yet audited, not absence of a world. Edition-specific Return of the Jedi celebration locations are not included.',
+  omissions: 'Missing relationships do not establish absence of a world; reviewed title gaps are recorded separately. Edition-specific Return of the Jedi celebration locations are not included.',
   reviewedWithoutPlanetLink: [
-    { itemId: 'mandalorian-s01e06', reason: 'Reviewed official Chapter 6 highlights: the central mission is on a New Republic prison transport. No named planet appearance was verified; this is not a claim of zero locations.' },
-    { itemId: 'mandalorian-s02e08', reason: 'Reviewed Chapter 16 guide: the rescue is ship-based. Official announcements corroborate the Boba Fett end-credit scene, but a direct episode-specific Tatooine location anchor remains to be added. No claim of zero planet appearances.' },
+    {
+      "itemId": "clone-wars-s01e02",
+      "reason": "The exact episode gallery names the Abregado and Bith systems and a debris-field rescue. It does not identify a particular planet or moon appearance; system names are not silently converted into planet IDs.",
+      "sourceUrl": "https://www.starwars.com/series/clone-wars/rising-malevolence-episode-gallery"
+    },
+    {
+      "itemId": "clone-wars-s01e03",
+      "reason": "The exact episode gallery names the Ryndellia system, Kaliida Shoals medical station, Kaliida nebula, and Balmorra Run. No named planet/moon was established; a route name is not a planetary visit.",
+      "sourceUrl": "https://www.starwars.com/series/clone-wars/shadow-of-malevolence-episode-gallery"
+    },
+    {
+      "itemId": "clone-wars-s01e04",
+      "reason": "The exact episode gallery describes the Malevolence striking a dead moon but supplies no moon name. A Naboo yacht denotes vessel provenance, not a Naboo visit.",
+      "sourceUrl": "https://www.starwars.com/series/clone-wars/destroy-malevolence-episode-gallery"
+    },
+    {
+      "itemId": "mandalorian-s01e06",
+      "reason": "The official episode highlights describe a New Republic prison-ship mission. No named planet appearance was verified; this is not a claim of zero locations.",
+      "sourceUrl": "https://www.starwars.com/news/bounty-hunting-highlights-the-mandalorian-chapter-6-the-prisoner"
+    },
+    {
+      "itemId": "clone-wars-s07e12",
+      "reason": "The exact episode story gallery describes a cruiser crash, burials, and an Imperial-era epilogue on an unnamed moon. It does not supply a stable named-world identity; neither a guessed name nor coordinates are assigned.",
+      "sourceUrl": "https://www.starwars.com/series/clone-wars/victory-and-death-episode-guide"
+    },
+    {
+      "itemId": "mandalorian-s02e08",
+      "reason": "The official Chapter 16 guide and Mando Download article were reviewed. The ship-based rescue is explicit, but this review did not verify an episode-specific Tatooine anchor for the end-credit scene. The gap is an evidence limitation, not a denial of that scene.",
+      "sourceUrl": "https://www.starwars.com/news/mando-download-chapter-16-the-rescue"
+    }
   ],
   coordinates: 'Connections supply no coordinates. Render only worlds with separately sourced map placement; retain unmapped worlds in textual evidence.',
 } as const;

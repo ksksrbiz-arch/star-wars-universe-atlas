@@ -26,6 +26,9 @@ import { HYPERSPACE_ROUTES } from './hyperspaceRoutes';
 import { ALL_WORLDS } from './journeyWorlds';
 
 import { CATALOG } from './catalog';
+import { CONNECTIONS } from './connections';
+import { STORY_SEQUENCES } from './chronology';
+import './episode-highlights.css';
 
 import { useWatchProgress } from './useWatchProgress';
 
@@ -73,6 +76,7 @@ export default function App() {
 
 
   const [activeItemId, setActiveItemId] = useState<string | null>(() => { const id = location.hash.split('/')[1]; return CATALOG.some(item => item.id === id) ? id : null; });
+  const [journeyDisclosure, setJourneyDisclosure] = useState<{ itemId: string; revealed: boolean } | null>(null);
   const [journeyStatus, setJourneyStatus] = useState('Choose a story, reveal its locations, then select a mapped stop.');
   const [currentId, setCurrentId] = useState(WORLDS[0].id);
 
@@ -104,7 +108,11 @@ export default function App() {
   const destination = ALL_WORLDS.find(w => w.id === targetId);
 
   const detail = DETAILS[preview.id] || {subtitle: 'A stop on your story journey',terrain: 'Not cataloged',kind: 'System grid',quote: ''};
-  const mapWorlds = useMemo(() => view === 'journey' ? ALL_WORLDS.filter(w => [currentId, previewId, targetId].includes(w.id)) : ALL_WORLDS, [view, currentId, previewId, targetId]);
+  const displayedJourneyId = activeItemId ?? STORY_SEQUENCES[0]?.itemIds[0];
+  const locationsDisclosed = view === 'journey' && journeyDisclosure?.itemId === displayedJourneyId && (journeyDisclosure.revealed || watchedIds.has(displayedJourneyId));
+  const episodeWorldIds = useMemo(() => new Set(locationsDisclosed ? CONNECTIONS.filter(link => link.itemId === displayedJourneyId).map(link => link.worldId) : []), [locationsDisclosed, displayedJourneyId]);
+  const highlightedWorlds = ALL_WORLDS.filter(world => episodeWorldIds.has(world.id));
+  const mapWorlds = useMemo(() => view === 'journey' ? ALL_WORLDS.filter(w => [currentId, previewId, targetId].includes(w.id) || episodeWorldIds.has(w.id)) : ALL_WORLDS, [view, currentId, previewId, targetId, episodeWorldIds]);
   useEffect(() => {
     const change = () => {
       if (phase === 'warping') cancel();
@@ -274,7 +282,7 @@ export default function App() {
     {view !== 'galaxy' && view !== 'journey' && <main className="platform-main"><Library mode={view} watchedIds={watchedIds} onToggleWatched={toggleWatched}/>{view === 'watch' && <ProgressTools exportProgress={exportProgress} importProgress={importProgress}/>}<p className="catalog-attribution">Episode metadata: <a href="https://www.tvmaze.com" target="_blank" rel="noreferrer">TVmaze</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA</a>. Curated catalog; title-level location links are still being researched. Progress stays in this browser.</p></main>}
 
     <main id="atlas" hidden={view !== 'galaxy' && view !== 'journey'}>
-      {view === 'journey' && <><Journey onToggleWatched={toggleWatched} watchedIds={watchedIds} onSelectStop={selectJourneyStop} activeItemId={activeItemId} onActiveItemChange={id => {if(phase === 'warping') cancel();setActiveItemId(id);setPreviewId(currentId);window.history.replaceState(null, '', `#journey/${id}`);setJourneyStatus('Choose a revealed mapped location to preview your next stop.');}}/><p className="journey-map-status" role="status">{journeyStatus}</p></>}
+      {view === 'journey' && <><Journey onLocationDisclosure={setJourneyDisclosure} onToggleWatched={toggleWatched} watchedIds={watchedIds} onSelectStop={selectJourneyStop} activeItemId={activeItemId} onActiveItemChange={id => {if(phase === 'warping') cancel();setActiveItemId(id);setPreviewId(currentId);window.history.replaceState(null, '', `#journey/${id}`);setJourneyStatus('Choose a revealed mapped location to preview your next stop.');}}/><p className="journey-map-status" role="status">{journeyStatus}</p></>}
 
       <div className="page-intro" hidden={view === 'journey'}><div><div className="eyebrow"><span className="small-line"/> EXPLORE THE GALAXY</div><h1>Your next story is out there<span>.</span></h1></div><p>62 worlds. A galaxy of stories.<br/>Choose a destination and make the jump.</p></div>
 
@@ -290,11 +298,12 @@ export default function App() {
         <WorldExplorer selectedId={previewId} disabled={phase === 'warping'} onSelect={selectWorld}/>
       </div>
       <details className="reference-key"><summary>Map key &amp; reference</summary><p>Colored boundaries and five major hyperspace lanes follow the supplied galaxy-map reference as approximate visual traces. Published system grids remain the placement source; traced positions are identified in each destination’s position note. Story connections are separate from these routes.</p><ul className='route-legend-list'>{HYPERSPACE_ROUTES.map(route=><li key={route.id}><i style={{background:route.color}}/>{route.number}. {route.name}</li>)}</ul><p>Zoom for smaller world labels. <a href="http://www.swgalaxymap.com/" target="_blank" rel="noreferrer">SW Galaxy Map reference ↗</a></p></details>
+      {locationsDisclosed && <aside className="episode-map-key" aria-label="Episode location highlights"><strong>{highlightedWorlds.length} mapped locations highlighted</strong><p>Violet rings identify sourced locations for this chapter. They do not show a route or visit order. {episodeWorldIds.size - highlightedWorlds.length > 0 && `${episodeWorldIds.size - highlightedWorlds.length} linked locations have no supported map position.`}</p><div>{highlightedWorlds.map(world => <button key={world.id} disabled={phase === 'warping'} onClick={() => selectJourneyStop(displayedJourneyId!, world.id)}>{world.name}</button>)}</div></aside>}
       <section className="explorer" aria-label="Galaxy explorer">
 
         <div className={`map-stage ${phase === 'warping' ? 'is-warping' : 'is-navigating'}`} data-quality={quality}>
 
-          <div className="galaxy-canvas">{galaxyMounted && <MapBoundary onUnavailable={() => { setMapUnavailable(true); if (phase === 'warping') cancel(); }}><Suspense fallback={<div className="galaxy-loading" role="status"><Orbit size={32} aria-hidden="true"/><strong>Charting the galaxy…</strong><span>Preparing your navigation view</span></div>}><Galaxy worlds={mapWorlds} selectedId={currentId} previewId={previewId} targetId={targetId} phase={phase} reducedMotion={reducedMotion} quality={quality} regionsVisible={regionsVisible} routesVisible={routesVisible} gridVisible={gridVisible} onSelect={selectWorld} onArrive={arrive} resetKey={resetKey}/></Suspense></MapBoundary>}</div>
+          <div className="galaxy-canvas">{galaxyMounted && <MapBoundary onUnavailable={() => { setMapUnavailable(true); if (phase === 'warping') cancel(); }}><Suspense fallback={<div className="galaxy-loading" role="status"><Orbit size={32} aria-hidden="true"/><strong>Charting the galaxy…</strong><span>Preparing your navigation view</span></div>}><Galaxy highlightedIds={episodeWorldIds} worlds={mapWorlds} selectedId={currentId} previewId={previewId} targetId={targetId} phase={phase} reducedMotion={reducedMotion} quality={quality} regionsVisible={regionsVisible} routesVisible={routesVisible} gridVisible={gridVisible} onSelect={selectWorld} onArrive={arrive} resetKey={resetKey}/></Suspense></MapBoundary>}</div>
 
           <div className="map-heading"><span className="eyebrow">GALAXY VIEW</span><span className="map-coordinate"><span className="live-dot"/> {phase === 'warping' ? 'HYPERSPACE TRANSIT' : 'NAVIGATION ONLINE'}</span></div>
 
