@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "One exposed page heading; hidden galaxy heading excluded",
+    "Keyboard opens details and reaches source; film release caveat visible",
+    "Keyboard empty-state recovery clears filters",
+    "Collection filters keyboard operable; documented story ordering available for selected collection",
+    "Mobile watch toggle and record disclosure targets at least44px high; watch44px wide",
+    "Library, timeline and watch fit320px with one visible h1"
+  ],
+  "limitations": [
+    "Not a full WCAG audit; automated checks plus screenshot review."
+  ],
+  "browser": "158.0.8127.18"
+}

@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-07",
+  "environment": "Playwright Chromium with software WebGL; mobile emulation, not physical-device performance evidence",
+  "results": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 1050
+      },
+      "markers": 8,
+      "markerButtonOverlaps": 0,
+      "checks": [
+        "All eight map labels reachable and select correct dossier",
+        "Preview does not change current destination",
+        "Cancel restores camera and departure world",
+        "Skip commits Hoth",
+        "Same-grid Hoth-to-Bespin jump completes",
+        "Back restores Hoth",
+        "Library to Galaxy roundtrip preserves current world and marker selection works",
+        "Resize preserves destination",
+        "No horizontal overflow",
+        "No page errors"
+      ],
+      "errors": []
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "markers": 8,
+      "markerButtonOverlaps": 0,
+      "checks": [
+        "All eight map labels reachable and select correct dossier",
+        "Preview does not change current destination",
+        "Cancel restores camera and departure world",
+        "Skip commits Hoth",
+        "Same-grid Hoth-to-Bespin jump completes",
+        "Back restores Hoth",
+        "Library to Galaxy roundtrip preserves current world and marker selection works",
+        "Resize preserves destination",
+        "No horizontal overflow",
+        "No page errors"
+      ],
+      "errors": []
+    },
+    {
+      "viewport": {
+        "width": 320,
+        "height": 740
+      },
+      "markers": 8,
+      "markerButtonOverlaps": 0,
+      "checks": [
+        "All eight map labels reachable and select correct dossier",
+        "Preview does not change current destination",
+        "Cancel restores camera and departure world",
+        "Skip commits Hoth",
+        "Same-grid Hoth-to-Bespin jump completes",
+        "Back restores Hoth",
+        "Library to Galaxy roundtrip preserves current world and marker selection works",
+        "Resize preserves destination",
+        "No horizontal overflow",
+        "No page errors"
+      ],
+      "errors": []
+    }
+  ]
+}

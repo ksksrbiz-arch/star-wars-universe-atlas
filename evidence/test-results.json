@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-07",
+  "environment": "Playwright Chromium; software WebGL; desktop and resized mobile viewports, not physical-device performance evidence",
+  "checks": [
+    "Alderaan selection previews without arrival; animated warp arrives and clears transit",
+    "Cancel preserves departure world",
+    "Skip immediately arrives at selected destination",
+    "Back restores prior destination",
+    "Reduced motion arrives without warp",
+    "Pointer pan moves map markers",
+    "390px mobile layout has no horizontal overflow",
+    "320px layout has no horizontal overflow",
+    "No browser page errors"
+  ],
+  "errors": []
+}

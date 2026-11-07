@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-11-07T20:48:00.362Z",
+  "browser": "158.0.8127.18",
+  "environment": "Headless Chromium with software WebGL; viewport orientation changes, not physical-device performance evidence.",
+  "checks": [
+    "Three repeated partial warps cancel to the committed origin; graphics quality is locked during transit.",
+    "Skip commits once and Back restores the departure destination.",
+    "Rapid Library/Journey/Timeline changes during warp cancel cleanly and remount the map without committing a stale arrival.",
+    "Enabling reduced motion mid-warp settles immediately; the old animation cannot produce a delayed second arrival.",
+    "Cinematic warp completes through portrait/landscape viewport changes; controls unlock and Back remains valid.",
+    "Balanced and cinematic shaders rendered during travel without browser/console errors or context-loss warnings."
+  ],
+  "errors": [],
+  "warnings": [
+    "[.WebGL-0x6214016c5e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x6214016c5e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x6214016c5e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+    "[.WebGL-0x6214016c5e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+  ]
+}

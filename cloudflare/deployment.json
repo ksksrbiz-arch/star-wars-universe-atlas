@@ -1,0 +1,13 @@
+{
+  "accountId": "371afa6149061390a094cfbf8a184aff",
+  "workerName": "star-wars-universe-atlas",
+  "compatibilityDate": "2026-11-07",
+  "assetsDirectory": "dist",
+  "workerModule": "dist-worker/worker.mjs",
+  "publishedBucket": "star-wars-atlas-published",
+  "originalsBucket": "star-wars-atlas-originals",
+  "hyperdriveId": "deaad056eda2484fb6a15537a923676e",
+  "databaseProject": "young-hall-18334569",
+  "databaseBranch": "br-bitter-violet-ak7la0ve",
+  "databaseName": "atlas"
+}

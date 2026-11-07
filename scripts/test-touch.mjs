@@ -1,0 +1,31 @@
+import { chromium } from 'playwright';
+import assert from 'node:assert/strict';
+import { writeFile } from 'node:fs/promises';
+const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
+const page=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+await page.goto('http://localhost:4173');
+await page.getByRole('button',{name:'Explore Alderaan',exact:true}).waitFor();
+const cdp=await page.context().newCDPSession(page);
+const marker=()=>page.getByRole('button',{name:'Explore Alderaan',exact:true}).boundingBox();
+await page.waitForTimeout(700);
+const bounds=await page.locator('canvas').boundingBox();
+const touchY=Math.round(bounds.y+bounds.height*.42);
+const start=await marker();
+await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:80,y:touchY,id:1}]});
+for(let i=1;i<=6;i++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:80+i*10,y:touchY,id:1}]});await page.waitForTimeout(16)}
+await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await page.waitForTimeout(300);
+const moved=await marker();assert.ok(Math.abs(moved.x-start.x)>20);
+await page.getByRole('button',{name:'Reset map view',exact:true}).click();await page.waitForTimeout(200);
+const separation=async()=>{const a=await marker(),b=await page.getByRole('button',{name:'Explore Tatooine',exact:true}).boundingBox();return Math.hypot(a.x-b.x,a.y-b.y)};
+const before=await separation();
+await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:130,y:touchY,id:1},{x:230,y:touchY,id:2}]});
+for(let i=1;i<=5;i++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:130-i*7,y:touchY,id:1},{x:230+i*7,y:touchY,id:2}]});await page.waitForTimeout(16)}
+await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await page.waitForTimeout(300);
+assert.ok(await separation()>before*1.2);
+await page.getByRole('button',{name:'Reset map view',exact:true}).click();
+await page.locator('.destination-card').filter({hasText:'ALDERAAN'}).click();await page.waitForTimeout(500);
+const jump=page.getByRole('button',{name:'Jump to Alderaan',exact:true}).first();const rect=await jump.boundingBox();assert.ok(rect.y>=0&&rect.y+rect.height<844,'mobile map jump visible');
+await jump.click();await page.locator('.transit-panel').waitFor();await page.waitForTimeout(200);await page.screenshot({path:'evidence/mobile-warp.png'});
+await page.waitForFunction(()=>document.querySelector('.current-location strong')?.textContent==='Alderaan');
+const checks=['Real CDP touch input pans marker positions','Two-finger pinch increases map zoom','Bottom-card selection brings mobile Jump into viewport','Mobile animated jump arrives'];
+await writeFile('evidence/touch-results.json',JSON.stringify({checks,limitation:'Emulated Chromium touch, not physical-device testing'},null,2));console.log(checks);await browser.close();

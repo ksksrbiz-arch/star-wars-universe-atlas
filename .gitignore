@@ -1,6 +1,7 @@
 node_modules/
 dist/
-work/
+work/*
+!work/runs/
 .wrangler/
 .cf/
 .env
@@ -11,3 +12,4 @@ work/
 playwright-report/
 test-results/
 .DS_Store
+dist-worker/

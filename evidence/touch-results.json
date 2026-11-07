@@ -1,0 +1,9 @@
+{
+  "checks": [
+    "Real CDP touch input pans marker positions",
+    "Two-finger pinch increases map zoom",
+    "Bottom-card selection brings mobile Jump into viewport",
+    "Mobile animated jump arrives"
+  ],
+  "limitation": "Emulated Chromium touch, not physical-device testing"
+}

@@ -1,0 +1,73 @@
+{
+  "checked_date": "2026-11-07",
+  "source": "TVmaze API (CC BY-SA; https://www.tvmaze.com/api)",
+  "method": "Exact title match; regular episodes exclude specials; image HTTP HEAD checks verify delivery/content type, not visual correctness or rights.",
+  "series": [
+    {
+      "show": "Andor",
+      "id": 52341,
+      "url": "https://www.tvmaze.com/shows/52341/andor",
+      "status": "Ended",
+      "episodes": 24,
+      "seasons": {
+        "1": 12,
+        "2": 12
+      },
+      "specials": 1,
+      "poster_present": true,
+      "missing_runtime": [],
+      "missing_airdate": [],
+      "missing_summary": [],
+      "image_checks": {
+        "200 image/jpeg": 24
+      },
+      "image_gaps": []
+    },
+    {
+      "show": "Star Wars: The Clone Wars",
+      "id": 563,
+      "url": "https://www.tvmaze.com/shows/563/star-wars-the-clone-wars",
+      "status": "Ended",
+      "episodes": 133,
+      "seasons": {
+        "1": 22,
+        "2": 22,
+        "3": 22,
+        "4": 22,
+        "5": 20,
+        "6": 13,
+        "7": 12
+      },
+      "specials": 8,
+      "poster_present": true,
+      "missing_runtime": [],
+      "missing_airdate": [],
+      "missing_summary": [],
+      "image_checks": {
+        "200 image/jpeg": 133
+      },
+      "image_gaps": []
+    },
+    {
+      "show": "The Mandalorian",
+      "id": 38963,
+      "url": "https://www.tvmaze.com/shows/38963/the-mandalorian",
+      "status": "Ended",
+      "episodes": 24,
+      "seasons": {
+        "1": 8,
+        "2": 8,
+        "3": 8
+      },
+      "specials": 0,
+      "poster_present": true,
+      "missing_runtime": [],
+      "missing_airdate": [],
+      "missing_summary": [],
+      "image_checks": {
+        "200 image/jpeg": 24
+      },
+      "image_gaps": []
+    }
+  ]
+}

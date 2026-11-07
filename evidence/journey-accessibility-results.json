@@ -1,0 +1,10 @@
+{
+  "checks": [
+    "390px keyboard Enter reveals locations; Kenari flashback qualification and appearance source directly visible; no overflow",
+    "Next hides unrevealed chapter locations; previous restores explicitly revealed chapter; watched state untouched",
+    "Unplaced Morlana One remains visible with disabled Map unavailable button",
+    "Andor finale, Mando S2E8, CW S7E11 display referenced external bridges or overlap, clearly outside collection"
+  ],
+  "errors": [],
+  "browser": "158.0.8127.18"
+}

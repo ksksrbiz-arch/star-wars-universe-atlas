@@ -1,0 +1,15 @@
+import { chromium } from 'playwright';
+import { mkdir } from 'node:fs/promises';
+await mkdir('evidence',{recursive:true});
+const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
+const page=await browser.newPage({viewport:{width:1440,height:960}});
+const errors=[];page.on('pageerror',e=>errors.push(e.message));
+await page.goto('http://localhost:4173');
+await page.waitForTimeout(2500);
+await page.screenshot({path:'evidence/desktop.png'});
+console.log(JSON.stringify({errors,body:(await page.locator('body').innerText()).slice(0,9000)},null,2));
+await page.setViewportSize({width:390,height:844});
+await page.waitForTimeout(800);
+await page.screenshot({path:'evidence/mobile.png',fullPage:true});
+console.log(JSON.stringify({overflow:await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)}));
+await browser.close();

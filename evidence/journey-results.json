@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "Direct title route selects collection; unwatched stops hidden; reveal previews and warp reaches Hoth",
+    "Next chapter follows narrative sequence and preserves spoiler boundary without marking watched",
+    "Andor deep link reaches newly charted Ferrix with complete animated arrival",
+    "Official CW story order and per-title Library→Journey links",
+    "Journey fits390/320px with one visible page heading",
+    "No browser errors across new map markers and section switches"
+  ],
+  "errors": [],
+  "browser": "158.0.8127.18"
+}

@@ -1,0 +1,26 @@
+{
+  "viewport": 390,
+  "checks": [
+    "Tatooine and Geonosis labels reachable and nonoverlapping at shared R-16 grid",
+    "Full animated same-cell jump arrives Geonosis"
+  ],
+  "boxes": [
+    {
+      "name": "Explore Tatooine",
+      "x": 241.74533081054688,
+      "y": 249.53799438476562,
+      "width": 73.140625,
+      "height": 44,
+      "reachable": true
+    },
+    {
+      "name": "Explore Geonosis",
+      "x": 241.96441650390625,
+      "y": 302.3645324707031,
+      "width": 70.71875,
+      "height": 44,
+      "reachable": true
+    }
+  ],
+  "errors": []
+}

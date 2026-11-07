@@ -1,0 +1,11 @@
+{
+  "runId": "three-world-prototype-2026-11-07",
+  "status": "complete-local-prototype",
+  "scope": "Tatooine, Alderaan, Yavin 4; galaxy map and warp navigation",
+  "workflows": ["data", "map-warp", "ui-media", "qa-release"],
+  "handoff": "evidence/verification.md",
+  "checks": {"build":"passed","icm":"passed","browser":"9 passed","touch":"4 passed"},
+  "notVerified": ["physical mobile performance", "Safari", "60fps", "complete galaxy geography"],
+  "deployment": "local development server only",
+  "nextAction": "User explores the prototype and steers visual/motion refinement"
+}

@@ -1,0 +1,13 @@
+{
+  "browser": "158.0.8127.18",
+  "checks": [
+    "Pagination expands24 to48",
+    "Series filtering, search, marking watched and reload persistence",
+    "Release timeline clearly distinguished from unsupported story chronology",
+    "Watch totals, next title and JSON export",
+    "Library timeline watch pages fit390px and320px widths",
+    "Corrupt storage recovers with visible notice",
+    "No browser page errors"
+  ],
+  "errors": []
+}

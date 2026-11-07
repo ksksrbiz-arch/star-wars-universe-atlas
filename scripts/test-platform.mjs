@@ -1,0 +1,38 @@
+import { chromium } from 'playwright';
+import assert from 'node:assert/strict';
+import { writeFile } from 'node:fs/promises';
+const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
+const page=await browser.newPage({viewport:{width:1440,height:1000}});
+const errors=[];page.on('pageerror',e=>errors.push(e.message));const checks=[];
+await page.goto('http://localhost:4173/#library');
+await page.getByRole('heading',{name:'Every story starts somewhere.'}).waitFor();
+assert.equal(await page.locator('.catalog-item').count(),24);
+await page.getByRole('button',{name:'Load 24 more',exact:true}).click();
+assert.equal(await page.locator('.catalog-item').count(),48);checks.push('Pagination expands24 to48');
+await page.getByRole('button',{name:/The Mandalorian/}).click();
+assert.equal(await page.locator('.catalog-item').count(),24);
+await page.getByRole('textbox',{name:'Search films and episodes'}).fill('The Jedi');
+assert.equal(await page.locator('.catalog-item').count(),1);
+await page.getByRole('button',{name:'Mark watched: Chapter 13: The Jedi',exact:true}).click();
+await page.reload();
+await page.getByRole('textbox',{name:'Search films and episodes'}).fill('Chapter 13: The Jedi');
+assert.equal(await page.getByRole('button',{name:'Mark unwatched: Chapter 13: The Jedi',exact:true}).getAttribute('aria-pressed'),'true');
+checks.push('Series filtering, search, marking watched and reload persistence');
+await page.getByRole('textbox',{name:'Search films and episodes'}).fill('zzzzzznonexistent');
+await page.getByRole('heading',{name:'No stories in this selection.'}).waitFor();
+await page.getByRole('button',{name:'Reset filters',exact:true}).click();
+await page.screenshot({path:'evidence/platform-library.png',fullPage:true});
+await page.getByRole('link',{name:'Release timeline',exact:true}).click();
+await page.locator('.timeline-note').waitFor();assert.match(await page.locator('.timeline-note').innerText(),/real-world releases/);
+assert.equal(await page.getByRole('option',{name:/Story order/}).isDisabled(),true);
+await page.screenshot({path:'evidence/platform-timeline.png',fullPage:true});checks.push('Release timeline clearly distinguished from unsupported story chronology');
+await page.getByRole('link',{name:/My watchlist/}).click();assert.match(await page.locator('.watch-progress-card').innerText(),/1 of 185 watched/);
+const downloadPromise=page.waitForEvent('download');await page.getByRole('button',{name:'Export watch progress'}).click();const download=await downloadPromise;assert.equal(download.suggestedFilename(),'galactic-atlas-watch-progress.json');
+await page.screenshot({path:'evidence/platform-watch.png',fullPage:true});checks.push('Watch totals, next title and JSON export');
+for (const width of [390,320]) {await page.setViewportSize({width,height:844});for (const route of ['library','timeline','watch']) {await page.goto(`http://localhost:4173/#${route}`);await page.locator('.library-view').waitFor();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`${route} ${width}px overflow`);} }
+await page.screenshot({path:'evidence/platform-mobile.png',fullPage:true});checks.push('Library timeline watch pages fit390px and320px widths');
+await page.evaluate(()=>localStorage.setItem('galactic-atlas.watch.v1','bad json'));await page.reload();await page.locator('.storage-warning').waitFor();checks.push('Corrupt storage recovers with visible notice');
+await page.evaluate(()=>localStorage.removeItem('galactic-atlas.watch.v1'));
+assert.deepEqual(errors,[]);checks.push('No browser page errors');
+await writeFile('evidence/platform-results.json',JSON.stringify({browser:await browser.version(),checks,errors},null,2));console.log(JSON.stringify({checks,errors},null,2));await browser.close();
+

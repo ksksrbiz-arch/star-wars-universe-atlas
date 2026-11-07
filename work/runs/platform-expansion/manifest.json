@@ -1,0 +1,30 @@
+{
+  "runId": "platform-expansion-2026-11-07",
+  "status": "complete-local-platform-preview",
+  "scope": "8 worlds,185 catalog items,release timeline,local watch progress",
+  "workflows": [
+    "data",
+    "map-warp",
+    "ui-media",
+    "qa-release"
+  ],
+  "handoff": "evidence/verification.md",
+  "checks": {
+    "build": "passed",
+    "icm": "passed",
+    "catalog": "passed",
+    "browser": "9 passed",
+    "touch": "4 passed",
+    "platform": "7 groups passed",
+    "libraryA11y": "6 passed",
+    "expandedMap": "passed at1440,390,320px"
+  },
+  "deployment": "local only",
+  "notVerified": [
+    "physical mobile performance",
+    "Safari",
+    "60fps",
+    "episode-location graph",
+    "story chronology"
+  ]
+}

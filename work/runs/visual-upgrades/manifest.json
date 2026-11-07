@@ -1,0 +1,40 @@
+{
+  "runId": "visual-upgrades-2026-11-07",
+  "status": "complete-local",
+  "agents": [
+    "media",
+    "geography",
+    "chronology"
+  ],
+  "workflows": [
+    "map-warp",
+    "ui-media",
+    "qa-release"
+  ],
+  "handoff": "evidence/visual-upgrades-verification.md",
+  "dependencies": [
+    "motion@14.10.1",
+    "@react-three/postprocessing@3.2.2",
+    "postprocessing@6.39.6"
+  ],
+  "deployment": "local only",
+  "limitations": [
+    "No physical-device performance benchmark",
+    "Vite large-chunk warning remains",
+    "Data coverage unchanged"
+  ],
+  "checks": {
+    "build": "passed",
+    "icm": "passed",
+    "ui": "passed",
+    "touch": "passed",
+    "sharedGrid": "passed",
+    "journey": "passed",
+    "journeyAccessibility": "passed",
+    "platform": "passed",
+    "libraryAccessibility": "passed",
+    "visualUI": "passed",
+    "visualGraphics": "passed",
+    "visualLifecycle": "passed"
+  }
+}

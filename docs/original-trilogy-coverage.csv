@@ -1,0 +1,4 @@
+﻿title,episode_id,release_date,source_url,character_links,planet_links,starship_links,poster_field,runtime_field,chronology_field
+A New Hope,4,1977-05-25,https://swapi.dev/api/films/1/,18,3,8,False,False,False
+The Empire Strikes Back,5,1980-05-17,https://swapi.dev/api/films/2/,16,4,9,False,False,False
+Return of the Jedi,6,1983-05-25,https://swapi.dev/api/films/3/,20,5,12,False,False,False

@@ -1,0 +1,40 @@
+{
+  "runId": "reference-map-2026-11-07",
+  "status": "complete-local",
+  "agents": [
+    "reference_regions",
+    "reference_routes",
+    "reference_placements"
+  ],
+  "workflows": [
+    "data",
+    "map-warp",
+    "ui-media",
+    "qa-release"
+  ],
+  "counts": {
+    "mappedWorlds": 62,
+    "tracedPositions": 27,
+    "retainedCellCenters": 35,
+    "regionPolygons": 8,
+    "majorRoutes": 5
+  },
+  "checks": {
+    "build": "passed",
+    "icm": "passed",
+    "referenceData": "passed",
+    "referenceBrowser": "passed",
+    "touch": "passed",
+    "warpLifecycle": "passed",
+    "journeyData": "passed",
+    "journeyAccessibility": "passed",
+    "sharedGrid": "passed"
+  },
+  "handoff": "evidence/reference-map-verification.md",
+  "deployment": "local only",
+  "limitations": [
+    "Approximate image traces, not exact borders or route topology",
+    "Physical-device performance untested",
+    "Vite large-chunk warning remains"
+  ]
+}

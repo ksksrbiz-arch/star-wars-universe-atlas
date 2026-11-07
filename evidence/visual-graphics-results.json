@@ -1,0 +1,32 @@
+{
+  "note": "Software WebGL browser checks, not hardware FPS measurements. Idle observation is a finite 600ms settled window per quality mode.",
+  "results": [
+    {
+      "mode": "desktop",
+      "idleDrawCallsOver600ms": {
+        "balanced": 0,
+        "cinematic": 0
+      },
+      "canvasCount": 1,
+      "errors": []
+    },
+    {
+      "mode": "mobile",
+      "idleDrawCallsOver600ms": {
+        "balanced": 0,
+        "cinematic": 0
+      },
+      "canvasCount": 1,
+      "errors": []
+    },
+    {
+      "mode": "reduced",
+      "idleDrawCallsOver600ms": {
+        "balanced": 0,
+        "cinematic": 0
+      },
+      "canvasCount": 1,
+      "errors": []
+    }
+  ]
+}

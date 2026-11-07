@@ -1,0 +1,10 @@
+{
+  "checks": [
+    "Tatooine world dossier hides unwatched titles; explicit reveal links to A New Hope in correct Journey collection without revealing its stops",
+    "Mobile Journey selects and completes animated arrival at Ferrix without overflow",
+    "Mobile Journey selects and completes animated arrival at Mandalore without overflow",
+    "Mobile Journey selects and completes animated arrival at Endor without overflow"
+  ],
+  "errors": [],
+  "browser": "158.0.8127.18"
+}

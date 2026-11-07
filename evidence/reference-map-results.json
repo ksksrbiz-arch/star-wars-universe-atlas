@@ -1,0 +1,39 @@
+{
+  "checkedAt": "2026-11-07T20:49:39.375Z",
+  "environment": "Headless Chromium software WebGL; no physical-device performance claim.",
+  "results": [
+    {
+      "mode": "desktop",
+      "mappedOptions": 62,
+      "regionLabels": 9,
+      "routeLabels": 5,
+      "gridLabels": 42,
+      "singleCanvas": true,
+      "layerToggles": true,
+      "warp": "midpoint capture, cancel preserves origin, skip arrives",
+      "errors": []
+    },
+    {
+      "mode": "mobile",
+      "mappedOptions": 62,
+      "regionLabels": 9,
+      "routeLabels": 5,
+      "gridLabels": 42,
+      "singleCanvas": true,
+      "layerToggles": true,
+      "warp": "midpoint capture, cancel preserves origin, skip arrives",
+      "errors": []
+    },
+    {
+      "mode": "reduced",
+      "mappedOptions": 62,
+      "regionLabels": 9,
+      "routeLabels": 5,
+      "gridLabels": 42,
+      "singleCanvas": true,
+      "layerToggles": true,
+      "warp": "reduced-motion bypass",
+      "errors": []
+    }
+  ]
+}
