@@ -30,3 +30,19 @@ main{padding-top:28px}.page-intro{align-items:flex-end;margin-bottom:34px}.page-
 .jump-button>svg:first-child,.jump-button>svg:last-child,.jump-button>svg:last-child:not(:first-child){margin:0}
 /* Shared destination actions span the mobile dossier, like source links. */
 .destination-share{grid-column:1/-1;min-width:0}.destination-share button{width:100%;border-radius:7px}.destination-share [role=status]:empty{display:none}
+
+/* Keep every section discoverable without an unseen horizontal scroll lane. */
+.map-tools .icon-button{width:44px;height:44px}
+.transit-panel .quiet-button{min-height:44px;padding:10px 12px;font-size:12px}
+.map-jump-bar button{min-height:44px}
+@media(max-width:720px){
+  .platform-nav{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));overflow:visible;white-space:normal;gap:6px;padding:10px 0 12px}
+  .platform-nav a{grid-column:span 2;min-width:0;padding:10px 5px;gap:5px;font-size:12px}
+  .platform-nav a:nth-of-type(n+4){grid-column:span 3}
+  .platform-nav a[aria-current=page]:after{bottom:0;left:10px;right:10px}
+  .platform-nav a span{padding:2px 5px}
+  .map-heading{max-width:calc(100% - 126px)}
+  .map-tools{gap:5px}
+  .map-jump-bar{top:82px}
+  .transit-panel>strong{flex-wrap:wrap;overflow-wrap:anywhere}
+}

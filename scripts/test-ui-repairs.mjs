@@ -36,12 +36,12 @@ try {
   console.log('PASS: cross-tab progress synchronizes, retains both edits on reload, and handles clear');
   await page.goto(`${base}/#galaxy`);
   await page.getByRole('button',{name:'Reveal linked unwatched titles'}).click();
-  assert.equal(await page.locator('.world-stories a').count(),6);
+  assert.equal(await page.locator('.world-stories .world-story-grid a').count(),6);
   const total = Number(await page.locator('.world-stories h3 span').innerText());
   assert.ok(total > 6);
   await page.getByRole('button',{name:/Show .* more linked stories/}).click();
-  assert.equal(await page.locator('.world-stories a').count(),total);
-  const lastLink = page.locator('.world-stories a').last();
+  assert.equal(await page.locator('.world-stories .world-story-grid a').count(),total);
+  const lastLink = page.locator('.world-stories .world-story-grid a').last();
   const href = await lastLink.getAttribute('href');
   await lastLink.click();
   await page.locator('.journey-current h2').waitFor();

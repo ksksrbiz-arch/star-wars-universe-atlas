@@ -159,3 +159,20 @@
 }
 .atlas-app[data-reduced-motion='true'] .library-view *, .atlas-app[data-reduced-motion='true'] .library-view *::after { transition: none !important; }
 .atlas-app[data-reduced-motion='true'] .catalog-item:hover .catalog-art-orbit { transform: rotate(-43deg); }
+
+/* Phone editing controls keep readable text and full-sized touch targets. */
+.library-search button { min-width: 44px; min-height: 44px; border-radius: 5px; }
+.library-search button:focus-visible { outline: 2px solid #e4c797; outline-offset: 1px; }
+.library-select-controls select { min-height: 44px; }
+@media (max-width: 720px) {
+  .library-search { gap: 8px; padding: 0 10px; }
+  .library-search input { font-size: 16px; min-height: 48px; padding: 10px 0; }
+  .library-select-controls select { font-size: 16px; min-height: 48px; padding: 10px 0; }
+  .library-select-controls label > svg:first-child { display: none; }
+  .library-select-controls label { gap: 4px; padding: 0 9px; }
+  .catalog-details p { font-size: 13px; line-height: 1.75; }
+  .catalog-details a { font-size: 12px; }
+}
+@media (max-width: 370px) {
+  .library-select-controls { grid-template-columns: 1fr; gap: 8px; }
+}
