@@ -1,5 +1,5 @@
 {
-  "base": "http://localhost:4173",
+  "base": "https://star-wars-universe-atlas.skdev-371.workers.dev",
   "checks": [
     "New Kenari link remains hidden until revealed, labels flashback, and jumps using existing sourced placement",
     "Segra-Milo orbit label retains disabled map action; unknown geography is not placed",
