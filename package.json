@@ -53,7 +53,11 @@
     "test:connection-context": "node scripts/test-connection-context.mjs",
     "test:dossiers": "node scripts/test-world-dossiers.mjs",
     "test:dossier-ui": "node scripts/test-dossier-experience.mjs",
-    "test:guided": "node scripts/test-guided-journey.mjs"
+    "test:guided": "node scripts/test-guided-journey.mjs",
+    "test:directory-filters": "node scripts/test-directory-filters.mjs",
+    "test:visual-directory": "node scripts/test-visual-world-directory.mjs",
+    "test:related-worlds": "node scripts/test-related-worlds.mjs",
+    "test:reconciled-worlds": "node scripts/test-reconciled-worlds.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",

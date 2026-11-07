@@ -57,4 +57,61 @@ export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
     ],
     caveat: 'The palace and underwater city are distinct settlements. Their relative positions, travel paths and distances are not established by this schematic galaxy map.',
   },
+  bespin: {
+    worldId: 'bespin',
+    eyebrow: 'GAS GIANT · CITIES IN THE CLOUDS',
+    overview: { text: 'Bespin is an immense gas giant with a habitable band in its atmosphere. Floating mining settlements occupy this layer among the clouds.', sourceUrl: databank + 'bespin' },
+    terrain: { label: 'Cloud layers and habitable atmosphere', text: 'Life and industry occupy a band of atmosphere rather than a conventional solid surface. Mining complexes draw valuable gases from deeper within the planet.', sourceUrl: databank + 'bespin' },
+    highlights: [
+      { id: 'cloud-city', name: 'Cloud City', description: 'A floating metropolis suspended among Bespin’s pastel clouds, combining living space with a Tibanna-gas mining colony.', sourceUrl: databank + 'cloud-city' },
+      { id: 'carbon-freezing', name: 'Industrial carbon-freezing', description: 'Cloud City uses an industrial process that encases highly pressurized gases in solid carbonite. Its machinery belongs to the settlement, not a natural planetary surface.', sourceUrl: databank + 'carbon-freezing' },
+    ],
+    caveat: 'Cloud City is one settlement in the atmosphere, not the whole planet. Its administration changes by era; the shared schematic grid with Hoth does not establish physical proximity.',
+  },
+  dagobah: {
+    worldId: 'dagobah',
+    eyebrow: 'SWAMP WORLD · DENSE UNDERGROWTH',
+    overview: { text: 'Dagobah is a humid swamp world crowded with jungle undergrowth and animal life. Bogs and wetlands shape a landscape far removed from an urban settlement.', sourceUrl: databank + 'dagobah' },
+    terrain: { label: 'Swamps and jungle undergrowth', text: 'Murky wetlands support reptilian and amphibious creatures as well as larger lifeforms. Dense growth and bog-like conditions dominate the landscape.', sourceUrl: databank + 'dagobah' },
+    highlights: [
+      { id: 'yodas-hut', name: 'Yoda’s Hut', description: 'A simple dwelling built among the roots of a massive gnarltree, where Yoda lived during his exile on Dagobah.', sourceUrl: databank + 'yodas-hut' },
+      { id: 'cave-of-evil', name: 'Cave of Evil', description: 'A cave in the swamps associated with the dark side of the Force. Its visions are experiences of those who enter, not evidence of travel to the places they depict.', sourceUrl: databank + 'cave-of-evil' },
+    ],
+    caveat: 'The hut and cave are broad setting references without surface coordinates. Vision imagery does not establish a physical route, and the hut’s occupancy belongs to a particular era.',
+  },
+  yavin: {
+    worldId: 'yavin',
+    eyebrow: 'FOREST MOON · JUNGLE CANOPY',
+    overview: { text: 'Yavin 4 is a jungle-covered moon orbiting the gas giant Yavin. Its forests and local wildlife surround a setting used by Rebel cells and, later, a larger base.', sourceUrl: databank + 'yavin-4' },
+    terrain: { label: 'Jungle and forest', text: 'Steamy jungle and forest cover this moon. Its flora and fauna shape a landscape with relatively little settlement.', sourceUrl: databank + 'yavin-4' },
+    highlights: [
+      { id: 'rebel-base', name: 'The Rebel base', description: 'Rebel cells used the moon as a stopover before a larger base developed there. The base is a wartime installation rather than a permanent description of every era.', sourceUrl: databank + 'yavin-4' },
+      { id: 'doodar-habitat', name: 'Native wildlife', description: 'The tusked, reptilian doodar is indigenous to Yavin 4. Its territorial behavior and low rumbling call are part of the moon’s living environment.', sourceUrl: databank + 'yavinian-doodar' },
+    ],
+    caveat: 'Yavin 4 is the moon, not the gas giant Yavin. Its galaxy-map marker uses the parent system’s published grid; this dossier supplies no independent moon or surface coordinates.',
+  },
+  endor: {
+    worldId: 'endor',
+    eyebrow: 'FOREST MOON · TREETOP SETTLEMENTS',
+    overview: { text: 'Endor’s forest moon is a lush home of the Ewoks. Forests, grasslands and mountains form its varied landscape.', sourceUrl: databank + 'endor' },
+    terrain: { label: 'Forests, grasslands and mountains', text: 'Wooded environments, open grasslands and mountains form varied terrain on this inhabited moon. Forest life is central to the setting.', sourceUrl: databank + 'endor' },
+    highlights: [
+      { id: 'bright-tree-village', name: 'Bright Tree Village', description: 'Huts, buildings and watchtowers sit high in Endor’s trees, linked by rope bridges and ladders above the forest floor.', sourceUrl: databank + 'bright-tree-village' },
+      { id: 'shield-generator', name: 'Imperial shield-generator site', description: 'The Empire built a shield generator in the Ewoks’ forests. It belongs to a specific wartime occupation, not a lasting natural feature of the moon.', sourceUrl: databank + 'ewok' },
+    ],
+    caveat: 'This dossier describes the forest moon, not the parent planet or the separate ocean moon Kef Bir. Village and installation locations are not plotted as surface coordinates.',
+  },
+};
+
+/** Reviewed broad categories for directory discovery; absence means not reviewed, not unknown geology. */
+export type WorldTerrainCategory = 'desert' | 'urban' | 'ice' | 'wetlands' | 'gas-giant' | 'swamp' | 'forest';
+export const WORLD_TERRAIN: Readonly<Record<string, { category: WorldTerrainCategory; label: string; sourceUrl: string }>> = {
+  tatooine: { category: 'desert', label: 'Desert', sourceUrl: databank + 'tatooine' },
+  coruscant: { category: 'urban', label: 'Urban', sourceUrl: databank + 'coruscant' },
+  hoth: { category: 'ice', label: 'Ice', sourceUrl: databank + 'hoth' },
+  naboo: { category: 'wetlands', label: 'Lakes and wetlands', sourceUrl: databank + 'naboo' },
+  bespin: { category: 'gas-giant', label: 'Gas giant', sourceUrl: databank + 'bespin' },
+  dagobah: { category: 'swamp', label: 'Swamp', sourceUrl: databank + 'dagobah' },
+  yavin: { category: 'forest', label: 'Forest and jungle', sourceUrl: databank + 'yavin-4' },
+  endor: { category: 'forest', label: 'Forest', sourceUrl: databank + 'endor' },
 };

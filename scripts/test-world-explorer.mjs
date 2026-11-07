@@ -12,7 +12,7 @@ try {
     const finder = page.getByRole('combobox', { name: 'Find a mapped world' });
     const region = page.getByRole('combobox', { name: 'Region', exact: true });
     await search.waitFor();
-    assert.equal(await finder.locator('option').count(), 62);
+    assert.equal(await finder.locator('option').count(), 76);
     await search.fill('hOtH');
     assert.equal(await finder.locator('option[value="hoth"]').count(), 1);
     await finder.selectOption('hoth');
@@ -25,7 +25,7 @@ try {
     assert.ok(await finder.isDisabled());
     assert.ok(await page.getByText('No mapped worlds match these filters.', { exact: false }).isVisible());
     await page.getByRole('button', { name: 'Reset world filters' }).click();
-    assert.equal(await finder.locator('option').count(), 62);
+    assert.equal(await finder.locator('option').count(), 76);
     assert.equal(await finder.inputValue(), 'hoth', 'reset preserves selection');
     await region.selectOption({ label: 'Core Worlds' });
     assert.ok(await finder.locator('option[value="coruscant"]').count());

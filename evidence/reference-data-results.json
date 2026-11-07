@@ -4,13 +4,13 @@
     "Eight finite non-self-intersecting region polygons; six nested holes inside their outer silhouettes.",
     "Five unique sourced route traces and region/route/planet geometry share the same reference calibration.",
     "Coruscant route origins agree and align with traced planet; Run/Spine share the same Corellia display junction.",
-    "27 reference-traced world symbols remain within published cells; 35 untraced worlds retain their existing grid centers."
+    "27 reference-traced world symbols remain within published cells; 49 untraced worlds retain their existing grid centers."
   ],
   "counts": {
     "regions": 8,
     "routes": 5,
     "tracedWorlds": 27,
-    "gridCenterWorlds": 35
+    "gridCenterWorlds": 49
   },
   "limitations": [
     "Geometry checks establish internal consistency, not independent cartographic accuracy.",

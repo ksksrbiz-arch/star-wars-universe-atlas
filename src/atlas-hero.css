@@ -2,3 +2,5 @@
 .atlas-app .atlas-hero{display:block}.atlas-app .atlas-hero-credit{display:block;width:100%;max-width:680px}
 
 .hero-open-map{display:inline-flex;align-items:center;gap:24px;min-height:44px;padding:10px 15px;border:1px solid #cbb27d;border-radius:6px;background:#e6c897;color:#101a24;font:inherit;font-size:12px;font-weight:600;cursor:pointer;margin-top:12px}.hero-open-map:hover{background:#f2dbb5}.hero-open-map:focus-visible{outline:2px solid #b0dfeb;outline-offset:4px}#galaxy-map{scroll-margin-top:16px}#galaxy-map:focus-visible{outline:2px solid #b0dfeb;outline-offset:3px}@media(max-width:700px){.atlas-app .atlas-hero{padding:18px 20px 8px;margin-top:12px;min-height:200px}.atlas-hero .atlas-hero-copy h1{font-size:34px;margin:10px 0 8px}.atlas-hero .atlas-hero-credit{margin-top:8px}.hero-open-map{margin-top:8px}}
+
+.hero-browse-worlds{margin-left:10px}@media(max-width:420px){.hero-browse-worlds{margin-left:0;margin-top:10px;display:flex}}

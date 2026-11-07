@@ -3,6 +3,7 @@ import { ArrowUpRight, BookOpen, Eye } from 'lucide-react';
 import { CONNECTIONS } from './connections';
 import { CATALOG, SERIES } from './catalog';
 import './world-stories.css';
+import RelatedWorlds from './RelatedWorlds';
 
 export default function WorldStories({ worldId, worldName, watchedIds }: { worldId: string; worldName: string; watchedIds: ReadonlySet<string> }) {
   const [revealed, setRevealed] = useState<Set<string>>(() => new Set());
@@ -28,10 +29,10 @@ export default function WorldStories({ worldId, worldName, watchedIds }: { world
       {items.length > 0 && matching.length === 0 && <p>No revealed titles match these filters. <button onClick={() => update({ query: '', series: 'all' })}>Clear filters</button></p>}
       <div className="world-story-grid">{matching.slice(0, expandedWorlds.has(worldId) ? undefined : 6).map(item => {
         const id = item.id;
-        return <a href={`#journey/${id}`} key={id}>
+        return <article className="world-story-card" key={`${worldId}:${id}`}><a href={`#journey/${id}`}>
           <span className="world-story-meta">{SERIES.find(series => series.id === item.seriesId)?.title} · {item.kind === 'film' ? 'Feature film' : `Season ${item.season} · Episode ${item.episode}`}</span>
           <strong>{item.title}</strong><span className="world-story-action">Follow story <ArrowUpRight size={13} aria-hidden="true"/></span>
-        </a>;
+        </a><RelatedWorlds itemId={id} title={item.title} currentWorldId={worldId}/></article>;
       })}</div>
       {matching.length > 6 && !expandedWorlds.has(worldId) && <button onClick={() => setExpandedWorlds(old => new Set([...old, worldId]))}>Show {matching.length - 6} more linked stories</button>}
       {visible.length < ids.length && <button onClick={() => setRevealed(old => new Set([...old, worldId]))}><Eye size={14} aria-hidden="true"/> Reveal linked unwatched titles</button>}

@@ -18,7 +18,7 @@ try {
     await finder.waitFor();
     await page.getByRole('button',{name:'Explore Tatooine',exact:true}).waitFor();
     await page.waitForTimeout(700);
-    assert.equal(await finder.locator('option').count(),62);
+    assert.equal(await finder.locator('option').count(),76);
     assert.equal(await page.locator('canvas').count(),1);
     const layers = [['Regions','.region-map-label',9],['Hyperspace routes','.route-map-label',5],['Grid','.grid-map-label',42]];
     for (const [name, selector, count] of layers) {
@@ -68,7 +68,7 @@ try {
     }
     await page.waitForTimeout(300);
     assert.deepEqual(errors,[]);
-    results.push({mode,mappedOptions:62,regionLabels:9,routeLabels:5,gridLabels:42,singleCanvas:true,layerToggles:true,warp:mode==='reduced'?'reduced-motion bypass':'midpoint capture, cancel preserves origin, skip arrives',errors});
+    results.push({mode,mappedOptions:76,regionLabels:9,routeLabels:5,gridLabels:42,singleCanvas:true,layerToggles:true,warp:mode==='reduced'?'reduced-motion bypass':'midpoint capture, cancel preserves origin, skip arrives',errors});
     await page.close();
   }
 } finally {

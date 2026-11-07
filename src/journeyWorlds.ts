@@ -1,3 +1,4 @@
+import { RECONCILED_WORLDS } from './reconciledWorlds.ts';
 import { WORLDS, gridToDisplay, type World } from './data.ts';
 import { applyReferencePlacement } from './referencePlacements.ts';
 // Direct system-name matches from the audited appendix; no parent-system guesses.
@@ -464,4 +465,4 @@ const endor: World = {
   film: 'Return of the Jedi', sourceUrl: 'https://www.starwars.com/databank/endor',
   uncertainty: 'Parent-system placement: the official Databank identifies the forest moon and Endor system context; the appendix lists Endor at H-16 (page 16). The displayed cell center is not the moon’s precise position.'
 };
-export const ALL_WORLDS: World[] = [...WORLDS, endor, ...records.map(w => ({...w, ...gridToDisplay(w.grid)}))].map(applyReferencePlacement);
+export const ALL_WORLDS: World[] = [...WORLDS, endor, ...records.map(w => ({...w, ...gridToDisplay(w.grid)}))].map(applyReferencePlacement).concat(RECONCILED_WORLDS);

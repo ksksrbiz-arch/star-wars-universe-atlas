@@ -30,3 +30,38 @@ Reviewed November 7, 2026. `src/worldDossiers.ts` contains concise original sett
 ## Validation
 
 All 13 source pages were fetched over HTTPS and their article descriptions reviewed. Candidate `/mos-eisley`, `/theed`, `/naboo-lake-country` and `/coruscant-underworld` URLs returned 404 and were not used; actual cited sources are the working URLs above. `node scripts/test-world-dossiers.mjs` passed the four mapped identities, per-fact official source fields, unique local highlights, coordinate/episode-join exclusions and key era/habitat caveats. The test checks structure and explicit boundaries; it is not an automated substitute for the source review.
+
+## Second field-guide batch: Bespin, Dagobah, Yavin 4 and Endor
+
+The dossier collection now contains eight worlds and 24 distinct official source pages. The 11 additional pages below were fetched and their article descriptions reviewed on November 7, 2026. Eight new highlights use the same per-fact source schema. They do not add surface coordinates or episode relationships.
+
+### Bespin
+
+- [Bespin](https://www.starwars.com/databank/bespin): “an immense gas giant” with “a band of habitable atmosphere”; supports an atmospheric environment and floating mining complexes, not a rocky surface.
+- [Cloud City](https://www.starwars.com/databank/cloud-city): “Suspended high among the pastel clouds of Bespin”; the article identifies a mining colony extracting Tibanna gas. Cloud City is one settlement, not a synonym for the whole planet.
+- [Carbon-freezing](https://www.starwars.com/databank/carbon-freezing): “an industrial process that encases highly pressurized gases inside solidified carbonite”; the entry explicitly places its use in Cloud City. The dossier describes the industrial function without recounting character outcomes.
+
+### Dagobah
+
+- [Dagobah](https://www.starwars.com/databank/dagobah): “a swamp-covered planet” with “dense, jungle undergrowth”; supports humid wetlands and abundant wildlife.
+- [Yoda’s Hut](https://www.starwars.com/databank/yodas-hut): “a simple hut he built among the roots of a massive gnarltree”; the dossier retains the exile-era context without claiming permanent occupancy.
+- [Cave of Evil](https://www.starwars.com/databank/cave-of-evil): “One cave in the planet’s swamps roiled with the dark side.” The article describes visions experienced there. The dossier does not turn those visions into physical travel or identify an entrance on the map.
+
+### Yavin 4
+
+- [Yavin 4](https://www.starwars.com/databank/yavin-4): “One of a number of moons orbiting the gas giant Yavin” and “covered in jungle and forest”; the entry describes Rebel stopovers and a later larger base. The display name remains Yavin 4 while the stable atlas ID is `yavin`.
+- [Yavinian doodar](https://www.starwars.com/databank/yavinian-doodar): “Indigenous to the fourth moon of Yavin”; the entry describes a territorial reptilian animal and its rumbling call. This is a habitat highlight rather than a precise wildlife-viewing location.
+
+A named-temple highlight was not invented from failed candidate URLs. The working Yavin 4 article supports the general Rebel-base association; it does not supply the detailed temple geography that a richer surface map would require.
+
+### Endor’s forest moon
+
+- [Endor](https://www.starwars.com/databank/endor): explicitly identifies the “forest moon of Endor”; the page also lists grasslands and mountains. This is not the parent planet or Kef Bir.
+- [Bright Tree Village](https://www.starwars.com/databank/bright-tree-village): “Built into the majestic trees high above the lush surface of Endor”; rope bridges and ladders connect huts, buildings and watchtowers. No tree or village coordinates are added.
+- [Ewok](https://www.starwars.com/databank/ewok): the article identifies the “Imperial shield generator built in their forests”. The dossier marks this installation as belonging to a wartime occupation instead of a permanent natural landmark.
+
+## Reviewed terrain categories
+
+`WORLD_TERRAIN` provides a coarse directory-discovery category for these eight dossier worlds only: Tatooine desert, Coruscant urban, Hoth ice, Naboo lakes/wetlands, Bespin gas giant, Dagobah swamp, and Yavin 4/Endor forest. Each entry links to the corresponding official world page. A category summarizes one dominant environment; it does not exclude other environments on that world. Naboo’s plains and hills and Endor’s grasslands and mountains remain in the full dossier text.
+
+Worlds absent from this metadata are **not reviewed for this filter**, not scientifically unknown or assigned an inferred “other” terrain. Region and map placement remain separate attributes. The static dossier suite verifies all eight mapped IDs, exact coverage of the reviewed terrain keys, source URLs, no inferred coordinates or episode joins, gas-giant/solid-surface distinction, and the Yavin/Endor moon identities.

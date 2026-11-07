@@ -11,7 +11,7 @@ export function appearanceDigest(connections) {
   return createHash('sha256').update(canonicalJson(sorted)).digest('hex');
 }
 export const datasetDigest = rows => createHash('sha256').update(canonicalJson([...rows].sort((a,b)=>a.id.localeCompare(b.id)))).digest('hex');
-export function buildPublication(connections, {works, worlds, catalog, sequences}) {
+export function buildPublication(connections, {works, worlds, catalog, sequences, worldRecords}) {
   const keys = new Set();
   for (const row of connections) {
     const key = JSON.stringify([row.itemId,row.worldId]);
@@ -21,6 +21,10 @@ export function buildPublication(connections, {works, worlds, catalog, sequences
   }
   const sha256=appearanceDigest(connections);
   const manifest={id:`appearances-sha256-${sha256}`,sha256,works,worlds,appearances:connections.length,coveredTitles:new Set(connections.map(row=>row.itemId)).size};
+  if (worldRecords) {
+    if (worldRecords.length !== worlds || new Set(worldRecords.map(row => row.id)).size !== worlds) throw Error('World record count or identity mismatch');
+    manifest.worldsSha256=datasetDigest(worldRecords);
+  }
   if (catalog && sequences) {
     manifest.catalogSha256=datasetDigest(catalog);
     manifest.sequencesSha256=datasetDigest(sequences);
@@ -28,6 +32,15 @@ export function buildPublication(connections, {works, worlds, catalog, sequences
     manifest.id=`catalog-sha256-${createHash('sha256').update(canonicalJson(manifest)).digest('hex')}`;
   }
   const literal=value=>`'${JSON.stringify(value).replaceAll("'","''")}'::jsonb`;
+  const worldsSql = worldRecords ? `
+CREATE TEMP TABLE desired_worlds (id text PRIMARY KEY, grid text, payload jsonb) ON COMMIT DROP;
+INSERT INTO desired_worlds SELECT value->>'id',value->>'grid',value FROM jsonb_array_elements(${literal(worldRecords)});
+DO $worlds$
+BEGIN
+ IF EXISTS (SELECT 1 FROM atlas_worlds a LEFT JOIN desired_worlds d USING(id) WHERE d.id IS NULL OR a.payload IS DISTINCT FROM d.payload OR a.grid IS DISTINCT FROM d.grid) THEN RAISE EXCEPTION 'Existing world baseline conflicts with reviewed dataset'; END IF;
+END $worlds$;
+INSERT INTO atlas_worlds SELECT * FROM desired_worlds ON CONFLICT(id) DO NOTHING;
+` : '';
   const catalogSql = catalog && sequences ? `
 CREATE TEMP TABLE desired_works (id text PRIMARY KEY, series_id text, kind text, payload jsonb) ON COMMIT DROP;
 INSERT INTO desired_works SELECT value->>'id',value->>'seriesId',value->>'kind',value FROM jsonb_array_elements(${literal(catalog)});
@@ -53,6 +66,7 @@ SET LOCAL lock_timeout = '10s';
 SET LOCAL statement_timeout = '60s';
 LOCK TABLE atlas_works, atlas_worlds, atlas_appearances, atlas_publications, atlas_sequences, atlas_sequence_items IN SHARE ROW EXCLUSIVE MODE;
 ${catalogSql}
+${worldsSql}
 CREATE TEMP TABLE desired_appearances (work_id text NOT NULL, world_id text NOT NULL, payload jsonb NOT NULL, PRIMARY KEY(work_id,world_id)) ON COMMIT DROP;
 INSERT INTO desired_appearances SELECT value->>'itemId',value->>'worldId',value FROM jsonb_array_elements(${literal(connections)});
 DO $publication$

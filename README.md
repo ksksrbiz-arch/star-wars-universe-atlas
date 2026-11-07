@@ -4,7 +4,7 @@ Live preview: https://star-wars-universe-atlas.skdev-371.workers.dev
 
 Cloudflare Workers hosts the app and read-only API, with dedicated Neon Postgres through Hyperdrive and separate R2 media buckets. Main-branch application changes build, validate, and deploy through Cloudflare Builds. See [deployment setup](docs/DEPLOYMENT.md). User watch progress remains browser-local.
 
-Deployed interactive atlas with 62 schematic map destinations (eight general, 53 direct journey placements, and the Endor parent-system placement), a 193-item film/episode catalog, five sourced collection viewing sequences, and partial story/location relationships. The implementation includes galaxy navigation, cinematic jumps, reduced motion, library/release-timeline views, and browser-local watch progress. Release checks are recorded in [deployment verification](evidence/deployment/verification.md).
+Deployed interactive atlas with 76 schematic map destinations (eight general, 67 direct journey placements, and the Endor parent-system placement), a 193-item film/episode catalog, five sourced collection viewing sequences, and partial story/location relationships. The implementation includes galaxy navigation, cinematic jumps, reduced motion, library/release-timeline views, and browser-local watch progress. Release checks are recorded in [deployment verification](evidence/deployment/verification.md).
 
 Latest visual upgrade details and validation: [visual verification](evidence/visual-upgrades-verification.md). Graphics settings, layered galaxy rendering, two-second warp effects, and reduced-motion-aware interface transitions are implemented locally.
 
@@ -12,7 +12,7 @@ Reference-map geography update: [verification and scope](evidence/reference-map-
 
 ## Run
 
-Integrated relationship coverage is 270 links across 187 of 193 titles and 91 world names. Six titles have no current link. Only 62 worlds have supported map placements; title coverage does not establish complete scene coverage.
+Integrated relationship coverage is 283 links across 187 of 193 titles and 96 world names. Six titles have no current link. Only 76 worlds have supported map placements; title coverage does not establish complete scene coverage.
 
 Requires a current Node version supported by Vite (Node 26 used during development).
 
@@ -25,7 +25,7 @@ Open http://localhost:4173. Keep the terminal running. Production build: `npm ru
 
 ## Scope
 
-Eight general destinations in [data.ts](src/data.ts) combine with 54 additional destinations in [journeyWorlds.ts](src/journeyWorlds.ts). Background and planet artwork are illustrative. Region silhouettes and five major route corridors are approximate reference-image traces. Twenty-seven world symbols have in-cell traced offsets; 35 retain cell centers. Grid-cell centers do not imply precise coordinates, routes, travel times, or physical scale. Shared cells are valid; rendering separation is a presentation choice. Yavin 4 uses its parent-system grid, not an independently measured moon position.
+Eight general destinations in [data.ts](src/data.ts) combine with 68 additional destinations in [journeyWorlds.ts](src/journeyWorlds.ts). Background and planet artwork are illustrative. Region silhouettes and five major route corridors are approximate reference-image traces. Twenty-seven world symbols have in-cell traced offsets; 49 retain cell centers. Grid-cell centers do not imply precise coordinates, routes, travel times, or physical scale. Shared cells are valid; rendering separation is a presentation choice. Yavin 4 uses its parent-system grid, not an independently measured moon position.
 
 | Catalog group | Included |
 |---|---:|
@@ -35,7 +35,7 @@ Eight general destinations in [data.ts](src/data.ts) combine with 54 additional 
 | The Mandalorian | 24 episodes, seasons 1–3 |
 | Ahsoka | 8 episodes, season 1 |
 
-The original 181 regular episodes and four films remain a distinct 185-item audit cohort. Eight Ahsoka season-one episodes are added from a separate TVmaze source snapshot, bringing the current catalog to 193 items. This is a bounded collection, not all Star Wars movies/shows. Nine promotional/Legacy specials, the 2003 Clone Wars series, and The Mandalorian and Grogu film are excluded. The 62 worlds do not constitute complete geographic coverage. Story/location coverage is partial and independently counted in [journey data review](evidence/journey-data-review.md). An unjoined story has no verified relationship in this pass; it may be unaudited or reviewed without a named planet link.
+The original 181 regular episodes and four films remain a distinct 185-item audit cohort. Eight Ahsoka season-one episodes are added from a separate TVmaze source snapshot, bringing the current catalog to 193 items. This is a bounded collection, not all Star Wars movies/shows. Nine promotional/Legacy specials, the 2003 Clone Wars series, and The Mandalorian and Grogu film are excluded. The 76 worlds do not constitute complete geographic coverage. Story/location coverage is partial and independently counted in [journey data review](evidence/journey-data-review.md). An unjoined story has no verified relationship in this pass; it may be unaudited or reviewed without a named planet link.
 
 ## Source fidelity and limits
 
@@ -80,4 +80,10 @@ The hero imports NASA SVS’s public-domain randomized starfield as decorative a
 
 The optional guided start in the hero introduces all five collections, with the Original Trilogy selected initially. Choose the first chapter or explicitly resume at the first unwatched chapter in that collection’s sourced viewing order. Opening the guide changes neither watched progress nor location visibility.
 
-Tatooine, Coruscant, Hoth and Naboo include expanded field guides beneath the map, with sourced terrain descriptions and nine expandable local settings. Original portraits remain illustrative. These setting details do not establish episode appearances or surface coordinates; linked stories retain their own evidence and reveal controls. See [source review](evidence/world-dossiers-source-review.md).
+Tatooine, Coruscant, Hoth, Naboo, Bespin, Dagobah, Yavin 4 and Endor’s forest moon include expanded field guides beneath the map, with sourced terrain descriptions and 17 expandable local settings and habitat references. Original portraits remain illustrative. These setting details do not establish episode appearances or surface coordinates; linked stories retain their own evidence and reveal controls. See [source review](evidence/world-dossiers-source-review.md).
+
+## Visual world exploration
+
+Browse worlds from the hero to open a 97-world directory with original illustrations, sourced regions, reviewed terrain categories, and watch-progress filters. Unmapped worlds retain neutral symbols and no map action. Counts use watched titles; including unwatched collection links requires an explicit reveal.
+
+Revealed story cards offer a separate “Explore linked worlds” disclosure with per-location evidence and map previews where supported. Revealing a title does not automatically reveal its other settings. The current frontend reconciles 14 sourced placements and 13 associations already present in the live database; see [geography review](evidence/reconciled-world-geography.md) and [association review](evidence/live-associations-reconciliation.md).
