@@ -14,7 +14,7 @@ import unicodedata
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument('--audit-dir', type=pathlib.Path, default=ROOT.parent)
+parser.add_argument('--audit-dir', type=pathlib.Path, default=ROOT / 'docs')
 args = parser.parse_args()
 episode_path = args.audit_dir / 'episode-coverage.csv'
 film_path = args.audit_dir / 'original-trilogy-coverage.csv'
@@ -77,3 +77,4 @@ metadata = {
 destination = ROOT / 'src/catalog.generated.json'
 destination.write_text(json.dumps({'metadata': metadata, 'items': items}, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 print(f'Built {len(items)} items, excluded {len(excluded)} specials: {destination}')
+

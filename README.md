@@ -1,4 +1,8 @@
-# Galactic Atlas — local platform prototype
+# Star Wars Universe Atlas
+
+Live preview: https://star-wars-universe-atlas.skdev-371.workers.dev
+
+Cloudflare Workers hosts the app and read-only API, with dedicated Neon Postgres through Hyperdrive and separate R2 media buckets. Main-branch application changes build, validate, and deploy through Cloudflare Builds. See [deployment setup](docs/DEPLOYMENT.md). User watch progress remains browser-local.
 
 Local interactive prototype with 62 schematic map destinations (eight general, 53 direct journey placements, and the Endor parent-system placement), a 185-item film/episode catalog, four sourced collection viewing sequences, and partial story/location relationships. The implementation includes galaxy navigation, cinematic jumps, reduced motion, library/release-timeline views, and browser-local watch progress. These are implementation features; current-batch browser validation is not established by this README.
 
@@ -53,4 +57,5 @@ Prior local checks are recorded in [verification](evidence/verification.md) for 
 
 
 Latest completed checks and limitations: [Story journeys verification](evidence/journey-verification.md). Machine-readable coverage inventory: [journey-coverage.json](evidence/journey-coverage.json).
+
 

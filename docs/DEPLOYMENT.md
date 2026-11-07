@@ -2,6 +2,12 @@
 
 The application uses Cloudflare Workers Static Assets. `cloudflare/deployment.json` contains non-secret resource identifiers; `scripts/deploy-cloudflare.mjs` implements Cloudflare's documented direct-upload API. No CLI-specific configuration or local credentials are needed for connector-driven deployment.
 
+Live URL: https://star-wars-universe-atlas.skdev-371.workers.dev
+
+Automatic Cloudflare build trigger: `b6b0e600-fa22-4aec-93b2-c8dfd38b6467`, connected to main. It runs the production builds, ICM checks, catalog, connection, chronology, journey-data, and reference-data validations before deploying. The initial GitHub Actions run could not start because the GitHub account is locked by a billing issue. Its workflow is manual-only until that issue is resolved; automatic validation runs in Cloudflare instead. Documentation/evidence-only changes do not redeploy the app.
+
+The server bundle explicitly selects the `workerd` package condition, so pg-cloudflare's real socket implementation is included. It uses a Worker-compatible createRequire fallback for Node built-ins. `node scripts/test-deployment.mjs` verifies the deployed database endpoints and desktop/mobile map transitions.
+
 Build with Node 24 or newer:
 
 ```sh
@@ -26,3 +32,4 @@ R2 buckets:
 Both buckets have no r2.dev public-access requirement. The current procedural graphics need no external media upload. An asset domain, media transformation jobs, ingestion queues, authenticated editor, staging database, and recovery drills remain later platform work. Deployments use the workers.dev address until a project domain is selected.
 
 Git stores source, documentation, data, migrations, test scripts, and verification evidence. Installed dependencies, build output, secrets, and scratch downloads are excluded. The original user-supplied reference JPEG is not redistributed; its trace metadata and source filename remain documented.
+

@@ -16,8 +16,9 @@ export default {
     if (!['GET','HEAD'].includes(request.method)) return new Response('Method not allowed',{status:405,headers:{Allow:'GET, HEAD'}});
     if (path.startsWith('/api/')) {
       if (path !== '/api/health' && !publicQueries[path]) return json({error:'Not found'},404);
-      const client = new Client({connectionString:env.HYPERDRIVE.connectionString,connectionTimeoutMillis:10000,query_timeout:10000});
+      let client;
       try {
+        client = new Client({connectionString:env.HYPERDRIVE.connectionString,connectionTimeoutMillis:10000,query_timeout:10000});
         await client.connect();
         if (path === '/api/health') {
           const result=await client.query('SELECT (SELECT count(*)::int FROM atlas_works) AS works,(SELECT count(*)::int FROM atlas_worlds) AS worlds,(SELECT count(*)::int FROM atlas_appearances) AS appearances');
@@ -28,7 +29,7 @@ export default {
       } catch {
         console.error('Atlas database request failed');
         return json({error:'Catalog service temporarily unavailable'},503);
-      } finally { ctx.waitUntil(client.end().catch(()=>{})); }
+      } finally { if (client) ctx.waitUntil(client.end().catch(()=>{})); }
     }
     if (path.startsWith('/media/')) {
       const key=path.slice('/media/'.length);
@@ -45,3 +46,4 @@ export default {
     return env.ASSETS.fetch(request);
   }
 };
+
