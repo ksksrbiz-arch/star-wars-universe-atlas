@@ -1,3 +1,6 @@
+import AtlasHero from './AtlasHero';
+import AtlasAudio from './AtlasAudio';
+import PlanetPortrait from './PlanetPortrait';
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { motion, MotionConfig } from 'motion/react';
 
@@ -269,7 +272,7 @@ export default function App() {
 
       <a className="brand" href="#atlas" aria-label="Galactic Atlas home"><span className="brand-symbol"><Orbit size={25} strokeWidth={1.3}/></span><span>GALACTIC <b>ATLAS</b><small>STAR WARS · AN UNOFFICIAL EXPLORER</small></span></a>
 
-      <div className="header-right"><span className="prototype-label"><span/> EXPLORER PREVIEW</span><button className="icon-button info-button" aria-label="About this prototype" aria-expanded={showInfo} onClick={() => setShowInfo(!showInfo)}><Info size={19}/></button></div>
+      <div className="header-right"><AtlasAudio phase={phase} currentId={currentId}/><span className="prototype-label"><span/> EXPLORER PREVIEW</span><button className="icon-button info-button" aria-label="About this prototype" aria-expanded={showInfo} onClick={() => setShowInfo(!showInfo)}><Info size={19}/></button></div>
 
     </motion.header>
 
@@ -286,7 +289,7 @@ export default function App() {
     <main id="atlas" hidden={view !== 'galaxy' && view !== 'journey'}>
       {view === 'journey' && <><Journey onLocationDisclosure={setJourneyDisclosure} onToggleWatched={toggleWatched} watchedIds={watchedIds} onSelectStop={selectJourneyStop} activeItemId={activeItemId} onActiveItemChange={id => {if(phase === 'warping') cancel();setActiveItemId(id);setPreviewId(currentId);window.history.replaceState(null, '', `#journey/${id}`);setJourneyStatus('Choose a revealed mapped location to preview your next stop.');}}/><p className="journey-map-status" role="status">{journeyStatus}</p></>}
 
-      <div className="page-intro" hidden={view === 'journey'}><div><div className="eyebrow"><span className="small-line"/> EXPLORE THE GALAXY</div><h1>Your next story is out there<span>.</span></h1></div><p>{ALL_WORLDS.length} worlds. A galaxy of stories.<br/>Choose a destination and make the jump.</p></div>
+      {view === 'galaxy' && <AtlasHero reducedMotion={reducedMotion}/>}
 
 
 
@@ -303,7 +306,7 @@ export default function App() {
       {locationsDisclosed && <EpisodeLocationControls worlds={highlightedWorlds} unmappedCount={episodeWorldIds.size - highlightedWorlds.length} disabled={phase === 'warping'} mapUnavailable={mapUnavailable} onFit={() => {setEpisodeFitKey(key => key + 1);setAnnouncement('Map fitted to this chapter’s sourced mapped locations.');document.querySelector('.map-stage')?.scrollIntoView({behavior: 'instant', block: 'start'});}} onSelect={id => selectJourneyStop(displayedJourneyId!, id)}/>}
       <section className="explorer" aria-label="Galaxy explorer">
 
-        <div className={`map-stage ${phase === 'warping' ? 'is-warping' : 'is-navigating'}`} data-quality={quality}>
+        <div id="galaxy-map" tabIndex={-1} aria-label="Interactive galaxy map" className={`map-stage ${phase === 'warping' ? 'is-warping' : 'is-navigating'}`} data-quality={quality}>
 
           <div className="galaxy-canvas">{galaxyMounted && <MapBoundary onUnavailable={() => { setMapUnavailable(true); if (phase === 'warping') cancel(); }}><Suspense fallback={<div className="galaxy-loading" role="status"><Orbit size={32} aria-hidden="true"/><strong>Charting the galaxy…</strong><span>Preparing your navigation view</span></div>}><Galaxy fitKey={episodeFitKey} highlightedIds={episodeWorldIds} worlds={mapWorlds} selectedId={currentId} previewId={previewId} targetId={targetId} phase={phase} reducedMotion={reducedMotion} quality={quality} regionsVisible={regionsVisible} routesVisible={routesVisible} gridVisible={gridVisible} onSelect={selectWorld} onArrive={arrive} resetKey={resetKey}/></Suspense></MapBoundary>}</div>
 
@@ -327,7 +330,7 @@ export default function App() {
 
           <div className="dossier-top"><span className="eyebrow">DESTINATION FILE</span><span className="file-number">{String(ALL_WORLDS.indexOf(preview)+1).padStart(2,'0')} / {String(ALL_WORLDS.length).padStart(2,'0')}</span></div>
 
-          <motion.div key={preview.id} initial={{opacity:.3,scale:.94}} animate={{opacity:1,scale:1}} transition={{duration:.5}} className={`planet-portrait planet-${preview.id}`} style={{'--planet-color':preview.color} as React.CSSProperties}><div className="planet-orbit"/><div className="planet-sphere"/><span className="portrait-caption">ILLUSTRATIVE VIEW</span><div className="planet-spark spark-one"/><div className="planet-spark spark-two"/><div className="planet-latitude"/><div className="planet-glow"/></motion.div>
+          <PlanetPortrait key={preview.id} id={preview.id} name={preview.name} color={preview.color} reducedMotion={reducedMotion}/>
 
           <motion.div key={`title-${preview.id}`} initial={{opacity:0,x:8}} animate={{opacity:1,x:0}} className="world-title"><span className="world-region">{preview.region}</span><h2>{preview.name}</h2><p>{detail.subtitle}</p></motion.div>
 

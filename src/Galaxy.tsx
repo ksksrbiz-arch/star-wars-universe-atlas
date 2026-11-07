@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { CSSProperties, ReactNode } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import './galaxy-labels.css'
 import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
@@ -151,12 +152,12 @@ function WorldMarker({ world, highlighted, selected, previewed, disabled, onSele
     </>}
     {previewed && !selected && <mesh><ringGeometry args={[.2, .215, 48]} /><meshBasicMaterial color="#a3d9e6" transparent opacity={.8} /></mesh>}
     <Html center position={[0, -.39, .2]} zIndexRange={[12, 1]} minZoom={selected || previewed || highlighted || ['tatooine','alderaan','yavin','coruscant','hoth','bespin','dagobah','mandalore'].includes(world.id) ? 0 : 55}>
-      <button data-episode-location={highlighted ? world.id : undefined} title={highlighted ? "Sourced location in this chapter; no visit order implied" : undefined} disabled={disabled}
+      <button className={`world-map-label${selected ? ' is-current' : ''}${previewed ? ' is-preview' : ''}${highlighted ? ' is-episode' : ''}`} data-episode-location={highlighted ? world.id : undefined} title={`${world.name} · source grid ${world.grid}${highlighted ? ' · Sourced chapter location; no visit order implied' : ''}`} disabled={disabled}
         onPointerDown={(e) => { drag.current = { x: e.clientX, y: e.clientY, moved: false }; e.currentTarget.setPointerCapture(e.pointerId) }}
         onPointerMove={(e) => { if (e.buttons && Math.hypot(e.clientX - drag.current.x, e.clientY - drag.current.y) > 6) drag.current.moved = true }}
         onPointerCancel={() => { drag.current.moved = true }}
         onClick={(e) => { e.stopPropagation(); if (e.detail === 0 || !drag.current.moved) onSelect(world.id) }} aria-label={`Explore ${world.name}`} aria-pressed={selected}
-        style={{ border: 0, background: 'transparent', color, cursor: disabled ? 'default' : 'pointer', fontSize: selected ? 12 : 11, fontWeight: selected ? 600 : 400, padding: '12px 10px', minHeight: 44, transform: `translate(${offset[0]}px, ${offset[1]}px)`, textShadow: '0 2px 8px #000, 0 0 5px #000', letterSpacing: '.035em', whiteSpace: 'nowrap', fontFamily: 'inherit', opacity: disabled ? .35 : 1, transition: 'opacity 180ms' }}>
+        style={{ color, cursor: disabled ? 'default' : 'pointer', fontSize: selected || highlighted ? 12 : 11, fontWeight: selected || highlighted ? 600 : 500, padding: '12px 10px', minHeight: 44, transform: `translate(${offset[0]}px, ${offset[1]}px)`, textShadow: '0 2px 8px #000, 0 0 5px #000', letterSpacing: '.035em', whiteSpace: 'nowrap', fontFamily: 'inherit', opacity: disabled ? .35 : 1, transition: 'opacity 180ms' }}>
         {world.name}
       </button>
     </Html>
@@ -313,7 +314,7 @@ function Scene(props: Props) {
 
 export default function Galaxy(props: Props) {
   return <div style={{ position: 'absolute', inset: 0, background: '#050c12', isolation: 'isolate' }} aria-label="Interactive schematic galaxy map">
-    <Canvas orthographic camera={{ position: [0, 0, 22], zoom: 32, near: .1, far: 100 }} dpr={[1, 1.5]} frameloop="demand" gl={{ antialias: true, alpha: false, powerPreference: 'default' }} fallback={<div style={{ padding: 32, color: '#d7e4e8' }}>The galaxy view needs WebGL. Choose a world using the destination list.</div>}>
+    <Canvas orthographic camera={{ position: [0, 0, 22], zoom: 32, near: .1, far: 100 }} dpr={props.quality === 'cinematic' && !props.reducedMotion ? [1, 2] : [1, 1.5]} frameloop="demand" gl={{ antialias: true, alpha: false, powerPreference: 'default' }} fallback={<div style={{ padding: 32, color: '#d7e4e8' }}>The galaxy view needs WebGL. Choose a world using the destination list.</div>}>
       <Scene {...props} />
     </Canvas>
     <div aria-hidden="true" style={{ pointerEvents: 'none', position: 'absolute', inset: 0, boxShadow: 'inset 0 0 130px 35px rgba(1,6,11,.55)' }} />

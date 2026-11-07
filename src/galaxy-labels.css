@@ -1,0 +1,9 @@
+/* DOM lettering stays crisp independently of the decorative WebGL resolution. */
+.world-map-label{border:1px solid transparent;border-radius:4px;background:transparent;line-height:1.25;font-variant-ligatures:none;-webkit-font-smoothing:antialiased;transition:background-color .16s,border-color .16s,box-shadow .16s!important}
+.world-map-label.is-current,.world-map-label.is-preview,.world-map-label.is-episode{background:linear-gradient(180deg,#07111cdb,#07111cb0);border-color:#7093a642;box-shadow:0 2px 12px #0005}
+.world-map-label.is-current{border-color:#d4b67d73}
+.world-map-label.is-episode{border-color:#b9a0dc70}
+.world-map-label:focus-visible{outline:2px solid #c3f3ff;outline-offset:2px;background:#102638}
+@media(hover:hover){.world-map-label:hover:not(:disabled){background:#122b3bea;border-color:#8ec4d67a;box-shadow:0 0 14px #75cbe31a}}
+@media(prefers-reduced-motion:reduce){.world-map-label{transition:none!important}}
+.atlas-app[data-reduced-motion='true'] .world-map-label{transition:none!important}

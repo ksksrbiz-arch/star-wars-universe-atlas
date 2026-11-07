@@ -69,3 +69,9 @@ Search mapped destinations by name, grid, or region; filter by region and share 
 ## Bug-sweep regression checks
 
 After `npm ci`, start `npm run dev`, then run `npm run test:worker`, `npm run test:ui-repairs`, and `npm run test:map-resilience`. Browser scripts accept `ATLAS_URL` to target a specific running checkout (default `http://localhost:4173`); this avoids accidentally checking another server. The Worker regression uses mocked database and R2 bindings and does not require credentials.
+
+## Cinematic experience and reusable media
+
+The atlas includes resolution-independent original world portraits, high-density cinematic map rendering, clearer world lettering and finite hyperspace effects. Sound is muted by default; the header switch enables original synthesized interface cues. Reduced motion remains independent of audio.
+
+The hero imports NASA SVS’s public-domain randomized starfield as decorative atmosphere, with visible source credit and responsive local derivatives. Phones use the 38 KB preview, desktops the 144 KB 2K image, and the 1.6 MB 4K derivative is explicit opt-in. This is not fictional geography or a Star Wars screenshot. See [media provenance and representative label audit](evidence/media-provenance.md) and [experience verification](evidence/cinematic-experience-verification.md).

@@ -72,9 +72,13 @@ void main() {
   float haloRadius = mix(0.28, 1.45, smoothstep(0.62, 1.0, t));
   float halo = exp(-pow((radius - haloRadius) * 5.0, 2.0))
              * smoothstep(0.58, 0.76, t) * arrival * 0.13;
+  // Soft converging wake adds depth without obscuring the destination labels.
+  float wake = exp(-radius * 7.0) * smoothstep(0.08, 0.36, t) * arrival;
+  float flare = exp(-abs(p.y) * 45.0) * exp(-abs(p.x) * 3.5)
+              * smoothstep(0.64, 0.80, t) * arrival;
   vec3 cyan = vec3(0.12, 0.62, 0.82);
   vec3 ice = vec3(0.70, 0.90, 1.0);
-  vec3 energy = cyan * mist + ice * stars * envelope * 0.65 + cyan * halo;
+  vec3 energy = cyan * mist + ice * stars * envelope * 0.65 + cyan * halo + vec3(0.10, 0.27, 0.44) * wake + ice * flare * 0.11;
   float alpha = min(0.68, max(energy.r, max(energy.g, energy.b)));
   if (alpha < 0.001) discard;
   gl_FragColor = vec4(energy / max(alpha, 0.001), alpha);

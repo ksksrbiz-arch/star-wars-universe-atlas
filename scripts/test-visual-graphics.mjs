@@ -42,7 +42,7 @@ try {
     if (mobile) await quality.selectOption('balanced');
     await page.screenshot({path:`evidence/visual-graphics-${mode}-map.png`});
     await page.getByRole('button',{name:'Explore Hoth',exact:true}).click();
-    if (mode !== 'reduced') await page.clock.pauseAt(new Date());
+    if (mode !== 'reduced') await page.clock.pauseAt(await page.evaluate(() => Date.now() + 1000));
     await page.getByRole('button',{name:'Jump to Hoth',exact:true}).first().click();
     if (mode === 'reduced') {
       await page.waitForTimeout(350);
@@ -62,15 +62,19 @@ try {
       await page.clock.resume();
       await page.waitForTimeout(2200);
       await page.getByRole('button',{name:'Explore Tatooine',exact:true}).click();
+      await page.clock.pauseAt(await page.evaluate(() => Date.now() + 1000));
       await page.getByRole('button',{name:'Jump to Tatooine',exact:true}).first().click();
+      await page.clock.runFor(200);
       await page.getByRole('button',{name:'Cancel',exact:true}).click();
-      await page.waitForTimeout(100);
+      await page.clock.runFor(100);
       assert.equal(await page.locator('.current-location strong').textContent(),'Hoth');
       await page.getByRole('button',{name:'Explore Tatooine',exact:true}).click();
       await page.getByRole('button',{name:'Jump to Tatooine',exact:true}).first().click();
+      await page.clock.runFor(200);
       await page.getByRole('button',{name:'Skip animation'}).click();
-      await page.waitForTimeout(100);
+      await page.clock.runFor(100);
       assert.equal(await page.locator('.current-location strong').textContent(),'Tatooine');
+      await page.clock.resume();
     }
     await page.waitForTimeout(300);
     assert.deepEqual(errors,[]);
