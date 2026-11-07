@@ -29,6 +29,7 @@ import { CATALOG } from './catalog';
 import { CONNECTIONS } from './connections';
 import { STORY_SEQUENCES } from './chronology';
 import './episode-highlights.css';
+import EpisodeLocationControls from './EpisodeLocationControls';
 
 import { useWatchProgress } from './useWatchProgress';
 
@@ -89,6 +90,7 @@ export default function App() {
   const [history, setHistory] = useState<string[]>([]);
 
   const [resetKey, setResetKey] = useState(0);
+  const [episodeFitKey, setEpisodeFitKey] = useState(0);
 
   const [reducedMotion, setReducedMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
@@ -275,7 +277,7 @@ export default function App() {
 
     <nav className="platform-nav" aria-label="Atlas sections">{(['galaxy','journey','library','timeline','watch'] as View[]).map(item => <a key={item} href={`#${item}`} aria-current={view === item ? 'page' : undefined} onClick={() => { if (phase === 'warping') cancel(); }}>{(() => { const Icon = {galaxy:Orbit,journey:Route,library:BookOpen,timeline:Clock3,watch:BookmarkCheck}[item]; return <Icon size={16} aria-hidden="true"/>; })()}{item === 'watch' ? 'My watchlist' : item === 'timeline' ? 'Release timeline' : item[0].toUpperCase()+item.slice(1)}{item === 'watch' && <span>{watchedIds.size}</span>}</a>)}<span className="catalog-count">{ALL_WORLDS.length} MAPPED WORLDS · {CATALOG.length} STORIES</span></nav>
 
-      {showInfo && <section className="about-panel" aria-label="About this prototype"><div><strong>A small window into a much larger galaxy.</strong><p>This explorer connects 62 mapped worlds with a curated 185-title catalog and sourced story journeys. Positions represent published grid cells on a schematic map; transitions are cinematic, not measured routes. It is not a complete Star Wars catalog.</p><p>Original interface and planet illustrations. Star Wars belongs to Lucasfilm. This is an unofficial fan project.</p></div><button className="icon-button" onClick={() => setShowInfo(false)} aria-label="Close prototype information"><X size={18}/></button></section>}
+      {showInfo && <section className="about-panel" aria-label="About this prototype"><div><strong>A small window into a much larger galaxy.</strong><p>This explorer connects {ALL_WORLDS.length} mapped worlds with a curated {CATALOG.length}-title catalog and sourced story journeys. Positions represent published grid cells on a schematic map; transitions are cinematic, not measured routes. It is not a complete Star Wars catalog.</p><p>Original interface and planet illustrations. Star Wars belongs to Lucasfilm. This is an unofficial fan project.</p></div><button className="icon-button" onClick={() => setShowInfo(false)} aria-label="Close prototype information"><X size={18}/></button></section>}
 
     {storageWarning && <p className="storage-warning" role="status">{storageWarning}</p>}
 
@@ -284,7 +286,7 @@ export default function App() {
     <main id="atlas" hidden={view !== 'galaxy' && view !== 'journey'}>
       {view === 'journey' && <><Journey onLocationDisclosure={setJourneyDisclosure} onToggleWatched={toggleWatched} watchedIds={watchedIds} onSelectStop={selectJourneyStop} activeItemId={activeItemId} onActiveItemChange={id => {if(phase === 'warping') cancel();setActiveItemId(id);setPreviewId(currentId);window.history.replaceState(null, '', `#journey/${id}`);setJourneyStatus('Choose a revealed mapped location to preview your next stop.');}}/><p className="journey-map-status" role="status">{journeyStatus}</p></>}
 
-      <div className="page-intro" hidden={view === 'journey'}><div><div className="eyebrow"><span className="small-line"/> EXPLORE THE GALAXY</div><h1>Your next story is out there<span>.</span></h1></div><p>62 worlds. A galaxy of stories.<br/>Choose a destination and make the jump.</p></div>
+      <div className="page-intro" hidden={view === 'journey'}><div><div className="eyebrow"><span className="small-line"/> EXPLORE THE GALAXY</div><h1>Your next story is out there<span>.</span></h1></div><p>{ALL_WORLDS.length} worlds. A galaxy of stories.<br/>Choose a destination and make the jump.</p></div>
 
 
 
@@ -298,12 +300,12 @@ export default function App() {
         <WorldExplorer selectedId={previewId} disabled={phase === 'warping'} onSelect={selectWorld}/>
       </div>
       <details className="reference-key"><summary>Map key &amp; reference</summary><p>Colored boundaries and five major hyperspace lanes follow the supplied galaxy-map reference as approximate visual traces. Published system grids remain the placement source; traced positions are identified in each destination’s position note. Story connections are separate from these routes.</p><ul className='route-legend-list'>{HYPERSPACE_ROUTES.map(route=><li key={route.id}><i style={{background:route.color}}/>{route.number}. {route.name}</li>)}</ul><p>Zoom for smaller world labels. <a href="http://www.swgalaxymap.com/" target="_blank" rel="noreferrer">SW Galaxy Map reference ↗</a></p></details>
-      {locationsDisclosed && <aside className="episode-map-key" aria-label="Episode location highlights"><strong>{highlightedWorlds.length} mapped locations highlighted</strong><p>Violet rings identify sourced locations for this chapter. They do not show a route or visit order. {episodeWorldIds.size - highlightedWorlds.length > 0 && `${episodeWorldIds.size - highlightedWorlds.length} linked locations have no supported map position.`}</p><div>{highlightedWorlds.map(world => <button key={world.id} disabled={phase === 'warping'} onClick={() => selectJourneyStop(displayedJourneyId!, world.id)}>{world.name}</button>)}</div></aside>}
+      {locationsDisclosed && <EpisodeLocationControls worlds={highlightedWorlds} unmappedCount={episodeWorldIds.size - highlightedWorlds.length} disabled={phase === 'warping'} mapUnavailable={mapUnavailable} onFit={() => {setEpisodeFitKey(key => key + 1);setAnnouncement('Map fitted to this chapter’s sourced mapped locations.');document.querySelector('.map-stage')?.scrollIntoView({behavior: 'instant', block: 'start'});}} onSelect={id => selectJourneyStop(displayedJourneyId!, id)}/>}
       <section className="explorer" aria-label="Galaxy explorer">
 
         <div className={`map-stage ${phase === 'warping' ? 'is-warping' : 'is-navigating'}`} data-quality={quality}>
 
-          <div className="galaxy-canvas">{galaxyMounted && <MapBoundary onUnavailable={() => { setMapUnavailable(true); if (phase === 'warping') cancel(); }}><Suspense fallback={<div className="galaxy-loading" role="status"><Orbit size={32} aria-hidden="true"/><strong>Charting the galaxy…</strong><span>Preparing your navigation view</span></div>}><Galaxy highlightedIds={episodeWorldIds} worlds={mapWorlds} selectedId={currentId} previewId={previewId} targetId={targetId} phase={phase} reducedMotion={reducedMotion} quality={quality} regionsVisible={regionsVisible} routesVisible={routesVisible} gridVisible={gridVisible} onSelect={selectWorld} onArrive={arrive} resetKey={resetKey}/></Suspense></MapBoundary>}</div>
+          <div className="galaxy-canvas">{galaxyMounted && <MapBoundary onUnavailable={() => { setMapUnavailable(true); if (phase === 'warping') cancel(); }}><Suspense fallback={<div className="galaxy-loading" role="status"><Orbit size={32} aria-hidden="true"/><strong>Charting the galaxy…</strong><span>Preparing your navigation view</span></div>}><Galaxy fitKey={episodeFitKey} highlightedIds={episodeWorldIds} worlds={mapWorlds} selectedId={currentId} previewId={previewId} targetId={targetId} phase={phase} reducedMotion={reducedMotion} quality={quality} regionsVisible={regionsVisible} routesVisible={routesVisible} gridVisible={gridVisible} onSelect={selectWorld} onArrive={arrive} resetKey={resetKey}/></Suspense></MapBoundary>}</div>
 
           <div className="map-heading"><span className="eyebrow">GALAXY VIEW</span><span className="map-coordinate"><span className="live-dot"/> {phase === 'warping' ? 'HYPERSPACE TRANSIT' : 'NAVIGATION ONLINE'}</span></div>
 

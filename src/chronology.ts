@@ -35,6 +35,18 @@ const cloneWarsCodes = `
 
 export const STORY_SEQUENCES: StorySequence[] = [
   {
+    id: 'ahsoka',
+    title: 'Ahsoka · season 1 narrative order',
+    description: 'Follow the eight numbered parts of the complete first season, preserving visions and recalled battles inside their original episodes.',
+    sourceUrl: 'https://www.starwars.com/series/ahsoka',
+    itemIds: numberedEpisodes('ahsoka', [8]),
+    caveats: [
+      'Season 1 only; later seasons and announced episodes are outside this collection.',
+      'Whole-episode narrative order is not event chronology. Visions of Clone Wars battles remain in Part Five, not moved into the Clone Wars sequence.',
+      'Peridea is in another galaxy; this sequence supplies no map placement, travel distance, or exact in-universe dates.',
+    ],
+  },
+  {
     id: 'clone-wars',
     title: 'The Clone Wars · official chronological order',
     description: 'The official whole-episode viewing sequence, including the 2008 theatrical film: 134 stories across the Clone Wars.',
@@ -104,7 +116,7 @@ export const STORY_CONNECTIONS: StoryConnection[] = [
     id: 'andor-rogue-one', sequenceId: 'andor', kind: 'bridge',
     afterItemId: 'andor-s02e12', beforeItemId: 'ot-a-new-hope',
     externalTitles: ['Rogue One: A Star Wars Story'],
-    description: 'Rogue One follows the Andor finale and connects its story to A New Hope. It is not included in the current 185-item collection.',
+    description: 'Rogue One follows the Andor finale and connects its story to A New Hope. It is not included in the current collection.',
     sourceUrl: 'https://www.starwars.com/series/andor/season-2-episode-12-episode-guide',
   },
   {

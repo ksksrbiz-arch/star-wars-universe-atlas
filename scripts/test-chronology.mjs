@@ -4,7 +4,7 @@ import { STORY_SEQUENCES, STORY_CONNECTIONS } from '../src/chronology.ts';
 
 const { items } = JSON.parse(await readFile(new URL('../src/catalog.generated.json', import.meta.url), 'utf8'));
 const catalog = new Map(items.map(item => [item.id, item]));
-const expected = { 'clone-wars': 134, andor: 24, ot: 3, mandalorian: 24 };
+const expected = { 'clone-wars': 134, andor: 24, ot: 3, mandalorian: 24, ahsoka: 8 };
 const covered = [];
 for (const sequence of STORY_SEQUENCES) {
   assert.equal(sequence.itemIds.length, expected[sequence.id], `${sequence.id} count`);
@@ -15,8 +15,8 @@ for (const sequence of STORY_SEQUENCES) {
   for (const id of sequence.itemIds) assert.ok(catalog.has(id), `Unresolved story ID ${id}`);
   covered.push(...sequence.itemIds);
 }
-assert.equal(covered.length, 185);
-assert.equal(new Set(covered).size, 185);
+assert.equal(covered.length, 193);
+assert.equal(new Set(covered).size, 193);
 assert.equal(Object.keys(expected).length, STORY_SEQUENCES.length);
 
 const cw = STORY_SEQUENCES.find(sequence => sequence.id === 'clone-wars').itemIds;
@@ -30,7 +30,7 @@ before('clone-wars-s05e01', 'clone-wars-s05e14');
 assert.deepEqual(cw.slice(-12), [5,6,7,8,1,2,3,4,9,10,11,12].map(number => `clone-wars-s07e${String(number).padStart(2, '0')}`));
 assert.equal(cw.filter(id => catalog.get(id).kind === 'film').length, 1);
 
-for (const sequenceId of ['andor', 'mandalorian']) {
+for (const sequenceId of ['andor', 'mandalorian', 'ahsoka']) {
   const list = STORY_SEQUENCES.find(sequence => sequence.id === sequenceId).itemIds.map(id => catalog.get(id));
   for (let i = 1; i < list.length; i++) {
     const previous = list[i - 1], current = list[i];
@@ -52,4 +52,4 @@ const overlap = STORY_CONNECTIONS.find(connection => connection.id === 'clone-wa
 assert.equal(overlap.kind, 'overlap');
 assert.equal(overlap.itemIds.length, 4);
 assert.ok(!Object.hasOwn(overlap, 'afterItemId'), 'Overlap is not falsely serialized as watch-next');
-console.log('Chronology passed: 185 unique catalog items, official Clone Wars reorder anchors, narrative sequences, sourced external bridges and overlap.');
+console.log('Chronology passed: 193 unique catalog items, official Clone Wars reorder anchors, narrative sequences, sourced external bridges and overlap.');

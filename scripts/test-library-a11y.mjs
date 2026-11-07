@@ -1,3 +1,5 @@
+import {readFile as readCatalogFile} from 'node:fs/promises';
+const catalogCount=JSON.parse(await readCatalogFile(new URL('../src/catalog.generated.json',import.meta.url),'utf8')).items.length;
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 import {writeFile} from 'node:fs/promises';
@@ -20,7 +22,7 @@ await page.getByRole('heading',{name:'No stories in this selection.'}).waitFor()
 await page.getByRole('button',{name:'Reset filters',exact:true}).focus();await page.keyboard.press('Enter');
 assert.equal(await search.inputValue(),'');assert.equal(await page.locator('.catalog-item').count(),24);
 checks.push('Keyboard empty-state recovery clears filters');
-assert.match(await page.getByRole('status').last().innerText(),/24 of 185/);
+assert.match(await page.getByRole('status').last().innerText(),new RegExp(`24 of ${catalogCount}`));
 await page.locator('.collection-tabs').getByRole('button',{name:/The Clone Wars/}).focus();await page.keyboard.press('Enter');
 assert.match(await page.locator('.library-results-heading').innerText(),/134/);
 assert.equal(await page.getByRole('option',{name:/Story order/}).isDisabled(),false);

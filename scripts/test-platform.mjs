@@ -1,3 +1,5 @@
+import {readFile as readCatalogFile} from 'node:fs/promises';
+const catalogCount=JSON.parse(await readCatalogFile(new URL('../src/catalog.generated.json',import.meta.url),'utf8')).items.length;
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { writeFile } from 'node:fs/promises';
@@ -26,7 +28,7 @@ await page.getByRole('link',{name:'Release timeline',exact:true}).click();
 await page.locator('.timeline-note').waitFor();assert.match(await page.locator('.timeline-note').innerText(),/real-world releases/);
 assert.equal(await page.getByRole('option',{name:/Story order/}).isDisabled(),true);
 await page.screenshot({path:'evidence/platform-timeline.png',fullPage:true});checks.push('Release timeline clearly distinguished from unsupported story chronology');
-await page.getByRole('link',{name:/My watchlist/}).click();assert.match(await page.locator('.watch-progress-card').innerText(),/1 of 185 watched/);
+await page.getByRole('link',{name:/My watchlist/}).click();assert.match(await page.locator('.watch-progress-card').innerText(),new RegExp(`1 of ${catalogCount} watched`));
 const downloadPromise=page.waitForEvent('download');await page.getByRole('button',{name:'Export watch progress'}).click();const download=await downloadPromise;assert.equal(download.suggestedFilename(),'galactic-atlas-watch-progress.json');
 await page.screenshot({path:'evidence/platform-watch.png',fullPage:true});checks.push('Watch totals, next title and JSON export');
 for (const width of [390,320]) {await page.setViewportSize({width,height:844});for (const route of ['library','timeline','watch']) {await page.goto(`${process.env.ATLAS_URL || 'http://localhost:4173'}/#${route}`);await page.locator('.library-view').waitFor();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`${route} ${width}px overflow`);} }

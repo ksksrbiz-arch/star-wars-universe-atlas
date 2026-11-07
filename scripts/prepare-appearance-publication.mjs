@@ -1,9 +1,10 @@
+import {STORY_SEQUENCES} from '../src/chronology.ts';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {CONNECTIONS} from '../src/connections.ts';
 import {ALL_WORLDS} from '../src/journeyWorlds.ts';
 import {buildPublication} from './appearance-publication.mjs';
 const catalog=JSON.parse(await readFile(new URL('../src/catalog.generated.json',import.meta.url),'utf8'));
-const {manifest,sql}=buildPublication(CONNECTIONS,{works:catalog.items.length,worlds:ALL_WORLDS.length});
+const {manifest,sql}=buildPublication(CONNECTIONS,{works:catalog.items.length,worlds:ALL_WORLDS.length,catalog:catalog.items,sequences:STORY_SEQUENCES});
 await mkdir('db/publications',{recursive:true});
 await writeFile('db/publications/appearances.sql',sql);
 await writeFile('db/publications/appearances.json',JSON.stringify(manifest,null,2)+'\n');

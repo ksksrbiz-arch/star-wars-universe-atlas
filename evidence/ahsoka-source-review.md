@@ -1,0 +1,28 @@
+# Ahsoka season 1 source review and pending connection plan
+
+Retrieved November 7, 2026. Catalog metadata implementation adds the complete eight-episode first season from TVmaze show52343, preserving the original185 audit cohort. Future S2 stub excluded. `docs/ahsoka-season-1-source.json` contains only titles, dates, numbering and URLs; runtime withheld, no summaries/artwork. Provider dates remain as reported (US evening release dates, not a normalized worldwide calendar). Catalog/chronology tests passed in transfer executor; receiving workspace must rerun.
+
+The following **14 connections are researched proposals, NOT implemented in this transfer**. Source captions were fetched and read from exact official episode guides. No new coordinates or scene itinerary.
+
+| Part | worldId / name | Exact source and short quote | Caveat |
+|---|---|---|---|
+| one | arcana / Arcana | [one](https://www.starwars.com/series/ahsoka/part-one-master-and-apprentice-episode-guide): “Elsewhere, Ahsoka investigates the ruins of an ancient temple on Arcana.” | Unmapped. No grid inferred. |
+| one | lothal / Lothal | [one](https://www.starwars.com/series/ahsoka/part-one-master-and-apprentice-episode-guide): “On Lothal, Governor Azadi dedicates a monument” | Explicit scene setting. |
+| two | lothal / Lothal | [two](https://www.starwars.com/series/ahsoka/part-two-toil-and-trouble-episode-guide): “Sabine, recovering from her injuries in Lothal's Capital City” | Explicit hospital setting. |
+| two | seatos / Seatos | [two](https://www.starwars.com/series/ahsoka/part-two-toil-and-trouble-episode-guide): “Baylan and Shin arrive at an ancient site on the planet Seatos.” | Unmapped. |
+| two | corellia / Corellia | [two](https://www.starwars.com/series/ahsoka/part-two-toil-and-trouble-episode-guide): “Ahsoka arrives at the Corellian shipyard factory and finds Hera waiting.” | Same episode explicitly identifies factory on Corellia; not only a proposed destination. |
+| three | seatos / Seatos | [three](https://www.starwars.com/series/ahsoka/part-three-time-to-fly-episode-guide): “Sabine finishes her repairs, and they head to Seatos.” | Caption immediately confirms descent and landing in red-leaf forest; not only heading there. |
+| four | seatos / Seatos | [four](https://www.starwars.com/series/ahsoka/part-four-fallen-jedi-episode-guide): “Sabine and Ahsoka continue to repair their ship in the forests of Seatos.” | Peridea calculations are excluded as not yet arrival. |
+| five | seatos / Seatos | [five](https://www.starwars.com/news/ahsoka-part-5-shadow-warrior-highlights): “Jacen Syndulla, strong with the Force like his Jedi father, can sense something from the Seatos oceans.” | Use https://www.starwars.com/news/ahsoka-part-5-shadow-warrior-highlights; exact episode current scene. |
+| five | mandalore / Mandalore | [five](https://www.starwars.com/series/ahsoka/part-five-shadow-warrior-episode-guide): “Ahsoka now faces Maul's loyalists in the Siege of Mandalore.” | VISION/relived past: guide first describes transport back to her Clone Wars battles. Must explicitly note this is not present-day travel to Mandalore. |
+| six | peridea / Peridea | [six](https://www.starwars.com/series/ahsoka/part-six-far-far-away-episode-guide): “Soon, the craft arrives at Peridea” | Unmapped, another galaxy. No zero coordinate or current-galaxy projection. |
+| seven | coruscant / Coruscant | [seven](https://www.starwars.com/series/ahsoka/part-seven-dreams-and-madness-episode-guide): “Hera goes before the council on Coruscant” | Separate Hera scene; not Ahsoka visiting. |
+| seven | peridea / Peridea | [seven](https://www.starwars.com/series/ahsoka/part-seven-dreams-and-madness-episode-guide): “On Peridea, Ezra and Sabine travel with the Noti.” | Unmapped. |
+| eight | peridea / Peridea | [eight](https://www.starwars.com/news/ahsoka-part-8-the-jedi-the-witch-and-the-warlord-highlights): “Shin igniting her lightsaber as she enters the bandit’s camp on Peridea” | Use https://www.starwars.com/news/ahsoka-part-8-the-jedi-the-witch-and-the-warlord-highlights; current Shin scene, not inferred arc inheritance. |
+| eight | dathomir / Dathomir | [eight](https://www.starwars.com/series/ahsoka/part-eight-the-jedi-the-witch-and-the-warlord-episode-guide): “Thrawn arrives at Dathomir with his mysterious cargo” | Arrival/orbital association; do not assert a surface visit for Ahsoka. |
+
+## Six older gaps re-review
+
+No new rows recommended. Official rewatch articles for [Rising Malevolence](https://www.starwars.com/news/the-clone-wars-rewatch-rising-malevolence), [Shadow of Malevolence](https://www.starwars.com/news/the-clone-wars-rewatch-shadow-of-malevolence), [Destroy Malevolence](https://www.starwars.com/news/the-clone-wars-rewatch-destroy-malevolence), and [Victory and Death](https://www.starwars.com/news/the-clone-wars-rewatch-victory-and-death) supply no named planet/moon identity stronger than the existing reviews. The [Prisoner highlights](https://www.starwars.com/news/bounty-hunting-highlights-the-mandalorian-chapter-6-the-prisoner) remain a prison-ship mission.
+
+For The Rescue, [Who Is Boba Fett?](https://www.starwars.com/news/who-is-boba-fett) says “Boba Fett claimed Jabba’s throne on Tatooine”; [Boba’s Databank](https://www.starwars.com/databank/boba-fett) describes returning to Tatooine to kill Bib Fortuna; the [announcement](https://www.starwars.com/news/the-book-of-boba-fett) identifies the finale end-credit sequence. These corroborate a possible scene-identity join but no single reviewed exact-episode statement supplies Tatooine. Conservatively retain the sixth gap; do not claim an absence of appearances.

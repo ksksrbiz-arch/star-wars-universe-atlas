@@ -1,6 +1,8 @@
-import { useMemo } from 'react'
+import { lazy, Suspense, useMemo } from 'react'
 import { useThree } from '@react-three/fiber'
-import { Bloom, EffectComposer } from '@react-three/postprocessing'
+// Balanced, narrow and reduced-motion maps do not download the optional effect stack.
+// A failed enhancement request must leave the base map usable.
+const CinematicBloom = lazy(() => import('./CinematicBloom').catch(() => ({ default: () => <></> })))
 import * as THREE from 'three'
 
 export type GalaxyQuality = 'balanced' | 'cinematic'
@@ -105,8 +107,6 @@ export default function GalaxyAtmosphere({ quality = 'balanced', reducedMotion }
       </bufferGeometry>
       <shaderMaterial vertexShader={pointVertex} fragmentShader={pointFragment} uniforms={starUniforms} transparent depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false} />
     </points>
-    {cinematic && <EffectComposer multisampling={0} enableNormalPass={false}>
-      <Bloom intensity={.3} luminanceThreshold={1} luminanceSmoothing={.15} mipmapBlur levels={4} />
-    </EffectComposer>}
+    {cinematic && <Suspense fallback={null}><CinematicBloom /></Suspense>}
   </>
 }

@@ -67,6 +67,7 @@ type Props = {
   onSelect: (id: string) => void
   onArrive: () => void
   resetKey: number
+  fitKey?: number
   /** Display-only connection from committed destination to a preview; not a hyperspace route. */
   previewId?: string
 }
@@ -183,6 +184,8 @@ function Scene(props: Props) {
   const baseZoom = Math.max(12, Math.min(size.width / 29, size.height / 23))
   const [limits, setLimits] = useState([baseZoom * .65, baseZoom * 4])
   const animation = useRef<{ started: number; from: THREE.Vector3; to: THREE.Vector3; zoom: number; targetId: string; done: boolean } | null>(null)
+  const fitted = useRef({ key: props.fitKey ?? 0, ids: '', active: false });
+  const highlightedKey = [...(props.highlightedIds ?? [])].sort().join('|');
   const previousSelected = useRef(props.selectedId)
   const previousFraming = useRef<{ zoom: number; resetKey: number } | null>(null)
   const onArrive = useRef(props.onArrive)
@@ -194,6 +197,7 @@ function Scene(props: Props) {
     const reset = !previous || previous.resetKey !== props.resetKey
     cameraO.zoom = reset ? baseZoom : cameraO.zoom * baseZoom / previous.zoom
     if (reset) {
+      fitted.current.active = false
       animation.current = null
       cameraO.position.set(0, 0, 22)
       controls.current?.target.set(0, 0, 0)
@@ -204,6 +208,28 @@ function Scene(props: Props) {
     previousFraming.current = { zoom: baseZoom, resetKey: props.resetKey }
     invalidate()
   }, [baseZoom, props.resetKey, cameraO, invalidate])
+
+  useEffect(() => {
+    const requested = (props.fitKey ?? 0) !== fitted.current.key
+    if (requested) fitted.current = { key: props.fitKey ?? 0, ids: highlightedKey, active: true }
+    if (fitted.current.ids !== highlightedKey || props.phase !== 'idle') fitted.current.active = false
+    if (!fitted.current.active) return
+    const worlds = props.worlds.filter(world => props.highlightedIds?.has(world.id))
+    if (!worlds.length) return
+    const xs = worlds.map(world => world.x * 10), ys = worlds.map(world => world.y * 10)
+    const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys)
+    // Pixel padding accommodates the screen-aligned labels; source positions never move.
+    const usableWidth = Math.max(64, size.width - Math.min(260, size.width * .65))
+    const usableHeight = Math.max(64, size.height - 180)
+    const zoom = Math.max(1, Math.min(baseZoom * 4, usableWidth / Math.max(1, maxX - minX), usableHeight / Math.max(1, maxY - minY)))
+    cameraO.position.set((minX + maxX) / 2, (minY + maxY) / 2, 22)
+    cameraO.zoom = zoom
+    controls.current?.target.set(cameraO.position.x, cameraO.position.y, 0)
+    setLimits([Math.min(baseZoom * .65, zoom), baseZoom * 4])
+    cameraO.updateProjectionMatrix()
+    controls.current?.update()
+    invalidate()
+  }, [props.fitKey, highlightedKey, props.phase, size.width, size.height, baseZoom, cameraO, invalidate])
 
   useEffect(() => {
     const world = props.worlds.find(w => w.id === props.targetId)
@@ -255,6 +281,15 @@ function Scene(props: Props) {
     else invalidate()
   })
 
+  const episodeOffsets = new Map<string, [number, number]>()
+  const highlighted = props.worlds.filter(world => props.highlightedIds?.has(world.id)).sort((a, b) => a.name.localeCompare(b.name))
+  for (const world of highlighted) {
+    const nearby = highlighted.filter(other => Math.hypot(other.x - world.x, other.y - world.y) < .18)
+    if (nearby.length > 1) {
+      const index = nearby.findIndex(other => other.id === world.id)
+      episodeOffsets.set(world.id, [0, (index - (nearby.length - 1) / 2) * 52])
+    }
+  }
   const from = props.worlds.find(w => w.id === props.selectedId)
   const preview = props.worlds.find(w => w.id === props.previewId)
   return <>
@@ -265,9 +300,9 @@ function Scene(props: Props) {
     {props.regionsVisible && GALACTIC_REGION_LABELS.map(label=><Html key={label.id} position={label.position} style={{pointerEvents:'none'}} zIndexRange={[3,1]}><span className="region-map-label" style={{borderLeft:`2px solid ${label.color}`}}>{label.name}</span></Html>)}
     {props.gridVisible && <ReferenceGridLabels/>}
     {from && preview && from.id !== preview.id && (from.x !== preview.x || from.y !== preview.y) && <PreviewConnection from={from} to={preview} />}
-    {props.worlds.map(w => <WorldMarker key={w.id} sharedOffset={(() => {const siblings = props.worlds.filter(other => other.grid === w.grid && (['tatooine','alderaan','yavin','coruscant','hoth','bespin','dagobah','mandalore'].includes(other.id) || other.id === props.selectedId || other.id === props.previewId || props.highlightedIds?.has(other.id))); return siblings.length > 1 && !siblings.every(other => ['hoth','bespin'].includes(other.id)) ? [0, (siblings.findIndex(other => other.id === w.id) - (siblings.length-1)/2)*52] as [number,number] : undefined;})()} world={w} highlighted={props.highlightedIds?.has(w.id) ?? false} selected={w.id === props.selectedId} previewed={w.id === props.previewId} disabled={props.phase === 'warping'} onSelect={props.onSelect} />)}
+    {props.worlds.map(w => <WorldMarker key={w.id} sharedOffset={episodeOffsets.get(w.id) ?? (() => {const siblings = props.worlds.filter(other => other.grid === w.grid && (['tatooine','alderaan','yavin','coruscant','hoth','bespin','dagobah','mandalore'].includes(other.id) || other.id === props.selectedId || other.id === props.previewId || props.highlightedIds?.has(other.id))); return siblings.length > 1 && !siblings.every(other => ['hoth','bespin'].includes(other.id)) ? [0, (siblings.findIndex(other => other.id === w.id) - (siblings.length-1)/2)*52] as [number,number] : undefined;})()} world={w} highlighted={props.highlightedIds?.has(w.id) ?? false} selected={w.id === props.selectedId} previewed={w.id === props.previewId} disabled={props.phase === 'warping'} onSelect={props.onSelect} />)}
     <WarpEffect progressRef={warpProgress} active={props.phase === 'warping'} reducedMotion={props.reducedMotion} quality={props.quality} />
-    <OrbitControls ref={controls} makeDefault enableRotate={false} enableDamping dampingFactor={.12} enablePan={props.phase === 'idle'} enableZoom={props.phase === 'idle'} minZoom={limits[0]} maxZoom={limits[1]} zoomSpeed={.7} panSpeed={.8} screenSpacePanning mouseButtons={{ LEFT: THREE.MOUSE.PAN, MIDDLE: THREE.MOUSE.DOLLY, RIGHT: THREE.MOUSE.PAN }} touches={{ ONE: THREE.TOUCH.PAN, TWO: THREE.TOUCH.DOLLY_PAN }} />
+    <OrbitControls onStart={() => {fitted.current.active = false}} ref={controls} makeDefault enableRotate={false} enableDamping dampingFactor={.12} enablePan={props.phase === 'idle'} enableZoom={props.phase === 'idle'} minZoom={limits[0]} maxZoom={limits[1]} zoomSpeed={.7} panSpeed={.8} screenSpacePanning mouseButtons={{ LEFT: THREE.MOUSE.PAN, MIDDLE: THREE.MOUSE.DOLLY, RIGHT: THREE.MOUSE.PAN }} touches={{ ONE: THREE.TOUCH.PAN, TWO: THREE.TOUCH.DOLLY_PAN }} />
   </>
 }
 

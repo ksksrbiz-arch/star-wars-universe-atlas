@@ -47,16 +47,28 @@ film_ids = {'4': 'ot-a-new-hope', '5': 'ot-empire-strikes-back', '6': 'ot-return
 for row in read_csv(film_path):
     items.append({'id': film_ids[row['episode_id']], 'title': title(row['title']), 'seriesId': 'ot', 'kind': 'film', 'releaseDate': row['release_date'], 'runtimeMinutes': None, 'runtimeNote': 'Runtime omitted pending edition-specific verification.', 'sourceUrl': row['source_url']})
 items.append({'id': 'clone-wars-film', 'title': 'Star Wars: The Clone Wars', 'seriesId': 'clone-wars', 'kind': 'film', 'releaseDate': '2008-08-15', 'runtimeMinutes': None, 'runtimeNote': 'Film runtime omitted pending edition-specific verification; not the provider’s 30-minute television value.', 'sourceUrl': 'https://www.starwars.com/films/star-wars-the-clone-wars'})
+# Separate reviewed extension; retain the original 185-item CSV audit cohort intact.
+original_cohort_count = len(items)
+assert original_cohort_count == 185
+extension_path = ROOT / 'docs/ahsoka-season-1-source.json'
+extension = json.loads(extension_path.read_text(encoding='utf-8'))
+assert len(extension['episodes']) == 8
+assert sorted(e['number'] for e in extension['episodes']) == list(range(1, 9))
+for episode in extension['episodes']:
+    assert episode['season'] == 1
+    items.append({'id': f"ahsoka-s01e{episode['number']:02d}", 'title': title(episode['name']), 'seriesId': 'ahsoka', 'kind': 'episode', 'season': 1, 'episode': episode['number'], 'releaseDate': episode['airdate'], 'runtimeMinutes': None, 'runtimeNote': 'Runtime withheld pending streaming-edition and credit-treatment verification.', 'sourceUrl': episode['url']})
 items.sort(key=lambda item: (item['releaseDate'], item['seriesId'], item.get('season', 0), item.get('episode', 0), item['id']))
-assert len(items) == 185, f'Expected 185 core items, got {len(items)}'
+assert len(items) == 193, f'Expected 193 catalog items, got {len(items)}'
 assert len(excluded) == 9, f'Expected 9 specials, got {len(excluded)}'
 assert len({item['id'] for item in items}) == len(items), 'Duplicate catalog IDs'
 
 metadata = {
     'auditDate': '2026-11-07',
-    'scope': 'Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3.',
+    'scope': 'Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1.',
     'coreCount': len(items),
-    'regularEpisodeCount': 181,
+    'regularEpisodeCount': 189,
+    'originalAuditCohortCount': original_cohort_count,
+    'extensionCollections': [{'seriesId': 'ahsoka', 'season': 1, 'count': 8, 'sourceFile': extension_path.name, 'note': 'Complete first season only; no season 2 future stubs.'}],
     'filmCount': 4,
     'excludedSpecialCount': len(excluded),
     'chronologySupported': False,
@@ -70,7 +82,7 @@ metadata = {
     },
     'filmDateSupportingSources': {'ot-return-of-the-jedi': 'https://www.starwars.com/news/jedi-at-40-deleted-scenes', 'clone-wars-film': 'https://www.starwars.com/films/star-wars-the-clone-wars'},
     'attribution': [{'provider': 'TVmaze', 'url': 'https://www.tvmaze.com/api', 'license': 'CC BY-SA', 'use': 'Episode titles, dates, numbering, runtime fields and source links; derived catalog fields preserve source attribution.'}, {'provider': 'SWAPI', 'url': 'https://swapi.dev/documentation', 'use': 'Three original-trilogy film titles and provider release dates from audited responses.'}],
-    'sourceFiles': [{'name': p.name, 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()} for p in [episode_path, film_path]],
+    'sourceFiles': [{'name': p.name, 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()} for p in [episode_path, film_path, extension_path]],
     'excludedSpecials': excluded,
     'mediaNote': 'No summaries, poster URLs, episode images, or provider artwork included.'
 }
