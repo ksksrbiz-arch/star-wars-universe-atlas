@@ -88,4 +88,6 @@ Browse worlds from the hero to open a 97-world directory with original illustrat
 
 Revealed story cards offer a separate “Explore linked worlds” disclosure with per-location evidence and map previews where supported. Revealing a title does not automatically reveal its other settings. The current frontend reconciles 14 sourced placements and 13 associations already present in the live database; see [geography review](evidence/reconciled-world-geography.md) and [association review](evidence/live-associations-reconciliation.md).
 
+Visual-directory release checks: [verification](evidence/visual-directory/verification.md).
+
 Latest dense-map label and placement work: [mapped-world release](evidence/mapped-batch/release.md).

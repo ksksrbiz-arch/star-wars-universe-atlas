@@ -10,7 +10,7 @@ try {
  await related.locator('summary').focus();await page.keyboard.press('Enter');await related.getByRole('link',{name:'Preview Kenari on map'}).waitFor();
  assert.equal(await related.getByRole('link',{name:/Preview Morlana/}).count(),0,'unmapped has no fabricated map link');assert.match(await related.innerText(),/Morlana One/);assert.match(await related.innerText(),/Position not mapped/);
  assert.equal(await related.locator('li').count(),2);assert.equal(await related.locator('a a').count(),0);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
- await related.locator('summary').click();assert.equal(await related.locator('li').count(),0,'close removes disclosure content');await related.locator('summary').click();
+ await related.locator('summary').click();await related.locator('li').first().waitFor({state:'detached'});assert.equal(await related.locator('li').count(),0,'close removes disclosure content');await related.locator('summary').click();
  await related.getByRole('link',{name:'Preview Kenari on map'}).click();await page.waitForFunction(()=>location.hash==='#galaxy/kenari');
  assert.equal(await stories.locator('.related-worlds li').count(),0,'destination change resets per-title location disclosures');
  await stories.getByRole('button',{name:'Reveal linked unwatched titles'}).click();await stories.getByRole('searchbox').fill('S01E01');await stories.locator('a[href="#journey/andor-s01e01"]').click();await page.locator('.journey-current h2').waitFor();assert.equal(await page.locator('.journey-stop').count(),0,'related-world disclosure does not reveal Journey');
