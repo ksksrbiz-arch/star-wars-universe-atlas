@@ -75,3 +75,9 @@ After `npm ci`, start `npm run dev`, then run `npm run test:worker`, `npm run te
 The atlas includes resolution-independent original world portraits, high-density cinematic map rendering, clearer world lettering and finite hyperspace effects. Sound is muted by default; the header switch enables original synthesized interface cues. Reduced motion remains independent of audio.
 
 The hero imports NASA SVS’s public-domain randomized starfield as decorative atmosphere, with visible source credit and responsive local derivatives. Phones use the 38 KB preview, desktops the 144 KB 2K image, and the 1.6 MB 4K derivative is explicit opt-in. This is not fictional geography or a Star Wars screenshot. See [media provenance and representative label audit](evidence/media-provenance.md) and [experience verification](evidence/cinematic-experience-verification.md).
+
+## First journeys and world field guides
+
+The optional guided start in the hero introduces all five collections, with the Original Trilogy selected initially. Choose the first chapter or explicitly resume at the first unwatched chapter in that collection’s sourced viewing order. Opening the guide changes neither watched progress nor location visibility.
+
+Tatooine, Coruscant, Hoth and Naboo include expanded field guides beneath the map, with sourced terrain descriptions and nine expandable local settings. Original portraits remain illustrative. These setting details do not establish episode appearances or surface coordinates; linked stories retain their own evidence and reveal controls. See [source review](evidence/world-dossiers-source-review.md).

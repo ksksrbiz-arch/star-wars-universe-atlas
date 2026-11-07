@@ -5,3 +5,5 @@
 @media(max-width:700px){.world-dossier>.atlas-portrait{grid-column:1/-1;grid-row:2;width:100%;margin:0 auto 24px}.world-dossier>.world-title{grid-column:1/-1;grid-row:3;padding-top:0}.world-dossier>.atlas-portrait svg{max-height:240px}}
 
 @media(max-width:700px){.atlas-app .app-header{height:auto;min-height:86px;flex-wrap:wrap;padding-top:16px;padding-bottom:12px;gap:14px}.atlas-app .header-right{margin-left:auto;gap:10px}.atlas-app .header-right .atlas-audio button{font-size:11px;min-height:44px}.atlas-app .header-right .atlas-audio{max-width:220px}}
+
+.atlas-portrait.portrait-featured svg{max-height:325px}.atlas-portrait.portrait-featured{margin-bottom:30px}@media(max-width:700px){.world-dossier>.atlas-portrait.portrait-featured svg{max-height:275px}.world-dossier>.atlas-portrait.portrait-featured{margin-bottom:28px}}

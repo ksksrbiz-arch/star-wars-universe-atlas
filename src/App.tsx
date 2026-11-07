@@ -1,3 +1,4 @@
+import ImmersiveDossier from './ImmersiveDossier';
 import AtlasHero from './AtlasHero';
 import AtlasAudio from './AtlasAudio';
 import PlanetPortrait from './PlanetPortrait';
@@ -289,7 +290,7 @@ export default function App() {
     <main id="atlas" hidden={view !== 'galaxy' && view !== 'journey'}>
       {view === 'journey' && <><Journey onLocationDisclosure={setJourneyDisclosure} onToggleWatched={toggleWatched} watchedIds={watchedIds} onSelectStop={selectJourneyStop} activeItemId={activeItemId} onActiveItemChange={id => {if(phase === 'warping') cancel();setActiveItemId(id);setPreviewId(currentId);window.history.replaceState(null, '', `#journey/${id}`);setJourneyStatus('Choose a revealed mapped location to preview your next stop.');}}/><p className="journey-map-status" role="status">{journeyStatus}</p></>}
 
-      {view === 'galaxy' && <AtlasHero reducedMotion={reducedMotion}/>}
+      {view === 'galaxy' && <AtlasHero reducedMotion={reducedMotion} watchedIds={watchedIds}/>}
 
 
 
@@ -356,6 +357,7 @@ export default function App() {
 
 
 
+      <ImmersiveDossier key={preview.id} worldId={preview.id} worldName={preview.name}/>
       {view === 'galaxy' && <div className="world-stories-panel"><WorldStories worldId={preview.id} worldName={preview.name} watchedIds={watchedIds}/></div>}
       {view === 'galaxy' && <WorldDirectory watchedIds={watchedIds}/>}
       <section hidden={view === 'journey'} className="destinations" aria-label="Choose a destination"><div className="destinations-heading"><span className="eyebrow">CHART YOUR COURSE</span><span>01—{String(WORLDS.length).padStart(2,'0')} <span className="slash">/</span> CURATED WORLDS</span></div><div className="destination-grid">{WORLDS.map((world:World,index:number) => <button key={world.id} className={`destination-card ${previewId === world.id ? 'is-selected' : ''}`} onClick={() => selectWorld(world.id)} disabled={phase === 'warping'} aria-pressed={previewId === world.id}><span className={`destination-thumb thumb-${world.id}`} style={{'--planet-color':world.color} as React.CSSProperties}/><span className="destination-copy"><span>{String(index+1).padStart(2,'0')} <i/> {world.region}</span><strong>{world.name}</strong></span><span className="destination-indicator">{world.id === currentId ? <span className="here-dot"/> : <ArrowRight size={18}/>}</span></button>)}</div></section>
