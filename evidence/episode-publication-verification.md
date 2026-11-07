@@ -9,3 +9,7 @@ Prepared deterministic additive SQL and a SHA-256 publication manifest in db/pub
 Combined type/Vite/Worker builds, ICM, catalog, connections, chronology, journey-data, reference-data, Worker and publication artifact checks passed. Highlight, Journey progress and full UI browser suites passed. Live deployment validation against the current database baseline passed full payload-digest verification as well as API and desktop/mobile navigation checks.
 
 Live database publication is pending secure ATLAS_DATABASE_URL and independently verified ATLAS_DATABASE_HOST. No write to the live database is claimed. Build retains its large-chunk warning; software-WebGL/mobile-emulation checks do not establish physical-device performance.
+
+## Frontend deployment
+
+Commit13fc4f0 is live. Deployed JavaScript/CSS/Galaxy assets exactly match the tested build. Production episode-highlighting and desktop/mobile navigation checks passed without browser errors. The live API still matches the separately recorded171-row baseline digest; it has not received the prepared231-row publication.
