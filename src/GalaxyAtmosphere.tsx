@@ -17,7 +17,9 @@ void main(){
  vec2 p=(vUv-.5)*2.; p=mat2(.94,-.342,.342,.94)*p; p.y*=1.22;
  float r=length(p), a=atan(p.y,p.x);
  float grain=fbm(p*25.);
- float spiral=a*3.+r*17.-grain*2.8;
+ // Broken, feathered arms keep the decorative disc from reading as solid rings.
+ float turbulence=fbm(p*12.+vec2(3.,17.));
+ float spiral=a*3.+r*17.-grain*2.8-turbulence*.85;
  float arms=pow(.5+.5*sin(spiral),5.);
  float rim=pow(.5+.5*sin(spiral-.65),9.);
  float disc=exp(-r*2.7)*(1.-smoothstep(.5,1.,r));
@@ -29,9 +31,16 @@ void main(){
  c+=vec3(.12,.30,.66)*arms*disc*(.18+grain*.83)*.9;
  c+=vec3(.17,.46,.59)*rim*disc*(.15+wisps)*.58;
  c*=1.-lanes*disc*.66;
+ // Cool hydrogen clouds and warm star-forming knots: illustrative, not locations.
+ float knots=pow(max(0.,wisps-.32)*2.2,3.);
+ float clouds=grain*grain;
+ c+=vec3(.24,.38,.52)*clouds*arms*disc*.32;
+ c+=vec3(.48,.22,.13)*knots*rim*disc*.6;
+ float halo=exp(-r*r*5.)*(1.-exp(-r*r*22.));
+ c+=vec3(.18,.22,.31)*halo*.08;
  c+=vec3(.18,.26,.32)*exp(-r*r*8.)*.16;
- c+=vec3(.48,.66,.91)*exp(-r*r*95.)*.7;
- c+=vec3(.8,1.1,1.6)*exp(-r*r*650.)*.63;
+ c+=vec3(.84,.64,.39)*exp(-r*r*95.)*.7;
+ c+=vec3(1.45,1.22,.88)*exp(-r*r*650.)*.63;
  if(detail>.5) c+=vec3(.32,.43,.47)*pow(noise(p*190.),16.)*disc*.24;
  gl_FragColor=vec4(c,1.);
 }`
@@ -40,14 +49,18 @@ const pointVertex = `
 attribute float pointSize;
 attribute vec3 tint;
 varying vec3 vTint;
+varying float vSize;
 uniform float pixelRatio;
-void main(){vTint=tint; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); gl_PointSize=pointSize*pixelRatio;}
+void main(){vTint=tint; vSize=pointSize; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); gl_PointSize=pointSize*pixelRatio;}
 `
 const pointFragment = `
 varying vec3 vTint;
+varying float vSize;
 void main(){float r=length(gl_PointCoord-.5)*2.; if(r>1.) discard;
 float halo=exp(-r*r*5.5)*.38; float core=exp(-r*r*39.);
-gl_FragColor=vec4(vTint,halo+core*.62);}
+vec2 q=abs(gl_PointCoord-.5)*2.;
+float rays=(exp(-q.x*55.)*exp(-q.y*4.)+exp(-q.y*55.)*exp(-q.x*4.))*.12;
+gl_FragColor=vec4(vTint,halo+core*.62+rays*step(3.,vSize));}
 `
 
 export default function GalaxyAtmosphere({ quality = 'balanced', reducedMotion }: { quality?: GalaxyQuality; reducedMotion: boolean }) {

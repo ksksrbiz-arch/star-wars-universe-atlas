@@ -506,4 +506,104 @@ export const CLONE_WARS_CONNECTIONS: PlanetConnection[] = [
     "sourceUrl": "https://www.starwars.com/series/clone-wars/shattered-episode-guide",
     "note": "The official episode synopsis explicitly places this episode’s action on Mandalore. This is a title/setting association, not an ordered character itinerary."
   }
+,
+  // November 2026 expansion: reviewed episode-specific official rewatch commentary.
+  {
+    "itemId": "clone-wars-s02e05",
+    "worldId": "geonosis",
+    "worldName": "Geonosis",
+    "sourceUrl": "https://www.starwars.com/news/the-clone-wars-rewatch-landing-at-point-rain",
+    "note": "The episode rewatch explicitly identifies the invasion and droid-factory campaign as the battle for Geonosis."
+  },
+  {
+    "itemId": "clone-wars-s05e16",
+    "worldId": "mandalore",
+    "worldName": "Mandalore",
+    "sourceUrl": "https://www.starwars.com/news/the-clone-wars-rewatch-the-lawless",
+    "note": "The episode rewatch places Obi-Wan’s rescue attempt and the confrontation with Sidious on Mandalore."
+  },
+  {
+    "itemId": "clone-wars-s02e01",
+    "worldId": "coruscant",
+    "worldName": "Coruscant",
+    "sourceUrl": "https://www.starwars.com/news/the-clone-wars-rewatch-holocron-heist",
+    "note": "The episode-specific rewatch identifies the Coruscant underworld signage in this episode; this supports a setting association, not a character itinerary."
+  },
+  {
+    "itemId": "clone-wars-s04e21",
+    "worldId": "lotho-minor",
+    "worldName": "Lotho Minor",
+    "sourceUrl": "https://www.starwars.com/news/the-clone-wars-rewatch-brothers",
+    "note": "The episode rewatch explicitly places Savage’s search for Maul on Lotho Minor. No map placement is asserted."
+  },
+  {
+    "itemId": "clone-wars-s04e22",
+    "worldId": "raydonia",
+    "worldName": "Raydonia",
+    "sourceUrl": "https://www.starwars.com/news/the-clone-wars-rewatch-revenge",
+    "note": "The episode rewatch explicitly identifies Maul’s slaughter and Obi-Wan’s ensuing arrival on Raydonia. Naboo and Lotho Minor are recalled history in the article, not added as present scenes."
+  },
+  {
+    "itemId": "clone-wars-s01e14",
+    "worldId": "maridun",
+    "worldName": "Maridun",
+    "sourceUrl": "https://www.starwars.com/news/the-clone-wars-rewatch-defenders-of-peace",
+    "note": "The episode rewatch identifies the threatened colonists as the Maridun colonists during Lok Durd’s weapon test."
+  },
+  {
+    "itemId": "clone-wars-s03e18",
+    "worldId": "lola-sayu",
+    "worldName": "Lola Sayu",
+    "sourceUrl": "https://www.starwars.com/news/the-clone-wars-rewatch-the-citadel",
+    "note": "The episode rewatch names Lola Sayu as the inhospitable planet of the prison infiltrated by the rescue team."
+  },
+  {
+    "itemId": "clone-wars-s03e21",
+    "worldId": "wasskah",
+    "worldName": "Wasskah",
+    "sourceUrl": "https://www.starwars.com/news/the-clone-wars-rewatch-padawan-lost",
+    "note": "The episode rewatch explicitly names the moon of Wasskah as the place where Ahsoka and the captured younglings survive the hunt. This is the moon, not a surface visit to Trandosha."
+  },
+  {
+    "itemId": "clone-wars-s03e21",
+    "worldId": "felucia",
+    "worldName": "Felucia",
+    "sourceUrl": "https://www.starwars.com/news/the-clone-wars-rewatch-padawan-lost",
+    "note": "The episode rewatch explicitly describes Ahsoka’s abduction during the Battle of Felucia and Anakin’s unsuccessful search."
+  },
+  {
+    "itemId": "clone-wars-s03e22",
+    "worldId": "wasskah",
+    "worldName": "Wasskah",
+    "sourceUrl": "https://www.starwars.com/news/the-clone-wars-rewatch-wookiee-hunt",
+    "note": "The episode rewatch places the surviving younglings and their rescue on the Trandoshan moon of Wasskah; the recap of the prior episode is distinguished from the continuing hunt."
+  },
+  {
+    "itemId": "clone-wars-s04e02",
+    "worldId": "mon-cala",
+    "worldName": "Mon Cala",
+    "sourceUrl": "https://www.starwars.com/news/the-clone-wars-rewatch-gungan-attack",
+    "note": "The episode rewatch explicitly identifies the ongoing underwater battle as the fight for Mon Cala."
+  },
+  {
+    "itemId": "clone-wars-s05e11",
+    "worldId": "abafar",
+    "worldName": "Abafar",
+    "sourceUrl": "https://www.starwars.com/news/the-clone-wars-rewatch-a-sunny-day-in-the-void",
+    "note": "The episode rewatch explicitly names Abafar as the desert where Gascon and the droids crash and cross the void."
+  },
+  {
+    "itemId": "clone-wars-s05e12",
+    "worldId": "abafar",
+    "worldName": "Abafar",
+    "sourceUrl": "https://www.starwars.com/news/the-clone-wars-rewatch-missing-in-action",
+    "note": "The episode rewatch explicitly places Gascon’s escape, aided by Gregor, on Abafar."
+  },
+  {
+    "itemId": "clone-wars-s06e11",
+    "worldId": "dagobah",
+    "worldName": "Dagobah",
+    "sourceUrl": "https://www.starwars.com/news/the-clone-wars-rewatch-voices",
+    "note": "The episode rewatch explicitly places Yoda in the dark-side cave on Dagobah. Visions of future events are not treated as visits to their depicted worlds."
+  }
 ];

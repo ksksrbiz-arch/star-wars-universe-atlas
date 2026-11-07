@@ -27,3 +27,9 @@ assert.equal(CONNECTION_COVERAGE.relationshipCount, CONNECTIONS.length);
 const covered = new Set(CONNECTIONS.map(c => c.itemId));
 assert.equal(CONNECTION_COVERAGE.coveredItemIds.length, covered.size);
 console.log(JSON.stringify({ relationships: CONNECTIONS.length, coveredTitles: covered.size, unverifiedTitles: catalog.length - covered.size, associatedWorlds: names.size, series: [...new Set(catalog.filter(c => covered.has(c.id)).map(c => c.seriesId))] }, null, 2));
+
+// Rewatch expansion preserves moon identity and excludes recalled history/visions.
+for (const pair of ["clone-wars-s02e05:geonosis", "clone-wars-s05e16:mandalore", "clone-wars-s02e01:coruscant", "clone-wars-s04e21:lotho-minor", "clone-wars-s04e22:raydonia", "clone-wars-s01e14:maridun", "clone-wars-s03e18:lola-sayu", "clone-wars-s03e21:wasskah", "clone-wars-s03e21:felucia", "clone-wars-s03e22:wasskah", "clone-wars-s04e02:mon-cala", "clone-wars-s05e11:abafar", "clone-wars-s05e12:abafar", "clone-wars-s06e11:dagobah"]) assert(pairs.has(pair), `Missing reviewed rewatch association: ${pair}`);
+assert(!pairs.has("clone-wars-s03e21:trandosha"), "Wasskah is a moon, not a Trandosha surface visit");
+assert(!pairs.has("clone-wars-s04e22:naboo"), "Recalled duel on Naboo is not a present episode location");
+assert(!pairs.has("clone-wars-s04e22:lotho-minor"), "Recalled Maul exile is not a present episode location");

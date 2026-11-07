@@ -20,7 +20,7 @@ Status: deployed platform preview, November 7, 2026. There are 62 schematic map 
 
 ## Current evidence
 
-Integrated relationships: 171 links, 127 covered titles, 72 distinct worlds, and 58 titles without current links. Coverage is partial even for covered titles. The 62 mapped destinations and 72 relationship-world names measure different things; unsupported placements remain textual.
+Integrated relationships: 185 links, 140 covered titles, 76 distinct worlds, and 45 titles without current links. Coverage is partial even for covered titles. The 62 mapped destinations and 76 relationship-world names measure different things; unsupported placements remain textual.
 
 Geographic source and schematic projection are documented in the data module. Eight world names/grids were checked against the earlier official-appendix audit; all current entries match. Official Databank pages support the broad setting descriptions, with era/edition limits retained. Hoth and Bespin share cell K-18; Yavin 4 uses the parent-system cell.
 

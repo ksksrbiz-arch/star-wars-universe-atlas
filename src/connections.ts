@@ -130,7 +130,7 @@ CONNECTIONS.push(...CLONE_WARS_CONNECTIONS);
 
 export const CONNECTION_COVERAGE = {
   checkedOn: '2026-11-07',
-  status: 'Curated, incomplete first evidence pass',
+  status: 'Curated, incomplete evidence batches',
   scope: 'Original-trilogy films, the 2008 Clone Wars film, and selected episode/world relationships from Andor, The Clone Wars (2008), and The Mandalorian. Having a relationship does not mean every location in that title is covered.',
   relationshipCount: CONNECTIONS.length,
   coveredItemIds: [...new Set(CONNECTIONS.map(connection => connection.itemId))],
