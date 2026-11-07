@@ -606,4 +606,167 @@ export const CLONE_WARS_CONNECTIONS: PlanetConnection[] = [
     "sourceUrl": "https://www.starwars.com/news/the-clone-wars-rewatch-voices",
     "note": "The episode rewatch explicitly places Yoda in the dark-side cave on Dagobah. Visions of future events are not treated as visits to their depicted worlds."
   }
+,
+  // Second expansion: exact-episode story-gallery captions, independently reviewed.
+  {
+    "itemId": "clone-wars-s01e05",
+    "worldId": "rishi-moon",
+    "worldName": "Rishi moon",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/rookies-episode-gallery",
+    "note": "The story gallery explicitly places the tracking station on the Rishi moon. This is the moon, not the parent planet; no grid placement is supplied."
+  },
+  {
+    "itemId": "clone-wars-s04e08",
+    "worldId": "umbara",
+    "worldName": "Umbara",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/the-general-episode-gallery",
+    "note": "The exact episode story gallery places the Republic invasion and airbase campaign on Umbara."
+  },
+  {
+    "itemId": "clone-wars-s04e09",
+    "worldId": "umbara",
+    "worldName": "Umbara",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/plan-of-dissent-episode-gallery",
+    "note": "The exact episode story gallery explicitly identifies Umbara as the ongoing invasion setting. The recalled Battle of Naboo is not a new visit."
+  },
+  {
+    "itemId": "clone-wars-s04e10",
+    "worldId": "umbara",
+    "worldName": "Umbara",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/carnage-of-krell-episode-gallery",
+    "note": "The exact episode story gallery places the battalion and Krell conflict on Umbara."
+  },
+  {
+    "itemId": "clone-wars-s03e14",
+    "worldId": "coruscant",
+    "worldName": "Coruscant",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/witches-of-the-mist-episode-gallery",
+    "note": "The story gallery places the arrival of the Jedi coffins and the Council investigation on Coruscant. Recorded Devaron footage is not a present-day visit."
+  },
+  {
+    "itemId": "clone-wars-s03e14",
+    "worldId": "serenno",
+    "worldName": "Serenno",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/witches-of-the-mist-episode-gallery",
+    "note": "The story gallery explicitly places Dooku’s training of Savage on Serenno."
+  },
+  {
+    "itemId": "clone-wars-s04e04",
+    "worldId": "naboo",
+    "worldName": "Naboo",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/shadow-warrior-episode-gallery",
+    "note": "The story gallery explicitly describes Anakin and Padmé arriving on Naboo and meeting Jar Jar at Lake Paonga."
+  },
+  {
+    "itemId": "clone-wars-s05e08",
+    "worldId": "florrum",
+    "worldName": "Florrum",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/bound-for-rescue-episode-gallery",
+    "note": "The story gallery confirms the younglings have landed on Florrum; this is not inferred solely from their proposed rescue plan."
+  },
+  {
+    "itemId": "clone-wars-s04e15",
+    "worldId": "coruscant",
+    "worldName": "Coruscant",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/deception-episode-gallery",
+    "note": "The story gallery locates the staged sniper attack on Coruscant. The planned kidnapping at a future Naboo festival does not establish a Naboo appearance."
+  },
+  {
+    "itemId": "clone-wars-s04e20",
+    "worldId": "quarzite",
+    "worldName": "Quarzite",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/bounty-episode-gallery",
+    "note": "The story gallery explicitly places the guarded cargo train in Quarzite’s underground caverns; the space-station arrival is not used alone to infer a surface visit."
+  },
+  {
+    "itemId": "clone-wars-s05e01",
+    "worldId": "florrum",
+    "worldName": "Florrum",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/revival-episode-gallery",
+    "note": "The story gallery places Hondo at his base on Florrum and describes the Jedi shuttle approaching the world."
+  },
+  {
+    "itemId": "clone-wars-s01e22",
+    "worldId": "coruscant",
+    "worldName": "Coruscant",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/hostage-crisis-episode-gallery",
+    "note": "The story gallery explicitly locates Cad Bane’s arrival and the Senate hostage operation on Coruscant."
+  },
+  {
+    "itemId": "clone-wars-s02e15",
+    "worldId": "coruscant",
+    "worldName": "Coruscant",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/senate-murders-episode-gallery",
+    "note": "The story gallery explicitly places Farr’s political campaign and Padmé’s Senate speech on Coruscant."
+  },
+  {
+    "itemId": "clone-wars-s03e11",
+    "worldId": "coruscant",
+    "worldName": "Coruscant",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/pursuit-of-peace-episode-gallery",
+    "note": "The story gallery places Farr’s assault and the bounty hunters’ meeting on Coruscant; the earlier bombing mention is not the sole evidence."
+  },
+  {
+    "itemId": "clone-wars-s02e08",
+    "worldId": "geonosis",
+    "worldName": "Geonosis",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/brain-invaders-episode-gallery",
+    "note": "The story gallery places the opening prisoner transfer and medical-frigate departure on Geonosis. Proposed destinations Dantooine and Coruscant are not counted as arrivals."
+  },
+  {
+    "itemId": "clone-wars-s01e06",
+    "worldId": "bothawui",
+    "worldName": "Bothawui",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/downfall-of-a-droid-episode-gallery",
+    "note": "Orbital setting: the story gallery locates the fleet battle in Bothawui’s asteroid field. It does not establish a surface landing."
+  },
+  {
+    "itemId": "clone-wars-s01e12",
+    "worldId": "florrum",
+    "worldName": "Florrum",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/the-gungan-general-episode-gallery",
+    "note": "The story gallery explicitly locates the captive Jedi and Dooku at the pirate compound on Florrum."
+  },
+  {
+    "itemId": "clone-wars-s01e12",
+    "worldId": "coruscant",
+    "worldName": "Coruscant",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/the-gungan-general-episode-gallery",
+    "note": "The story gallery places the receiving side of Kharrus’s holographic call on Coruscant. This is a parallel scene, not a claim that Kharrus is physically there."
+  },
+  {
+    "itemId": "clone-wars-s05e17",
+    "worldId": "coruscant",
+    "worldName": "Coruscant",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/sabotage-episode-gallery",
+    "note": "The story gallery describes Anakin and Ahsoka investigating Jackar’s apartment on Coruscant after the Temple bombing."
+  },
+  {
+    "itemId": "clone-wars-s05e20",
+    "worldId": "coruscant",
+    "worldName": "Coruscant",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/the-wrong-jedi-episode-gallery",
+    "note": "The story gallery explicitly places Anakin’s pursuit of Ventress in Coruscant’s underlevels."
+  },
+  {
+    "itemId": "clone-wars-s06e01",
+    "worldId": "serenno",
+    "worldName": "Serenno",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/the-unknown-episode-gallery",
+    "note": "The story gallery places Dooku at his Serenno palace during a holographic conversation. Tup’s planned Kamino transfer is not counted as an arrival from this caption."
+  },
+  {
+    "itemId": "clone-wars-s06e10",
+    "worldId": "serenno",
+    "worldName": "Serenno",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/the-lost-one-episode-gallery",
+    "note": "The story gallery places Dooku at his estate on Serenno during Sidious’s warning."
+  },
+  {
+    "itemId": "clone-wars-s06e10",
+    "worldId": "oba-diah",
+    "worldName": "Oba Diah",
+    "sourceUrl": "https://www.starwars.com/series/clone-wars/the-lost-one-episode-gallery",
+    "note": "The story gallery confirms the Jedi land at the Pyke fortress on Oba Diah and locate Silman there. The earlier wreck investigation is on a separate unnamed moon and is not merged with the planet."
+  }
 ];

@@ -16,6 +16,7 @@ import './reference-map.css';
 import Library from './Library';
 import Journey from './Journey';
 import WorldStories from './WorldStories';
+import WorldDirectory from './WorldDirectory';
 import ReferenceOverview from './ReferenceOverview';
 import MapBoundary from './MapBoundary';
 import WorldExplorer from './WorldExplorer';
@@ -342,6 +343,7 @@ export default function App() {
 
 
       {view === 'galaxy' && <div className="world-stories-panel"><WorldStories worldId={preview.id} worldName={preview.name} watchedIds={watchedIds}/></div>}
+      {view === 'galaxy' && <WorldDirectory watchedIds={watchedIds}/>}
       <section hidden={view === 'journey'} className="destinations" aria-label="Choose a destination"><div className="destinations-heading"><span className="eyebrow">CHART YOUR COURSE</span><span>01—{String(WORLDS.length).padStart(2,'0')} <span className="slash">/</span> CURATED WORLDS</span></div><div className="destination-grid">{WORLDS.map((world:World,index:number) => <button key={world.id} className={`destination-card ${previewId === world.id ? 'is-selected' : ''}`} onClick={() => selectWorld(world.id)} disabled={phase === 'warping'} aria-pressed={previewId === world.id}><span className={`destination-thumb thumb-${world.id}`} style={{'--planet-color':world.color} as React.CSSProperties}/><span className="destination-copy"><span>{String(index+1).padStart(2,'0')} <i/> {world.region}</span><strong>{world.name}</strong></span><span className="destination-indicator">{world.id === currentId ? <span className="here-dot"/> : <ArrowRight size={18}/>}</span></button>)}</div></section>
 
 

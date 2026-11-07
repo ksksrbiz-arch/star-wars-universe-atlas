@@ -37,6 +37,9 @@ export default function Journey({ watchedIds, onSelectStop, activeItemId, onActi
   const [sequenceId, setSequenceId] = useState(STORY_SEQUENCES[0]?.id ?? '');
 
   const [query, setQuery] = useState('');
+  const [coverageFilter, setCoverageFilter] = useState<'all' | 'linked' | 'unreviewed'>('all');
+  const [resultLimit, setResultLimit] = useState(6);
+  const linkedIds = useMemo(() => new Set(CONNECTIONS.map(connection => connection.itemId)), []);
   const [progressMessage, setProgressMessage] = useState('');
 
   const [revealedIds, setRevealedIds] = useState<Set<string>>(() => new Set());
@@ -84,7 +87,16 @@ export default function Journey({ watchedIds, onSelectStop, activeItemId, onActi
 
   const normalizedQuery = query.trim().toLowerCase();
 
-  const matches = normalizedQuery ? items.filter(entry => `${entry.title} ${entry.season ? `s${entry.season}e${entry.episode} season ${entry.season} episode ${entry.episode}` : ''}`.toLowerCase().includes(normalizedQuery)) : [];
+  const episodeQuery = normalizedQuery.match(/^s(?:eason)?\s*0*(\d+)\s*e(?:pisode)?\s*0*(\d+)$/i);
+  const matches = items.filter(entry => {
+    const linked = linkedIds.has(entry.id);
+    if (coverageFilter === 'linked' && !linked || coverageFilter === 'unreviewed' && linked) return false;
+    if (episodeQuery) return entry.season === Number(episodeQuery[1]) && entry.episode === Number(episodeQuery[2]);
+    return !normalizedQuery || `${entry.title} ${entry.season ? `season ${entry.season} episode ${entry.episode}` : 'film'}`.toLowerCase().includes(normalizedQuery);
+  });
+  const browsing = Boolean(normalizedQuery) || coverageFilter !== 'all';
+  const linkedCount = items.filter(entry => linkedIds.has(entry.id)).length;
+  const mappedCount = connections.filter(connection => ALL_WORLDS.some(world => world.id === connection.worldId)).length;
 
   const selectItem = (id: string) => { onActiveItemChange(id); setQuery(''); setProgressMessage(''); };
 
@@ -117,7 +129,7 @@ export default function Journey({ watchedIds, onSelectStop, activeItemId, onActi
 
           style={{ '--journey-accent': color } as React.CSSProperties}
 
-          onClick={() => { setSequenceId(entry.id); setQuery(''); setProgressMessage(''); if (entry.itemIds[0]) onActiveItemChange(entry.itemIds[0]); }}>
+          onClick={() => { setSequenceId(entry.id); setQuery(''); setCoverageFilter('all'); setResultLimit(6); setProgressMessage(''); if (entry.itemIds[0]) onActiveItemChange(entry.itemIds[0]); }}>
 
           <span className="journey-collection-number">0{entryIndex + 1}<span/></span><strong>{SERIES.find(series => series.id === entry.id)?.title ?? entry.title}</strong><span className="journey-collection-meta">{entry.itemIds.length} chapters <ChevronRight size={14}/></span><span className="journey-collection-progress" aria-hidden="true"><span style={{ width: `${collectionWatched / entry.itemIds.length * 100}%` }}/></span><span className="journey-collection-watched">{collectionWatched ? `${collectionWatched} watched` : 'Begin the journey'}</span>
 
@@ -145,9 +157,12 @@ export default function Journey({ watchedIds, onSelectStop, activeItemId, onActi
         </div>
         <div className="journey-resume"><div><span>{firstUnwatched ? 'NEXT UNWATCHED IN STORY ORDER' : 'COLLECTION COMPLETE'}</span><strong>{firstUnwatched?.title ?? 'Every chapter watched'}</strong><small>{firstUnwatched ? 'First unwatched chapter in this collection; locations stay hidden.' : 'Revisit any chapter below.'}</small></div>{firstUnwatched && <button disabled={firstUnwatched.id === item.id} onClick={() => selectItem(firstUnwatched.id)}>{firstUnwatched.id === item.id ? 'You are here' : 'Resume'}<ArrowRight size={15}/></button>}</div>
 
-        <div className="journey-search"><label htmlFor="journey-title-search"><Search size={15}/><span>Find a chapter</span></label><input id="journey-title-search" type="search" placeholder="Search titles or S1E2…" value={query} onChange={event => setQuery(event.target.value)} aria-controls="journey-search-results" autoComplete="off"/>
+        <div className="journey-search"><label htmlFor="journey-title-search"><Search size={15}/><span>Find a chapter</span></label><input id="journey-title-search" type="search" placeholder="Title or episode code, e.g. S01E02" value={query} onChange={event => { setQuery(event.target.value); setResultLimit(6); }} aria-controls="journey-search-results" autoComplete="off"/>
 
-          {normalizedQuery && <div className="journey-search-results" id="journey-search-results" role="region" aria-label="Chapter search results"><span className="journey-search-count" role="status">{matches.length ? `${matches.length} matching ${matches.length === 1 ? 'chapter' : 'chapters'}` : 'No matching chapters in this collection.'}{matches.length > 6 && ' · Showing the first 6. Refine your search.'}</span>{matches.slice(0, 6).map(result => <button key={result.id} onClick={() => selectItem(result.id)}><span>{result.title}<small>{result.kind === 'film' ? 'Film' : `S${result.season} · E${result.episode}`}</small></span><ArrowRight size={15}/></button>)}</div>}
+          <div className="journey-coverage-filter"><label htmlFor="journey-coverage-filter">Location research</label><select id="journey-coverage-filter" value={coverageFilter} onChange={event => { setCoverageFilter(event.target.value as typeof coverageFilter); setResultLimit(6); }}><option value="all">All {items.length} chapters</option><option value="linked">With sourced links ({linkedCount})</option><option value="unreviewed">Not yet linked ({items.length - linkedCount})</option></select></div>
+          <p className="journey-browse-note">Sourced links are partial. Unlinked chapters are unreviewed, not evidence of no locations. Browsing keeps location names hidden.</p>
+          {browsing && <div className="journey-search-results" id="journey-search-results" role="region" aria-label="Chapter search results"><span className="journey-search-count" role="status">{matches.length ? `${matches.length} matching ${matches.length === 1 ? 'chapter' : 'chapters'} in story order` : 'No matching chapters in this collection.'}</span>{matches.slice(0, resultLimit).map(result => <button key={result.id} aria-current={result.id === item.id ? 'true' : undefined} onClick={() => selectItem(result.id)}><span>{result.title}<small>{result.kind === 'film' ? 'Film' : `S${String(result.season).padStart(2, '0')} · E${String(result.episode).padStart(2, '0')}`} · {linkedIds.has(result.id) ? 'Sourced location links' : 'Locations not yet linked'}</small></span><ArrowRight size={15}/></button>)}{matches.length > resultLimit && <button className="journey-more-results" onClick={() => setResultLimit(limit => limit + 12)}>Show more chapters ({matches.length - resultLimit} remaining)</button>}</div>}
+
 
         </div>
 
@@ -167,11 +182,11 @@ export default function Journey({ watchedIds, onSelectStop, activeItemId, onActi
 
         {connections.length === 0 ? <div className="journey-gap"><span className="journey-state-orbit" aria-hidden="true"><Compass size={28} strokeWidth={1}/></span><h3>A part of the map still to chart.</h3><p>Location evidence is not yet linked for this title. You can continue through the story while this gap is researched.</p><span>RESEARCH GAP · NO STOPS INFERRED</span></div> : !showLocations ? <div className="journey-spoiler"><span className="journey-state-orbit" aria-hidden="true"><LockKeyhole size={27} strokeWidth={1.2}/></span><h3>Let the story surprise you.</h3><p>You haven’t marked this title watched. Its location connections are hidden until you choose to reveal them.</p><button onClick={reveal}><Eye size={15}/> Reveal locations for this title</button><small>This won’t change your watch progress.</small></div> : <>
 
-          <div className="journey-stop-list">{connections.map((connection, connectionIndex) => {
+          <p className="journey-map-coverage">{mappedCount} mapped {mappedCount === 1 ? 'location' : 'locations'} · {connections.length - mappedCount} without a map placement. Appearance evidence and map positions are separate.</p><div className="journey-stop-list">{connections.map((connection, connectionIndex) => {
 
             const world = ALL_WORLDS.find(w => w.id === connection.worldId);
 
-            return <article className="journey-stop" style={{ '--stop-color': world?.color ?? '#5e7288', '--stop-delay': `${Math.min(connectionIndex, 5) * 40}ms` } as React.CSSProperties} key={`${connection.itemId}-${connection.worldId}-${connectionIndex}`}><span className="journey-stop-dot" aria-hidden="true"/><div><h3>{connection.worldName}</h3><p>{world ? world.region : 'Position not mapped in this atlas'}</p><p className="journey-stop-note">{connection.note}</p><a className="journey-stop-source" href={connection.sourceUrl} target="_blank" rel="noreferrer">Appearance source <ExternalLink size={10}/></a></div><button disabled={!world} onClick={() => world && onSelectStop(item.id, world.id)} aria-label={world ? `Show ${connection.worldName} on map` : `${connection.worldName}: map unavailable`}>{world ? <><span>Show on map</span><ArrowRight size={15}/></> : <span>Map unavailable</span>}</button></article>;
+            return <article className="journey-stop" style={{ '--stop-color': world?.color ?? '#5e7288', '--stop-delay': `${Math.min(connectionIndex, 5) * 40}ms` } as React.CSSProperties} key={`${connection.itemId}-${connection.worldId}-${connectionIndex}`}><span className="journey-stop-dot" aria-hidden="true"/><div><h3>{connection.worldName}</h3><p>{world ? `Mapped · ${world.region}` : 'Unmapped · appearance linked, position not established'}</p><p className="journey-stop-note">{connection.note}</p><a className="journey-stop-source" href={connection.sourceUrl} target="_blank" rel="noreferrer">Appearance source <ExternalLink size={10}/></a></div><button disabled={!world} onClick={() => world && onSelectStop(item.id, world.id)} aria-label={world ? `Show ${connection.worldName} on map` : `${connection.worldName}: map unavailable`}>{world ? <><span>Show on map</span><ArrowRight size={15}/></> : <span>Map unavailable</span>}</button></article>;
 
           })}</div><p className="journey-route-note">These are title-level appearances, not a single character’s travel itinerary. No within-title stop order or continuous travel route is implied.</p>
 

@@ -105,3 +105,15 @@
 @media(prefers-reduced-motion:reduce) {.journey-stop {animation:none}.journey-collection,.journey-collection:after,.journey-collection-progress>span,.world-story-grid>a {transition:none!important;transform:none!important}}
 .atlas-app[data-reduced-motion='true'] .journey-stop {animation:none}
 .atlas-app[data-reduced-motion='true'] .journey-collection,.atlas-app[data-reduced-motion='true'] .journey-collection:after,.atlas-app[data-reduced-motion='true'] .journey-collection-progress>span,.atlas-app[data-reduced-motion='true'] .journey-progress-track>span,.atlas-app[data-reduced-motion='true'] .world-story-grid>a {transition:none!important;transform:none!important}
+
+/* Chapter research browsing remains in page flow and never reveals world names. */
+.journey-coverage-filter {display:grid;grid-template-columns:1fr;gap:7px;margin-top:12px}
+.journey-coverage-filter label {font-size:11px;color:#a4b9ca}
+.journey-coverage-filter select {width:100%;min-height:44px;min-width:0;padding:10px 12px;border:1px solid #42596c;border-radius:7px;background:#0b1824;color:#dce5ee;font:inherit;font-size:12px}
+.journey-coverage-filter select:focus-visible {outline:2px solid #8dd8ec;outline-offset:3px}
+.journey-browse-note,.journey-map-coverage {font-size:11px;line-height:1.65;color:#a4b9ca;margin:10px 0}
+.journey-search-results {position:static;margin-top:12px;box-shadow:none;max-height:380px;overflow-y:auto;scrollbar-width:thin}
+.journey-search-results button[aria-current='true'] {background:#23394a;border-left:2px solid #d5bd90}
+.journey-search-results button small {color:#a4b9ca;line-height:1.6}
+.journey-search-results button.journey-more-results {justify-content:center;color:#c6e7ee}
+@media(max-width:720px) {.journey-coverage-filter select {font-size:16px}.journey-search-results {max-height:350px}}

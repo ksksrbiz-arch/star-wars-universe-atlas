@@ -33,3 +33,11 @@ for (const pair of ["clone-wars-s02e05:geonosis", "clone-wars-s05e16:mandalore",
 assert(!pairs.has("clone-wars-s03e21:trandosha"), "Wasskah is a moon, not a Trandosha surface visit");
 assert(!pairs.has("clone-wars-s04e22:naboo"), "Recalled duel on Naboo is not a present episode location");
 assert(!pairs.has("clone-wars-s04e22:lotho-minor"), "Recalled Maul exile is not a present episode location");
+
+// Exact-episode gallery expansion: preserve evidence identity and mention exclusions.
+for (const pair of ["clone-wars-s01e05:rishi-moon", "clone-wars-s04e08:umbara", "clone-wars-s04e09:umbara", "clone-wars-s04e10:umbara", "clone-wars-s03e14:coruscant", "clone-wars-s03e14:serenno", "clone-wars-s04e04:naboo", "clone-wars-s05e08:florrum", "clone-wars-s04e15:coruscant", "clone-wars-s04e20:quarzite", "clone-wars-s05e01:florrum", "clone-wars-s01e22:coruscant", "clone-wars-s02e15:coruscant", "clone-wars-s03e11:coruscant", "clone-wars-s02e08:geonosis", "clone-wars-s01e06:bothawui", "clone-wars-s01e12:florrum", "clone-wars-s01e12:coruscant", "clone-wars-s05e17:coruscant", "clone-wars-s05e20:coruscant", "clone-wars-s06e01:serenno", "clone-wars-s06e10:serenno", "clone-wars-s06e10:oba-diah"]) assert(pairs.has(pair), `Missing reviewed story-gallery association: ${pair}`);
+assert(!pairs.has('clone-wars-s01e05:rishi'), 'Rishi moon must not become a parent-planet appearance');
+assert(!pairs.has('clone-wars-s04e15:naboo'), 'A future festival kidnapping plan is not a Naboo visit');
+assert(!pairs.has('clone-wars-s02e08:dantooine'), 'A requested medical-supply destination is not an arrival');
+assert.match(CONNECTIONS.find(c => c.itemId === 'clone-wars-s01e06' && c.worldId === 'bothawui').note, /orbital setting/i);
+assert.match(CONNECTIONS.find(c => c.itemId === 'clone-wars-s06e10' && c.worldId === 'oba-diah').note, /separate unnamed moon/i);

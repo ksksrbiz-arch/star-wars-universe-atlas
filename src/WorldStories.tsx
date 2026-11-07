@@ -35,6 +35,13 @@ export default function WorldStories({ worldId, worldName, watchedIds }: { world
       })}</div>
       {matching.length > 6 && !expandedWorlds.has(worldId) && <button onClick={() => setExpandedWorlds(old => new Set([...old, worldId]))}>Show {matching.length - 6} more linked stories</button>}
       {visible.length < ids.length && <button onClick={() => setRevealed(old => new Set([...old, worldId]))}><Eye size={14} aria-hidden="true"/> Reveal linked unwatched titles</button>}
+      {matching.length > 0 && <details className="world-story-evidence">
+        <summary>Sources for {matching.length} matching {matching.length === 1 ? 'title' : 'titles'}</summary>
+        <ul>{matching.map(item => {
+          const evidence = CONNECTIONS.filter(link => link.worldId === worldId && link.itemId === item.id);
+          return <li key={item.id}><strong>{item.title}</strong>{evidence.map(link => <div key={link.sourceUrl}><p>{link.note}</p><a href={link.sourceUrl} target="_blank" rel="noopener noreferrer">Read official source for {item.title} ↗</a></div>)}</li>;
+        })}</ul>
+      </details>}
       <p>Partial appearance coverage. A title link does not imply a character’s continuous route.</p>
     </>}
   </section>;

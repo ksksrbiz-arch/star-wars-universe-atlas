@@ -1,0 +1,31 @@
+import { chromium } from 'playwright';
+import assert from 'node:assert/strict';
+const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
+try {
+ const page=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});
+ const errors=[];page.on('pageerror',error=>errors.push(error.message));
+ await page.goto(`${process.env.ATLAS_URL || 'http://localhost:4173'}/#galaxy`);
+ await page.locator('.world-directory summary').click();
+ const directory=page.getByRole('region',{name:'World directory',exact:true});
+ assert.equal(await directory.locator('.directory-grid article').count(),12);
+ await directory.getByLabel('Find a world').fill('Narkina');
+ assert.equal(await directory.locator('.directory-grid article').count(),1);
+ assert.equal(await directory.locator('.directory-grid a').count(),0);
+ await directory.getByRole('button',{name:'Stories at Narkina 5',exact:true}).click();
+ await directory.getByText('No supported map position is available.',{exact:false}).waitFor();
+ assert.equal(await directory.locator('.directory-stories h2').evaluate(el=>el===document.activeElement),true,'selected story heading receives keyboard focus');
+ assert.equal(await directory.locator('.world-story-grid a').count(),0);
+ await directory.getByRole('button',{name:'Reveal linked unwatched titles'}).click();
+ assert.ok(await directory.locator('.world-story-grid a').count()>0);
+ await directory.getByLabel('Linked collection').selectOption('andor');
+ assert.equal(await directory.locator('.directory-grid article').count(),0,'collection filter must not disclose unwatched associations');
+ await directory.getByRole('button',{name:'Include unwatched collection links'}).click();
+ assert.equal(await directory.locator('.directory-grid article').count(),1);
+ await directory.getByRole('button',{name:'Clear directory filters'}).click();
+ await directory.getByLabel('Find a world').fill('Tatooine');
+ await directory.getByRole('link',{name:'Preview Tatooine on map',exact:true}).click();
+ await page.waitForFunction(()=>location.hash==='#galaxy/tatooine');
+ assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+ assert.deepEqual(errors,[]);
+ console.log('PASS: directory pagination, text-only world discovery, no invented map action, title reveal, watched-only collection filter, explicit collection reveal, reset, mapped hash action, 390px layout');
+} finally {await browser.close();}

@@ -8,9 +8,14 @@ try {
   const stories=page.getByRole('region',{name:'Linked stories'});
   await stories.waitFor();
   assert.equal(await stories.getByRole('searchbox').count(),0,'hidden stories must not be searchable');
+  assert.equal(await stories.locator('.world-story-evidence').count(),0,'hidden stories must not leak evidence');
   await stories.getByRole('button',{name:'Reveal linked unwatched titles'}).click();
   await stories.getByRole('searchbox').fill('A New Hope');
   assert.equal(await stories.locator('.world-story-grid a').count(),1);
+  await stories.locator('.world-story-evidence summary').click();
+  assert.equal(await stories.locator('.world-story-evidence li').count(),1);
+  assert.match(await stories.locator('.world-story-evidence').innerText(),/Tatooine/);
+  assert.match(await stories.locator('.world-story-evidence a').getAttribute('href'),/^https:\/\/www\.starwars\.com\//);
   await stories.getByLabel('Collection').selectOption('clone-wars');
   await stories.getByText('No revealed titles match these filters.',{exact:false}).waitFor();
   await stories.getByRole('button',{name:'Clear filters'}).click();
