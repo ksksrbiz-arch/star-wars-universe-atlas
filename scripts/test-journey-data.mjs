@@ -12,4 +12,8 @@ assert.equal(referenceTraced,27);assert.equal(cellCentered,ALL_WORLDS.length-27)
 const covered=new Set(CONNECTIONS.map(c=>c.itemId));const mapped=new Set(ALL_WORLDS.map(w=>w.id));
 const bySeries=Object.fromEntries([...new Set(catalog.map(item=>item.seriesId))].map(id=>[id,{catalog:catalog.filter(i=>i.seriesId===id).length,withLocations:catalog.filter(i=>i.seriesId===id&&covered.has(i.id)).length}]));
 const report={checkedOn:'2026-11-07',catalogItems:catalog.length,relationships:CONNECTIONS.length,titlesWithLocationEvidence:covered.size,titlesWithoutLocationEvidence:catalog.length-covered.size,mapPlacements:ALL_WORLDS.length,referenceTraced,cellCentered,bySeries,unplacedAssociatedWorlds:[...new Map(CONNECTIONS.filter(c=>!mapped.has(c.worldId)).map(c=>[c.worldId,c.worldName])).values()],unlinkedTitleIds:catalog.filter(i=>!covered.has(i.id)).map(i=>i.id),note:'A covered title has at least one sourced link, not necessarily all appearances. An unlinked title is not evidence of no planet appearances. Map grid placements are sourced independently.'};
-await writeFile('evidence/journey-coverage.json',JSON.stringify(report,null,2));console.log(JSON.stringify({...report,unlinkedTitleIds:undefined},null,2));
+const serialized=JSON.stringify(report,null,2);
+// Default: assert against the committed file (no writes). Regenerate with `--write` or WRITE_EVIDENCE=1.
+if(process.argv.includes('--write')||process.env.WRITE_EVIDENCE==='1'){await writeFile('evidence/journey-coverage.json',serialized);console.log('Wrote evidence/journey-coverage.json');}
+else{const committed=await readFile(new URL('../evidence/journey-coverage.json',import.meta.url),'utf8');assert.equal(serialized,committed.replace(/\r\n/g,'\n'),'evidence/journey-coverage.json is stale; regenerate with: node scripts/test-journey-data.mjs --write');}
+console.log(JSON.stringify({...report,unlinkedTitleIds:undefined},null,2));

@@ -1,10 +1,12 @@
 # Journey data review
 
-Integrated snapshot: 171 title/world relationships across 127 of 185 titles and 72 distinct worlds. Fifty-eight titles have no current link; this does not mean those works have no settings. Only 62 worlds have supported schematic map placements. Counts computed from the integrated module on November 7, 2026.
+Authoritative counts are generated, not hand-written: see [journey-coverage.json](journey-coverage.json), produced by `node scripts/test-journey-data.mjs --write` (or `WRITE_EVIDENCE=1`). A plain `npm run test:journey-data` asserts the committed file against the live modules and fails if it is stale; it never rewrites the file.
 
-Reviewed November 7, 2026. This is a targeted source/semantics review, not certification of every relationship or a browser test. Counts are calculated from CONNECTION_COVERAGE in src/connections.ts because the evidence pass is still expanding. The additional Clone Wars pass contributes 72 relationships across 63 episodes, after inspecting all 133 official guide synopses. It uses explicit settings plus episode-specific clip and story-gallery descriptions; generic related biographies and inferred arc inheritance are excluded.
+Snapshot checked November 7, 2026 (`checkedOn` in the JSON): 495 title/world relationships across 315 of 323 catalog titles and 164 distinct location identities. Eight titles have no current link; this does not mean those works have no settings. Only 76 worlds have supported schematic map placements (27 approximately traced, 49 cell-centered); the other associated locations remain textual evidence. Per-series counts and the unlinked title IDs are in the JSON.
 
-The map has 62 supported schematic destinations: eight general placements, 53 direct additions, and Endor joined through its parent system. An appearance relationship does not provide coordinates. Unplaced worlds remain textual evidence. The 185 catalog items have collection viewing orders; they do not all have audited location appearances.
+This review is a targeted source/semantics review, not certification of every relationship or a browser test. The additional Clone Wars pass contributes 72 relationships across 63 episodes, after inspecting all 133 official guide synopses. It uses explicit settings plus episode-specific clip and story-gallery descriptions; generic related biographies and inferred arc inheritance are excluded.
+
+The map placements are 76 schematic destinations: eight general placements, 67 direct journey placements, and Endor joined through its parent system. An appearance relationship does not provide coordinates. Collection viewing orders cover all 323 catalog items; they do not all have audited location appearances.
 
 ## Source samples and findings
 
@@ -19,5 +21,4 @@ Episode location indexes are a weaker association tier than explicit synopsis sc
 
 Second-pass Clone Wars risk check: Mon Cala is explicitly named in the S4E1 and S4E3 synopses; no Mon Calamari-character-to-world inference is used. Scipio is named in the S6E5 and S6E7 synopses. S7E9's Yerbana and S7E3's Skako Minor come from their own opening story-gallery captions; they are not imported from other episode galleries. S7E11's Mandalore is supported by its opening city-street gallery caption as well as the synopsis. S7E12's reused duel featurette references Mandalore, but no Mandalore link was added for that finale. S2E22's Vanqor recap was excluded while its explicit Coruscant investigation and Florrum showdown were retained. No removals were warranted by this focused second pass.
 
-Remaining work: expand exact episode evidence, retain the distinction between complete catalog order and partial appearance coverage, and test integrated Journey behavior separately. ICM link/contract check and catalog-ID validity for all 72 additions passed. No current-batch browser or deployment claim is made here.
-
+Remaining work: expand exact episode evidence, retain the distinction between complete catalog order and partial appearance coverage, and test integrated Journey behavior separately. Per-batch additions are recorded in [release history](release-history.md), not repeated here. No current-batch browser or deployment claim is made here.
