@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Check, ChevronRight, Compass, ExternalLink, Eye,
 
 import { CATALOG, SERIES } from './catalog';
 
+import { getLocation, getLocationKind } from './locations';
 import { CONNECTIONS } from './connections';
 
 import { STORY_SEQUENCES, STORY_CONNECTIONS } from './chronology';
@@ -20,6 +21,7 @@ const CONTEXT_LABELS = {surface: 'Surface setting', orbit: 'Orbital setting', fl
 type Props = {
 
   watchedIds: ReadonlySet<string>;
+  onInspectLocation?: (id: string) => void;
   onLocationDisclosure?: (value: { itemId: string; revealed: boolean }) => void;
 
   onSelectStop: (itemId: string, worldId: string) => void;
@@ -39,7 +41,7 @@ function LocationDisclosure({ itemId, revealed, onChange }: { itemId: string; re
   return null;
 }
 
-export default function Journey({ onLocationDisclosure, watchedIds, onSelectStop, activeItemId, onActiveItemChange, onToggleWatched }: Props) {
+export default function Journey({ onInspectLocation, onLocationDisclosure, watchedIds, onSelectStop, activeItemId, onActiveItemChange, onToggleWatched }: Props) {
 
   const reduceMotion = useReducedMotion();
   const [sequenceId, setSequenceId] = useState(STORY_SEQUENCES[0]?.id ?? '');
@@ -85,7 +87,7 @@ export default function Journey({ onLocationDisclosure, watchedIds, onSelectStop
 
   const showLocations = isWatched || revealedIds.has(item.id);
 
-  const storyLinks = STORY_CONNECTIONS.filter(link => link.afterItemId === item.id || link.beforeItemId === item.id || link.itemIds?.includes(item.id));
+  const storyLinks = STORY_CONNECTIONS.filter(link => link.afterItemId === item.id || link.beforeItemId === item.id || link.itemIds?.includes(item.id) || link.includedItemIds?.includes(item.id));
 
   const connections = CONNECTIONS.filter(connection => connection.itemId === item.id);
 
@@ -127,7 +129,7 @@ export default function Journey({ onLocationDisclosure, watchedIds, onSelectStop
 
 
 
-    <div ref={collectionRef} className="journey-collections" role="group" aria-label="Choose a story collection">
+    <details className="story-collection-picker"><summary>Choose a story collection</summary><div ref={collectionRef} className="journey-collections" role="group" aria-label="Choose a story collection">
 
       {STORY_SEQUENCES.map((entry, entryIndex) => {
 
@@ -150,6 +152,7 @@ export default function Journey({ onLocationDisclosure, watchedIds, onSelectStop
 
 
 
+    </details>
     <div className="journey-workspace">
 
       <div className="journey-reader">
@@ -164,7 +167,7 @@ export default function Journey({ onLocationDisclosure, watchedIds, onSelectStop
           {onToggleWatched && <><button className="journey-complete" onClick={completeChapter}><Check size={15}/>{isWatched ? (index < items.length - 1 ? 'Continue to next chapter' : 'Confirm collection progress') : (index < items.length - 1 ? 'Mark watched & continue' : 'Mark final chapter watched')}</button>{isWatched && <button className="journey-unwatch" onClick={() => { onToggleWatched(item.id); setProgressMessage(`${item.title} marked unwatched.`); }}>Mark unwatched</button>}</>}
           <p className="journey-action-status" role="status" aria-live="polite">{progressMessage}</p>
         </div>
-        <div className="journey-resume"><div><span>{firstUnwatched ? 'NEXT UNWATCHED IN STORY ORDER' : 'COLLECTION COMPLETE'}</span><strong>{firstUnwatched?.title ?? 'Every chapter watched'}</strong><small>{firstUnwatched ? 'First unwatched chapter in this collection; locations stay hidden.' : 'Revisit any chapter below.'}</small></div>{firstUnwatched && <button disabled={firstUnwatched.id === item.id} onClick={() => selectItem(firstUnwatched.id)}>{firstUnwatched.id === item.id ? 'You are here' : 'Resume'}<ArrowRight size={15}/></button>}</div>
+        <details className="story-chapter-picker"><summary>Browse chapters &amp; watch progress</summary><div className="journey-resume"><div><span>{firstUnwatched ? 'NEXT UNWATCHED IN STORY ORDER' : 'COLLECTION COMPLETE'}</span><strong>{firstUnwatched?.title ?? 'Every chapter watched'}</strong><small>{firstUnwatched ? 'First unwatched chapter in this collection; locations stay hidden.' : 'Revisit any chapter below.'}</small></div>{firstUnwatched && <button disabled={firstUnwatched.id === item.id} onClick={() => selectItem(firstUnwatched.id)}>{firstUnwatched.id === item.id ? 'You are here' : 'Resume'}<ArrowRight size={15}/></button>}</div>
 
         <div className="journey-search"><label htmlFor="journey-title-search"><Search size={15}/><span>Find a chapter</span></label><input id="journey-title-search" type="search" placeholder="Title or episode code, e.g. S01E02" value={query} onChange={event => { setQuery(event.target.value); setResultLimit(6); }} aria-controls="journey-search-results" autoComplete="off"/>
 
@@ -181,13 +184,14 @@ export default function Journey({ onLocationDisclosure, watchedIds, onSelectStop
 
         <ol className="journey-chapter-strip" start={visibleStart + 1}>{nearby.map((entry, nearbyIndex) => <li key={entry.id}><button className={entry.id === item.id ? 'is-current' : ''} aria-current={entry.id === item.id ? 'step' : undefined} onClick={() => selectItem(entry.id)}><span className="journey-step-number">{watchedIds.has(entry.id) ? <Check size={12}/> : String(visibleStart + nearbyIndex + 1).padStart(2, '0')}</span><span>{entry.title}</span></button></li>)}</ol>
 
+        </details>
       </div>
 
 
 
       <motion.div layout={reduceMotion ? false : "position"} transition={{ duration: .2 }} className="journey-worlds" aria-label={`Locations for ${item.title}`}>
 
-        <div className="journey-worlds-heading"><span className="journey-kicker"><MapPin size={13}/> WORLDS IN THIS CHAPTER</span>{showLocations && connections.length > 0 && <span>{connections.length} linked</span>}</div>
+        <div className="journey-worlds-heading"><span className="journey-kicker"><MapPin size={13}/> LOCATIONS IN THIS CHAPTER</span>{showLocations && connections.length > 0 && <span>{connections.length} linked</span>}</div>
 
         {connections.length === 0 ? <div className="journey-gap"><span className="journey-state-orbit" aria-hidden="true"><Compass size={28} strokeWidth={1}/></span><h3>A part of the map still to chart.</h3><p>Location evidence is not yet linked for this title. You can continue through the story while this gap is researched.</p><span>RESEARCH GAP · NO STOPS INFERRED</span></div> : !showLocations ? <div className="journey-spoiler"><span className="journey-state-orbit" aria-hidden="true"><LockKeyhole size={27} strokeWidth={1.2}/></span><h3>Let the story surprise you.</h3><p>You haven’t marked this title watched. Its location connections are hidden until you choose to reveal them.</p><button onClick={reveal}><Eye size={15}/> Reveal locations for this title</button><small>This won’t change your watch progress.</small></div> : <>
 
@@ -195,7 +199,7 @@ export default function Journey({ onLocationDisclosure, watchedIds, onSelectStop
 
             const world = ALL_WORLDS.find(w => w.id === connection.worldId);
 
-            return <article className="journey-stop" style={{ '--stop-color': world?.color ?? '#5e7288', '--stop-delay': `${Math.min(connectionIndex, 5) * 40}ms` } as React.CSSProperties} key={`${connection.itemId}-${connection.worldId}-${connectionIndex}`}><span className="journey-stop-dot" aria-hidden="true"/><div><h3>{connection.worldName}</h3>{connection.context && <span className={`appearance-context context-${connection.context}`}>{CONTEXT_LABELS[connection.context]}</span>}<p>{world ? `Mapped · ${world.region}` : 'Unmapped · appearance linked, position not established'}</p><p className="journey-stop-note">{connection.note}</p><a className="journey-stop-source" href={connection.sourceUrl} target="_blank" rel="noreferrer">Appearance source <ExternalLink size={10}/></a></div><button disabled={!world} onClick={() => world && onSelectStop(item.id, world.id)} aria-label={world ? `Show ${connection.worldName} on map` : `${connection.worldName}: map unavailable`}>{world ? <><span>Show on map</span><ArrowRight size={15}/></> : <span>Map unavailable</span>}</button></article>;
+            return <article className="journey-stop" style={{ '--stop-color': world?.color ?? '#5e7288', '--stop-delay': `${Math.min(connectionIndex, 5) * 40}ms` } as React.CSSProperties} key={`${connection.itemId}-${connection.worldId}-${connectionIndex}`}><span className="journey-stop-dot" aria-hidden="true"/><div><h3>{connection.worldName}</h3>{getLocationKind(connection.worldId) !== 'unknown' && <span className="location-kind">{getLocationKind(connection.worldId).replaceAll('-', ' ')}</span>}{connection.context && <span className={`appearance-context context-${connection.context}`}>{CONTEXT_LABELS[connection.context]}</span>}<p>{world ? `Mapped · ${world.region}` : 'Unmapped · appearance linked, position not established'}</p><p className="journey-stop-note">{connection.note}</p><a className="journey-stop-source" href={connection.sourceUrl} target="_blank" rel="noreferrer">Appearance source <ExternalLink size={10}/></a></div><button disabled={!world} onClick={() => world && onSelectStop(item.id, world.id)} aria-label={world ? `Show ${connection.worldName} on map` : `${connection.worldName}: map unavailable`}>{world ? <><span>Show on map</span><ArrowRight size={15}/></> : <span>Map unavailable</span>}</button>{!world && getLocation(connection.worldId) && onInspectLocation && <button onClick={() => onInspectLocation(connection.worldId)} aria-label={`Read ${connection.worldName} location file`}>Read location file <ArrowRight size={15}/></button>}</article>;
 
           })}</div><p className="journey-route-note">These are title-level appearances, not a single character’s travel itinerary. No within-title stop order or continuous travel route is implied.</p>
 
@@ -207,7 +211,7 @@ export default function Journey({ onLocationDisclosure, watchedIds, onSelectStop
 
 
 
-    {storyLinks.length > 0 && <div className="journey-bridges" aria-label="Related story connections">{storyLinks.map(link => <article key={link.id}><span className="journey-kicker">{link.kind === 'overlap' ? 'PARALLEL STORY' : 'BETWEEN CHAPTERS'} · OUTSIDE THIS COLLECTION</span><h3>{link.externalTitles.join(' / ')}</h3><p>{link.description}</p><a href={link.sourceUrl} target="_blank" rel="noreferrer">Connection reference <ExternalLink size={11}/></a></article>)}</div>}
+    {storyLinks.length > 0 && <div className="journey-bridges" aria-label="Related story connections">{storyLinks.map(link => <article key={link.id}><span className="journey-kicker">{link.kind === 'overlap' ? 'PARALLEL STORY' : 'BETWEEN CHAPTERS'} · {link.includedItemIds?.length ? 'IN THE ATLAS' : 'OUTSIDE THIS COLLECTION'}</span><h3>{[...link.externalTitles, ...(link.includedItemIds ?? []).map(id => catalogById.get(id)?.title ?? id)].join(' / ')}</h3>{link.includedItemIds?.filter(id => id !== item.id).map(id => <a key={id} href={`#journey/${id}`}>Continue with {catalogById.get(id)?.title} <ArrowRight size={14}/></a>)}{link.includedItemIds?.includes(item.id) && link.beforeItemId && <a href={`#journey/${link.beforeItemId}`}>Continue to {catalogById.get(link.beforeItemId)?.title} <ArrowRight size={14}/></a>}<p>{link.description}</p><a href={link.sourceUrl} target="_blank" rel="noreferrer">Connection reference <ExternalLink size={11}/></a></article>)}</div>}
 
     <details className="journey-sources"><summary>About this story order & sources <ExternalLink size={12}/></summary><div><p>{sequence.description}</p>{sequence.caveats.length > 0 && <ul>{sequence.caveats.map((caveat, i) => <li key={i}>{caveat}</li>)}</ul>}<a href={sequence.sourceUrl} target="_blank" rel="noreferrer">Story order reference <ExternalLink size={11}/></a><a href={item.sourceUrl} target="_blank" rel="noreferrer">Current title reference <ExternalLink size={11}/></a>{showLocations && connections.map((connection, i) => <p className="journey-evidence" key={i}><a href={connection.sourceUrl} target="_blank" rel="noreferrer">{connection.worldName} appearance source <ExternalLink size={11}/></a><span>{connection.note}</span></p>)}</div></details>
 

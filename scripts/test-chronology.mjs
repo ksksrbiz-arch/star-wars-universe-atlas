@@ -4,7 +4,7 @@ import { STORY_SEQUENCES, STORY_CONNECTIONS } from '../src/chronology.ts';
 
 const { items } = JSON.parse(await readFile(new URL('../src/catalog.generated.json', import.meta.url), 'utf8'));
 const catalog = new Map(items.map(item => [item.id, item]));
-const expected = { 'clone-wars': 134, andor: 24, ot: 3, mandalorian: 24, ahsoka: 8 };
+const expected = { 'clone-wars': 134, andor: 24, ot: 3, mandalorian: 24, ahsoka: 8, 'rogue-one': 1 };
 const covered = [];
 for (const sequence of STORY_SEQUENCES) {
   assert.equal(sequence.itemIds.length, expected[sequence.id], `${sequence.id} count`);
@@ -15,8 +15,8 @@ for (const sequence of STORY_SEQUENCES) {
   for (const id of sequence.itemIds) assert.ok(catalog.has(id), `Unresolved story ID ${id}`);
   covered.push(...sequence.itemIds);
 }
-assert.equal(covered.length, 193);
-assert.equal(new Set(covered).size, 193);
+assert.equal(covered.length, 194);
+assert.equal(new Set(covered).size, 194);
 assert.equal(Object.keys(expected).length, STORY_SEQUENCES.length);
 
 const cw = STORY_SEQUENCES.find(sequence => sequence.id === 'clone-wars').itemIds;
@@ -40,8 +40,8 @@ for (const sequenceId of ['andor', 'mandalorian', 'ahsoka']) {
 assert.deepEqual(STORY_SEQUENCES.find(sequence => sequence.id === 'ot').itemIds, ['ot-a-new-hope', 'ot-empire-strikes-back', 'ot-return-of-the-jedi']);
 for (const connection of STORY_CONNECTIONS) {
   assert.ok(STORY_SEQUENCES.some(sequence => sequence.id === connection.sequenceId));
-  for (const id of [connection.afterItemId, connection.beforeItemId, ...(connection.itemIds || [])].filter(Boolean)) assert.ok(catalog.has(id));
-  assert.ok(connection.externalTitles.length > 0);
+  for (const id of [connection.afterItemId, connection.beforeItemId, ...(connection.itemIds || []), ...(connection.includedItemIds || [])].filter(Boolean)) assert.ok(catalog.has(id));
+  assert.ok(connection.externalTitles.length > 0 || connection.includedItemIds?.length > 0);
   assert.ok(connection.sourceUrl.startsWith('https://www.starwars.com/'));
 }
 const boba = STORY_CONNECTIONS.find(connection => connection.id === 'mandalorian-boba-fett');
@@ -52,4 +52,4 @@ const overlap = STORY_CONNECTIONS.find(connection => connection.id === 'clone-wa
 assert.equal(overlap.kind, 'overlap');
 assert.equal(overlap.itemIds.length, 4);
 assert.ok(!Object.hasOwn(overlap, 'afterItemId'), 'Overlap is not falsely serialized as watch-next');
-console.log('Chronology passed: 193 unique catalog items, official Clone Wars reorder anchors, narrative sequences, sourced external bridges and overlap.');
+console.log('Chronology passed: 194 unique catalog items, official Clone Wars reorder anchors, narrative sequences, sourced external bridges and overlap.');

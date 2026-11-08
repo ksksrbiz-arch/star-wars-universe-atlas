@@ -1,0 +1,32 @@
+[
+  {
+    "width": 1440,
+    "route": "galaxy",
+    "mapTop": 207
+  },
+  {
+    "width": 1440,
+    "route": "journey/andor-s01e01",
+    "mapTop": 207
+  },
+  {
+    "width": 390,
+    "route": "galaxy",
+    "mapTop": 189
+  },
+  {
+    "width": 390,
+    "route": "journey/andor-s01e01",
+    "mapTop": 189
+  },
+  {
+    "width": 320,
+    "route": "galaxy",
+    "mapTop": 190.03125
+  },
+  {
+    "width": 320,
+    "route": "journey/andor-s01e01",
+    "mapTop": 190.03125
+  }
+]

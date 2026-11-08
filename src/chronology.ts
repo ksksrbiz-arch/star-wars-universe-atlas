@@ -35,6 +35,13 @@ const cloneWarsCodes = `
 
 export const STORY_SEQUENCES: StorySequence[] = [
   {
+    id: 'rogue-one', title: 'Rogue One · standalone film',
+    description: 'The complete film connects Andor with A New Hope in the official viewing guide.',
+    sourceUrl: 'https://www.starwars.com/news/star-wars-movies-and-series-guide',
+    itemIds: ['rogue-one'],
+    caveats: ['Whole-work viewing order only; the film’s earlier scenes remain inside the film.', 'No exact event dates, scene interleaving, or planet-to-planet travel order is implied.'],
+  },
+  {
     id: 'ahsoka',
     title: 'Ahsoka · season 1 narrative order',
     description: 'Follow the eight numbered parts of the complete first season, preserving visions and recalled battles inside their original episodes.',
@@ -106,6 +113,7 @@ export type StoryConnection = {
   beforeItemId?: string;
   itemIds?: string[];
   externalTitles: string[];
+  includedItemIds?: string[];
   description: string;
   sourceUrl: string;
 };
@@ -115,8 +123,8 @@ export const STORY_CONNECTIONS: StoryConnection[] = [
   {
     id: 'andor-rogue-one', sequenceId: 'andor', kind: 'bridge',
     afterItemId: 'andor-s02e12', beforeItemId: 'ot-a-new-hope',
-    externalTitles: ['Rogue One: A Star Wars Story'],
-    description: 'Rogue One follows the Andor finale and connects its story to A New Hope. It is not included in the current collection.',
+    externalTitles: [], includedItemIds: ['rogue-one'],
+    description: 'Rogue One follows the Andor finale and connects its story to A New Hope. The film is included as a separate collection; this bridge is whole-work viewing order, not exact event chronology.',
     sourceUrl: 'https://www.starwars.com/series/andor/season-2-episode-12-episode-guide',
   },
   {

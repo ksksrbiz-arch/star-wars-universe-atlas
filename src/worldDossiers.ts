@@ -101,10 +101,60 @@ export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
     ],
     caveat: 'This dossier describes the forest moon, not the parent planet or the separate ocean moon Kef Bir. Village and installation locations are not plotted as surface coordinates.',
   },
+  scarif: {
+    worldId: 'scarif', eyebrow: 'TROPICAL WORLD · IMPERIAL OCCUPATION',
+    overview: { text: 'Scarif’s tropical landscape surrounds a major Imperial military installation. Its natural beauty contrasts with its heavily defended role in the Imperial war machine.', sourceUrl: databank + 'scarif' },
+    terrain: { label: 'Tropical landscape', text: 'The official description presents Scarif as a tropical paradise transformed by military infrastructure. The portrait uses invented shoreline motifs, not a traced surface map.', sourceUrl: databank + 'scarif' },
+    highlights: [
+      { id: 'tropical-landscape', name: 'Tropical landscape', description: 'Scarif’s tropical environment forms the natural setting around the Imperial installation; no island arrangement or surface scale is established here.', sourceUrl: databank + 'scarif' },
+      { id: 'imperial-installation', name: 'Imperial military installation', description: 'The planet supports a major Imperial military and construction facility, protected by heavy defenses and a planetary shield during the Imperial era.', sourceUrl: databank + 'scarif' },
+    ],
+    caveat: 'The shield and military installation describe an Imperial-era setting. Original tropical artwork is illustrative and does not establish island positions, routes, or present-day conditions.',
+  },
+  jedha: {
+    worldId: 'jedha', eyebrow: 'DESERT MOON · PILGRIMAGE WORLD',
+    overview: { text: 'Jedha is a small desert moon with a permanent winter. Its long connection to study of the Force makes it a destination for pilgrims seeking spiritual guidance.', sourceUrl: databank + 'jedha' },
+    terrain: { label: 'Cold desert moon', text: 'Desert terrain and persistent cold coexist on Jedha. A warm-colored illustration should not be read as evidence of a hot climate.', sourceUrl: databank + 'jedha' },
+    highlights: [
+      { id: 'pilgrimage-sites', name: 'Pilgrimage setting', description: 'Jedha’s holy sites draw pilgrims from across the galaxy and connect the moon with early exploration of the Force.', sourceUrl: databank + 'jedha' },
+      { id: 'timeworn-streets', name: 'Timeworn city streets', description: 'The official account describes an occupied city whose old streets are contested by Imperial forces and scattered rebels during this era.', sourceUrl: databank + 'jedha' },
+    ],
+    caveat: 'Jedha is a moon, not a parent planet. These descriptions preserve the film-era setting without charting a surface itinerary or treating conditions as timeless.',
+  },
+  eadu: {
+    worldId: 'eadu', eyebrow: 'RUGGED WORLD · RAIN AND SECRECY',
+    overview: { text: 'Eadu is a rugged planet in the Outer Rim’s Bheriz sector. Rain and native nerf herders are among the few details widely associated with this remote world.', sourceUrl: databank + 'eadu' },
+    terrain: { label: 'Rain-soaked rugged terrain', text: 'Rugged country and frequent rain define the official description of Eadu. The rocky and cloud motifs in its portrait are original illustrations.', sourceUrl: databank + 'eadu' },
+    highlights: [
+      { id: 'herding-country', name: 'Nerf-herding country', description: 'The planet’s native nerf herders are part of its publicly known character, distinct from the secret Imperial work conducted there.', sourceUrl: databank + 'eadu' },
+      { id: 'research-laboratory', name: 'Imperial research laboratory', description: 'A secret laboratory houses scientists working for the Tarkin Initiative on kyber-crystal research during the Imperial era.', sourceUrl: databank + 'eadu' },
+    ],
+    caveat: 'The laboratory is an era-specific installation. Its placement within the planet is not plotted here; the atmospheric portrait does not imply measured weather or a surface map.',
+  },
+  lahmu: {
+    worldId: 'lahmu', eyebrow: 'REMOTE WORLD · MINERAL-RICH GROUND',
+    overview: { text: 'Lah’mu is a sparsely inhabited backwater in the Outer Rim’s Raioballo sector. The Erso family sought refuge there away from Coruscant.', sourceUrl: databank + 'lah-mu' },
+    terrain: { label: 'Mineral-rich ground and groundwater', text: 'The world’s rich soil and groundwater are contaminated by minerals and other elements. A green illustrative surface does not imply that all land is fertile or safe.', sourceUrl: databank + 'lah-mu' },
+    highlights: [
+      { id: 'remote-backwater', name: 'Sparsely settled landscape', description: 'Lah’mu is described as a remote, sparsely inhabited backwater rather than a densely built world or major trade hub.', sourceUrl: databank + 'lah-mu' },
+      { id: 'erso-refuge', name: 'Erso family refuge', description: 'The Erso family moved to Lah’mu from Coruscant in search of refuge from the Empire. Their homestead is not positioned on a surface map here.', sourceUrl: databank + 'lah-mu' },
+    ],
+    caveat: 'Lah’mu’s apostrophe is retained in source descriptions; the registry uses a stable plain-text ID. No homestead coordinates, geological measurements, or travel route are inferred.',
+  },
+  mustafar: {
+    worldId: 'mustafar', eyebrow: 'VOLCANIC WORLD · LAVA FIELDS',
+    overview: { text: 'Mustafar is a small, fiery Outer Rim world, rich in valuable minerals. Lava pits and rivers make its surface dangerous, even as mining exploits its resources.', sourceUrl: databank + 'mustafar' },
+    terrain: { label: 'Lava rivers and volcanic ground', text: 'The official description emphasizes lava pits, flowing rivers and extreme heat. Original fissure patterns suggest this environment without tracing real surface geography.', sourceUrl: databank + 'mustafar' },
+    highlights: [
+      { id: 'lava-fields', name: 'Lava fields and rivers', description: 'Mustafar’s lava pits and rivers shape a hostile habitat whose native inhabitants are adapted to extreme heat.', sourceUrl: databank + 'mustafar' },
+      { id: 'vaders-castle', name: 'Vader’s castle', description: 'An obsidian tower rises from Mustafar’s lava fields above an ancient Sith cave. The structure belongs to a particular historical era, not the planet’s natural geology.', sourceUrl: databank + 'vader-s-castle' },
+    ],
+    caveat: 'This portrait emphasizes the volcanic landscape described by the source, not a permanent climate claim for every era. Castle and mining sites have no invented surface coordinates.',
+  },
 };
 
 /** Reviewed broad categories for directory discovery; absence means not reviewed, not unknown geology. */
-export type WorldTerrainCategory = 'desert' | 'urban' | 'ice' | 'wetlands' | 'gas-giant' | 'swamp' | 'forest';
+export type WorldTerrainCategory = 'desert' | 'urban' | 'ice' | 'wetlands' | 'gas-giant' | 'swamp' | 'forest' | 'tropical' | 'cold-desert' | 'rugged' | 'mineral-rich' | 'volcanic';
 export const WORLD_TERRAIN: Readonly<Record<string, { category: WorldTerrainCategory; label: string; sourceUrl: string }>> = {
   tatooine: { category: 'desert', label: 'Desert', sourceUrl: databank + 'tatooine' },
   coruscant: { category: 'urban', label: 'Urban', sourceUrl: databank + 'coruscant' },
@@ -114,4 +164,9 @@ export const WORLD_TERRAIN: Readonly<Record<string, { category: WorldTerrainCate
   dagobah: { category: 'swamp', label: 'Swamp', sourceUrl: databank + 'dagobah' },
   yavin: { category: 'forest', label: 'Forest and jungle', sourceUrl: databank + 'yavin-4' },
   endor: { category: 'forest', label: 'Forest', sourceUrl: databank + 'endor' },
+  scarif: { category: 'tropical', label: 'Tropical', sourceUrl: databank + 'scarif' },
+  jedha: { category: 'cold-desert', label: 'Cold desert', sourceUrl: databank + 'jedha' },
+  eadu: { category: 'rugged', label: 'Rain and rugged terrain', sourceUrl: databank + 'eadu' },
+  lahmu: { category: 'mineral-rich', label: 'Mineral-rich ground', sourceUrl: databank + 'lah-mu' },
+  mustafar: { category: 'volcanic', label: 'Volcanic', sourceUrl: databank + 'mustafar' },
 };

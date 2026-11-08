@@ -1,3 +1,5 @@
+import LocationDossier from './LocationDossier';
+import { getLocation } from './locations';
 import ImmersiveDossier from './ImmersiveDossier';
 import AtlasHero from './AtlasHero';
 import AtlasAudio from './AtlasAudio';
@@ -5,7 +7,7 @@ import PlanetPortrait from './PlanetPortrait';
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { motion, MotionConfig } from 'motion/react';
 
-import { ArrowLeft, ArrowRight, Check, ChevronRight, Compass, ExternalLink, Focus, Globe2, Info, Orbit, Radar, Rocket, Sparkles, X, BookOpen, Route, Clock3, BookmarkCheck } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUp, ArrowDown, Plus, Minus, ChevronDown, Check, ChevronRight, Compass, ExternalLink, Focus, Globe2, Info, Orbit, Radar, Rocket, Sparkles, X, BookOpen, Route, Clock3, BookmarkCheck } from 'lucide-react';
 
 const Galaxy = lazy(() => import('./Galaxy'));
 
@@ -33,6 +35,8 @@ import { CATALOG } from './catalog';
 import { CONNECTIONS } from './connections';
 import { STORY_SEQUENCES } from './chronology';
 import './episode-highlights.css';
+import './workspace.css';
+import type { MapCommand } from './Galaxy';
 import EpisodeLocationControls from './EpisodeLocationControls';
 
 import { useWatchProgress } from './useWatchProgress';
@@ -73,6 +77,12 @@ const DETAILS: Record<string, { subtitle: string; terrain: string; kind: string;
 export default function App() {
 
   const [view, setView] = useState<View>(readView);
+  const [inspectedLocationId, setInspectedLocationId] = useState<string | null>(null);
+  const [panelTab, setPanelTab] = useState<'story' | 'destination'>(() => readView() === 'journey' ? 'story' : 'destination');
+  const [sheetExpanded, setSheetExpanded] = useState(false);
+  const [mapCommand, setMapCommand] = useState<MapCommand | null>(null);
+  const commandMap = (action: MapCommand['action']) => setMapCommand(old => ({id: (old?.id ?? 0) + 1, action}));
+  useEffect(() => { setInspectedLocationId(null); setPanelTab(view === 'journey' ? 'story' : 'destination'); setSheetExpanded(false); }, [view]);
   const [galaxyMounted, setGalaxyMounted] = useState(() => ['galaxy','journey'].includes(readView()));
   useEffect(() => { if (view === 'galaxy' || view === 'journey') setGalaxyMounted(true); }, [view]);
 
@@ -124,6 +134,8 @@ export default function App() {
       if (phase === 'warping') cancel();
       const nextView = readView();
       setView(nextView);
+      setPanelTab(nextView === 'journey' ? 'story' : 'destination');
+      setInspectedLocationId(null); setSheetExpanded(false);
       const id = location.hash.split('/')[1];
       setActiveItemId(CATALOG.some(item => item.id === id) ? id : null);
       if (nextView === 'galaxy') setPreviewId(readWorld());
@@ -134,6 +146,7 @@ export default function App() {
 
   function selectJourneyStop(itemId: string, worldId: string) {
     if (phase === 'warping') cancel();
+    setInspectedLocationId(null); setSheetExpanded(false);
     setActiveItemId(itemId); window.history.replaceState(null, '', `#journey/${itemId}`); setPreviewId(worldId);
     setJourneyStatus(`${CATALOG.find(item => item.id === itemId)?.title}: ${ALL_WORLDS.find(w => w.id === worldId)?.name} selected. Use Jump to travel.`);
     document.querySelector('.map-stage')?.scrollIntoView({behavior: reducedMotion ? 'instant' : 'smooth', block: 'start'});
@@ -157,7 +170,10 @@ export default function App() {
 
     if (phase === 'warping') return;
 
+    setInspectedLocationId(null);
     setPreviewId(id);
+    const settings = document.querySelector<HTMLDetailsElement>('.workspace-settings');
+    if (settings?.open) { settings.open = false; document.getElementById('galaxy-map')?.focus({preventScroll: true}); }
     if (view === 'galaxy') window.history.replaceState(null, '', `#galaxy/${id}`);
 
     const world = ALL_WORLDS.find(w => w.id === id);
@@ -175,6 +191,7 @@ export default function App() {
     setHistory(h => [...h, currentId]);
 
     setCurrentId(targetId);
+    setPanelTab('destination'); setSheetExpanded(true);
 
     setPreviewId(targetId);
 
@@ -198,6 +215,7 @@ export default function App() {
       setHistory(h => [...h, currentId]);
 
       setCurrentId(previewId);
+      setPanelTab('destination'); setSheetExpanded(true);
 
       setAnnouncement(`Arrived at ${preview.name}. ${mapUnavailable ? 'Map unavailable; instant arrival.' : 'Motion reduced.'}`);
       if (view === 'journey') setJourneyStatus(`Arrived at ${preview.name}. Choose another location or continue to the next chapter.`);
@@ -288,9 +306,6 @@ export default function App() {
     {view !== 'galaxy' && view !== 'journey' && <main className="platform-main"><Library mode={view} watchedIds={watchedIds} onToggleWatched={toggleWatched}/>{view === 'watch' && <ProgressTools exportProgress={exportProgress} importProgress={importProgress}/>}<p className="catalog-attribution">Episode metadata: <a href="https://www.tvmaze.com" target="_blank" rel="noreferrer">TVmaze</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA</a>. Curated catalog; title-level location links are still being researched. Progress stays in this browser.</p></main>}
 
     <main id="atlas" hidden={view !== 'galaxy' && view !== 'journey'}>
-      {view === 'journey' && <><Journey onLocationDisclosure={setJourneyDisclosure} onToggleWatched={toggleWatched} watchedIds={watchedIds} onSelectStop={selectJourneyStop} activeItemId={activeItemId} onActiveItemChange={id => {if(phase === 'warping') cancel();setActiveItemId(id);setPreviewId(currentId);window.history.replaceState(null, '', `#journey/${id}`);setJourneyStatus('Choose a revealed mapped location to preview your next stop.');}}/><p className="journey-map-status" role="status">{journeyStatus}</p></>}
-
-      {view === 'galaxy' && <AtlasHero reducedMotion={reducedMotion} watchedIds={watchedIds}/>}
 
 
 
@@ -298,23 +313,27 @@ export default function App() {
 
 
 
-      <div className="flight-toolbar"><div><span className="flight-mark"/><span>GALACTIC NAVIGATION</span><small>{phase === 'warping' ? 'TRANSIT ACTIVE' : 'SYSTEM READY'}</small></div><label>Graphics <select aria-label="Graphics quality" value={quality} disabled={phase === 'warping'} onChange={event=>setQuality(event.target.value as 'balanced'|'cinematic')}><option value="balanced">Balanced</option><option value="cinematic">Cinematic</option></select></label></div>
+
+
+
+      <div className="workspace-heading"><div><span className="eyebrow">GALACTIC WORKSPACE</span><h1>{view === 'journey' ? 'Follow the story' : 'Explore the galaxy'}</h1></div><details className="workspace-settings"><summary>Find a world &amp; map settings</summary><div className="workspace-settings-content">      <div className="flight-toolbar"><div><span className="flight-mark"/><span>GALACTIC NAVIGATION</span><small>{phase === 'warping' ? 'TRANSIT ACTIVE' : 'SYSTEM READY'}</small></div><label>Graphics <select aria-label="Graphics quality" value={quality} disabled={phase === 'warping'} onChange={event=>setQuality(event.target.value as 'balanced'|'cinematic')}><option value="balanced">Balanced</option><option value="cinematic">Cinematic</option></select></label></div>
       <div className="reference-controls" aria-label="Map layers">
         <div className="layer-switches"><label><input type="checkbox" checked={regionsVisible} onChange={e=>setRegionsVisible(e.target.checked)}/> Regions</label><label><input type="checkbox" checked={routesVisible} onChange={e=>setRoutesVisible(e.target.checked)}/> Hyperspace routes</label><label><input type="checkbox" checked={gridVisible} onChange={e=>setGridVisible(e.target.checked)}/> Grid</label></div>
         <WorldExplorer selectedId={previewId} disabled={phase === 'warping'} onSelect={selectWorld}/>
       </div>
       <details className="reference-key"><summary>Map key &amp; reference</summary><p>Colored boundaries and five major hyperspace lanes follow the supplied galaxy-map reference as approximate visual traces. Published system grids remain the placement source; traced positions are identified in each destination’s position note. Story connections are separate from these routes.</p><ul className='route-legend-list'>{HYPERSPACE_ROUTES.map(route=><li key={route.id}><i style={{background:route.color}}/>{route.number}. {route.name}</li>)}</ul><p>Zoom for smaller world labels. <a href="http://www.swgalaxymap.com/" target="_blank" rel="noreferrer">SW Galaxy Map reference ↗</a></p></details>
-      {locationsDisclosed && <EpisodeLocationControls worlds={highlightedWorlds} unmappedCount={episodeWorldIds.size - highlightedWorlds.length} disabled={phase === 'warping'} mapUnavailable={mapUnavailable} onFit={() => {setEpisodeFitKey(key => key + 1);setAnnouncement('Map fitted to this chapter’s sourced mapped locations.');document.querySelector('.map-stage')?.scrollIntoView({behavior: 'instant', block: 'start'});}} onSelect={id => selectJourneyStop(displayedJourneyId!, id)}/>}
-      <section className="explorer" aria-label="Galaxy explorer">
+</div></details></div>
+      <section className="explorer map-workspace" aria-label="Galaxy explorer">
 
         <div id="galaxy-map" tabIndex={-1} aria-label="Interactive galaxy map" className={`map-stage ${phase === 'warping' ? 'is-warping' : 'is-navigating'}`} data-quality={quality}>
 
-          <div className="galaxy-canvas">{galaxyMounted && <MapBoundary onUnavailable={() => { setMapUnavailable(true); if (phase === 'warping') cancel(); }}><Suspense fallback={<div className="galaxy-loading" role="status"><Orbit size={32} aria-hidden="true"/><strong>Charting the galaxy…</strong><span>Preparing your navigation view</span></div>}><Galaxy fitKey={episodeFitKey} highlightedIds={episodeWorldIds} worlds={mapWorlds} selectedId={currentId} previewId={previewId} targetId={targetId} phase={phase} reducedMotion={reducedMotion} quality={quality} regionsVisible={regionsVisible} routesVisible={routesVisible} gridVisible={gridVisible} onSelect={selectWorld} onArrive={arrive} resetKey={resetKey}/></Suspense></MapBoundary>}</div>
+          <div className="galaxy-canvas">{galaxyMounted && <MapBoundary onUnavailable={() => { setMapUnavailable(true); if (phase === 'warping') cancel(); }}><Suspense fallback={<div className="galaxy-loading" role="status"><Orbit size={32} aria-hidden="true"/><strong>Charting the galaxy…</strong><span>Preparing your navigation view</span></div>}><Galaxy command={mapCommand} fitKey={episodeFitKey} highlightedIds={episodeWorldIds} worlds={mapWorlds} selectedId={currentId} previewId={previewId} targetId={targetId} phase={phase} reducedMotion={reducedMotion} quality={quality} regionsVisible={regionsVisible} routesVisible={routesVisible} gridVisible={gridVisible} onSelect={selectWorld} onArrive={arrive} resetKey={resetKey}/></Suspense></MapBoundary>}</div>
 
           <div className="map-heading"><span className="eyebrow">GALAXY VIEW</span><span className="map-coordinate"><span className="live-dot"/> {phase === 'warping' ? 'HYPERSPACE TRANSIT' : 'NAVIGATION ONLINE'}</span></div>
 
-          <div className="map-tools"><button className="icon-button" onClick={() => {setResetKey(k => k+1);setAnnouncement('Galaxy view reset.');}} disabled={phase === 'warping'} title="Reset map view" aria-label="Reset map view"><Focus size={19}/></button><button className="icon-button" onClick={back} disabled={!history.length || phase === 'warping'} title="Return to previous world" aria-label="Return to previous world"><ArrowLeft size={19}/></button></div>
+          <div className="map-tools" aria-label="Map navigation"><button className="icon-button" aria-label="Zoom in" disabled={phase === 'warping' || mapUnavailable} onClick={() => commandMap('zoomIn')}><Plus size={19}/></button><button className="icon-button" aria-label="Zoom out" disabled={phase === 'warping' || mapUnavailable} onClick={() => commandMap('zoomOut')}><Minus size={19}/></button><button className="icon-button" onClick={() => {setResetKey(k => k+1);setAnnouncement('Galaxy view reset.');}} disabled={phase === 'warping'} title="Reset map view" aria-label="Reset map view"><Focus size={19}/></button><button className="icon-button" onClick={back} disabled={!history.length || phase === 'warping'} title="Return to previous world" aria-label="Return to previous world"><ArrowLeft size={19}/></button></div>
 
+          <div className="map-pan-controls" role="group" aria-label="Pan galaxy"><button aria-label="Pan up" disabled={phase === 'warping' || mapUnavailable} onClick={() => commandMap('panUp')}><ArrowUp size={16}/></button><button aria-label="Pan left" disabled={phase === 'warping' || mapUnavailable} onClick={() => commandMap('panLeft')}><ArrowLeft size={16}/></button><button aria-label="Pan down" disabled={phase === 'warping' || mapUnavailable} onClick={() => commandMap('panDown')}><ArrowDown size={16}/></button><button aria-label="Pan right" disabled={phase === 'warping' || mapUnavailable} onClick={() => commandMap('panRight')}><ArrowRight size={16}/></button></div>
           <div className="map-bottom"><div className="current-location"><span className="location-icon"><Radar size={18}/></span><div><span>YOUR LOCATION</span><strong>{current.name}</strong></div></div><div className="map-legend"><i/> Reference atlas · schematic placement</div></div>
 
           <div className="mini-map" aria-label="Galaxy overview"><svg viewBox="0 0 120 80" role="img" aria-label={`Overview: currently at ${current.name}`}><ReferenceOverview regions={regionsVisible} routes={routesVisible}/>{mapWorlds.map(w => <g key={w.id}><circle className={w.id === currentId ? 'mini-current' : 'mini-world'} cx={60+w.x*43} cy={40-w.y*28} r={w.id === currentId ? 3.5 : 2}/>{w.id === currentId && <circle className="mini-ring" cx={60+w.x*43} cy={40-w.y*28} r="7"/>}</g>)}</svg><span>OVERVIEW</span></div>
@@ -327,7 +346,15 @@ export default function App() {
 
 
 
-        <aside className="world-dossier" aria-label={`${preview.name} destination details`}>
+        <aside className={`workspace-panel ${sheetExpanded ? 'is-expanded' : ''}`} aria-label="Exploration panel">
+          <button className="sheet-toggle" aria-expanded={sheetExpanded} aria-controls="workspace-panel-content" onClick={() => setSheetExpanded(value => !value)}><span><small>{view === 'journey' ? 'STORY & DESTINATION' : 'DESTINATION FILE'}</small><strong>{panelTab === 'story' ? CATALOG.find(item => item.id === displayedJourneyId)?.title : (inspectedLocationId ? getLocation(inspectedLocationId)?.name : preview.name)}</strong></span><ChevronDown size={20}/><span className="sr-only">{sheetExpanded ? 'Collapse exploration panel' : 'Expand exploration panel'}</span></button>
+          <div id="workspace-panel-content" className="workspace-panel-content">
+            <div className="workspace-tabs" role="group" aria-label="Exploration panel views">{view === 'journey' && <button aria-pressed={panelTab === 'story'} onClick={() => setPanelTab('story')}>Story</button>}<button aria-pressed={panelTab === 'destination'} onClick={() => setPanelTab('destination')}>Destination</button>{view !== 'journey' && <a href="#journey">Choose a story <ArrowRight size={14}/></a>}</div>
+            <div hidden={panelTab !== 'story'} className="workspace-story">{view === 'journey' && <><Journey onInspectLocation={id => {setInspectedLocationId(id);setPanelTab('destination');setSheetExpanded(true);}} onLocationDisclosure={setJourneyDisclosure} onToggleWatched={toggleWatched} watchedIds={watchedIds} onSelectStop={selectJourneyStop} activeItemId={activeItemId} onActiveItemChange={id => {if(phase === 'warping') cancel();setInspectedLocationId(null);setActiveItemId(id);setPreviewId(currentId);window.history.replaceState(null, '', `#journey/${id}`);setJourneyStatus('Choose a revealed mapped location to preview your next stop.');}}/><p className="journey-map-status" role="status">{journeyStatus}</p></>}      {locationsDisclosed && <EpisodeLocationControls worlds={highlightedWorlds} unmappedCount={episodeWorldIds.size - highlightedWorlds.length} disabled={phase === 'warping'} mapUnavailable={mapUnavailable} onFit={() => {setEpisodeFitKey(key => key + 1);setAnnouncement('Map fitted to this chapter’s sourced mapped locations.');document.querySelector('.map-stage')?.scrollIntoView({behavior: 'instant', block: 'start'});}} onSelect={id => selectJourneyStop(displayedJourneyId!, id)}/>}
+</div>
+            <div hidden={panelTab !== 'destination'}>
+            {inspectedLocationId ? <LocationDossier id={inspectedLocationId} reducedMotion={reducedMotion}/> : <>
+            <div className="world-dossier" aria-label={`${preview.name} destination details`}>
 
           <div className="dossier-top"><span className="eyebrow">DESTINATION FILE</span><span className="file-number">{String(ALL_WORLDS.indexOf(preview)+1).padStart(2,'0')} / {String(ALL_WORLDS.length).padStart(2,'0')}</span></div>
 
@@ -351,14 +378,19 @@ export default function App() {
 
           <details className="position-note"><summary>About this position</summary><p>{preview.uncertainty}</p></details>
 
+            </div>
+            <ImmersiveDossier key={preview.id} worldId={preview.id} worldName={preview.name}/>
+            <div className="world-stories-panel"><WorldStories key={preview.id} worldId={preview.id} worldName={preview.name} watchedIds={watchedIds}/></div>
+            </>}
+            </div>
+          </div>
         </aside>
 
       </section>
 
 
 
-      <ImmersiveDossier key={preview.id} worldId={preview.id} worldName={preview.name}/>
-      {view === 'galaxy' && <div className="world-stories-panel"><WorldStories worldId={preview.id} worldName={preview.name} watchedIds={watchedIds}/></div>}
+      {view === 'galaxy' && <AtlasHero reducedMotion={reducedMotion} watchedIds={watchedIds}/>}
       {view === 'galaxy' && <WorldDirectory watchedIds={watchedIds}/>}
       <section hidden={view === 'journey'} className="destinations" aria-label="Choose a destination"><div className="destinations-heading"><span className="eyebrow">CHART YOUR COURSE</span><span>01—{String(WORLDS.length).padStart(2,'0')} <span className="slash">/</span> CURATED WORLDS</span></div><div className="destination-grid">{WORLDS.map((world:World,index:number) => <button key={world.id} className={`destination-card ${previewId === world.id ? 'is-selected' : ''}`} onClick={() => selectWorld(world.id)} disabled={phase === 'warping'} aria-pressed={previewId === world.id}><span className={`destination-thumb thumb-${world.id}`} style={{'--planet-color':world.color} as React.CSSProperties}/><span className="destination-copy"><span>{String(index+1).padStart(2,'0')} <i/> {world.region}</span><strong>{world.name}</strong></span><span className="destination-indicator">{world.id === currentId ? <span className="here-dot"/> : <ArrowRight size={18}/>}</span></button>)}</div></section>
 

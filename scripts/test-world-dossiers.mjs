@@ -1,12 +1,12 @@
 import assert from 'node:assert/strict';
 import { WORLD_DOSSIERS, WORLD_TERRAIN } from '../src/worldDossiers.ts';
 import { ALL_WORLDS } from '../src/journeyWorlds.ts';
-assert.deepEqual(Object.keys(WORLD_DOSSIERS).sort(), ['bespin','coruscant','dagobah','endor','hoth','naboo','tatooine','yavin']);
+assert.deepEqual(Object.keys(WORLD_DOSSIERS).sort(), ['bespin','coruscant','dagobah','eadu','endor','hoth','jedha','lahmu','mustafar','naboo','scarif','tatooine','yavin']);
 const mapped = new Set(ALL_WORLDS.map(world=>world.id));
 const sources = new Set();
 for (const [id, dossier] of Object.entries(WORLD_DOSSIERS)) {
   assert.equal(dossier.worldId,id);
-  assert(mapped.has(id));
+  assert(mapped.has(id) || ['scarif','jedha','eadu','lahmu'].includes(id), 'A textual dossier must not imply a map placement');
   assert(dossier.caveat.length > 50);
   assert(dossier.highlights.length >= 2);
   assert.equal(new Set(dossier.highlights.map(item=>item.id)).size,dossier.highlights.length);
@@ -27,8 +27,8 @@ assert.match(WORLD_DOSSIERS.coruscant.caveat,/change across eras/);
 
 assert.deepEqual(Object.keys(WORLD_TERRAIN).sort(),Object.keys(WORLD_DOSSIERS).sort());
 for(const [id, terrain] of Object.entries(WORLD_TERRAIN)) {
- assert(mapped.has(id));
- assert(['desert','urban','ice','wetlands','gas-giant','swamp','forest'].includes(terrain.category));
+ assert(WORLD_DOSSIERS[id], 'Terrain categories require a reviewed dossier');
+ assert(['desert','urban','ice','wetlands','gas-giant','swamp','forest','tropical','cold-desert','rugged','mineral-rich','volcanic'].includes(terrain.category));
  assert.equal(new URL(terrain.sourceUrl).hostname,'www.starwars.com');
  assert(terrain.label.length > 2);
 }
@@ -41,4 +41,10 @@ assert.match(WORLD_DOSSIERS.yavin.caveat,/moon, not the gas giant/);
 assert.match(WORLD_DOSSIERS.endor.caveat,/separate ocean moon Kef Bir/);
 assert.match(WORLD_DOSSIERS.bespin.terrain.text,/atmosphere rather than a conventional solid surface/);
 
-console.log(`PASS: eight sourced world dossiers, ${sources.size} source pages, no invented coordinates or episode joins; key habitat/era distinctions retained`);
+console.log(`PASS: ${Object.keys(WORLD_DOSSIERS).length} sourced world dossiers, ${sources.size} source pages, no invented coordinates or episode joins; key habitat/era distinctions retained`);
+
+assert.match(WORLD_DOSSIERS.jedha.terrain.text,/persistent cold/);
+assert.match(WORLD_DOSSIERS.jedha.caveat,/moon, not a parent planet/);
+assert.match(WORLD_DOSSIERS.lahmu.terrain.text,/contaminated/);
+assert.match(WORLD_DOSSIERS.mustafar.highlights.find(place=>place.id==='vaders-castle').description,/particular historical era/);
+assert.equal(WORLD_DOSSIERS['ring-of-kafrene'],undefined,'No planet dossier invented for an asteroid outpost');

@@ -5,13 +5,14 @@ type Props = { id: string; name: string; color: string; reducedMotion: boolean }
 const ice = new Set(['hoth','ilum','mygeeto']);
 const city = new Set(['coruscant']);
 const desert = new Set(['tatooine','geonosis','jakku','jedha']);
-const green = new Set(['endor','yavin','naboo','kashyyyk','dagobah']);
+const green = new Set(['endor','yavin','naboo','kashyyyk','dagobah','scarif','lahmu']);
+const rocky = new Set(['eadu','mustafar']);
 /** Original resolution-independent artwork. Surface motifs are illustrative, not cartography. */
 export default function PlanetPortrait({id,name,color,reducedMotion}: Props) {
  const key=useId().replaceAll(':','');
- const family=ice.has(id)?'ice':city.has(id)?'city':desert.has(id)?'desert':green.has(id)?'verdant':'atmosphere';
- const base=family==='ice'?'#c8dce5':family==='city'?'#516478':color;
- return <figure className={`atlas-portrait surface-${family} ${['tatooine','coruscant','hoth','naboo'].includes(id) ? 'portrait-featured' : ''}`} data-motion={reducedMotion?'reduced':'full'}>
+ const family=ice.has(id)?'ice':city.has(id)?'city':desert.has(id)?'desert':green.has(id)?'verdant':rocky.has(id)?'rocky':'atmosphere';
+ const base=family==='ice'?'#c8dce5':family==='city'?'#516478':id==='scarif'?'#5fafa7':id==='eadu'?'#536c80':id==='lahmu'?'#71806a':id==='mustafar'?'#5e3028':color;
+ return <figure className={`atlas-portrait surface-${family} ${['tatooine','coruscant','hoth','naboo','scarif','jedha','eadu','lahmu','mustafar','yavin'].includes(id) ? 'portrait-featured' : ''}`} data-motion={reducedMotion?'reduced':'full'}>
   <svg viewBox="0 0 400 320" role="img" aria-label={`Original illustrative portrait of ${name}; not an official surface map`}>
    <defs>
     <radialGradient id={`${key}-base`} cx="30%" cy="25%"><stop stopColor="#fff2d6"/><stop offset=".32" stopColor={base}/><stop offset="1" stopColor="#17232e"/></radialGradient>
@@ -27,7 +28,7 @@ export default function PlanetPortrait({id,name,color,reducedMotion}: Props) {
     <circle cx="200" cy="145" r="100" fill={`url(#${key}-base)`}/>
     <g clipPath={`url(#${key}-disc)`}>
      {family==='city'?<circle cx="200" cy="145" r="100" fill={`url(#${key}-city)`}/>:<>
-      {family==='desert' ? Array.from({length:8},(_,i)=><path key={i} d={`M${92+i*19} ${60+i%3*34}l32 14-12 21 24 19-25 38-17-15 6-27-26-23z`} fill={i%2?'#aa7949':'#d0a473'} opacity={.12+i%3*.04}/>) : Array.from({length:12},(_,i)=><path key={i} d={`M70 ${65+i*16} C130 ${35+i*18}, 215 ${105+i*11}, 330 ${55+i*17}`} fill="none" stroke={family==='ice'?'#effbff':family==='verdant'?'#203e32':'#d6e6e5'} strokeWidth={family==='verdant'?12:3+i%4} opacity={.16+(i%3)*.06}/>) }
+      {(family==='desert'||family==='rocky') ? Array.from({length:8},(_,i)=><path key={i} d={`M${92+i*19} ${60+i%3*34}l32 14-12 21 24 19-25 38-17-15 6-27-26-23z`} fill={i%2?'#aa7949':'#d0a473'} opacity={.12+i%3*.04}/>) : Array.from({length:12},(_,i)=><path key={i} d={`M70 ${65+i*16} C130 ${35+i*18}, 215 ${105+i*11}, 330 ${55+i*17}`} fill="none" stroke={family==='ice'?'#effbff':family==='verdant'?'#203e32':'#d6e6e5'} strokeWidth={family==='verdant'?12:3+i%4} opacity={.16+(i%3)*.06}/>) }
       {family==='verdant'&&<path d="M145 52l35 22 8 38-24 16 12 31-31 22-20-38-22-18 9-42zM231 175l38-12 24 28-12 35-33 8-21-27z" fill="#344e35" opacity=".65"/>}
       {family==='ice'&&<path d="M117 170l36-26 22 9 28-42 39 28 40-19M153 144l-10-30 13-19M204 113l-7-34" fill="none" stroke="#769ead" strokeWidth="2" opacity=".55"/>}
      </>}
@@ -35,6 +36,12 @@ export default function PlanetPortrait({id,name,color,reducedMotion}: Props) {
      {id==='hoth'&&<g><path d="M103 100q29-30 67-21l29-21 39 20 40 1 24 36-46-11-33 16-28-15-35 14-39-4z" fill="#edfaff" opacity=".38"/><path d="M104 180l31-19 26 7 21-22 23 9 19-17 24 17 36-2M126 199l20-20 33 12 19-8 31 19 27-17" fill="none" stroke="#517f99" strokeWidth="1.4" opacity=".55"/><path d="M119 135q46-14 88-5t80 12" fill="none" stroke="#effaff" strokeWidth="8" opacity=".2"/></g>}
      {id==='coruscant'&&<g fill="none" stroke="#f4d39a" opacity=".48"><ellipse cx="174" cy="129" rx="48" ry="24" transform="rotate(-25 174 129)"/><ellipse cx="174" cy="129" rx="72" ry="41" transform="rotate(-25 174 129)"/>{Array.from({length:18},(_,i)=><circle key={i} cx={116+(i*37)%160} cy={68+(i*29)%145} r={i%4===0?1.8:.8} fill="#ffe5ae" stroke="none"/>)}</g>}
      {id==='naboo'&&<g><path d="M109 98l25-20 25 9 9 17 22 5-6 18-22 10-8 26-21-5-7-23-24-12zM225 68l27 9 12 22-15 19-21-4-14-20zM208 167l34-16 31 15-9 25-22 8-17-11-21 11-15-14z" fill="#537255" opacity=".65"/><path d="M141 109q24 1 20 18t-17 20M227 172q29-10 28 12" fill="none" stroke="#86bbc2" strokeWidth="4" opacity=".6"/><path d="M109 81q64-16 119 10M114 177q56 16 112-1" fill="none" stroke="#e6eece" strokeWidth="9" opacity=".12"/></g>}
+     {id==='scarif'&&<g><path d="M103 94q17-13 34-4l9 13-8 9-24 1zM171 65l21-7 18 12-6 16-20 5-15-10zM205 154l33-15 32 13 8 16-15 13-30-5-24 11-13-14zM142 192l21-14 15 8-3 17-20 7z" fill="#d4d4a6" opacity=".75"/><path d="M111 96l23 2M180 70l14 4M218 161l29-8 16 9" fill="none" stroke="#476f4f" strokeWidth="6" opacity=".7"/></g>}
+     {id==='jedha'&&<g fill="none" stroke="#d7ccc0" opacity=".4"><path d="M110 98l23-21 26 13 20-14 29 19 27-12 40 20M103 139l27-16 32 13 24-19 31 23 32-18 43 16" strokeWidth="3"/><path d="M133 77l7 16m39-17-9 28m65-21 7 25" strokeWidth="1"/></g>}
+     {id==='eadu'&&<g><path d="M95 168l29-55 18 19 26-43 22 40 19-16 25 30 22-28 40 50" fill="#273c49" opacity=".65"/><path d="M103 104q44-26 94-3t91-4M98 153q55-23 112-3t83-14" fill="none" stroke="#c4d7df" strokeWidth="13" opacity=".27"/></g>}
+     {id==='lahmu'&&<g><path d="M111 82l37-13 20 22-12 28 25 24-14 31-27-12-23 14-18-32zM228 116l40-9 30 26-17 38-32-6-18 23-15-32z" fill="#303d32" opacity=".6"/><path d="M108 129q25-7 47 9M230 146l31-8" fill="none" stroke="#a5aa75" strokeWidth="7" opacity=".45"/></g>}
+     {id==='mustafar'&&<g fill="none"><path d="M111 64l33 30-9 31 31 23-10 44 22 29M172 52l18 33 31 15-9 34 35 18-11 37 28 29M138 124l-29 17m57 7 25-17m30-31 28-13m-2 65 29-10" stroke="#d86628" strokeWidth="6" opacity=".65"/><path d="M111 64l33 30-9 31 31 23-10 44 22 29M172 52l18 33 31 15-9 34 35 18-11 37 28 29" stroke="#ffd071" strokeWidth="1.6" opacity=".8"/></g>}
+     {id==='yavin'&&<g fill="#47724b" opacity=".55"><path d="M103 85l37-17 30 20-12 28 17 19-26 36-21-8-22 17-15-38zM225 77l28 12 15 26-14 26 13 29-31 25-24-21 6-31-19-25z"/></g>}
      <circle cx="200" cy="145" r="100" fill={`url(#${key}-shade)`}/>
     </g>
     <circle cx="200" cy="145" r="100" fill="none" stroke="#d9f2fb" strokeOpacity=".22"/>

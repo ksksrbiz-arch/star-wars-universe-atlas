@@ -1,0 +1,70 @@
+/* One map workspace; the reading panel never pushes the galaxy down the page. */
+#atlas {padding-top:12px}
+.workspace-heading {display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative;margin:0 0 12px}
+.workspace-heading h1 {font-family:var(--display,sans-serif);font-size:25px;font-weight:500;margin:4px 0 0;color:#e9eee9}
+.workspace-heading .eyebrow {font-size:8px;letter-spacing:2px;color:#91b7c6}
+.workspace-settings {font-size:12px;color:#c4d9e4}
+.workspace-settings>summary {cursor:pointer;border:1px solid #415f72;padding:12px;border-radius:7px;background:#112637;min-height:44px;box-sizing:border-box}
+.workspace-settings-content {position:absolute;right:0;top:100%;z-index:45;background:#0c1c29;border:1px solid #45687b;border-radius:10px;width:min(760px,calc(100vw - 40px));max-height:65svh;overflow:auto;padding:16px;box-shadow:0 16px 40px #000a}
+.workspace-settings .flight-toolbar {margin:0;padding:8px 0}.workspace-settings .reference-controls {margin:0;box-shadow:none;padding:8px 0;border:0;background:none}.workspace-settings .reference-key {margin:0}
+.map-workspace {display:grid;grid-template-columns:minmax(0,1fr) minmax(310px,380px);align-items:start;overflow:visible;min-height:0}
+.map-workspace .map-stage {position:sticky;top:12px;height:calc(100svh - 220px);min-height:480px;max-height:900px;border-radius:14px 0 0 14px;overflow:hidden}
+.workspace-panel {min-width:0;height:calc(100svh - 220px);min-height:480px;max-height:900px;border-left:1px solid #385465;background:#0c1a27;border-radius:0 14px 14px 0;overflow:hidden}
+.workspace-panel-content {height:100%;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#45687b #0c1a27}
+.workspace-tabs {display:flex;gap:8px;align-items:center;padding:12px;position:sticky;top:0;z-index:2;background:#0c1a27f5;border-bottom:1px solid #2c4656}
+.workspace-tabs button,.workspace-tabs a {min-height:44px;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border:1px solid #3c5e71;border-radius:6px;background:#102536;color:#bcd8e3;font:inherit;font-size:12px;text-decoration:none}
+.workspace-tabs [aria-pressed=true] {background:#c8dee0;border-color:#c8dee0;color:#102534}
+.sheet-toggle {display:none}
+.workspace-panel [hidden] {display:none!important}
+.workspace-panel .world-dossier {border:0;padding:22px;display:block}
+.workspace-panel .world-title h2 {font-size:36px}.workspace-panel .planet-portrait {height:150px}.workspace-panel .world-description {font-size:12px}
+.workspace-panel .world-stories-panel {margin:0;padding:18px}.workspace-panel .world-story-grid {grid-template-columns:1fr}
+.workspace-panel .immersive-dossier {margin:0;border-radius:0;padding:20px}
+.workspace-panel .journey-panel {margin:0;padding:14px}
+.workspace-panel .journey-intro {display:none}
+.story-collection-picker,.story-chapter-picker {border:1px solid #344f61;border-radius:7px;margin:0 0 12px}
+.story-collection-picker>summary,.story-chapter-picker>summary {min-height:44px;padding:12px;color:#c7dae3;cursor:pointer;font-size:12px;box-sizing:border-box}
+.workspace-panel .journey-collections {display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:0;padding:8px;overflow:visible}
+.workspace-panel .journey-collection {min-height:100px;padding:10px;min-width:0}.workspace-panel .journey-collection strong {font-size:13px}.workspace-panel .journey-collection-number {display:none}
+.workspace-panel .journey-workspace {display:flex;flex-direction:column;border:0;border-radius:0;box-shadow:none;background:none}
+.workspace-panel .journey-reader,.workspace-panel .journey-worlds {padding:0;border:0;border-radius:0;background:none}
+.workspace-panel .journey-current {min-height:100px;padding:16px 0}.workspace-panel .journey-current h2 {font-size:26px}.workspace-panel .journey-step-controls {flex-direction:row}
+.workspace-panel .journey-reader-heading {padding-bottom:8px}.workspace-panel .journey-watch-actions {margin:0 0 12px}.workspace-panel .journey-watch-actions button {font-size:11px;padding:9px;min-height:44px}
+.workspace-panel .story-chapter-picker {padding:0 10px}.workspace-panel .journey-resume {margin:8px 0 14px}.workspace-panel .journey-search {margin:0 0 14px}
+.workspace-panel .journey-chapter-strip {display:flex;overflow:auto}.workspace-panel .journey-chapter-strip li {min-width:80px}
+.workspace-panel .journey-stop-list {gap:8px}.workspace-panel .journey-stop {flex-wrap:wrap;padding:12px}.workspace-panel .journey-stop>div {flex-basis:calc(100% - 38px)}.workspace-panel .journey-stop button {margin-left:36px}
+.workspace-panel .journey-state-orbit {display:none}.workspace-panel .journey-spoiler,.workspace-panel .journey-gap {min-height:0;padding:12px}.workspace-panel .journey-spoiler h3,.workspace-panel .journey-gap h3 {font-size:23px}
+.workspace-panel .journey-map-status {font-size:11px;color:#a4bfce;line-height:1.6;margin:0 14px 14px}
+.workspace-panel .episode-location-controls {margin:12px}
+.map-workspace .map-tools {display:flex;flex-direction:row;top:16px;right:14px;gap:5px}.map-workspace .map-tools .icon-button {width:44px;height:44px}
+.map-workspace .map-heading {top:16px;left:14px;max-width:calc(100% - 218px)}.map-workspace .map-coordinate {display:none}
+.map-pan-controls {position:absolute;right:14px;top:70px;display:grid;grid-template-columns:repeat(3,44px);grid-template-rows:repeat(2,44px);gap:4px;z-index:20}
+.map-pan-controls button {border:1px solid #486579;background:#0c1c2cef;color:#c6e0e8;border-radius:6px;display:grid;place-items:center;cursor:pointer}.map-pan-controls button:first-child {grid-column:2}.map-pan-controls button:nth-child(2) {grid-column:1;grid-row:2}.map-pan-controls button:nth-child(3) {grid-column:2;grid-row:2}.map-pan-controls button:nth-child(4) {grid-column:3;grid-row:2}.map-pan-controls button:disabled {opacity:.4;cursor:default}
+.workspace-heading summary:focus-visible,.workspace-panel button:focus-visible,.map-pan-controls button:focus-visible {outline:2px solid #a3dcea;outline-offset:3px}
+#atlas>.atlas-hero {margin-top:28px}
+@media(max-width:900px) and (min-width:721px) {.map-workspace {grid-template-columns:minmax(0,1fr) 310px}.map-workspace .map-heading {display:none}}
+@media(max-width:720px) {
+ .atlas-app .app-header {height:64px;margin:0 4%}.atlas-app .platform-nav {margin:0 4%;padding:6px 0;gap:4px}.atlas-app .platform-nav a {min-height:44px;padding:8px 10px}
+ #atlas {padding:8px 3% 0}.workspace-heading {margin-bottom:8px}.workspace-heading h1 {font-size:21px}.workspace-heading .eyebrow {display:none}.workspace-settings>summary {font-size:11px;padding:10px;max-width:155px}
+ .workspace-settings-content {width:calc(100vw - 26px);max-height:65svh;padding:12px}
+ .map-workspace {display:flex;flex-direction:column;border-radius:10px}
+ .map-workspace .map-stage {position:sticky;top:0;width:100%;height:54svh;min-height:340px;max-height:520px;border-radius:10px 10px 0 0;z-index:3}
+ .workspace-panel {width:100%;height:auto;min-height:0;max-height:none;border:0;border-top:1px solid #48677a;border-radius:0 0 10px 10px;position:relative;z-index:4}
+ .sheet-toggle {display:flex;width:100%;align-items:center;justify-content:space-between;gap:10px;text-align:left;background:#132a3a;color:#e4edf0;border:0;padding:12px 16px;min-height:70px;cursor:pointer}.sheet-toggle small {display:block;color:#9fc2d0;font-size:8px;letter-spacing:1.5px;margin-bottom:5px}.sheet-toggle strong {font-size:16px;font-weight:500;line-height:1.4}.sheet-toggle>svg {transform:rotate(180deg);flex-shrink:0}.is-expanded>.sheet-toggle>svg {transform:none}
+ .workspace-panel-content {display:none;height:auto;max-height:calc(50svh - 76px);overflow:auto}.is-expanded>.workspace-panel-content {display:block}
+ .workspace-panel .world-dossier {padding:18px}.workspace-panel .world-title h2 {font-size:34px}.workspace-panel .planet-portrait {height:150px;margin:0}
+ .map-workspace .map-heading {display:none}.map-workspace .map-tools {top:12px;right:12px}.map-pan-controls {top:64px;right:12px}
+ .map-workspace .map-bottom {left:10px;bottom:10px}.map-workspace .current-location {padding:8px}.map-workspace .current-location strong {font-size:12px;max-width:145px}.map-workspace .map-legend {display:none}.map-workspace .mini-map {display:block;bottom:10px;right:10px;width:75px;height:66px}
+ .map-workspace .map-jump-bar {bottom:90px;gap:12px;padding:9px 10px;max-width:calc(100% - 20px)}.map-workspace .map-jump-bar strong {font-size:13px}
+ .map-workspace .transit-panel {bottom:88px;padding:12px;max-width:calc(100% - 20px)}
+ .workspace-panel .journey-collection {min-height:95px}.workspace-panel .journey-step-controls {flex-direction:row}.workspace-panel .journey-watch-actions button {width:auto}
+}
+.location-dossier {padding:22px;color:#bfd2df}.location-dossier h2 {font-family:var(--display,sans-serif);font-size:36px;color:#edf0e7;margin:16px 0}.location-dossier p {font-size:12px;line-height:1.8}.location-placement {border-left:2px solid #bba477;padding:10px 14px;background:#bba4770a}.location-symbol {display:grid;place-items:center;gap:16px;padding:32px 0;color:#91b6c7}.location-symbol span {font-size:10px}.location-art-note {color:#90acba}.location-kind {display:inline-block;font-size:10px;text-transform:capitalize;color:#d6c390;margin:0 0 6px}
+.atlas-app .app-header {height:76px;min-height:0;flex-wrap:nowrap}.atlas-app .platform-nav {margin-top:0;margin-bottom:0;padding-top:8px;padding-bottom:8px;min-height:0}
+.map-workspace .map-jump-bar {top:auto}
+@media(max-width:720px) {
+ .atlas-app .app-header {height:68px;min-height:0;padding:0;flex-wrap:nowrap;gap:5px}.atlas-app .header-right {position:static;flex-shrink:0;gap:4px}.atlas-app .brand {font-size:11px;letter-spacing:1px;gap:6px}.atlas-app .brand small {font-size:5px;letter-spacing:.3px}.atlas-app .brand-symbol {width:28px;height:28px}.atlas-app .brand-symbol svg {width:20px}
+ .atlas-app .platform-nav {display:flex;flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;white-space:nowrap;margin-bottom:0;padding:4px 0;gap:3px}.atlas-app .platform-nav a {flex:none;font-size:11px}
+ .atlas-app .header-right .audio-toggle {padding:8px;min-width:44px;font-size:10px}
+ .map-workspace .map-stage {height:50svh;min-height:320px}
+}

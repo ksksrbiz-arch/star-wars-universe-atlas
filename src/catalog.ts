@@ -16,6 +16,7 @@ export type CatalogItem = {
 };
 
 export const SERIES = [
+  { id: 'rogue-one', title: 'Rogue One', color: '#B9D3B0' },
   { id: 'ot', title: 'Original trilogy', color: '#F2B96B' },
   { id: 'andor', title: 'Andor', color: '#E38167' },
   { id: 'clone-wars', title: 'The Clone Wars', color: '#65DBFF' },

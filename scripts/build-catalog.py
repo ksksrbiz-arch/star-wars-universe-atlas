@@ -57,24 +57,28 @@ assert sorted(e['number'] for e in extension['episodes']) == list(range(1, 9))
 for episode in extension['episodes']:
     assert episode['season'] == 1
     items.append({'id': f"ahsoka-s01e{episode['number']:02d}", 'title': title(episode['name']), 'seriesId': 'ahsoka', 'kind': 'episode', 'season': 1, 'episode': episode['number'], 'releaseDate': episode['airdate'], 'runtimeMinutes': None, 'runtimeNote': 'Runtime withheld pending streaming-edition and credit-treatment verification.', 'sourceUrl': episode['url']})
+rogue_path = ROOT / 'docs/rogue-one-source.json'
+rogue = json.loads(rogue_path.read_text(encoding='utf-8'))
+items.append({'id': rogue['id'], 'title': rogue['title'], 'seriesId': 'rogue-one', 'kind': 'film', 'releaseDate': rogue['releaseDate'], 'runtimeMinutes': None, 'runtimeNote': rogue['runtimeNote'], 'sourceUrl': rogue['sourceUrl']})
 items.sort(key=lambda item: (item['releaseDate'], item['seriesId'], item.get('season', 0), item.get('episode', 0), item['id']))
-assert len(items) == 193, f'Expected 193 catalog items, got {len(items)}'
+assert len(items) == 194, f'Expected 194 catalog items, got {len(items)}'
 assert len(excluded) == 9, f'Expected 9 specials, got {len(excluded)}'
 assert len({item['id'] for item in items}) == len(items), 'Duplicate catalog IDs'
 
 metadata = {
     'auditDate': '2026-11-07',
-    'scope': 'Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1.',
+    'scope': 'Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1; Rogue One.',
     'coreCount': len(items),
     'regularEpisodeCount': 189,
     'originalAuditCohortCount': original_cohort_count,
-    'extensionCollections': [{'seriesId': 'ahsoka', 'season': 1, 'count': 8, 'sourceFile': extension_path.name, 'note': 'Complete first season only; no season 2 future stubs.'}],
-    'filmCount': 4,
+    'extensionCollections': [{'seriesId': 'rogue-one', 'count': 1, 'sourceFile': rogue_path.name, 'note': 'Standalone film, separate from the original audit cohort.'}, {'seriesId': 'ahsoka', 'season': 1, 'count': 8, 'sourceFile': extension_path.name, 'note': 'Complete first season only; no season 2 future stubs.'}],
+    'filmCount': 5,
     'excludedSpecialCount': len(excluded),
     'chronologySupported': False,
     'chronologyNote': 'Catalog release dates are not story chronology. Official Clone Wars relative order was audited separately but is not imported here. No storyOrder values are inferred.',
     'episodeReleaseDateNote': 'TVmaze airdate field retained as reported; territorial release times are not normalized.',
     'filmReleaseDateNotes': {
+        'rogue-one': '2016-12-16 from the official film landing page; territory and release type not explicitly specified.',
         'ot-a-new-hope': 'SWAPI provider release date retained; no territory or release-type field was supplied.',
         'ot-empire-strikes-back': 'SWAPI 1980-05-17 retained as provider-reported date. Premiere versus theatrical release and territory remain unresolved; not a definitive worldwide release date.',
         'ot-return-of-the-jedi': 'SWAPI 1983-05-25 retained, supported by the official Jedi at 40 article. Official film landing page previously displayed conflicting May 1; release-type provenance still needs normalization.',
@@ -82,7 +86,7 @@ metadata = {
     },
     'filmDateSupportingSources': {'ot-return-of-the-jedi': 'https://www.starwars.com/news/jedi-at-40-deleted-scenes', 'clone-wars-film': 'https://www.starwars.com/films/star-wars-the-clone-wars'},
     'attribution': [{'provider': 'TVmaze', 'url': 'https://www.tvmaze.com/api', 'license': 'CC BY-SA', 'use': 'Episode titles, dates, numbering, runtime fields and source links; derived catalog fields preserve source attribution.'}, {'provider': 'SWAPI', 'url': 'https://swapi.dev/documentation', 'use': 'Three original-trilogy film titles and provider release dates from audited responses.'}],
-    'sourceFiles': [{'name': p.name, 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()} for p in [episode_path, film_path, extension_path]],
+    'sourceFiles': [{'name': p.name, 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()} for p in [episode_path, film_path, extension_path, rogue_path]],
     'excludedSpecials': excluded,
     'mediaNote': 'No summaries, poster URLs, episode images, or provider artwork included.'
 }

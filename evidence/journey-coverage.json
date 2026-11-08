@@ -1,8 +1,8 @@
 {
   "checkedOn": "2026-11-07",
-  "catalogItems": 193,
-  "relationships": 283,
-  "titlesWithLocationEvidence": 187,
+  "catalogItems": 194,
+  "relationships": 291,
+  "titlesWithLocationEvidence": 188,
   "titlesWithoutLocationEvidence": 6,
   "mapPlacements": 76,
   "referenceTraced": 27,
@@ -15,6 +15,10 @@
     "clone-wars": {
       "catalog": 134,
       "withLocations": 130
+    },
+    "rogue-one": {
+      "catalog": 1,
+      "withLocations": 1
     },
     "mandalorian": {
       "catalog": 24,
@@ -50,7 +54,13 @@
     "Zardossa Stix",
     "Force planet (unnamed)",
     "Raxus",
-    "Peridea"
+    "Peridea",
+    "Lah’mu",
+    "Ring of Kafrene",
+    "Wobani",
+    "Jedha",
+    "Eadu",
+    "Scarif"
   ],
   "unlinkedTitleIds": [
     "clone-wars-s01e02",

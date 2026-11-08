@@ -55,7 +55,13 @@ function Html({ children, position, style, zIndexRange = [12, 1], minZoom = 0 }:
   return <group ref={group} position={position} />
 }
 
+export type MapCommand = {
+  id: number
+  action: 'zoomIn' | 'zoomOut' | 'panLeft' | 'panRight' | 'panUp' | 'panDown'
+}
+
 type Props = {
+  command?: MapCommand | null
   regionsVisible?: boolean
   routesVisible?: boolean
   gridVisible?: boolean
@@ -242,6 +248,7 @@ function Scene(props: Props) {
   const onArrive = useRef(props.onArrive)
   onArrive.current = props.onArrive
   const warpProgress = useRef(0)
+  const lastCommand = useRef<number | null>(null)
 
   useEffect(() => {
     const previous = previousFraming.current
@@ -281,6 +288,29 @@ function Scene(props: Props) {
     controls.current?.update()
     invalidate()
   }, [props.fitKey, highlightedKey, props.phase, size.width, size.height, baseZoom, cameraO, invalidate])
+
+  useEffect(() => {
+    const command = props.command
+    if (!command || command.id === lastCommand.current) return
+    // Consume even during travel: a disabled/stale command must not replay on arrival.
+    lastCommand.current = command.id
+    if (props.phase !== 'idle') return
+    fitted.current.active = false
+    if (command.action === 'zoomIn' || command.action === 'zoomOut') {
+      cameraO.zoom = THREE.MathUtils.clamp(cameraO.zoom * (command.action === 'zoomIn' ? 1.25 : .8), limits[0], limits[1])
+      cameraO.updateProjectionMatrix()
+    } else {
+      const dx = command.action === 'panLeft' ? -1 : command.action === 'panRight' ? 1 : 0
+      const dy = command.action === 'panDown' ? -1 : command.action === 'panUp' ? 1 : 0
+      const x = THREE.MathUtils.clamp(cameraO.position.x + dx * size.width / cameraO.zoom * .2, -15, 15)
+      const y = THREE.MathUtils.clamp(cameraO.position.y + dy * size.height / cameraO.zoom * .2, -15, 15)
+      controls.current?.target.add(new THREE.Vector3(x - cameraO.position.x, y - cameraO.position.y, 0))
+      cameraO.position.x = x
+      cameraO.position.y = y
+    }
+    controls.current?.update()
+    invalidate()
+  }, [props.command, props.phase, cameraO, size.width, size.height, limits, invalidate])
 
   useEffect(() => {
     const world = props.worlds.find(w => w.id === props.targetId)

@@ -3,6 +3,7 @@ import { ALL_WORLDS } from './journeyWorlds';
 import { CONNECTIONS } from './connections';
 import { CATALOG, SERIES } from './catalog';
 import WorldStories from './WorldStories';
+import ImmersiveDossier from './ImmersiveDossier';
 import WorldDirectoryCard, { type DirectoryWorld } from './WorldDirectoryCard';
 import { WORLD_TERRAIN } from './worldDossiers';
 import './world-directory.css';
@@ -33,9 +34,9 @@ export default function WorldDirectory({ watchedIds }: { watchedIds: ReadonlySet
   const selection = directory.find(world => world.id === selected);
   const reset = () => { setQuery(''); setPlacement('all'); setSeries('all'); setRegion('all'); setTerrain('all'); setWatched('all'); setLimit(12); };
   return <details id="world-directory" className="world-directory">
-    <summary>World directory <span>{directory.length} worlds · {directory.filter(world => !world.mapped).length} without map placements</span></summary>
+    <summary>World directory <span>{directory.length} locations · {directory.filter(world => !world.mapped).length} without map placements</span></summary>
     <section aria-label="World directory">
-      <p>Explore mapped destinations and worlds with sourced story links. World names may reveal settings. A missing placement means geography is unverified here; no position is inferred.</p>
+      <p>Explore mapped worlds and other locations with sourced story links. World names may reveal settings. A missing placement means geography is unverified here; no position is inferred.</p>
       <div className="directory-filters">
         <label>Find a world<input type="search" placeholder="World name" value={query} onChange={event => {setQuery(event.target.value);setLimit(12);}}/></label>
         <label>Map placement<select value={placement} onChange={event => {setPlacement(event.target.value);setLimit(12);}}><option value="all">All worlds</option><option value="mapped">Mapped</option><option value="unmapped">Without map placement</option></select></label>
@@ -46,12 +47,12 @@ export default function WorldDirectory({ watchedIds }: { watchedIds: ReadonlySet
       </div>
       <p>{revealCollections ? 'Collection filters include unwatched titles. Individual title lists remain hidden until revealed.' : 'Collection filters use watched titles only. All collections shows every world without exposing title links.'}</p>
       {!revealCollections && <button onClick={() => setRevealCollections(true)}>Include unwatched collection links</button>}
-      <p role="status">{results.length} matching worlds · {Math.min(limit, results.length)} shown</p>
+      <p role="status">{results.length} matching locations · {Math.min(limit, results.length)} shown</p>
       {!results.length && <p>No worlds match. Try another name, clear filters, or include unwatched collection links.</p>}
       <button onClick={reset}>Clear directory filters</button>
       <div className="directory-grid">{results.slice(0, limit).map(world => <WorldDirectoryCard key={world.id} world={world} terrain={WORLD_TERRAIN[world.id]} watchedCount={watchedCounts.get(world.id) || 0} selected={selected === world.id} onSelect={() => setSelected(world.id)}/>)}</div>
       {results.length > limit && <button onClick={() => setLimit(limit + 12)}>Show more worlds ({results.length - limit} remaining)</button>}
-      {selection && <div className="directory-stories" aria-live="polite"><h2 ref={storyHeading} tabIndex={-1}>{selection.name}</h2>{!selection.mapped && <p>No supported map position is available. Explore title links below; map travel is unavailable.</p>}<WorldStories key={selection.id} worldId={selection.id} worldName={selection.name} watchedIds={watchedIds}/></div>}
+      {selection && <div className="directory-stories" aria-live="polite"><h2 ref={storyHeading} tabIndex={-1}>{selection.name}</h2>{!selection.mapped && <p>No supported map position is available. Explore title links below; map travel is unavailable.</p>}<WorldStories key={selection.id} worldId={selection.id} worldName={selection.name} watchedIds={watchedIds}/><ImmersiveDossier worldId={selection.id} worldName={selection.name}/></div>}
       <p>Thumbnails are original illustrations, not official images or surface maps. Terrain categories cover reviewed worlds only; missing terrain is not inferred.</p>
       <p>Partial appearance coverage. Collection links do not establish complete scene coverage or a character’s route.</p>
     </section>

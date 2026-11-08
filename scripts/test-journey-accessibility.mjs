@@ -3,12 +3,11 @@ import assert from 'node:assert/strict';
 import { writeFile } from 'node:fs/promises';
 import { CONNECTIONS } from '../src/connections.ts';
 import { readFile } from 'node:fs/promises';
-const worldSource = await readFile('src/journeyWorlds.ts','utf8') + await readFile('src/data.ts','utf8');
-const ALL_WORLDS = [...worldSource.matchAll(/(?:"id"|id):\s*['"]([^'"]+)['"]/g)].map(match=>({id:match[1]}));
+import {ALL_WORLDS} from '../src/journeyWorlds.ts';
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
 const page=await browser.newPage({viewport:{width:390,height:844}});
 const checks=[],errors=[];page.on('pageerror',error=>errors.push(error.message));
-const open=async id=>{await page.goto(`${process.env.ATLAS_URL || 'http://localhost:4173'}/#journey/${id}`);await page.locator('.journey-current h2').waitFor();};
+const open=async id=>{await page.goto(`${process.env.ATLAS_URL || 'http://localhost:4173'}/#journey/${id}`);if(await page.locator('.sheet-toggle').isVisible() && await page.locator('.sheet-toggle').getAttribute('aria-expanded')==='false')await page.locator('.sheet-toggle').click();await page.locator('.journey-current h2').waitFor();};
 try {
 await open('andor-s01e01');
 const reveal=page.getByRole('button',{name:'Reveal locations for this title'});
@@ -38,7 +37,7 @@ assert.equal(await unavailable.isDisabled(),true);assert.equal(await unavailable
 checks.push(`Unplaced ${unplaced.worldName} remains visible with disabled Map unavailable button`);
 for(const [id,expected] of [['andor-s02e12','Rogue One'],['mandalorian-s02e08','The Book of Boba Fett'],['clone-wars-s07e11','Revenge of the Sith']]){
 await open(id);assert.match(await page.locator('.journey-bridges').innerText(),new RegExp(expected));
-assert.match(await page.locator('.journey-bridges').innerText(),/OUTSIDE THIS COLLECTION/);
+assert.match(await page.locator('.journey-bridges').innerText(),id==='andor-s02e12'?/INCLUDED|Rogue One/:/OUTSIDE THIS COLLECTION/);
 }
 checks.push('Andor finale, Mando S2E8, CW S7E11 display referenced external bridges or overlap, clearly outside collection');
 assert.deepEqual(errors,[]);

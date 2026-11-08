@@ -4,7 +4,7 @@ Live preview: https://star-wars-universe-atlas.skdev-371.workers.dev
 
 Cloudflare Workers hosts the app and read-only API, with dedicated Neon Postgres through Hyperdrive and separate R2 media buckets. Main-branch application changes build, validate, and deploy through Cloudflare Builds. See [deployment setup](docs/DEPLOYMENT.md). User watch progress remains browser-local.
 
-Deployed interactive atlas with 76 schematic map destinations (eight general, 67 direct journey placements, and the Endor parent-system placement), a 193-item film/episode catalog, five sourced collection viewing sequences, and partial story/location relationships. The implementation includes galaxy navigation, cinematic jumps, reduced motion, library/release-timeline views, and browser-local watch progress. Release checks are recorded in [deployment verification](evidence/deployment/verification.md).
+Deployed interactive atlas with 76 schematic map destinations (eight general, 67 direct journey placements, and the Endor parent-system placement), a 194-item film/episode catalog, six sourced collection viewing sequences, and partial story/location relationships. The implementation includes galaxy navigation, cinematic jumps, reduced motion, library/release-timeline views, and browser-local watch progress. Release checks are recorded in [deployment verification](evidence/deployment/verification.md).
 
 Latest visual upgrade details and validation: [visual verification](evidence/visual-upgrades-verification.md). Graphics settings, layered galaxy rendering, two-second warp effects, and reduced-motion-aware interface transitions are implemented locally.
 
@@ -12,7 +12,7 @@ Reference-map geography update: [verification and scope](evidence/reference-map-
 
 ## Run
 
-Integrated relationship coverage is 283 links across 187 of 193 titles and 96 world names. Six titles have no current link. Only 76 worlds have supported map placements; title coverage does not establish complete scene coverage.
+Integrated relationship coverage is 291 links across 188 of 194 titles and 102 location identities. Six titles have no current link. Only 76 worlds have supported map placements; title coverage does not establish complete scene coverage.
 
 Requires a current Node version supported by Vite (Node 26 used during development).
 
@@ -30,20 +30,21 @@ Eight general destinations in [data.ts](src/data.ts) combine with 68 additional 
 | Catalog group | Included |
 |---|---:|
 | Original trilogy | 3 films |
+| Rogue One | 1 film |
 | Andor | 24 episodes, seasons 1–2 |
 | The Clone Wars (2008) | 133 episodes, seasons 1–7, plus the theatrical film |
 | The Mandalorian | 24 episodes, seasons 1–3 |
 | Ahsoka | 8 episodes, season 1 |
 
-The original 181 regular episodes and four films remain a distinct 185-item audit cohort. Eight Ahsoka season-one episodes are added from a separate TVmaze source snapshot, bringing the current catalog to 193 items. This is a bounded collection, not all Star Wars movies/shows. Nine promotional/Legacy specials, the 2003 Clone Wars series, and The Mandalorian and Grogu film are excluded. The 76 worlds do not constitute complete geographic coverage. Story/location coverage is partial and independently counted in [journey data review](evidence/journey-data-review.md). An unjoined story has no verified relationship in this pass; it may be unaudited or reviewed without a named planet link.
+The original 181 regular episodes and four films remain a distinct 185-item audit cohort. Eight Ahsoka season-one episodes from a separate TVmaze source snapshot and one independently sourced Rogue One film bring the current catalog to 194 items. This is a bounded collection, not all Star Wars movies/shows. Nine promotional/Legacy specials, the 2003 Clone Wars series, and The Mandalorian and Grogu film are excluded. The 76 worlds do not constitute complete geographic coverage. Story/location coverage is partial and independently counted in [journey data review](evidence/journey-data-review.md). An unjoined story has no verified relationship in this pass; it may be unaudited or reviewed without a named planet link.
 
 ## Source fidelity and limits
 
 - Episode titles, numbering, air dates, and selected runtime fields derive from [TVmaze](https://www.tvmaze.com/api), with CC BY-SA attribution retained. All 181 imported episode titles/dates/numbers match the audit CSV; both input-file SHA-256 values match the recorded metadata as checked November 7, 2026.
 - Film dates retain source caveats in [catalog.generated.json](src/catalog.generated.json). Empire's provider date is May 17, 1980, with premiere/theatrical/territory meaning unresolved. Return of the Jedi retains May 25, 1983, supported by an official anniversary article despite a conflicting film landing-page date. These are not a definitive worldwide release calendar.
 - Ahsoka season one uses a separate [metadata snapshot](docs/ahsoka-season-1-source.json); its eight runtimes are withheld, and future-season stubs are excluded. Its 14 episode/world associations retain vision and orbital-arrival caveats; see [source review](evidence/ahsoka-source-review.md).
-- Release chronology remains separate from [collection viewing sequences](src/chronology.ts), which cover all 193 catalog IDs. Clone Wars uses its complete official chronological order including the film; the other collections use film/episode narrative order. Embedded flashbacks are retained, not globally reordered. No exact BBY/ABY calendar is asserted.
-- External bridge references cover Rogue One, Book of Boba Fett chapters 5–7, and Revenge of the Sith overlap. They are not phantom catalog/progress items. The base catalog metadata's chronology flag describes its release-only import; the separately sourced chronology module now owns collection sequences.
+- Release chronology remains separate from [collection viewing sequences](src/chronology.ts), which cover all 194 catalog IDs. Clone Wars uses its complete official chronological order including the film; the other collections use film/episode narrative order. Embedded flashbacks are retained, not globally reordered. No exact BBY/ABY calendar is asserted.
+- Rogue One is included as a sourced film; external bridge references cover Book of Boba Fett chapters 5–7 and Revenge of the Sith overlap. They are not phantom catalog/progress items. The base catalog metadata's chronology flag describes its release-only import; the separately sourced chronology module now owns collection sequences.
 - All 133 Clone Wars episode runtimes are null because the audit found the same suspect 30-minute provider value throughout. Four film runtimes remain null pending edition-specific verification. Other episode runtimes are provider values, not independently checked streaming durations; no exact full-marathon total is supported.
 - No provider summaries or image assets are imported into the catalog. World descriptions are short original reference text. Planet illustrations are original procedural artwork, not screen stills.
 - Geography and political conditions can vary by era. Coruscant's Return of the Jedi appearance is edition-dependent. Story links distinguish present scenes, flashbacks and destruction where supported. Complete spoiler filtering, exhaustive scene/event links, character journeys, and a full canon/continuity model remain unimplemented.
@@ -78,16 +79,24 @@ The hero imports NASA SVS’s public-domain randomized starfield as decorative a
 
 ## First journeys and world field guides
 
-The optional guided start in the hero introduces all five collections, with the Original Trilogy selected initially. Choose the first chapter or explicitly resume at the first unwatched chapter in that collection’s sourced viewing order. Opening the guide changes neither watched progress nor location visibility.
+The optional guided start in the hero introduces all six collections, with the Original Trilogy selected initially. Choose the first chapter or explicitly resume at the first unwatched chapter in that collection’s sourced viewing order. Opening the guide changes neither watched progress nor location visibility.
 
 Tatooine, Coruscant, Hoth, Naboo, Bespin, Dagobah, Yavin 4 and Endor’s forest moon include expanded field guides beneath the map, with sourced terrain descriptions and 17 expandable local settings and habitat references. Original portraits remain illustrative. These setting details do not establish episode appearances or surface coordinates; linked stories retain their own evidence and reveal controls. See [source review](evidence/world-dossiers-source-review.md).
 
 ## Visual world exploration
 
-Browse worlds from the hero to open a 97-world directory with original illustrations, sourced regions, reviewed terrain categories, and watch-progress filters. Unmapped worlds retain neutral symbols and no map action. Counts use watched titles; including unwatched collection links requires an explicit reveal.
+Browse worlds from the hero to open a 103-location directory with original illustrations, sourced regions, reviewed terrain categories, and watch-progress filters. Unmapped worlds retain neutral symbols and no map action. Counts use watched titles; including unwatched collection links requires an explicit reveal.
 
 Revealed story cards offer a separate “Explore linked worlds” disclosure with per-location evidence and map previews where supported. Revealing a title does not automatically reveal its other settings. The current frontend reconciles 14 sourced placements and 13 associations already present in the live database; see [geography review](evidence/reconciled-world-geography.md) and [association review](evidence/live-associations-reconciliation.md).
 
 Visual-directory release checks: [verification](evidence/visual-directory/verification.md).
 
 Latest dense-map label and placement work: [mapped-world release](evidence/mapped-batch/release.md).
+
+## Map-first workspace and Rogue One
+
+The galaxy opens above the fold with a compact story/destination panel beside it on desktop and a collapsible panel beneath it on phones. Search and layers live in map settings. Explicit zoom, pan, reset and return controls share the existing camera; selecting a chapter or revealing locations never marks it watched.
+
+Rogue One adds one independently sourced film and eight typed location relationships, linking Andor to A New Hope through whole-work viewing references. Ring of Kafrene is an asteroid outpost, Jedha and Yavin 4 are moons, and unsupported map positions remain unavailable. Unmapped locations open readable files without moving the galaxy marker. Thirteen field guides include five new Rogue One destination studies; original illustrations are separate from map geography. See [Rogue One source review](evidence/rogue-one-source-review.md) and [dossier review](evidence/rogue-one-dossier-review.md).
+
+Map-first layout, location files, camera controls and release checks: [workspace verification](evidence/map-workspace/verification.md).

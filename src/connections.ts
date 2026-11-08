@@ -1,3 +1,5 @@
+import type { LocationKind } from './locations.ts';
+import { ROGUE_ONE_CONNECTIONS } from './connectionsRogueOne.ts';
 import { NEXT_CONNECTIONS } from './connectionsNextExpansion.ts';
 import { CLONE_WARS_EXPANSION } from './connectionsCloneWarsExpansion.ts';
 import { LIVE_ACTION_EXPANSION } from './connectionsLiveActionExpansion.ts';
@@ -8,6 +10,7 @@ export type PlanetConnection = {
   itemId: string;
   worldId: string;
   worldName: string;
+  locationKind?: LocationKind;
   sourceUrl: string;
   note: string;
   /** Explicit episode evidence only; omitted when the setting context is not established. */
@@ -134,7 +137,7 @@ const additional: [string, string, string, string, string][] = [
 CONNECTIONS.push(...additional.map(record => connection(...record)));
 CONNECTIONS.push(...CLONE_WARS_CONNECTIONS);
 CONNECTIONS.push(...LIVE_ACTION_EXPANSION, ...CLONE_WARS_EXPANSION, ...NEXT_CONNECTIONS);
-CONNECTIONS.push(...AHSOKA_CONNECTIONS);
+CONNECTIONS.push(...AHSOKA_CONNECTIONS, ...ROGUE_ONE_CONNECTIONS);
 
 export const CONNECTION_COVERAGE = {
   checkedOn: '2026-11-07',

@@ -21,7 +21,7 @@ try {
  await directory.getByRole('button',{name:'Clear directory filters'}).click();
  await directory.getByLabel('Map placement').selectOption('unmapped');
  assert.ok(await cards.count()>0);assert.equal(await cards.locator('.directory-map-action').count(),0);
- assert.ok((await cards.locator('.directory-card-facts').allInnerTexts()).every(text=>text.includes('Not reviewed')));
+ await directory.getByLabel('Find a world').fill('Narkina');assert.match(await cards.locator('.directory-card-facts').innerText(),/Not reviewed/);await directory.getByLabel('Find a world').fill('');
  assert.ok((await cards.locator('.directory-art-caption').allInnerTexts()).every(text=>text.includes('No map position')));
  await directory.getByLabel('Linked collection').selectOption('ahsoka');assert.equal(await cards.count(),0,'hidden Ahsoka links must not filter as revealed');
  await directory.getByRole('button',{name:'Include unwatched collection links'}).click();assert.ok(await cards.count()>0);
