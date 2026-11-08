@@ -19,3 +19,7 @@ Merged origin/main 3ee9f06 before deployment, retaining the incoming worker/depl
 Merged production frontend/Worker builds, full test:data aggregate (including Solo), ICM, worker/deploy checks, Solo/Obi-Wan UI, audio/search accessibility, corrupt/unknown watch-storage preservation, directory filters and six-case source-cell browser tests pass. Historical directory fixture now includes the already-reviewed Krownest ice guide. Full43-guide suite passed before the merge; the new guide checks and final live checks are recorded separately.
 
 A second main update (7932ba3) was merged after the first push raced concurrent updates. Kept derived catalog metadata, generated coverage opt-in, browser port defaults and hero/portrait cleanup; retained Solo. Final full test:data, frontend/Worker builds, ICM, Solo UI and three-guide checks pass again. Dataset identity remains unchanged.
+
+## Live deployment verified
+
+Cloudflare build 9080f965-982a-40c0-956a-d3a29db5bedf succeeded for final merged application commit 600d419dc7651e76344c23806a6e776814396d41. Live HTML and all five JavaScript/CSS hashes match the tested final build (live/assets.json). Live security headers and report-only CSP pass (live/headers.json). Solo UI and three-guide tests pass at 1440/390/320. Live source-cell checks pass all six viewport/font cases (live/source-cell-results.json). All four public API digests were rechecked after deployment. Stored sequence readback has 324 items and zero order mismatches.
