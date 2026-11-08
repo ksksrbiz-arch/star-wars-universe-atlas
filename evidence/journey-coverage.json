@@ -1,8 +1,8 @@
 {
   "checkedOn": "2026-11-07",
-  "catalogItems": 270,
-  "relationships": 411,
-  "titlesWithLocationEvidence": 262,
+  "catalogItems": 286,
+  "relationships": 436,
+  "titlesWithLocationEvidence": 278,
   "titlesWithoutLocationEvidence": 8,
   "mapPlacements": 76,
   "referenceTraced": 27,
@@ -32,6 +32,10 @@
       "catalog": 24,
       "withLocations": 22
     },
+    "bad-batch": {
+      "catalog": 16,
+      "withLocations": 16
+    },
     "boba-fett": {
       "catalog": 7,
       "withLocations": 7
@@ -46,6 +50,15 @@
     }
   },
   "unplacedAssociatedWorlds": [
+    "Kaller",
+    "Kamino",
+    "Ordo Moon",
+    "Ord Mantell",
+    "Bracca",
+    "Bora Vio",
+    "Raxus",
+    "Daro",
+    "Wayland",
     "Garel",
     "Stygeon Prime",
     "Fort Anaxes",
@@ -86,7 +99,6 @@
     "Trask",
     "Plazir-15",
     "Skako Minor",
-    "Kamino",
     "Orto Plutonia",
     "Mortis",
     "Raydonia",
@@ -97,7 +109,6 @@
     "Zanbar",
     "Zardossa Stix",
     "Force planet (unnamed)",
-    "Raxus",
     "Peridea",
     "Lah’mu",
     "Ring of Kafrene",

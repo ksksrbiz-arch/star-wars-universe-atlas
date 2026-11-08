@@ -35,6 +35,17 @@ const cloneWarsCodes = `
 
 export const STORY_SEQUENCES: StorySequence[] = [
   {
+    id: 'bad-batch', title: 'The Bad Batch · season 1 narrative order',
+    description: 'Follow sixteen numbered episodes from Order 66 into the early Empire. The extended premiere remains one watch record.',
+    sourceUrl: 'https://www.starwars.com/series/star-wars-the-bad-batch',
+    itemIds: numberedEpisodes('bad-batch', [16]),
+    caveats: [
+      'Season one only. Seasons two and three are outside this collection; provider dates and uncertain edition runtimes remain separate from narrative order.',
+      'Aftermath depicts events around Order 66, overlapping Revenge of the Sith and the end of The Clone Wars. No exact scene-interleaving or BBY/ABY event calendar is asserted.',
+      'Whole-work order is not a character journey. Ship settings, mentions, flashbacks and unresolved planet identities remain qualified in individual evidence records.',
+    ],
+  },
+  {
     id: 'rebels', title: 'Rebels · seasons 1–4 narrative order',
     description: 'Follow all four seasons as 66 watch records covering 74 official numbered slots. Shared two-part guides retain combined progress records; the extended finale is numbered S04E15.',
     sourceUrl: 'https://www.starwars.com/series/star-wars-rebels',

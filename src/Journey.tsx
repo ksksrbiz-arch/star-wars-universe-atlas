@@ -147,7 +147,7 @@ export default function Journey({ onInspectLocation, onLocationDisclosure, watch
 
           onClick={() => { setSequenceId(entry.id); setQuery(''); setCoverageFilter('all'); setResultLimit(6); setProgressMessage(''); if (entry.itemIds[0]) onActiveItemChange(entry.itemIds[0]); }}>
 
-          <span className="journey-collection-number">0{entryIndex + 1}<span/></span><strong>{SERIES.find(series => series.id === entry.id)?.title ?? entry.title}</strong><span className="journey-collection-meta">{entry.itemIds.length} chapters <ChevronRight size={14}/></span><span className="journey-collection-progress" aria-hidden="true"><span style={{ width: `${collectionWatched / entry.itemIds.length * 100}%` }}/></span><span className="journey-collection-watched">{collectionWatched ? `${collectionWatched} watched` : 'Begin the journey'}</span>
+          <span className="journey-collection-number">{String(entryIndex + 1).padStart(2, '0')}<span/></span><strong>{SERIES.find(series => series.id === entry.id)?.title ?? entry.title}</strong><span className="journey-collection-meta">{entry.itemIds.length} chapters <ChevronRight size={14}/></span><span className="journey-collection-progress" aria-hidden="true"><span style={{ width: `${collectionWatched / entry.itemIds.length * 100}%` }}/></span><span className="journey-collection-watched">{collectionWatched ? `${collectionWatched} watched` : 'Begin the journey'}</span>
 
         </button>;
 

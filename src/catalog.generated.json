@@ -1,11 +1,18 @@
 {
   "metadata": {
     "auditDate": "2026-11-07",
-    "scope": "Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1; Rogue One; The Book of Boba Fett season 1; prequel trilogy; Rebels seasons 1–4 (66 watch records covering 74 official numbered slots).",
-    "coreCount": 270,
-    "regularEpisodeCount": 262,
+    "scope": "Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1; Rogue One; The Book of Boba Fett season 1; prequel trilogy; Rebels seasons 1–4 (66 watch records covering 74 official numbered slots); The Bad Batch season 1.",
+    "coreCount": 286,
+    "regularEpisodeCount": 278,
     "originalAuditCohortCount": 185,
     "extensionCollections": [
+      {
+        "seriesId": "bad-batch",
+        "season": 1,
+        "count": 16,
+        "sourceFile": "bad-batch-season-1-source.json",
+        "note": "16 consecutive season-one records, matching official episode-guide numbers. Extended premiere remains episode1, not a split record. Provider dates retained; runtimes withheld pending edition verification. Seasons2–3 are outside this batch."
+      },
       {
         "seriesId": "rebels",
         "season": 4,
@@ -137,6 +144,10 @@
       {
         "name": "rebels-season-4-source.json",
         "sha256": "3efab82d7dbe0d1bcf9c44f3ca52a44f02c55f2743889d426bcf9e4917d4b4d4"
+      },
+      {
+        "name": "bad-batch-season-1-source.json",
+        "sha256": "8f1d2203f6169f06bace1c931308360b56da9884a3f6a8f3dbe768de91525515"
       }
     ],
     "excludedSpecials": [
@@ -2865,6 +2876,198 @@
       "runtimeMinutes": 44,
       "runtimeNote": "Provider runtime; streaming duration and credit treatment not independently verified.",
       "sourceUrl": "https://www.tvmaze.com/episodes/1949636/the-mandalorian-2x08-chapter-16-the-rescue"
+    },
+    {
+      "id": "bad-batch-s01e01",
+      "title": "Aftermath",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 1,
+      "episode": 1,
+      "releaseDate": "2021-05-04",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; extended premiere is one episode record.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2038022/star-wars-the-bad-batch-1x01-aftermath"
+    },
+    {
+      "id": "bad-batch-s01e02",
+      "title": "Cut and Run",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 1,
+      "episode": 2,
+      "releaseDate": "2021-05-07",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; extended premiere is one episode record.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2038023/star-wars-the-bad-batch-1x02-cut-and-run"
+    },
+    {
+      "id": "bad-batch-s01e03",
+      "title": "Replacements",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 1,
+      "episode": 3,
+      "releaseDate": "2021-05-14",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; extended premiere is one episode record.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2083607/star-wars-the-bad-batch-1x03-replacements"
+    },
+    {
+      "id": "bad-batch-s01e04",
+      "title": "Cornered",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 1,
+      "episode": 4,
+      "releaseDate": "2021-05-21",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; extended premiere is one episode record.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2091233/star-wars-the-bad-batch-1x04-cornered"
+    },
+    {
+      "id": "bad-batch-s01e05",
+      "title": "Rampage",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 1,
+      "episode": 5,
+      "releaseDate": "2021-05-28",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; extended premiere is one episode record.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095479/star-wars-the-bad-batch-1x05-rampage"
+    },
+    {
+      "id": "bad-batch-s01e06",
+      "title": "Decommissioned",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 1,
+      "episode": 6,
+      "releaseDate": "2021-06-04",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; extended premiere is one episode record.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095480/star-wars-the-bad-batch-1x06-decommissioned"
+    },
+    {
+      "id": "bad-batch-s01e07",
+      "title": "Battle Scars",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 1,
+      "episode": 7,
+      "releaseDate": "2021-06-11",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; extended premiere is one episode record.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095481/star-wars-the-bad-batch-1x07-battle-scars"
+    },
+    {
+      "id": "bad-batch-s01e08",
+      "title": "Reunion",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 1,
+      "episode": 8,
+      "releaseDate": "2021-06-18",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; extended premiere is one episode record.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095482/star-wars-the-bad-batch-1x08-reunion"
+    },
+    {
+      "id": "bad-batch-s01e09",
+      "title": "Bounty Lost",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 1,
+      "episode": 9,
+      "releaseDate": "2021-06-25",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; extended premiere is one episode record.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095483/star-wars-the-bad-batch-1x09-bounty-lost"
+    },
+    {
+      "id": "bad-batch-s01e10",
+      "title": "Common Ground",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 1,
+      "episode": 10,
+      "releaseDate": "2021-07-02",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; extended premiere is one episode record.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095484/star-wars-the-bad-batch-1x10-common-ground"
+    },
+    {
+      "id": "bad-batch-s01e11",
+      "title": "Devil's Deal",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 1,
+      "episode": 11,
+      "releaseDate": "2021-07-09",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; extended premiere is one episode record.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095485/star-wars-the-bad-batch-1x11-devils-deal"
+    },
+    {
+      "id": "bad-batch-s01e12",
+      "title": "Rescue on Ryloth",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 1,
+      "episode": 12,
+      "releaseDate": "2021-07-16",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; extended premiere is one episode record.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095486/star-wars-the-bad-batch-1x12-rescue-on-ryloth"
+    },
+    {
+      "id": "bad-batch-s01e13",
+      "title": "Infested",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 1,
+      "episode": 13,
+      "releaseDate": "2021-07-23",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; extended premiere is one episode record.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095487/star-wars-the-bad-batch-1x13-infested"
+    },
+    {
+      "id": "bad-batch-s01e14",
+      "title": "War-Mantle",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 1,
+      "episode": 14,
+      "releaseDate": "2021-07-30",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; extended premiere is one episode record.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095488/star-wars-the-bad-batch-1x14-war-mantle"
+    },
+    {
+      "id": "bad-batch-s01e15",
+      "title": "Return to Kamino",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 1,
+      "episode": 15,
+      "releaseDate": "2021-08-06",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; extended premiere is one episode record.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095489/star-wars-the-bad-batch-1x15-return-to-kamino"
+    },
+    {
+      "id": "bad-batch-s01e16",
+      "title": "Kamino Lost",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 1,
+      "episode": 16,
+      "releaseDate": "2021-08-13",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; extended premiere is one episode record.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095490/star-wars-the-bad-batch-1x16-kamino-lost"
     },
     {
       "id": "boba-fett-s01e01",

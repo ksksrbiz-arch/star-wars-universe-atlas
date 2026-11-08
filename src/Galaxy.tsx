@@ -205,8 +205,8 @@ function LabelDeclutter() {
         if (dx || dy) { label.style.translate = `${dx}px ${dy}px`; rect = new DOMRect(rect.x+dx,rect.y+dy,rect.width,rect.height) }
       }
       // Move only the label; its leader follows the displacement to the unchanged source dot.
-      // Keep the traced source ring visible beside its label, including at overview zoom.
-      const sourceClearance = label === document.activeElement
+      // Keep traced and preview source markers visible beside their labels at overview zoom.
+      const sourceClearance = label === document.activeElement || label.classList.contains('is-preview')
         ? [new DOMRect(anchor.left-14, anchor.top-.39*(camera as THREE.OrthographicCamera).zoom-14, 28, 28)] : []
       const obstacles = [...protectedRects,...occupied,...sourceClearance]
       const packStory = denseStory && priority(label) === 2
@@ -279,6 +279,16 @@ function StoryBeacon() {
   </group>
 }
 
+/** The hollow diamond matches the preview key without implying arrival. */
+function PreviewBeacon() {
+  const diamond = useRef<THREE.Mesh>(null)
+  useFrame(({camera}) => { diamond.current?.scale.setScalar(1 / (camera as THREE.OrthographicCamera).zoom) })
+  return <mesh ref={diamond} position={[0,0,.04]} raycast={() => undefined}>
+    <ringGeometry args={[12,13.5,4]}/>
+    <meshBasicMaterial color="#a3e7f5" transparent opacity={.95} depthWrite={false}/>
+  </mesh>
+}
+
 /** Interaction-only ring identifies the source dot of a displaced name. */
 function LabelSourceFocus() {
   const ring = useRef<THREE.Mesh>(null)
@@ -314,7 +324,7 @@ function WorldMarker({ world, highlighted, selected, previewed, disabled, onSele
       <mesh><ringGeometry args={[.23, .242, 64]} /><meshBasicMaterial color="#dbad72" transparent opacity={.8} /></mesh>
       <mesh><ringGeometry args={[.33, .338, 64]} /><meshBasicMaterial color="#dbad72" transparent opacity={.24} /></mesh>
     </>}
-    {previewed && !selected && <mesh><ringGeometry args={[.2, .215, 48]} /><meshBasicMaterial color="#a3d9e6" transparent opacity={.8} /></mesh>}
+    {previewed && !selected && <PreviewBeacon/>}
     <Html center position={[0, -.39, .2]} zIndexRange={[12, 1]} minZoom={minZoom}>
       <button className={`world-map-label${selected ? ' is-current' : ''}${previewed ? ' is-preview' : ''}${highlighted ? ' is-episode' : ''}`} data-source-focus={tracingSource} data-label-priority={priority} data-world-id={world.id} data-episode-location={highlighted ? world.id : undefined} title={`${world.name} · source grid ${world.grid}${highlighted ? ' · Sourced chapter location; no visit order implied' : ''}`} disabled={disabled}
         onFocus={() => { setFocused(true); invalidate() }} onBlur={() => { setFocused(false); invalidate() }}

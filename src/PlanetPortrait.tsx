@@ -5,14 +5,14 @@ type Props = { id: string; name: string; color: string; reducedMotion: boolean }
 const ice = new Set(['hoth','ilum','mygeeto','stygeon-prime','krownest']);
 const city = new Set(['coruscant']);
 const desert = new Set(['tatooine','geonosis','jakku','jedha','seelos','mandalore']);
-const green = new Set(['endor','yavin','naboo','kashyyyk','dagobah','scarif','lahmu','lothal','dathomir']);
-const rocky = new Set(['eadu','mustafar','utapau','kessel','atollon','malachor','ryloth']);
+const green = new Set(['endor','yavin','naboo','kashyyyk','dagobah','scarif','lahmu','lothal','dathomir','pantora']);
+const rocky = new Set(['eadu','mustafar','utapau','kessel','atollon','malachor','ryloth','bracca','ord-mantell']);
 /** Original resolution-independent artwork. Surface motifs are illustrative, not cartography. */
 export default function PlanetPortrait({id,name,color,reducedMotion}: Props) {
  const key=useId().replaceAll(':','');
  const family=ice.has(id)?'ice':city.has(id)?'city':desert.has(id)?'desert':green.has(id)?'verdant':rocky.has(id)?'rocky':'atmosphere';
- const base=id==='mandalore'?'#a5b2b6':id==='dathomir'?'#a84c52':id==='ryloth'?'#bfa17b':id==='atollon'?'#bf9775':id==='malachor'?'#5f596b':id==='seelos'?'#cec7ab':id==='lothal'?'#b4a66a':id==='kessel'?'#aa8657':family==='ice'?'#c8dce5':family==='city'?'#516478':id==='kamino'?'#4d829a':id==='geonosis'?'#b38152':id==='utapau'?'#a69b79':id==='kashyyyk'?'#668970':id==='scarif'?'#5fafa7':id==='eadu'?'#536c80':id==='lahmu'?'#71806a':id==='mustafar'?'#5e3028':color;
- return <figure className={`atlas-portrait surface-${family} ${['tatooine','coruscant','hoth','naboo','scarif','jedha','eadu','lahmu','mustafar','yavin','kamino','geonosis','utapau','kashyyyk','lothal','kessel','stygeon-prime','atollon','malachor','seelos','dathomir','ryloth','krownest','mandalore'].includes(id) ? 'portrait-featured' : ''}`} data-motion={reducedMotion?'reduced':'full'}>
+ const base=id==='bracca'?'#8b938a':id==='ord-mantell'?'#a38d83':id==='pantora'?'#8ab6b1':id==='mandalore'?'#a5b2b6':id==='dathomir'?'#a84c52':id==='ryloth'?'#bfa17b':id==='atollon'?'#bf9775':id==='malachor'?'#5f596b':id==='seelos'?'#cec7ab':id==='lothal'?'#b4a66a':id==='kessel'?'#aa8657':family==='ice'?'#c8dce5':family==='city'?'#516478':id==='kamino'?'#4d829a':id==='geonosis'?'#b38152':id==='utapau'?'#a69b79':id==='kashyyyk'?'#668970':id==='scarif'?'#5fafa7':id==='eadu'?'#536c80':id==='lahmu'?'#71806a':id==='mustafar'?'#5e3028':color;
+ return <figure className={`atlas-portrait surface-${family} ${['tatooine','coruscant','hoth','naboo','scarif','jedha','eadu','lahmu','mustafar','yavin','kamino','geonosis','utapau','kashyyyk','lothal','kessel','stygeon-prime','atollon','malachor','seelos','dathomir','ryloth','krownest','mandalore','bracca','ord-mantell','pantora'].includes(id) ? 'portrait-featured' : ''}`} data-motion={reducedMotion?'reduced':'full'}>
   <svg viewBox="0 0 400 320" role="img" aria-label={`Original illustrative portrait of ${name}; not an official surface map`}>
    <defs>
     <radialGradient id={`${key}-base`} cx="30%" cy="25%"><stop stopColor="#fff2d6"/><stop offset=".32" stopColor={base}/><stop offset="1" stopColor="#17232e"/></radialGradient>
@@ -33,6 +33,9 @@ export default function PlanetPortrait({id,name,color,reducedMotion}: Props) {
       {family==='verdant'&&<path d="M145 52l35 22 8 38-24 16 12 31-31 22-20-38-22-18 9-42zM231 175l38-12 24 28-12 35-33 8-21-27z" fill="#344e35" opacity=".65"/>}
       {family==='ice'&&<path d="M117 170l36-26 22 9 28-42 39 28 40-19M153 144l-10-30 13-19M204 113l-7-34" fill="none" stroke="#769ead" strokeWidth="2" opacity=".55"/>}
      </>}
+     {id==='bracca'&&<g stroke="#bac5c2" strokeWidth="2" opacity=".65"><path d="M109 177l67-61-12 68zM177 198l70-79 31 72z" fill="#56605c"/><path d="M109 177l55 7m29-5 55-50m-31 78 63-16M137 155l28 9m64-17 22 13" fill="none"/><path d="M111 216l158-12-26 25-111 7z" fill="#9b8170"/></g>}
+     {id==='ord-mantell'&&<g><path d="M96 163l38-53 26 32 33-61 34 62 22-24 49 50z" fill="#67596b" opacity=".6"/><g fill="#514a56" stroke="#bda4a3" strokeWidth="1" opacity=".8"><path d="M129 202v-42h27v42m9 0v-61h30v61m10 0v-47h24v47m10 0v-33h28v33"/></g><path d="M140 174h6m28-18h11m-11 15h11m28 0h8m26 12h10M120 217l149-4" stroke="#e6c285" opacity=".65" strokeWidth="3"/></g>}
+     {id==='pantora'&&<g><path d="M102 112q47-31 79 2t108 3l-18 36-63-7-47 27-47-22zM119 196l52-24 64 18 36-12-15 53-108 7z" fill="#657f67" opacity=".6"/><path d="M145 92q53 32 34 64t59 73M105 182q57 14 103-17t89-8" fill="none" stroke="#d1e8e0" opacity=".5" strokeWidth="5"/><path d="M223 117h26v17h-26zM252 122h11v12h-11z" fill="#b7c7c2" opacity=".7"/></g>}
      {id==='mandalore'&&<g><path d="M94 183q45-26 94-9t117-8v76H94z" fill="#8e8980" opacity=".6"/><path d="M137 176a63 48 0 0 1 126 0z" fill="#91c0d2" fillOpacity=".45" stroke="#def0ee" strokeWidth="2"/><path d="M148 175v-20h15v20m7 0v-31h18v31m8 0v-39h16v39m8 0v-26h18v26m8 0v-16h8v16" fill="#455d6b" stroke="#b5d3d9" strokeWidth="1"/><path d="M154 199q48-9 92 0" fill="none" stroke="#dedbd1" opacity=".4" strokeWidth="2"/></g>}
      {id==='lothal'&&<path d="M107 205l10-36 13 17 14-43 17 53 15-23 15 41" fill="#777353" fillOpacity=".4" stroke="#d5c798" strokeOpacity=".4" strokeWidth="2"/>}
      {id==='dathomir'&&<g fill="none" stroke="#3e2633" strokeWidth="7" opacity=".65"><path d="M132 202q21-58-13-99m20 65 24-33m-31 15-25-15M202 220q-23-70 4-135m-14 73 29-27m-25 3-23-23M265 202q-19-53 7-98m-16 54-27-20"/><g fill="#c07b80" strokeWidth="1"><ellipse cx="121" cy="113" rx="9" ry="15"/><ellipse cx="208" cy="98" rx="8" ry="13"/><ellipse cx="267" cy="117" rx="10" ry="16"/></g></g>}
@@ -65,6 +68,6 @@ export default function PlanetPortrait({id,name,color,reducedMotion}: Props) {
    {id==='geonosis'&&<g transform="rotate(-22 200 145)" fill="none"><path d="M40 145a160 41 0 0 0 320 0" stroke="#bd9975" strokeWidth="11" opacity=".52"/><path d="M26 145a174 46 0 0 0 348 0" stroke="#dac09b" strokeWidth="2" opacity=".36"/></g>}
    <g fill="#bbdbe5"><circle cx="50" cy="76" r="1.4"/><circle cx="334" cy="210" r="1"/><circle cx="310" cy="42" r="1.2"/></g>
   </svg>
-  <figcaption><span>ORIGINAL PLANET STUDY</span><span>Illustrative · not surface geography</span></figcaption>
+  <figcaption><span>{id==='pantora'?'ORIGINAL MOON STUDY':'ORIGINAL PLANET STUDY'}</span><span>Illustrative · not surface geography</span></figcaption>
  </figure>;
 }

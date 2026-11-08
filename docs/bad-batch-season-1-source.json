@@ -1,0 +1,394 @@
+{
+  "checkedOn": "2026-11-07",
+  "api": "https://api.tvmaze.com/shows/49190/episodes?specials=1",
+  "provider": "TVmaze",
+  "license": "CC BY-SA",
+  "numberingNote": "16 consecutive season-one records, matching official episode-guide numbers. Extended premiere remains episode1, not a split record. Provider dates retained; runtimes withheld pending edition verification. Seasons2–3 are outside this batch.",
+  "officialIndex": "https://www.starwars.com/series/star-wars-the-bad-batch",
+  "episodes": [
+    {
+      "id": "bad-batch-s01e01",
+      "name": "Aftermath",
+      "season": 1,
+      "number": 1,
+      "airdate": "2021-05-04",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2038022/star-wars-the-bad-batch-1x01-aftermath"
+    },
+    {
+      "id": "bad-batch-s01e02",
+      "name": "Cut and Run",
+      "season": 1,
+      "number": 2,
+      "airdate": "2021-05-07",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2038023/star-wars-the-bad-batch-1x02-cut-and-run"
+    },
+    {
+      "id": "bad-batch-s01e03",
+      "name": "Replacements",
+      "season": 1,
+      "number": 3,
+      "airdate": "2021-05-14",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2083607/star-wars-the-bad-batch-1x03-replacements"
+    },
+    {
+      "id": "bad-batch-s01e04",
+      "name": "Cornered",
+      "season": 1,
+      "number": 4,
+      "airdate": "2021-05-21",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2091233/star-wars-the-bad-batch-1x04-cornered"
+    },
+    {
+      "id": "bad-batch-s01e05",
+      "name": "Rampage",
+      "season": 1,
+      "number": 5,
+      "airdate": "2021-05-28",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095479/star-wars-the-bad-batch-1x05-rampage"
+    },
+    {
+      "id": "bad-batch-s01e06",
+      "name": "Decommissioned",
+      "season": 1,
+      "number": 6,
+      "airdate": "2021-06-04",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095480/star-wars-the-bad-batch-1x06-decommissioned"
+    },
+    {
+      "id": "bad-batch-s01e07",
+      "name": "Battle Scars",
+      "season": 1,
+      "number": 7,
+      "airdate": "2021-06-11",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095481/star-wars-the-bad-batch-1x07-battle-scars"
+    },
+    {
+      "id": "bad-batch-s01e08",
+      "name": "Reunion",
+      "season": 1,
+      "number": 8,
+      "airdate": "2021-06-18",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095482/star-wars-the-bad-batch-1x08-reunion"
+    },
+    {
+      "id": "bad-batch-s01e09",
+      "name": "Bounty Lost",
+      "season": 1,
+      "number": 9,
+      "airdate": "2021-06-25",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095483/star-wars-the-bad-batch-1x09-bounty-lost"
+    },
+    {
+      "id": "bad-batch-s01e10",
+      "name": "Common Ground",
+      "season": 1,
+      "number": 10,
+      "airdate": "2021-07-02",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095484/star-wars-the-bad-batch-1x10-common-ground"
+    },
+    {
+      "id": "bad-batch-s01e11",
+      "name": "Devil's Deal",
+      "season": 1,
+      "number": 11,
+      "airdate": "2021-07-09",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095485/star-wars-the-bad-batch-1x11-devils-deal"
+    },
+    {
+      "id": "bad-batch-s01e12",
+      "name": "Rescue on Ryloth",
+      "season": 1,
+      "number": 12,
+      "airdate": "2021-07-16",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095486/star-wars-the-bad-batch-1x12-rescue-on-ryloth"
+    },
+    {
+      "id": "bad-batch-s01e13",
+      "name": "Infested",
+      "season": 1,
+      "number": 13,
+      "airdate": "2021-07-23",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095487/star-wars-the-bad-batch-1x13-infested"
+    },
+    {
+      "id": "bad-batch-s01e14",
+      "name": "War-Mantle",
+      "season": 1,
+      "number": 14,
+      "airdate": "2021-07-30",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095488/star-wars-the-bad-batch-1x14-war-mantle"
+    },
+    {
+      "id": "bad-batch-s01e15",
+      "name": "Return to Kamino",
+      "season": 1,
+      "number": 15,
+      "airdate": "2021-08-06",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095489/star-wars-the-bad-batch-1x15-return-to-kamino"
+    },
+    {
+      "id": "bad-batch-s01e16",
+      "name": "Kamino Lost",
+      "season": 1,
+      "number": 16,
+      "airdate": "2021-08-13",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2095490/star-wars-the-bad-batch-1x16-kamino-lost"
+    }
+  ],
+  "providerSeasonSnapshot": [
+    {
+      "id": 2038022,
+      "name": "Aftermath",
+      "number": 1,
+      "season": 1,
+      "airdate": "2021-05-04",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/2038022/star-wars-the-bad-batch-1x01-aftermath"
+    },
+    {
+      "id": 2038023,
+      "name": "Cut and Run",
+      "number": 2,
+      "season": 1,
+      "airdate": "2021-05-07",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/2038023/star-wars-the-bad-batch-1x02-cut-and-run"
+    },
+    {
+      "id": 2083607,
+      "name": "Replacements",
+      "number": 3,
+      "season": 1,
+      "airdate": "2021-05-14",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/2083607/star-wars-the-bad-batch-1x03-replacements"
+    },
+    {
+      "id": 2091233,
+      "name": "Cornered",
+      "number": 4,
+      "season": 1,
+      "airdate": "2021-05-21",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/2091233/star-wars-the-bad-batch-1x04-cornered"
+    },
+    {
+      "id": 2095479,
+      "name": "Rampage",
+      "number": 5,
+      "season": 1,
+      "airdate": "2021-05-28",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/2095479/star-wars-the-bad-batch-1x05-rampage"
+    },
+    {
+      "id": 2095480,
+      "name": "Decommissioned",
+      "number": 6,
+      "season": 1,
+      "airdate": "2021-06-04",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/2095480/star-wars-the-bad-batch-1x06-decommissioned"
+    },
+    {
+      "id": 2095481,
+      "name": "Battle Scars",
+      "number": 7,
+      "season": 1,
+      "airdate": "2021-06-11",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/2095481/star-wars-the-bad-batch-1x07-battle-scars"
+    },
+    {
+      "id": 2095482,
+      "name": "Reunion",
+      "number": 8,
+      "season": 1,
+      "airdate": "2021-06-18",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/2095482/star-wars-the-bad-batch-1x08-reunion"
+    },
+    {
+      "id": 2095483,
+      "name": "Bounty Lost",
+      "number": 9,
+      "season": 1,
+      "airdate": "2021-06-25",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/2095483/star-wars-the-bad-batch-1x09-bounty-lost"
+    },
+    {
+      "id": 2095484,
+      "name": "Common Ground",
+      "number": 10,
+      "season": 1,
+      "airdate": "2021-07-02",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/2095484/star-wars-the-bad-batch-1x10-common-ground"
+    },
+    {
+      "id": 2095485,
+      "name": "Devil's Deal",
+      "number": 11,
+      "season": 1,
+      "airdate": "2021-07-09",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/2095485/star-wars-the-bad-batch-1x11-devils-deal"
+    },
+    {
+      "id": 2095486,
+      "name": "Rescue on Ryloth",
+      "number": 12,
+      "season": 1,
+      "airdate": "2021-07-16",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/2095486/star-wars-the-bad-batch-1x12-rescue-on-ryloth"
+    },
+    {
+      "id": 2095487,
+      "name": "Infested",
+      "number": 13,
+      "season": 1,
+      "airdate": "2021-07-23",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/2095487/star-wars-the-bad-batch-1x13-infested"
+    },
+    {
+      "id": 2095488,
+      "name": "War-Mantle",
+      "number": 14,
+      "season": 1,
+      "airdate": "2021-07-30",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/2095488/star-wars-the-bad-batch-1x14-war-mantle"
+    },
+    {
+      "id": 2095489,
+      "name": "Return to Kamino",
+      "number": 15,
+      "season": 1,
+      "airdate": "2021-08-06",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/2095489/star-wars-the-bad-batch-1x15-return-to-kamino"
+    },
+    {
+      "id": 2095490,
+      "name": "Kamino Lost",
+      "number": 16,
+      "season": 1,
+      "airdate": "2021-08-13",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/2095490/star-wars-the-bad-batch-1x16-kamino-lost"
+    }
+  ],
+  "episodeEvidence": [
+    {
+      "slug": "aftermath",
+      "guide": "https://www.starwars.com/series/the-bad-batch/aftermath-episode-guide",
+      "gallery": "https://www.starwars.com/aftermath-episode-gallery",
+      "reviewedCaptionCount": 43
+    },
+    {
+      "slug": "cut-and-run",
+      "guide": "https://www.starwars.com/series/the-bad-batch/cut-and-run-episode-guide",
+      "gallery": "https://www.starwars.com/cut-and-run-episode-gallery",
+      "reviewedCaptionCount": 14
+    },
+    {
+      "slug": "replacements",
+      "guide": "https://www.starwars.com/series/the-bad-batch/replacements-episode-guide",
+      "gallery": "https://www.starwars.com/replacements-episode-gallery",
+      "reviewedCaptionCount": 17
+    },
+    {
+      "slug": "cornered",
+      "guide": "https://www.starwars.com/series/the-bad-batch/cornered-episode-guide",
+      "gallery": "https://www.starwars.com/cornered-episode-gallery",
+      "reviewedCaptionCount": 19
+    },
+    {
+      "slug": "rampage",
+      "guide": "https://www.starwars.com/series/the-bad-batch/rampage-episode-guide",
+      "gallery": "https://www.starwars.com/rampage-episode-gallery",
+      "reviewedCaptionCount": 20
+    },
+    {
+      "slug": "decommissioned",
+      "guide": "https://www.starwars.com/series/the-bad-batch/decommissioned-episode-guide",
+      "gallery": "https://www.starwars.com/decommissioned-episode-gallery",
+      "reviewedCaptionCount": 17
+    },
+    {
+      "slug": "battle-scars",
+      "guide": "https://www.starwars.com/series/the-bad-batch/battle-scars-episode-guide",
+      "gallery": "https://www.starwars.com/battle-scars-episode-gallery",
+      "reviewedCaptionCount": 23
+    },
+    {
+      "slug": "reunion",
+      "guide": "https://www.starwars.com/series/the-bad-batch/reunion-episode-guide",
+      "gallery": "https://www.starwars.com/reunion-episode-gallery",
+      "reviewedCaptionCount": 24
+    },
+    {
+      "slug": "bounty-lost",
+      "guide": "https://www.starwars.com/series/the-bad-batch/bounty-lost-episode-guide",
+      "gallery": "https://www.starwars.com/bounty-lost-episode-gallery",
+      "reviewedCaptionCount": 25
+    },
+    {
+      "slug": "common-ground",
+      "guide": "https://www.starwars.com/series/the-bad-batch/common-ground-episode-guide",
+      "gallery": "https://www.starwars.com/common-ground-episode-gallery",
+      "reviewedCaptionCount": 14
+    },
+    {
+      "slug": "devils-deal",
+      "guide": "https://www.starwars.com/series/the-bad-batch/devils-deal-episode-guide",
+      "gallery": "https://www.starwars.com/devil-s-deal-episode-gallery",
+      "reviewedCaptionCount": 23
+    },
+    {
+      "slug": "rescue-on-ryloth",
+      "guide": "https://www.starwars.com/series/the-bad-batch/rescue-on-ryloth-episode-guide",
+      "gallery": "https://www.starwars.com/rescue-on-ryloth-episode-gallery",
+      "reviewedCaptionCount": 27
+    },
+    {
+      "slug": "infested",
+      "guide": "https://www.starwars.com/series/the-bad-batch/infested-episode-guide",
+      "gallery": "https://www.starwars.com/infested-episode-gallery",
+      "reviewedCaptionCount": 24
+    },
+    {
+      "slug": "war-mantle",
+      "guide": "https://www.starwars.com/series/the-bad-batch/war-mantle-episode-guide",
+      "gallery": "https://www.starwars.com/war-mantle-episode-gallery",
+      "reviewedCaptionCount": 27
+    },
+    {
+      "slug": "return-to-kamino",
+      "guide": "https://www.starwars.com/series/the-bad-batch/return-to-kamino-episode-guide",
+      "gallery": "https://www.starwars.com/return-to-kamino-episode-gallery",
+      "reviewedCaptionCount": 26
+    },
+    {
+      "slug": "kamino-lost",
+      "guide": "https://www.starwars.com/series/the-bad-batch/kamino-lost-episode-guide",
+      "gallery": "https://www.starwars.com/kamino-lost-episode-gallery",
+      "reviewedCaptionCount": 34
+    }
+  ],
+  "supplementaryIdentitySources": [
+    "https://www.starwars.com/news/bad-batch-declassified-replacements",
+    "https://www.starwars.com/news/bad-batch-empire",
+    "https://www.starwars.com/into-the-breach-trivia-gallery-star-wars-the-bad-batch",
+    "https://www.starwars.com/databank/pantora"
+  ],
+  "sourceCaveats": [
+    "Pantora is a moon, not its parent Orto Plutonia.",
+    "Bora Vio in Bounty Lost and Wayland in the season finale receive explicit retrospective identity confirmation from official articles; original galleries alone leave them unnamed.",
+    "Kamino is the world; Tipoca City is destroyed, not the whole planet.",
+    "Replacements includes an explicitly named Ordo Moon crash in the exact-episode official highlights. No Ordo parent-planet coordinate or visit is inferred."
+  ]
+}

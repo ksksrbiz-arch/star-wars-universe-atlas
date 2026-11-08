@@ -4,7 +4,7 @@ Live preview: https://star-wars-universe-atlas.skdev-371.workers.dev
 
 Cloudflare Workers hosts the app and read-only API, with dedicated Neon Postgres through Hyperdrive and separate R2 media buckets. Main-branch application changes build, validate, and deploy through Cloudflare Builds. See [deployment setup](docs/DEPLOYMENT.md). User watch progress remains browser-local.
 
-Deployed interactive atlas with 76 schematic map destinations (eight general, 67 direct journey placements, and the Endor parent-system placement), a 270-item film/episode catalog, nine sourced collection viewing sequences, and partial story/location relationships. The implementation includes galaxy navigation, cinematic jumps, reduced motion, library/release-timeline views, and browser-local watch progress. Release checks are recorded in [deployment verification](evidence/deployment/verification.md).
+Deployed interactive atlas with 76 schematic map destinations (eight general, 67 direct journey placements, and the Endor parent-system placement), a 286-item film/episode catalog, ten sourced collection viewing sequences, and partial story/location relationships. The implementation includes galaxy navigation, cinematic jumps, reduced motion, library/release-timeline views, and browser-local watch progress. Release checks are recorded in [deployment verification](evidence/deployment/verification.md).
 
 Latest visual upgrade details and validation: [visual verification](evidence/visual-upgrades-verification.md). Graphics settings, layered galaxy rendering, two-second warp effects, and reduced-motion-aware interface transitions are implemented locally.
 
@@ -12,7 +12,7 @@ Reference-map geography update: [verification and scope](evidence/reference-map-
 
 ## Run
 
-Integrated relationship coverage is 411 links across 262 of 270 titles and 140 location identities. Eight titles have no current link. Only 76 worlds have supported map placements; title coverage does not establish complete scene coverage.
+Integrated relationship coverage is 436 links across 278 of 286 titles and 147 location identities. Eight titles have no current link. Only 76 worlds have supported map placements; title coverage does not establish complete scene coverage.
 
 Requires a current Node version supported by Vite (Node 26 used during development).
 
@@ -38,15 +38,16 @@ Eight general destinations in [data.ts](src/data.ts) combine with 68 additional 
 | Ahsoka | 8 episodes, season 1 |
 | The Book of Boba Fett | 7 episodes, season 1 |
 | Rebels | 66 watch records, seasons 1–4 |
+| The Bad Batch | 16 episodes, season 1 |
 
-The original 181 regular episodes and four films remain a distinct 185-item audit cohort. Eight Ahsoka season-one episodes from a separate TVmaze source snapshot one independently sourced Rogue One film, seven separately sourced Book of Boba Fett chapters, and the three prequel films bring the current catalog to 270 items, including 66 Rebels watch records across seasons 1–4. This is a bounded collection, not all Star Wars movies/shows. Nine promotional/Legacy specials, the 2003 Clone Wars series, and The Mandalorian and Grogu film are excluded. The 76 worlds do not constitute complete geographic coverage. Story/location coverage is partial and independently counted in [journey data review](evidence/journey-data-review.md). An unjoined story has no verified relationship in this pass; it may be unaudited or reviewed without a named planet link.
+The original 181 regular episodes and four films remain a distinct 185-item audit cohort. Eight Ahsoka season-one episodes from a separate TVmaze source snapshot one independently sourced Rogue One film, seven separately sourced Book of Boba Fett chapters, and the three prequel films bring the current catalog to 286 items, including 66 Rebels watch records across seasons 1–4 and 16 Bad Batch season-one episodes. This is a bounded collection, not all Star Wars movies/shows. Nine promotional/Legacy specials, the 2003 Clone Wars series, and The Mandalorian and Grogu film are excluded. The 76 worlds do not constitute complete geographic coverage. Story/location coverage is partial and independently counted in [journey data review](evidence/journey-data-review.md). An unjoined story has no verified relationship in this pass; it may be unaudited or reviewed without a named planet link.
 
 ## Source fidelity and limits
 
 - Episode titles, numbering, air dates, and selected runtime fields derive from [TVmaze](https://www.tvmaze.com/api), with CC BY-SA attribution retained. All 181 imported episode titles/dates/numbers match the audit CSV; both input-file SHA-256 values match the recorded metadata as checked November 7, 2026.
 - Film dates retain source caveats in [catalog.generated.json](src/catalog.generated.json). Empire's provider date is May 17, 1980, with premiere/theatrical/territory meaning unresolved. Return of the Jedi retains May 25, 1983, supported by an official anniversary article despite a conflicting film landing-page date. These are not a definitive worldwide release calendar.
 - Ahsoka season one uses a separate [metadata snapshot](docs/ahsoka-season-1-source.json); its eight runtimes are withheld, and future-season stubs are excluded. Its 14 episode/world associations retain vision and orbital-arrival caveats; see [source review](evidence/ahsoka-source-review.md).
-- Release chronology remains separate from [collection viewing sequences](src/chronology.ts), which cover all 270 catalog IDs. Clone Wars uses its complete official chronological order including the film; the other collections use film/episode narrative order. Embedded flashbacks are retained, not globally reordered. No exact BBY/ABY calendar is asserted.
+- Release chronology remains separate from [collection viewing sequences](src/chronology.ts), which cover all 286 catalog IDs. Clone Wars uses its complete official chronological order including the film; the other collections use film/episode narrative order. Embedded flashbacks are retained, not globally reordered. No exact BBY/ABY calendar is asserted.
 - Rogue One and Book of Boba Fett chapters 5–7 have included bridge links while retaining separate collection identities. Revenge of the Sith is now an included film linked from the final Clone Wars arc as an overlap, not a prescribed scene-interleaving order. The base catalog metadata's chronology flag describes its release-only import; the separately sourced chronology module now owns collection sequences.
 - All 133 Clone Wars episode runtimes are null because the audit found the same suspect 30-minute provider value throughout. Eight film runtimes remain null pending edition-specific verification. Other episode runtimes are provider values, not independently checked streaming durations; no exact full-marathon total is supported.
 - No provider summaries or image assets are imported into the catalog. World descriptions are short original reference text. Planet illustrations are original procedural artwork, not screen stills.
@@ -133,3 +134,9 @@ New original illustrated guides cover Dathomir, Ryloth and Krownest. Hovering or
 The final season adds 13 watch records and 21 sourced connections. Official/Disney+ numbered slots run 1–15, with Heroes of Mandalore and In the Name of Rebellion combined and the extended finale retained as E15. Numbered slots are distinguished from narrative segments; runtimes remain withheld. Existing watch IDs and the 53-record Rebels prefix remain unchanged. Finale epilogue settings have explicit time-jump notes. Appearance coverage remains partial.
 
 Mandalore gains an original illustrated guide; Lothal and Yavin 4 gain reviewed setting details. Hidden map labels now hide their connector lines, preserving focused source cues and warp controls. See [release verification](evidence/rebels-season-4-release/verification.md) and [source review](evidence/rebels-season-4-source-review.md).
+
+## The Bad Batch season one
+
+The first season adds 16 individually numbered episodes, a tenth viewing sequence and 25 sourced location connections. Each new episode has at least one reviewed connection; scene coverage remains partial. Existing catalog records, connections and all nine sequences are preserved. New original illustrated guides cover Bracca, Ord Mantell and Pantora; Pantora is a moon of Orto Plutonia.
+
+A fixed-screen cyan diamond keeps map previews readable at overview zoom and distinct from arrival. Collection numbering now handles ten collections. See [release verification](evidence/bad-batch-season-1-release/verification.md) and [source review](evidence/bad-batch-season-1-source-review.md).

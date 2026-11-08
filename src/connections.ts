@@ -1,3 +1,4 @@
+import { BAD_BATCH_CONNECTIONS } from './connectionsBadBatch.ts';
 import { REBELS_SEASON_4_CONNECTIONS } from './connectionsRebelsSeason4.ts';
 import { REBELS_SEASON_3_CONNECTIONS } from './connectionsRebelsSeason3.ts';
 import { REBELS_SEASON_2_CONNECTIONS } from './connectionsRebelsSeason2.ts';
@@ -33,6 +34,7 @@ const connection = (itemId: string, worldId: string, worldName: string, sourceUr
 
 /** Curated title/world associations, not character journeys or exhaustive scene logs. */
 export const CONNECTIONS: PlanetConnection[] = [
+  ...BAD_BATCH_CONNECTIONS,
   ...REBELS_CONNECTIONS,
   ...REBELS_SEASON_2_CONNECTIONS,
   ...REBELS_SEASON_3_CONNECTIONS,

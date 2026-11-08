@@ -91,7 +91,11 @@
     "test:rebels-season-4-ui": "node scripts/test-rebels-season-4-ui.mjs",
     "test:rebels-season-4": "node scripts/test-rebels-season-4.mjs",
     "test:rebels-season-four-dossiers": "node scripts/test-rebels-season-four-dossiers.mjs",
-    "test:leader-visibility": "node scripts/test-leader-visibility.mjs"
+    "test:leader-visibility": "node scripts/test-leader-visibility.mjs",
+    "test:bad-batch-season-1-ui": "node scripts/test-bad-batch-season-1-ui.mjs",
+    "test:bad-batch-season-1": "node scripts/test-bad-batch.mjs",
+    "test:bad-batch-season-one-dossiers": "node scripts/test-bad-batch-season-one-dossiers.mjs",
+    "test:preview-beacon": "node scripts/test-preview-beacon.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",

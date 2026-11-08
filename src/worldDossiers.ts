@@ -13,6 +13,36 @@ export type WorldDossier = {
 
 const databank = 'https://www.starwars.com/databank/';
 export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
+  bracca: {
+    worldId: 'bracca', eyebrow: 'SALVAGE WORLD · SHIP GRAVEYARDS',
+    overview: { text: 'Bracca is an inhospitable industrial world where retired starships are dismantled and their components sold for reuse.', sourceUrl: databank + 'bracca' },
+    terrain: { label: 'Salvage yards and plains', text: 'The official terrain description combines junkyards with plains. Angular hull fragments in the original study suggest accumulated salvage, not individual wreck identities or measured geography.', sourceUrl: databank + 'bracca' },
+    highlights: [
+      { id: 'ship-graveyards', name: 'Starship graveyards', description: 'Decommissioned vessels arrive from across the galaxy. A grounded wreck remains a ship within this setting; it is not a separate planet or an orbital station.', sourceUrl: databank + 'bracca' },
+      { id: 'salvage-industry', name: 'Salvage industry', description: 'The Scrapper Guild sells recovered components to the Empire after the Republic falls. Industrial ownership and wartime use belong to specific eras.', sourceUrl: databank + 'bracca' },
+    ],
+    caveat: 'Hull fragments are original illustrative forms, not a ship inventory or crash-site survey. This broad guide establishes no medical-facility location, episode appearance, travel route or galaxy coordinate.',
+  },
+  'ord-mantell': {
+    worldId: 'ord-mantell', eyebrow: 'MOUNTAIN WORLD · STREETS AND TUNNELS',
+    overview: { text: 'Ord Mantell is a mountainous world with urban communities and a long history of underworld activity. Conditions worsen for many inhabitants after the Republic falls.', sourceUrl: databank + 'ord-mantell' },
+    terrain: { label: 'Mountains and urban districts', text: 'Mountain silhouettes frame the original study of built streets. Their arrangement is decorative and does not place cities, tunnels or businesses on the surface.', sourceUrl: databank + 'ord-mantell' },
+    highlights: [
+      { id: 'cids-parlor', name: 'Cid’s Parlor', description: 'An underground establishment off Ord Mantell’s graffitied streets includes a bar and gaming tables. Its proprietor and fortunes are era-dependent.', sourceUrl: databank + 'cid-s-parlor' },
+      { id: 'mining-tunnels', name: 'Old mining tunnels', description: 'Native nocturnal irlings inhabit old tunnels beneath the surface. This habitat reference supplies no navigable tunnel plan or safe route.', sourceUrl: databank + 'irlings' },
+    ],
+    caveat: 'The guide distinguishes the mountainous world, local businesses and underground habitats. None of these broad references establishes a specific episode appearance or a precise surface or galaxy position.',
+  },
+  pantora: {
+    worldId: 'pantora', eyebrow: 'MARSHY MOON · COMMERCE AND OUTPOSTS',
+    overview: { text: 'Pantora is a moon orbiting the ice planet Orto Plutonia. Its marshy environment and commercial outposts distinguish it from its parent planet.', sourceUrl: databank + 'pantora' },
+    terrain: { label: 'Marshland and developed outposts', text: 'The official account describes Pantora as marshy. Muted green patches and waterways in the portrait suggest that environment without tracing coastlines or assigning water depths.', sourceUrl: databank + 'pantora' },
+    highlights: [
+      { id: 'ro-station', name: 'Ro Station', description: 'Ro Station is an outpost on Pantora that falls into disrepair early in Imperial rule. Its name does not make it an independently orbiting space station.', sourceUrl: databank + 'pantora' },
+      { id: 'commerce', name: 'Commerce under transition', description: 'Business and industry struggle with the change from Republic to Empire. This describes an era rather than a permanent condition of the moon.', sourceUrl: databank + 'pantora' },
+    ],
+    caveat: 'Pantora is a moon, not the ice planet Orto Plutonia. Its marshes must not inherit the parent’s icy terrain. Original surface motifs establish neither an orbit model nor exact galaxy or locality coordinates.',
+  },
   mandalore: {
     worldId: 'mandalore', eyebrow: 'WARRIOR WORLD · DESERT AND DOMED CITY',
     overview: { text: 'Mandalore is a world of clans and a long warrior tradition. War has reshaped its surface, leaving inhospitable desert around urban settlements.', sourceUrl: databank + 'mandalore' },
@@ -322,8 +352,11 @@ export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
 };
 
 /** Reviewed broad categories for directory discovery; absence means not reviewed, not unknown geology. */
-export type WorldTerrainCategory = 'desert' | 'urban' | 'ice' | 'wetlands' | 'gas-giant' | 'swamp' | 'forest' | 'tropical' | 'cold-desert' | 'rugged' | 'mineral-rich' | 'volcanic' | 'ocean' | 'sinkholes' | 'plains' | 'caverns' | 'asteroid';
+export type WorldTerrainCategory = 'desert' | 'urban' | 'ice' | 'wetlands' | 'gas-giant' | 'swamp' | 'forest' | 'tropical' | 'cold-desert' | 'rugged' | 'mineral-rich' | 'volcanic' | 'ocean' | 'sinkholes' | 'plains' | 'caverns' | 'asteroid' | 'salvage';
 export const WORLD_TERRAIN: Readonly<Record<string, { category: WorldTerrainCategory; label: string; sourceUrl: string }>> = {
+  bracca: { category: 'salvage', label: 'Salvage yards and plains', sourceUrl: databank + 'bracca' },
+  'ord-mantell': { category: 'rugged', label: 'Mountains and urban districts', sourceUrl: databank + 'ord-mantell' },
+  pantora: { category: 'wetlands', label: 'Marshes and outposts', sourceUrl: databank + 'pantora' },
   mandalore: { category: 'desert', label: 'Desert and urban settlements', sourceUrl: databank + 'mandalore' },
   dathomir: { category: 'forest', label: 'Forests and swamps', sourceUrl: databank + 'dathomir' },
   ryloth: { category: 'rugged', label: 'Mesas, valleys and jungle', sourceUrl: databank + 'ryloth' },
