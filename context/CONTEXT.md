@@ -1,6 +1,6 @@
 # Context index
 
-Status: deployed platform preview, November 7, 2026. There are 76 schematic map destinations: eight general worlds, 67 direct journey placements, and Endor's parent-system placement. The catalog exposes 317 watchable items: 309 episode watch records and eight films across the original trilogy, Andor, The Clone Wars (2008), The Mandalorian, Ahsoka season one, Rogue One, The Book of Boba Fett season one, the prequel trilogy, Rebels seasons 1–4, and The Bad Batch seasons one through three. The original nine specials, four Rebels introductory shorts The Ultimate Guide and Season 2 Recap are excluded. Ten sourced collection viewing sequences cover all 317 items. Story/location relationships are a partial evidence pass; see [review](../evidence/journey-data-review.md).
+Status: deployed platform preview, November 7, 2026. There are 76 schematic map destinations: eight general worlds, 67 direct journey placements, and Endor's parent-system placement. The catalog exposes 323 watchable items: 315 episode watch records and eight films across the original trilogy, Andor, The Clone Wars (2008), The Mandalorian, Ahsoka season one, Rogue One, The Book of Boba Fett season one, the prequel trilogy, Rebels seasons 1–4, and The Bad Batch seasons one through three, and Obi-Wan Kenobi. The original nine specials, four Rebels introductory shorts The Ultimate Guide and Season 2 Recap are excluded. Eleven sourced collection viewing sequences cover all 323 items. Story/location relationships are a partial evidence pass; see [review](../evidence/journey-data-review.md).
 
 ## Workflows
 
@@ -20,7 +20,7 @@ Status: deployed platform preview, November 7, 2026. There are 76 schematic map 
 
 ## Current evidence
 
-Integrated relationships: 483 links, 309 covered titles, 160 distinct locations, and 8 titles without current links. Coverage is partial even for covered titles. The 76 mapped destinations and 160 relationship-location names measure different things; unsupported placements remain textual.
+Integrated relationships: 495 links, 315 covered titles, 164 distinct locations, and 8 titles without current links. Coverage is partial even for covered titles. The 76 mapped destinations and 164 relationship-location names measure different things; unsupported placements remain textual.
 
 Geographic source and schematic projection are documented in the data module. Eight world names/grids were checked against the earlier official-appendix audit; all current entries match. Official Databank pages support the broad setting descriptions, with era/edition limits retained. Hoth and Bespin share cell K-18; Yavin 4 uses the parent-system cell.
 
@@ -54,3 +54,6 @@ The Bad Batch season two adds 16 individually numbered records and 26 reviewed a
 
 
 The Bad Batch season three adds 15 individually numbered episodes and 21 reviewed associations, covering every new episode at least once. The existing collection extends to 47 records while preserving its 32-ID prefix and the other nine sequences. Exact official episode synopses and episode highlights support appearances; the separate Mount Tantiss Databank establishes Wayland as its parent world. Suria space station is not a Suria surface visit. The finale retirement and later epilogue remain qualified, without an invented date or viewing-order change. No coordinates are added. See [source review](../evidence/bad-batch-season-3-source-review.md).
+
+
+Obi-Wan Kenobi adds six Part I–VI records, a separate eleventh collection and 12 reviewed associations. Part I Coruscant is a flashback; Nur is a moon distinct from Mustafar. Unnamed finale terrain, unreviewed dream/training localities and mentioned Path bases remain unjoined. A Jedi’s Return is an excluded behind-the-scenes special. All ten prior sequences are unchanged; no coordinates are added.

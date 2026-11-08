@@ -8,7 +8,7 @@ World descriptions are mild setting context, but the prototype is not certified 
 
 Conflicting or missing evidence remains explicit. Do not invent coordinates, routes, dates, or character appearances to complete the visual.
 
-The [catalog](../../src/catalog.ts) exposes 317 release records. [Chronology](../../src/chronology.ts) separately supplies ten whole-work viewing sequences for those IDs. Clone Wars follows its official table; Andor and Mandalorian preserve numbered narrative order, including flashbacks within their original episodes; the trilogy follows IV–V–VI. No exact BBY/ABY event calendar is asserted. The catalog’s original chronology flag describes the base release-only import, not the added sequence module.
+The [catalog](../../src/catalog.ts) exposes 323 release records. [Chronology](../../src/chronology.ts) separately supplies eleven whole-work viewing sequences for those IDs. Clone Wars follows its official table; Andor and Mandalorian preserve numbered narrative order, including flashbacks within their original episodes; the trilogy follows IV–V–VI. No exact BBY/ABY event calendar is asserted. The catalog’s original chronology flag describes the base release-only import, not the added sequence module.
 
 The [relationship registry](../../src/connections.ts) is partial. Each join needs a title-specific source and an explicit note distinguishing appearance, mention, flashback, orbital setting or destruction where relevant. Gallery labels alone may not establish that distinction. Unjoined stories lack a verified relationship; reviewed gaps are recorded separately, not treated as “no locations.” Array order does not establish within-story travel order. Broad world labels cannot establish character trajectories.
 
@@ -30,3 +30,6 @@ The Bad Batch season two adds 16 individually numbered records and 26 reviewed a
 
 
 The Bad Batch season three adds 15 individually numbered episodes and 21 reviewed associations, covering every new episode at least once. The existing collection extends to 47 records while preserving its 32-ID prefix and the other nine sequences. Exact official episode synopses and episode highlights support appearances; the separate Mount Tantiss Databank establishes Wayland as its parent world. Suria space station is not a Suria surface visit. The finale retirement and later epilogue remain qualified, without an invented date or viewing-order change. No coordinates are added. See [source review](../../evidence/bad-batch-season-3-source-review.md).
+
+
+Obi-Wan Kenobi adds six Part I–VI records, a separate eleventh collection and 12 reviewed associations. Part I Coruscant is a flashback; Nur is a moon distinct from Mustafar. Unnamed finale terrain, unreviewed dream/training localities and mentioned Path bases remain unjoined. A Jedi’s Return is an excluded behind-the-scenes special. All ten prior sequences are unchanged; no coordinates are added.

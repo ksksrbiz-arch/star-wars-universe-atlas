@@ -4,7 +4,7 @@ Read [CLAUDE.md](CLAUDE.md) to select a scoped workflow. Load the relevant contr
 
 ## Non-negotiable rules
 
-- Current bounded scope has 76 map worlds, a 317-item catalog, ten whole-work viewing sequences, and partial story/location relationships; it is not the complete movies/shows atlas.
+- Current bounded scope has 76 map worlds, a 323-item catalog, eleven whole-work viewing sequences, and partial story/location relationships; it is not the complete movies/shows atlas.
 - Catalog/sequence completeness does not establish appearance completeness. Separate release dates, narrative viewing order and event chronology; preserve runtime, release-type, flashback, mention-only, edition and outside-collection bridge caveats.
 - Unjoined stories have no verified relationship in this atlas; reviewed gaps are recorded separately and do not establish absence of appearances. Broad world labels cannot establish an episode-specific join or character journey.
 - Keep source grid, schematic display coordinates, and illustrative rendering distinct.
@@ -33,3 +33,6 @@ The Bad Batch season two adds 16 individually numbered records and 26 reviewed a
 
 
 The Bad Batch season three adds 15 individually numbered episodes and 21 reviewed associations, covering every new episode at least once. The existing collection extends to 47 records while preserving its 32-ID prefix and the other nine sequences. Exact official episode synopses and episode highlights support appearances; the separate Mount Tantiss Databank establishes Wayland as its parent world. Suria space station is not a Suria surface visit. The finale retirement and later epilogue remain qualified, without an invented date or viewing-order change. No coordinates are added. See [source review](evidence/bad-batch-season-3-source-review.md).
+
+
+Obi-Wan Kenobi adds six Part I–VI records, a separate eleventh collection and 12 reviewed associations. Part I Coruscant is a flashback; Nur is a moon distinct from Mustafar. Unnamed finale terrain, unreviewed dream/training localities and mentioned Path bases remain unjoined. A Jedi’s Return is an excluded behind-the-scenes special. All ten prior sequences are unchanged; no coordinates are added.

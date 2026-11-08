@@ -1,3 +1,4 @@
+import {STORY_SEQUENCES} from '../src/chronology.ts';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { CONNECTIONS } from '../src/connections.ts';
@@ -11,7 +12,7 @@ try {for(const width of [1440,390,320]) {
  assert.equal(await page.getByRole('dialog').getByRole('option').count(),1);await search.press('Enter');await page.waitForURL('**/#journey/bad-batch-s01e01');await expand();
  await page.waitForFunction(()=>document.querySelector('.journey-current h2')?.textContent==='Aftermath');
  assert.equal(await page.locator('.journey-stop').count(),0);assert.equal(await page.locator('.current-location strong').innerText(),'Tatooine');
- assert.deepEqual((await page.locator('.journey-collection-number').allTextContents()).map(x=>x.trim()),Array.from({length:10},(_,i)=>String(i+1).padStart(2,'0')));
+ assert.deepEqual((await page.locator('.journey-collection-number').allTextContents()).map(x=>x.trim()),Array.from({length:STORY_SEQUENCES.length},(_,i)=>String(i+1).padStart(2,'0')));
  await page.getByRole('button',{name:'Reveal locations for this title',exact:true}).click();const links=CONNECTIONS.filter(x=>x.itemId==='bad-batch-s01e01');assert(links.length>0);assert.equal(await page.locator('.journey-stop').count(),links.length);
  assert.equal(await page.evaluate(()=>localStorage.getItem('galactic-atlas.watch.v1')),null);
  await page.getByRole('button',{name:'Mark watched & continue',exact:true}).click();await page.waitForURL('**/#journey/bad-batch-s01e02');
@@ -21,4 +22,4 @@ try {for(const width of [1440,390,320]) {
  await page.getByRole('link',{name:'Library',exact:true}).click();await page.locator('.collection-tabs').getByRole('button',{name:/Bad Batch/}).click();
  await page.getByLabel('Search films and episodes').fill('S01E16');assert.equal(await page.locator('.catalog-item').count(),1);assert.match(await page.locator('.catalog-item h2').innerText(),/Kamino Lost/);
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);assert.deepEqual(errors,[]);await page.close();
-}console.log('PASS Bad Batch search, tenth collection, episode progression/finale, source reveal, stable progress and library at1440/390/320');}finally{await browser.close();}
+}console.log('PASS Bad Batch search, collection numbering, episode progression/finale, source reveal, stable progress and library at1440/390/320');}finally{await browser.close();}
