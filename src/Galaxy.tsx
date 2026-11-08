@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import type { CSSProperties, ReactNode } from 'react'
+import type { ComponentRef, CSSProperties, ReactNode } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import './galaxy-labels.css'
 import { leaderEndAtLabelEdge } from './labelLeaderGeometry'
 import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
-import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 import type { World } from './data'
 import WarpEffect from './WarpEffect'
 import GalaxyAtmosphere, { type GalaxyQuality } from './GalaxyAtmosphere'
@@ -56,6 +55,8 @@ function Html({ children, position, style, zIndexRange = [12, 1], minZoom = 0 }:
   return <group ref={group} position={position} />
 }
 
+type OrbitControlsImpl = ComponentRef<typeof OrbitControls>
+
 export type MapCommand = {
   id: number
   action: 'zoomIn' | 'zoomOut' | 'panLeft' | 'panRight' | 'panUp' | 'panDown'
@@ -79,6 +80,27 @@ type Props = {
   fitKey?: number
   /** Display-only connection from committed destination to a preview; not a hyperspace route. */
   previewId?: string
+  /** Called when the WebGL context is lost so the host can disable map-only controls and cancel travel. */
+  onUnavailable?: () => void
+  /** Called when a lost WebGL context has been restored. */
+  onRecovered?: () => void
+}
+
+/** WebGL context loss does not throw, so the error boundary never sees it. Report it
+ * to the host and let the browser restore the context (preventDefault) when it can. */
+function ContextGuard({ onUnavailable, onRecovered }: { onUnavailable?: () => void; onRecovered?: () => void }) {
+  const { gl, invalidate } = useThree()
+  const callbacks = useRef({ onUnavailable, onRecovered })
+  callbacks.current = { onUnavailable, onRecovered }
+  useEffect(() => {
+    const canvas = gl.domElement
+    const lost = (event: Event) => { event.preventDefault(); callbacks.current.onUnavailable?.() }
+    const restored = () => { invalidate(); callbacks.current.onRecovered?.() }
+    canvas.addEventListener('webglcontextlost', lost)
+    canvas.addEventListener('webglcontextrestored', restored)
+    return () => { canvas.removeEventListener('webglcontextlost', lost); canvas.removeEventListener('webglcontextrestored', restored) }
+  }, [gl, invalidate])
+  return null
 }
 
 function Background({ quality, reducedMotion, gridVisible = true }: { quality?: GalaxyQuality; reducedMotion: boolean; gridVisible?: boolean }) {
@@ -128,10 +150,15 @@ const labelOffsets: Record<string, [number, number]> = {
   alderaan: [38, 20], coruscant: [-88, -12], mandalore: [-37, 6], yavin: [30, -12],
 }
 
+const NO_OFFSET: [number, number] = [0, 0]
 const leaderLayouts = new WeakMap<HTMLCanvasElement, Map<string, (dx: number, dy: number, visible: boolean, width?: number, height?: number) => void>>()
 function LabelLeader({ worldId, offset, minZoom = 0, active = false }: { worldId: string; offset: [number, number]; minZoom?: number; active?: boolean }) {
-  const { camera, gl } = useThree()
+  const { camera, gl, invalidate } = useThree()
   const hudOffset = useRef<[number, number]>([0,0])
+  const baseOffset = useRef(offset)
+  baseOffset.current = offset
+  const zoomFloor = useRef(minZoom)
+  zoomFloor.current = minZoom
   const labelVisible = useRef(false)
   const labelSize = useRef<[number, number]>([0,0])
   const positions = useMemo(() => new Float32Array([0, 0, .01, 0, 0, .01]), [])
@@ -139,8 +166,8 @@ function LabelLeader({ worldId, offset, minZoom = 0, active = false }: { worldId
   const leader = useRef<THREE.LineSegments>(null)
   const update = () => {
     const zoom = (camera as THREE.OrthographicCamera).zoom
-    const [screenX, screenY] = leaderEndAtLabelEdge(offset[0] + hudOffset.current[0], .39 * zoom + offset[1] + hudOffset.current[1], ...labelSize.current)
-    if (leader.current) leader.current.visible = labelVisible.current && zoom >= minZoom && Math.hypot(screenX,screenY) > 1
+    const [screenX, screenY] = leaderEndAtLabelEdge(baseOffset.current[0] + hudOffset.current[0], .39 * zoom + baseOffset.current[1] + hudOffset.current[1], ...labelSize.current)
+    if (leader.current) leader.current.visible = labelVisible.current && zoom >= zoomFloor.current && Math.hypot(screenX,screenY) > 1
     const x = screenX / zoom
     const y = -screenY / zoom
     if (positions[3] === Math.fround(x) && positions[4] === Math.fround(y)) return
@@ -153,7 +180,9 @@ function LabelLeader({ worldId, offset, minZoom = 0, active = false }: { worldId
     const apply = (dx: number, dy: number, visible: boolean, width = 0, height = 0) => { hudOffset.current = [dx,dy]; labelVisible.current = visible; labelSize.current = [width,height]; update() }
     registry.set(worldId, apply)
     return () => { if (registry.get(worldId) === apply) registry.delete(worldId) }
-  }, [gl, worldId, offset, camera])
+  }, [gl, worldId, camera])
+  // A new base offset (cluster fan-out) must redraw the leader even when nothing else invalidates the demand loop.
+  useEffect(() => { update(); invalidate() }, [offset[0], offset[1]])
   useFrame(update)
   return <lineSegments ref={leader}>
     <bufferGeometry ref={geometry}><bufferAttribute attach="attributes-position" args={[positions, 3]} /></bufferGeometry>
@@ -190,23 +219,34 @@ function LabelDeclutter() {
     const overlapsRect = (a: DOMRect, b: DOMRect) => a.left < b.right+5 && a.right > b.left-5 && a.top < b.bottom+5 && a.bottom > b.top-5
     const inside = (rect: DOMRect) => rect.left >= bounds.left+5 && rect.right <= bounds.right-5 && rect.top >= bounds.top+5 && rect.bottom <= bounds.bottom-5
     const occupied: DOMRect[] = []
-    for (const label of labels) {
+    // Batch DOM access: reset every displacement (writes), measure everything once
+    // (a single forced layout), compute in memory, then apply all writes together.
+    const layer = gl.domElement
+    const measured: { label: HTMLButtonElement; container: HTMLElement | null; visible: boolean }[] = labels.map(label => {
       const container = label.closest<HTMLElement>('[data-map-html]')
-      if (!container || container.style.visibility !== 'visible') {
-        leaderLayouts.get(gl.domElement)?.get(label.dataset.worldId ?? '')?.(0,0,false)
+      return { label, container, visible: Boolean(container && container.style.visibility === 'visible') }
+    })
+    for (const item of measured) if (item.visible) item.label.style.translate = 'none'
+    const rects = measured.map(item => item.visible ? { rect: item.label.getBoundingClientRect(), anchor: item.container!.getBoundingClientRect() } : null)
+    const writes: { label: HTMLButtonElement; translate: string | null; clamped: boolean; hidden: boolean; dx: number; dy: number; width: number; height: number }[] = []
+    for (let index = 0; index < measured.length; index++) {
+      const { label, visible } = measured[index]
+      const measure = rects[index]
+      if (!visible || !measure) {
+        leaderLayouts.get(layer)?.get(label.dataset.worldId ?? '')?.(0,0,false)
         continue
       }
-      label.style.translate = 'none'
-      let rect = label.getBoundingClientRect()
+      let rect = measure.rect
       const essential = Number(label.dataset.labelPriority)>0 || label === document.activeElement
       // Clamp labels for on-screen priority markers, never move their source dots.
-      const anchor = container.getBoundingClientRect()
+      const anchor = measure.anchor
       const onScreen = anchor.left >= bounds.left && anchor.left <= bounds.right && anchor.top >= bounds.top && anchor.top <= bounds.bottom
       let dx = 0, dy = 0
+      let translate: string | null = null
       if (essential && onScreen) {
         dx = Math.max(bounds.left+5-rect.left, Math.min(0,bounds.right-5-rect.right))
         dy = Math.max(bounds.top+5-rect.top, Math.min(0,bounds.bottom-5-rect.bottom))
-        if (dx || dy) { label.style.translate = `${dx}px ${dy}px`; rect = new DOMRect(rect.x+dx,rect.y+dy,rect.width,rect.height) }
+        if (dx || dy) { translate = `${dx}px ${dy}px`; rect = new DOMRect(rect.x+dx,rect.y+dy,rect.width,rect.height) }
       }
       // Move only the label; its leader follows the displacement to the unchanged source dot.
       // Keep traced and preview source markers visible beside their labels at overview zoom.
@@ -232,18 +272,22 @@ function LabelDeclutter() {
           candidates = clearCandidates(xs.flatMap(x => ys.map(y => new DOMRect(x,y,rect.width,rect.height))))
         }
         if (!candidates.length) candidates = clearCandidates(Array.from({length: 32}, (_, row) => Array.from({length: 20}, (_, col) => new DOMRect(bounds.left+6+col*(bounds.width-rect.width-12)/19, bounds.top+6+row*(bounds.height-rect.height-12)/31, rect.width, rect.height))).flat())
-        if (candidates[0]) { const next = candidates[0]; dx += next.x-rect.x; dy += next.y-rect.y; rect = next; label.style.translate = `${dx}px ${dy}px` }
+        if (candidates[0]) { const next = candidates[0]; dx += next.x-rect.x; dy += next.y-rect.y; rect = next; translate = `${dx}px ${dy}px` }
       }
-      label.dataset.labelClamped = String(Boolean(dx || dy))
       const clipped = rect.left < bounds.left+4 || rect.right > bounds.right-4 || rect.top < bounds.top+4 || rect.bottom > bounds.bottom-4
       const overlaps = occupied.some(other => rect.left < other.right+4 && rect.right > other.left-4 && rect.top < other.bottom+4 && rect.bottom > other.top-4)
       // A featured background name must not leave an unreadable fragment at a viewport edge.
       // Current, preview, chapter and keyboard-focused labels retain their priority treatment.
       const clippedBackground = Number(label.dataset.labelPriority) === 1 && label !== document.activeElement && !onScreen && clipped
       const hidden = clippedBackground || (!essential && (clipped || overlaps || protectedRects.some(other => overlapsRect(rect,other))))
-      label.dataset.decluttered = String(hidden)
-      leaderLayouts.get(gl.domElement)?.get(label.dataset.worldId ?? '')?.(dx,dy,!hidden,rect.width,rect.height)
+      writes.push({ label, translate, clamped: Boolean(dx || dy), hidden, dx, dy, width: rect.width, height: rect.height })
       if (!hidden) occupied.push(rect)
+    }
+    for (const write of writes) {
+      if (write.translate) write.label.style.translate = write.translate
+      write.label.dataset.labelClamped = String(write.clamped)
+      write.label.dataset.decluttered = String(write.hidden)
+      leaderLayouts.get(layer)?.get(write.label.dataset.worldId ?? '')?.(write.dx,write.dy,!write.hidden,write.width,write.height)
     }
   })
   // Keep resize in the component lifecycle without creating a continuous loop.
@@ -313,10 +357,12 @@ function WorldMarker({ world, highlighted, selected, previewed, disabled, onSele
   const tracingSource = !disabled && (hovered || focused)
   const { size, invalidate } = useThree()
   const color = selected ? '#ffd49b' : previewed ? '#c4edf5' : highlighted ? '#dbb9ff' : '#91b9c8'
-  const offset = sharedOffset ?? labelOffsets[world.id] ?? [0, 0]
+  const offset = sharedOffset ?? labelOffsets[world.id] ?? NO_OFFSET
   const priority = selected || previewed ? 3 : highlighted ? 2 : featuredWorlds.has(world.id) ? 1 : 0
   const haloUniforms = useMemo(() => ({tint: {value: new THREE.Color(color)}}), [color])
   const minZoom = priority > 0 ? 0 : Math.max(24, Math.min(55, size.width / 9))
+  const stateNotes = [selected && 'Current location', previewed && !selected && 'Preview only, not yet arrived', highlighted && 'Sourced chapter location, no visit order implied'].filter(Boolean).join('. ')
+  const descriptionId = `map-label-state-${world.id}`
   return <group position={[world.x * 10, world.y * 10, .1]}>
     <LabelLeader worldId={world.id} offset={offset} minZoom={minZoom} active={tracingSource} />
     {tracingSource && <LabelSourceFocus/>}
@@ -333,16 +379,19 @@ function WorldMarker({ world, highlighted, selected, previewed, disabled, onSele
     </>}
     {previewed && !selected && <PreviewBeacon/>}
     <Html center position={[0, -.39, .2]} zIndexRange={[12, 1]} minZoom={minZoom}>
+      <>
       <button className={`world-map-label${selected ? ' is-current' : ''}${previewed ? ' is-preview' : ''}${highlighted ? ' is-episode' : ''}`} data-source-focus={tracingSource} data-label-priority={priority} data-world-id={world.id} data-episode-location={highlighted ? world.id : undefined} title={`${world.name} · source grid ${world.grid}${highlighted ? ' · Sourced chapter location; no visit order implied' : ''}`} disabled={disabled}
         onFocus={() => { setFocused(true); invalidate() }} onBlur={() => { setFocused(false); invalidate() }}
         onPointerEnter={(e) => { if (e.pointerType !== 'touch') setHovered(true) }} onPointerLeave={() => setHovered(false)}
         onPointerDown={(e) => { drag.current = { x: e.clientX, y: e.clientY, moved: false }; e.currentTarget.setPointerCapture(e.pointerId) }}
         onPointerMove={(e) => { if (e.buttons && Math.hypot(e.clientX - drag.current.x, e.clientY - drag.current.y) > 6) drag.current.moved = true }}
         onPointerCancel={() => { drag.current.moved = true }}
-        onClick={(e) => { e.stopPropagation(); if (e.detail === 0 || !drag.current.moved) onSelect(world.id) }} aria-label={`Explore ${world.name}`} aria-pressed={selected}
+        onClick={(e) => { e.stopPropagation(); if (e.detail === 0 || !drag.current.moved) onSelect(world.id) }} aria-label={`Explore ${world.name}`} aria-pressed={selected} aria-current={selected ? 'location' : undefined} aria-describedby={descriptionId}
         style={{ color, cursor: disabled ? 'default' : 'pointer', fontSize: selected || highlighted ? 12 : 11, fontWeight: selected || highlighted ? 600 : 500, padding: '12px 10px', minHeight: 44, transform: `translate(${offset[0]}px, ${offset[1]}px)`, textShadow: '0 2px 8px #000, 0 0 5px #000', letterSpacing: '.035em', whiteSpace: 'nowrap', fontFamily: 'inherit', opacity: disabled ? .35 : 1, transition: 'opacity 180ms' }}>
         <span className="map-label-symbol" aria-hidden="true">{selected ? '●' : previewed ? '◇' : highlighted ? '◆' : '·'}</span><span>{world.name}</span>{(selected || previewed) && <span className="map-label-grid" aria-hidden="true">{world.grid}</span>}
       </button>
+      <span id={descriptionId} className="map-label-state">{`Source grid ${world.grid}${stateNotes ? `. ${stateNotes}` : ''}`}</span>
+      </>
     </Html>
   </group>
 }
@@ -376,6 +425,9 @@ function Scene(props: Props) {
   onArrive.current = props.onArrive
   const warpProgress = useRef(0)
   const lastCommand = useRef<number | null>(null)
+  // Latest values read by the warp-start effect; they must not restart an in-flight warp when they change.
+  const latest = useRef({ selectedId: props.selectedId, baseZoom, limits })
+  latest.current = { selectedId: props.selectedId, baseZoom, limits }
 
   useEffect(() => {
     const previous = previousFraming.current
@@ -444,9 +496,10 @@ function Scene(props: Props) {
     if (props.phase !== 'warping' || !world) {
       const a = animation.current
       if (a && !a.done) {
-        const skipped = props.selectedId === a.targetId
+        const { selectedId, baseZoom: base, limits: zoomLimits } = latest.current
+        const skipped = selectedId === a.targetId
         camera.position.copy(skipped ? a.to : a.from)
-        cameraO.zoom = skipped ? Math.min(baseZoom * 1.48, limits[1]) : a.zoom
+        cameraO.zoom = skipped ? Math.min(base * 1.48, zoomLimits[1]) : a.zoom
         controls.current?.target.set(camera.position.x, camera.position.y, 0)
         cameraO.updateProjectionMatrix()
         controls.current?.update()
@@ -489,20 +542,40 @@ function Scene(props: Props) {
     else invalidate()
   })
 
-  const episodeOffsets = new Map<string, [number, number]>()
-  const highlighted = props.worlds.filter(world => props.highlightedIds?.has(world.id)).sort((a, b) => a.name.localeCompare(b.name))
-  const pending = new Set(highlighted.map(world => world.id))
-  for (const start of highlighted) {
-    if (!pending.delete(start.id)) continue
-    const cluster = [start]
-    for (let i = 0; i < cluster.length; i++) for (const other of highlighted) {
-      if (pending.has(other.id) && Math.hypot(other.x - cluster[i].x, other.y - cluster[i].y) < .18) {
-        pending.delete(other.id); cluster.push(other)
+  const { worlds, highlightedIds, selectedId, previewId } = props
+  const markerOffsets = useMemo(() => {
+    const episodeOffsets = new Map<string, [number, number]>()
+    const highlighted = worlds.filter(world => highlightedIds?.has(world.id)).sort((a, b) => a.name.localeCompare(b.name))
+    const pending = new Set(highlighted.map(world => world.id))
+    for (const start of highlighted) {
+      if (!pending.delete(start.id)) continue
+      const cluster = [start]
+      for (let i = 0; i < cluster.length; i++) for (const other of highlighted) {
+        if (pending.has(other.id) && Math.hypot(other.x - cluster[i].x, other.y - cluster[i].y) < .18) {
+          pending.delete(other.id); cluster.push(other)
+        }
+      }
+      cluster.sort((a, b) => a.name.localeCompare(b.name))
+      if (cluster.length > 1) cluster.forEach((world, index) => episodeOffsets.set(world.id, [0, (index - (cluster.length - 1) / 2) * 52]))
+    }
+    // Labelled worlds sharing a source grid cell fan out vertically (Hoth/Bespin alone share by design).
+    const byGrid = new Map<string, World[]>()
+    for (const other of worlds) {
+      if (!(featuredWorlds.has(other.id) || other.id === selectedId || other.id === previewId || highlightedIds?.has(other.id))) continue
+      const group = byGrid.get(other.grid)
+      if (group) group.push(other); else byGrid.set(other.grid, [other])
+    }
+    const offsets = new Map<string, [number, number]>()
+    for (const world of worlds) {
+      const shared = episodeOffsets.get(world.id)
+      if (shared) { offsets.set(world.id, shared); continue }
+      const siblings = byGrid.get(world.grid) ?? []
+      if (siblings.length > 1 && !siblings.every(other => other.id === 'hoth' || other.id === 'bespin')) {
+        offsets.set(world.id, [0, (siblings.findIndex(other => other.id === world.id) - (siblings.length - 1) / 2) * 52])
       }
     }
-    cluster.sort((a, b) => a.name.localeCompare(b.name))
-    if (cluster.length > 1) cluster.forEach((world, index) => episodeOffsets.set(world.id, [0, (index - (cluster.length - 1) / 2) * 52]))
-  }
+    return offsets
+  }, [worlds, highlightedIds, selectedId, previewId])
   const from = props.worlds.find(w => w.id === props.selectedId)
   const preview = props.worlds.find(w => w.id === props.previewId)
   return <>
@@ -513,8 +586,9 @@ function Scene(props: Props) {
     {props.regionsVisible && GALACTIC_REGION_LABELS.map(label=><Html key={label.id} position={label.position} minZoom={size.width < 600 && !['core','outer-rim'].includes(label.id) ? 24 : 0} style={{pointerEvents:'none'}} zIndexRange={[3,1]}><span className="region-map-label" style={{borderLeft:`2px solid ${label.color}`}}>{label.name}</span></Html>)}
     {props.gridVisible && <ReferenceGridLabels/>}
     {from && preview && from.id !== preview.id && (from.x !== preview.x || from.y !== preview.y) && <PreviewConnection from={from} to={preview} />}
-    {props.worlds.map(w => <WorldMarker key={w.id} sharedOffset={episodeOffsets.get(w.id) ?? (() => {const siblings = props.worlds.filter(other => other.grid === w.grid && (['tatooine','alderaan','yavin','coruscant','hoth','bespin','dagobah','mandalore'].includes(other.id) || other.id === props.selectedId || other.id === props.previewId || props.highlightedIds?.has(other.id))); return siblings.length > 1 && !siblings.every(other => ['hoth','bespin'].includes(other.id)) ? [0, (siblings.findIndex(other => other.id === w.id) - (siblings.length-1)/2)*52] as [number,number] : undefined;})()} world={w} highlighted={props.highlightedIds?.has(w.id) ?? false} selected={w.id === props.selectedId} previewed={w.id === props.previewId} disabled={props.phase === 'warping'} onSelect={props.onSelect} />)}
+    {props.worlds.map(w => <WorldMarker key={w.id} sharedOffset={markerOffsets.get(w.id)} world={w} highlighted={props.highlightedIds?.has(w.id) ?? false} selected={w.id === props.selectedId} previewed={w.id === props.previewId} disabled={props.phase === 'warping'} onSelect={props.onSelect} />)}
     <LabelDeclutter />
+    <ContextGuard onUnavailable={props.onUnavailable} onRecovered={props.onRecovered} />
     <WarpEffect progressRef={warpProgress} active={props.phase === 'warping'} reducedMotion={props.reducedMotion} quality={props.quality} />
     <OrbitControls onStart={() => {fitted.current.active = false}} ref={controls} makeDefault enableRotate={false} enableDamping dampingFactor={.12} enablePan={props.phase === 'idle'} enableZoom={props.phase === 'idle'} minZoom={limits[0]} maxZoom={limits[1]} zoomSpeed={.7} panSpeed={.8} screenSpacePanning mouseButtons={{ LEFT: THREE.MOUSE.PAN, MIDDLE: THREE.MOUSE.DOLLY, RIGHT: THREE.MOUSE.PAN }} touches={{ ONE: THREE.TOUCH.PAN, TWO: THREE.TOUCH.DOLLY_PAN }} />
   </>
