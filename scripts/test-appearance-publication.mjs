@@ -10,7 +10,7 @@ const publication=buildPublication(CONNECTIONS,{works:catalog.items.length,world
 assert.deepEqual(JSON.parse(await readFile('db/publications/appearances.json','utf8')),publication.manifest);
 assert.equal(await readFile('db/publications/appearances.sql','utf8'),publication.sql);
 assert.equal(appearanceDigest([...CONNECTIONS].reverse()),publication.manifest.sha256);
-assert.throws(()=>buildPublication([...CONNECTIONS,CONNECTIONS[0]],{works:185,worlds:62}),/Duplicate/);
+assert.throws(()=>buildPublication([...CONNECTIONS,CONNECTIONS[0]],{works:catalog.items.length,worlds:ALL_WORLDS.length}),/Duplicate/);
 assert.equal(publication.manifest.worldsSha256,datasetDigest(ALL_WORLDS));
 const options={works:catalog.items.length,worlds:ALL_WORLDS.length,catalog:catalog.items,sequences:STORY_SEQUENCES,sequenceBaselines:JSON.parse(await readFile('db/sequence-extension-baselines.json','utf8'))};
 assert.throws(()=>buildPublication(CONNECTIONS,{...options,mappedWorlds:[...ALL_WORLDS,ALL_WORLDS[0]]}),/count\/identity/);
@@ -20,9 +20,12 @@ assert.notEqual(changedMap.manifest.id,publication.manifest.id,'Map payload chan
 assert.equal(changedMap.manifest.sha256,publication.manifest.sha256,'Map digest is independent of appearances');
 console.log('PASS artifact/registry identity, deterministic order, duplicate rejection, map digest and map validation');
 if(!process.env.ATLAS_TEST_DATABASE_URL) {
- console.log('Postgres integration NOT RUN; set ATLAS_TEST_DATABASE_URL to a disposable local PostgreSQL administrator database.');
+ console.log('SKIPPED: Postgres integration (additive publication, idempotent replay, conflict aborts) did not run; set ATLAS_TEST_DATABASE_URL to a disposable local PostgreSQL administrator database.');
  process.exit(0);
 }
+// Pre-publication state is derived from current data: the first three quarters of worlds and the appearances that only touch them already exist, so the publication must add the rest.
+const baselineWorlds=Math.floor(ALL_WORLDS.length*3/4),baselineWorldIds=new Set(ALL_WORLDS.slice(0,baselineWorlds).map(w=>w.id)),baselineWorkIds=new Set(catalog.items.filter(item=>item.seriesId!=='ahsoka').map(item=>item.id)),baselineConnections=CONNECTIONS.filter(c=>baselineWorldIds.has(c.worldId)&&baselineWorkIds.has(c.itemId)),baselineAppearances=baselineConnections.length;
+assert.ok(baselineWorlds>0&&baselineWorlds<ALL_WORLDS.length&&baselineAppearances>0&&baselineAppearances<CONNECTIONS.length,'Baseline must leave something to publish');
 const url=new URL(process.env.ATLAS_TEST_DATABASE_URL);
 if(!['localhost','127.0.0.1','[::1]'].includes(url.hostname)) throw Error('Integration tests require a local disposable Postgres server');
 const admin=new Client({connectionString:url.toString()});await admin.connect();
@@ -33,13 +36,13 @@ try {
  url.pathname=`/${db}`;client=new Client({connectionString:url.toString()});await client.connect();
  await client.query(await readFile('db/001_atlas.sql','utf8'));
  for(const item of catalog.items.filter(item=>item.seriesId!=='ahsoka')) await client.query('INSERT INTO atlas_works VALUES($1,$2,$3,$4)',[item.id,item.seriesId,item.kind,item]);
- for(const world of ALL_WORLDS.slice(0,62)) await client.query('INSERT INTO atlas_worlds VALUES($1,$2,$3)',[world.id,world.grid,world]);
+ for(const world of ALL_WORLDS.slice(0,baselineWorlds)) await client.query('INSERT INTO atlas_worlds VALUES($1,$2,$3)',[world.id,world.grid,world]);
  const reset=async()=>{
   await client.query('TRUNCATE atlas_appearances,atlas_publications,atlas_sequence_items,atlas_sequences');
   await client.query("DELETE FROM atlas_works WHERE series_id='ahsoka'");
   for(const sequence of STORY_SEQUENCES.filter(s=>!s.id.includes('ahsoka'))) {await client.query('INSERT INTO atlas_sequences VALUES($1,$2)',[sequence.id,sequence]);for(const [i,id] of sequence.itemIds.entries())await client.query('INSERT INTO atlas_sequence_items VALUES($1,$2,$3)',[sequence.id,id,i+1]);}
   await client.query("INSERT INTO atlas_publications(id,payload) VALUES('initial-2026-11-07','{}')");
-  for(const row of CONNECTIONS.slice(0,171)) await client.query('INSERT INTO atlas_appearances VALUES($1,$2,$3)',[row.itemId,row.worldId,row]);
+  for(const row of baselineConnections) await client.query('INSERT INTO atlas_appearances VALUES($1,$2,$3)',[row.itemId,row.worldId,row]);
  };
  await reset();await client.query(publication.sql);
  const first=await client.query('SELECT id,published_at,payload FROM atlas_publications ORDER BY id');

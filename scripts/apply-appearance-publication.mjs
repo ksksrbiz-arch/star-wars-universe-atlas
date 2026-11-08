@@ -20,6 +20,7 @@ if(process.argv.includes('--apply') && process.env.ATLAS_DATABASE_HOST!==target.
 // Enforce verified TLS even if a supplied URI requests weaker sslmode behavior.
 for(const name of ['sslmode','sslcert','sslkey','sslrootcert']) target.searchParams.delete(name);
 const client=new Client({connectionString:target.toString(),ssl:{rejectUnauthorized:true},connectionTimeoutMillis:10000});
+let sqlSent=false;
 try {
  await client.connect();
  const {rows:[identity]}=await client.query("SELECT current_database() AS database, current_user AS role, (SELECT count(*)::int FROM public.atlas_appearances) AS appearances");
@@ -27,6 +28,8 @@ try {
  console.log(JSON.stringify({host:target.hostname,...identity,proposedPublication:manifest.id}));
  if(!process.argv.includes('--apply')) console.log('Read-only target check complete. Pass --apply only after reviewing this identity and the SQL/manifest.');
  else {
+  // The publication SQL contains its own BEGIN/COMMIT blocks: once sent, any part may be durable and ROLLBACK cannot undo it.
+  sqlSent=true;
   await client.query(sql);
   const {rows}=await client.query('SELECT payload FROM public.atlas_appearances ORDER BY work_id,world_id');
   if(appearanceDigest(rows.map(row=>row.payload))!==manifest.sha256) throw new Error('Post-publication verification mismatch');
@@ -36,6 +39,8 @@ try {
 } catch(error) {
  await client.query('ROLLBACK').catch(()=>{});
  // Never echo connection strings or raw driver errors that may contain credentials.
- console.error(`Publication stopped: ${error.code || 'validation failure'}. No credentials are printed.`);
+ const reason=error.code || 'validation failure';
+ if(sqlSent) console.error(`Publication SQL was sent and may be fully or partly COMMITTED; the run failed with: ${reason}. Nothing was rolled back. Re-run npm run db:check-publication to inspect the target, and restore from a database backup or point-in-time recovery if the published data is wrong. No credentials are printed.`);
+ else console.error(`Publication stopped before the publication SQL was sent; nothing was written: ${reason}. No credentials are printed.`);
  process.exitCode=1;
 } finally {await client.end();}

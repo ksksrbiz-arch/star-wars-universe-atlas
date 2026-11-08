@@ -10,7 +10,8 @@ export function appearanceDigest(connections) {
   const sorted = [...connections].sort((a,b) => a.itemId < b.itemId ? -1 : a.itemId > b.itemId ? 1 : a.worldId < b.worldId ? -1 : a.worldId > b.worldId ? 1 : 0);
   return createHash('sha256').update(canonicalJson(sorted)).digest('hex');
 }
-export const datasetDigest = rows => createHash('sha256').update(canonicalJson([...rows].sort((a,b)=>a.id.localeCompare(b.id)))).digest('hex');
+const byCodepoint = (a,b) => a < b ? -1 : a > b ? 1 : 0;
+export const datasetDigest = rows => createHash("sha256").update(canonicalJson([...rows].sort((a,b)=>byCodepoint(a.id,b.id)))).digest("hex");
 export function validateSequenceExtensions(sequences, baselines = []) {
   const seen = new Set();
   for (const before of baselines) {

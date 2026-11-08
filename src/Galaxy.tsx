@@ -42,7 +42,7 @@ function Html({ children, position, style, zIndexRange = [12, 1], minZoom = 0 }:
     }
   }, [gl])
   useEffect(() => {
-    root.current?.render(<div style={{ transform: 'translate(-50%, -50%)', pointerEvents: 'auto', ...style }}>{children}</div>)
+    root.current?.render(<div style={{ transform: 'translate(-50%, -50%)', pointerEvents: 'none', ...style }}>{children}</div>)
   })
   useFrame(({ camera, size }) => {
     if (!group.current || !element.current) return

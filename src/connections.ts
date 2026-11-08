@@ -1,3 +1,4 @@
+import { OBI_WAN_CONNECTIONS } from './connectionsObiWan.ts';
 import { BAD_BATCH_SEASON_3_CONNECTIONS } from './connectionsBadBatchSeason3.ts';
 import { BAD_BATCH_SEASON_2_CONNECTIONS } from './connectionsBadBatchSeason2.ts';
 import { BAD_BATCH_CONNECTIONS } from './connectionsBadBatch.ts';
@@ -36,6 +37,7 @@ const connection = (itemId: string, worldId: string, worldName: string, sourceUr
 
 /** Curated title/world associations, not character journeys or exhaustive scene logs. */
 export const CONNECTIONS: PlanetConnection[] = [
+  ...OBI_WAN_CONNECTIONS,
   ...BAD_BATCH_SEASON_3_CONNECTIONS,
   ...BAD_BATCH_SEASON_2_CONNECTIONS,
   ...BAD_BATCH_CONNECTIONS,
@@ -158,7 +160,7 @@ CONNECTIONS.push(...AHSOKA_CONNECTIONS, ...ROGUE_ONE_CONNECTIONS, ...BOBA_FETT_C
 export const CONNECTION_COVERAGE = {
   checkedOn: '2026-11-07',
   status: 'Curated, incomplete evidence batches',
-  scope: 'Original-trilogy films, the 2008 Clone Wars film, and selected episode/world relationships from Andor, The Clone Wars (2008), The Mandalorian, Ahsoka season one, and The Book of Boba Fett. Having a relationship does not mean every location in that title is covered.',
+  scope: 'Original-trilogy films, the prequel films, Rogue One, the 2008 Clone Wars film, and selected episode/world relationships from Andor, The Clone Wars (2008), Star Wars Rebels (seasons 1-4), The Bad Batch (seasons 1-3), The Mandalorian, Ahsoka season one, and The Book of Boba Fett. Having a relationship does not mean every location in that title is covered.',
   relationshipCount: CONNECTIONS.length,
   coveredItemIds: [...new Set(CONNECTIONS.map(connection => connection.itemId))],
   semantics: 'Title/world associations include planets, moons, surrounding orbital action, and explicitly labeled flashbacks or destruction scenes. They are not a single character’s itinerary.',

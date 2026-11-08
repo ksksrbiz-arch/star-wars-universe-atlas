@@ -10,7 +10,7 @@ import LocationDossier from './LocationDossier';
 import './atlas-search.css';
 
 type SearchEntry = { id: string; name: string; kind: 'World' | 'Location' | 'Movie' | 'Episode' | 'Collection'; detail: string; keywords: string; href?: string; locationId?: string };
-const normalize = (text: string) => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[’']/g, '').toLowerCase();
+const normalize = (text: string) => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[’']/g, '').replace(/[-‐‑–—]/g, ' ').toLowerCase();
 const collections = new Map<string, string>(SERIES.map(series => [series.id, series.title]));
 const mapped = new Set(ALL_WORLDS.map(world => world.id));
 const locations = new Map<string, string>(CONNECTIONS.filter(link => !mapped.has(link.worldId)).map(link => [link.worldId, link.worldName]));
