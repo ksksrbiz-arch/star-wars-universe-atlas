@@ -21,3 +21,12 @@ The renderer agent's standalone960/390 harness checks found zero extra draws at 
 Final local regressions also pass: `test:map-commands` (direction, bounds, reset, keyboard, warp locking and mobile overflow), `test:map-command-idle` (zero settled draws at1440/390px) and `test:map-context-loss` (loss disables controls, restoration re-enables them without errors). Final Worker build and ICM checks pass. The independent integration review found no blocking state/cleanup issues.
 
 `warp-preview.mp4` is a5.5-second H.264,944x780 preview assembled from132 frame-stepped browser captures at24fps. It shows the atlas departure, tunnel and destination approach; it is a rendered visual preview, not a real-time device performance recording. Production deployment identity will be appended after live checks.
+
+
+## Live deployment
+
+Application commit `51ed45fe9e4d7db78568d0abd69fd792f1b5f9b9` is deployed to https://star-wars-universe-atlas.skdev-371.workers.dev. Cloudflare build `1f52baa7-5e3a-4ca9-8e48-a53efa8082a8` completed successfully. Live HTML matches the local production HTML after line-ending normalization, and all five JavaScript/CSS assets match SHA-256 byte for byte (`live/assets.json`).
+
+The complete flight test also passes against production at1440/390/320px (`live/results.json`): charge, tunnel and arrival, half-scale pullback and close approach, natural completion, pointer-owning44px Skip/Cancel, cancellation restoring original framing, keyboard cancellation and reduced-motion instant arrival. No page or console errors were recorded. A live desktop tunnel frame is retained in `live/1440-hyperspace.png`.
+
+All four public dataset hashes remain equal to the reviewed manifest (`live/public-data.json`). No database writes were made. Browser evidence uses Chromium software WebGL and emulated viewports; physical devices and hardware frame-rate measurements remain untested.
