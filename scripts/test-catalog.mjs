@@ -2,14 +2,14 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 const { metadata, items } = JSON.parse(readFileSync(new URL('../src/catalog.generated.json', import.meta.url), 'utf8'));
-assert.equal(items.length, 302);
-assert.equal(new Set(items.map(item => item.id)).size, 302, 'Catalog IDs must be unique');
-assert.equal(items.filter(item => item.kind === 'episode').length, 294);
+assert.equal(items.length, 317);
+assert.equal(new Set(items.map(item => item.id)).size, 317, 'Catalog IDs must be unique');
+assert.equal(items.filter(item => item.kind === 'episode').length, 309);
 assert.equal(items.filter(item => item.kind === 'film').length, 8);
 assert.equal(metadata.excludedSpecials.length, 9);
 assert.equal(metadata.chronologySupported, false);
 const allowed = new Set(['id', 'title', 'seriesId', 'kind', 'season', 'episode', 'releaseDate', 'runtimeMinutes', 'runtimeNote', 'sourceUrl', 'storyOrder', 'episodeEnd']);
-const expectedSeasons = { 'bad-batch': [16,16], 'boba-fett': [7], andor: [12, 12], 'clone-wars': [22, 22, 22, 22, 20, 13, 12], mandalorian: [8, 8, 8], ahsoka: [8] };
+const expectedSeasons = { 'bad-batch': [16,16,15], 'boba-fett': [7], andor: [12, 12], 'clone-wars': [22, 22, 22, 22, 20, 13, 12], mandalorian: [8, 8, 8], ahsoka: [8] };
 const episodeKeys = new Set();
 for (const item of items) {
   for (const key of Object.keys(item)) assert.ok(allowed.has(key), `Unexpected field ${item.id}.${key}`);
@@ -47,7 +47,7 @@ for (const [series, seasons] of Object.entries(expectedSeasons)) {
 assert.equal(items.filter(item => item.seriesId === 'ot').length, 3);
 assert.equal(items.filter(item => item.seriesId === 'clone-wars').length, 134);
 assert.ok(items.some(item => item.id === 'clone-wars-film' && item.kind === 'film' && item.runtimeMinutes === null));
-console.log('Catalog checks passed: 302 items, 294 episode watch records, eight separate films, nine specials excluded, sources and uncertainty retained.');
+console.log('Catalog checks passed: 317 items, 309 episode watch records, eight separate films, nine specials excluded, sources and uncertainty retained.');
 
 assert.equal(metadata.originalAuditCohortCount, 185);
 assert.equal(items.filter(item => !['bad-batch', 'rebels', 'ahsoka', 'rogue-one', 'boba-fett', 'pt'].includes(item.seriesId)).length, 185);

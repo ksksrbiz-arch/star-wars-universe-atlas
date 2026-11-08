@@ -1,11 +1,18 @@
 {
   "metadata": {
     "auditDate": "2026-11-07",
-    "scope": "Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1; Rogue One; The Book of Boba Fett season 1; prequel trilogy; Rebels seasons 1–4 (66 watch records covering 74 official numbered slots); The Bad Batch seasons 1–2.",
-    "coreCount": 302,
-    "regularEpisodeCount": 294,
+    "scope": "Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1; Rogue One; The Book of Boba Fett season 1; prequel trilogy; Rebels seasons 1–4 (66 watch records covering 74 official numbered slots); The Bad Batch seasons 1–3.",
+    "coreCount": 317,
+    "regularEpisodeCount": 309,
     "originalAuditCohortCount": 185,
     "extensionCollections": [
+      {
+        "seriesId": "bad-batch",
+        "season": 3,
+        "count": 15,
+        "sourceFile": "bad-batch-season-3-source.json",
+        "note": "15 individually numbered episodes. Same-day releases remain separate records; no combined episode ranges. Runtimes withheld pending edition-specific verification."
+      },
       {
         "seriesId": "bad-batch",
         "season": 2,
@@ -159,6 +166,10 @@
       {
         "name": "bad-batch-season-2-source.json",
         "sha256": "89ae1d899f4a665590bcfe77788f58acdf25314cc70232a483bb623c5409fab1"
+      },
+      {
+        "name": "bad-batch-season-3-source.json",
+        "sha256": "133916215e468ce6433461756e133d1ff92787153d632848be2c7e7af1fc4980"
       }
     ],
     "excludedSpecials": [
@@ -3691,6 +3702,186 @@
       "runtimeMinutes": null,
       "runtimeNote": "Runtime withheld pending streaming-edition and credit-treatment verification.",
       "sourceUrl": "https://www.tvmaze.com/episodes/2565334/ahsoka-1x08-part-eight-the-jedi-the-witch-and-the-warlord"
+    },
+    {
+      "id": "bad-batch-s03e01",
+      "title": "Confined",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 3,
+      "episode": 1,
+      "releaseDate": "2024-02-21",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749042/star-wars-the-bad-batch-3x01-confined"
+    },
+    {
+      "id": "bad-batch-s03e02",
+      "title": "Paths Unknown",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 3,
+      "episode": 2,
+      "releaseDate": "2024-02-21",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749043/star-wars-the-bad-batch-3x02-paths-unknown"
+    },
+    {
+      "id": "bad-batch-s03e03",
+      "title": "Shadows Of Tantiss",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 3,
+      "episode": 3,
+      "releaseDate": "2024-02-21",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749044/star-wars-the-bad-batch-3x03-shadows-of-tantiss"
+    },
+    {
+      "id": "bad-batch-s03e04",
+      "title": "A Different Approach",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 3,
+      "episode": 4,
+      "releaseDate": "2024-02-28",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749663/star-wars-the-bad-batch-3x04-a-different-approach"
+    },
+    {
+      "id": "bad-batch-s03e05",
+      "title": "The Return",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 3,
+      "episode": 5,
+      "releaseDate": "2024-03-06",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749664/star-wars-the-bad-batch-3x05-the-return"
+    },
+    {
+      "id": "bad-batch-s03e06",
+      "title": "Infiltration",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 3,
+      "episode": 6,
+      "releaseDate": "2024-03-13",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749665/star-wars-the-bad-batch-3x06-infiltration"
+    },
+    {
+      "id": "bad-batch-s03e07",
+      "title": "Extraction",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 3,
+      "episode": 7,
+      "releaseDate": "2024-03-13",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749666/star-wars-the-bad-batch-3x07-extraction"
+    },
+    {
+      "id": "bad-batch-s03e08",
+      "title": "Bad Territory",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 3,
+      "episode": 8,
+      "releaseDate": "2024-03-20",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749667/star-wars-the-bad-batch-3x08-bad-territory"
+    },
+    {
+      "id": "bad-batch-s03e09",
+      "title": "The Harbinger",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 3,
+      "episode": 9,
+      "releaseDate": "2024-03-27",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749668/star-wars-the-bad-batch-3x09-the-harbinger"
+    },
+    {
+      "id": "bad-batch-s03e10",
+      "title": "Identity Crisis",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 3,
+      "episode": 10,
+      "releaseDate": "2024-04-03",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749669/star-wars-the-bad-batch-3x10-identity-crisis"
+    },
+    {
+      "id": "bad-batch-s03e11",
+      "title": "Point Of No Return",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 3,
+      "episode": 11,
+      "releaseDate": "2024-04-03",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749670/star-wars-the-bad-batch-3x11-point-of-no-return"
+    },
+    {
+      "id": "bad-batch-s03e12",
+      "title": "Juggernaut",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 3,
+      "episode": 12,
+      "releaseDate": "2024-04-10",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749671/star-wars-the-bad-batch-3x12-juggernaut"
+    },
+    {
+      "id": "bad-batch-s03e13",
+      "title": "Into The Breach",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 3,
+      "episode": 13,
+      "releaseDate": "2024-04-17",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749672/star-wars-the-bad-batch-3x13-into-the-breach"
+    },
+    {
+      "id": "bad-batch-s03e14",
+      "title": "Flash Strike",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 3,
+      "episode": 14,
+      "releaseDate": "2024-04-24",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749673/star-wars-the-bad-batch-3x14-flash-strike"
+    },
+    {
+      "id": "bad-batch-s03e15",
+      "title": "The Cavalry Has Arrived",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 3,
+      "episode": 15,
+      "releaseDate": "2024-05-01",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749674/star-wars-the-bad-batch-3x15-the-cavalry-has-arrived"
     },
     {
       "id": "andor-s02e01",

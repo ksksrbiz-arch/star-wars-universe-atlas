@@ -13,6 +13,26 @@ export type WorldDossier = {
 
 const databank = 'https://www.starwars.com/databank/';
 export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
+  wayland: {
+    worldId: 'wayland', eyebrow: 'RUGGED WORLD · MOUNTAIN AND WILDS',
+    overview: { text: 'Wayland is a world of jagged terrain where Mount Tantiss conceals an Imperial research installation. The mountain facility is one locality within the wider planetary environment.', sourceUrl: databank + 'wayland' },
+    terrain: { label: 'Jagged landscape and wild habitat', text: 'The official description emphasizes rugged terrain surrounding the mountain. Layered ridges in the original study suggest this environment without revealing entrances or mapping the installation.', sourceUrl: databank + 'wayland' },
+    highlights: [
+      { id: 'mount-tantiss', name: 'Mount Tantiss', description: 'The mountain houses an underground Imperial facility. Its existence is broad setting context; interior layouts, project details and later outcomes are omitted here.', sourceUrl: databank + 'mount-tantiss' },
+      { id: 'dryax-habitat', name: 'Dryax habitat', description: 'Large predatory dryaxes roam Wayland’s wilds. This habitat description establishes neither a mapped range nor a safe route through the landscape.', sourceUrl: databank + 'dryax' },
+    ],
+    caveat: 'Wayland is the planet, Mount Tantiss is a mountain and facility on it. Neither the ridge motif nor the source text supplies galaxy coordinates, approach routes, building dimensions or an episode-specific join.',
+  },
+  lau: {
+    worldId: 'lau', eyebrow: 'COLD WORLD · CLIFFS AND SPACEPORT',
+    overview: { text: 'Lau is a largely desolate planet with frigid temperatures and jagged cliffs. A busy spaceport contrasts with its harsh surroundings during Imperial rule.', sourceUrl: databank + 'lau' },
+    terrain: { label: 'Frigid cliffs', text: 'Steep, jagged terrain defines the official setting description. Cold gray ridges and a small port motif are original interpretation, not evidence that the whole planet is covered in ice.', sourceUrl: databank + 'lau' },
+    highlights: [
+      { id: 'spaceport', name: 'Lau spaceport', description: 'Imperial agents monitor activity at the planetary spaceport. The port is a locality on Lau, distinct from the cargo ships traveling through it.', sourceUrl: databank + 'lau' },
+      { id: 'cliff-landscape', name: 'Jagged cliffs', description: 'The rocky landscape and low temperatures make travel unwelcoming. No cliff heights, weather forecast or traversable surface route is inferred here.', sourceUrl: databank + 'lau' },
+    ],
+    caveat: 'Cold climate is not a claim of planet-wide ice coverage. The port and its vessels are not interchangeable identities; the original silhouettes establish no measured geography, orbital station or episode appearance.',
+  },
   pabu: {
     worldId: 'pabu', eyebrow: 'ISLAND SANCTUARY · SEA AND HERITAGE',
     overview: { text: 'Pabu is a small planet where an island village welcomes refugees from across the galaxy. Blue seas surround a community with a strong interest in preserving cultural heritage.', sourceUrl: databank + 'pabu' },
@@ -384,6 +404,8 @@ export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
 /** Reviewed broad categories for directory discovery; absence means not reviewed, not unknown geology. */
 export type WorldTerrainCategory = 'desert' | 'urban' | 'ice' | 'wetlands' | 'gas-giant' | 'swamp' | 'forest' | 'tropical' | 'cold-desert' | 'rugged' | 'mineral-rich' | 'volcanic' | 'ocean' | 'sinkholes' | 'plains' | 'caverns' | 'asteroid' | 'salvage';
 export const WORLD_TERRAIN: Readonly<Record<string, { category: WorldTerrainCategory; label: string; sourceUrl: string }>> = {
+  wayland: { category: 'rugged', label: 'Jagged landscape and wilds', sourceUrl: databank + 'wayland' },
+  lau: { category: 'rugged', label: 'Frigid cliffs', sourceUrl: databank + 'lau' },
   pabu: { category: 'tropical', label: 'Island and sea', sourceUrl: databank + 'pabu' },
   serenno: { category: 'forest', label: 'Forests, mountains and plains', sourceUrl: databank + 'serenno' },
   ipsidon: { category: 'mineral-rich', label: 'Red rock and mining terrain', sourceUrl: databank + 'ipsidon' },

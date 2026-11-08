@@ -1,8 +1,8 @@
 {
   "checkedOn": "2026-11-07",
-  "catalogItems": 302,
-  "relationships": 462,
-  "titlesWithLocationEvidence": 294,
+  "catalogItems": 317,
+  "relationships": 483,
+  "titlesWithLocationEvidence": 309,
   "titlesWithoutLocationEvidence": 8,
   "mapPlacements": 76,
   "referenceTraced": 27,
@@ -33,8 +33,8 @@
       "withLocations": 22
     },
     "bad-batch": {
-      "catalog": 32,
-      "withLocations": 32
+      "catalog": 47,
+      "withLocations": 47
     },
     "boba-fett": {
       "catalog": 7,
@@ -50,6 +50,13 @@
     }
   },
   "unplacedAssociatedWorlds": [
+    "Wayland",
+    "Setron",
+    "Lau",
+    "Pabu",
+    "Barton IV",
+    "Suria space station",
+    "Erebus",
     "Aynaboni",
     "Desix",
     "Safa Toma Raceway",
@@ -57,9 +64,6 @@
     "Kashyyyk",
     "Ord Mantell",
     "Ipsidon",
-    "Wayland",
-    "Barton IV",
-    "Pabu",
     "Balmorra",
     "Eriadu",
     "Kaller",

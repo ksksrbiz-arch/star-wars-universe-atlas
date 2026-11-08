@@ -1,0 +1,73 @@
+{
+  "browser": "Chromium software WebGL; not physical-device FPS",
+  "results": [
+    {
+      "width": 1440,
+      "fontCase": "normal",
+      "hiddenAtZoom": [
+        "hoth",
+        "dagobah",
+        "bespin"
+      ],
+      "clippedFragments": 0,
+      "restoredOnReset": true,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 1440,
+      "fontCase": "unavailable",
+      "hiddenAtZoom": [
+        "hoth",
+        "dagobah",
+        "bespin"
+      ],
+      "clippedFragments": 0,
+      "restoredOnReset": true,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 390,
+      "fontCase": "normal",
+      "hiddenAtZoom": [
+        "hoth",
+        "dagobah",
+        "bespin"
+      ],
+      "clippedFragments": 0,
+      "restoredOnReset": true,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 390,
+      "fontCase": "unavailable",
+      "hiddenAtZoom": [
+        "hoth",
+        "dagobah",
+        "bespin"
+      ],
+      "clippedFragments": 0,
+      "restoredOnReset": true,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 320,
+      "fontCase": "normal",
+      "hiddenAtZoom": [
+        "dagobah"
+      ],
+      "clippedFragments": 0,
+      "restoredOnReset": true,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 320,
+      "fontCase": "unavailable",
+      "hiddenAtZoom": [
+        "dagobah"
+      ],
+      "clippedFragments": 0,
+      "restoredOnReset": true,
+      "idleDrawsOver600ms": 0
+    }
+  ]
+}

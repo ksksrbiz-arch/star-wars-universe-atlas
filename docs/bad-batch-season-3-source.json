@@ -1,0 +1,221 @@
+{
+  "checkedOn": "2026-11-08",
+  "provider": "TVmaze",
+  "providerUrl": "https://api.tvmaze.com/shows/49190/episodes?specials=1",
+  "license": "CC BY-SA",
+  "officialIndex": "https://www.starwars.com/series/star-wars-the-bad-batch",
+  "numberingNote": "15 individually numbered episodes. Same-day releases remain separate records; no combined episode ranges. Runtimes withheld pending edition-specific verification.",
+  "episodes": [
+    {
+      "id": "bad-batch-s03e01",
+      "name": "Confined",
+      "season": 3,
+      "number": 1,
+      "airdate": "2024-02-21",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749042/star-wars-the-bad-batch-3x01-confined"
+    },
+    {
+      "id": "bad-batch-s03e02",
+      "name": "Paths Unknown",
+      "season": 3,
+      "number": 2,
+      "airdate": "2024-02-21",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749043/star-wars-the-bad-batch-3x02-paths-unknown"
+    },
+    {
+      "id": "bad-batch-s03e03",
+      "name": "Shadows Of Tantiss",
+      "season": 3,
+      "number": 3,
+      "airdate": "2024-02-21",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749044/star-wars-the-bad-batch-3x03-shadows-of-tantiss"
+    },
+    {
+      "id": "bad-batch-s03e04",
+      "name": "A Different Approach",
+      "season": 3,
+      "number": 4,
+      "airdate": "2024-02-28",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749663/star-wars-the-bad-batch-3x04-a-different-approach"
+    },
+    {
+      "id": "bad-batch-s03e05",
+      "name": "The Return",
+      "season": 3,
+      "number": 5,
+      "airdate": "2024-03-06",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749664/star-wars-the-bad-batch-3x05-the-return"
+    },
+    {
+      "id": "bad-batch-s03e06",
+      "name": "Infiltration",
+      "season": 3,
+      "number": 6,
+      "airdate": "2024-03-13",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749665/star-wars-the-bad-batch-3x06-infiltration"
+    },
+    {
+      "id": "bad-batch-s03e07",
+      "name": "Extraction",
+      "season": 3,
+      "number": 7,
+      "airdate": "2024-03-13",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749666/star-wars-the-bad-batch-3x07-extraction"
+    },
+    {
+      "id": "bad-batch-s03e08",
+      "name": "Bad Territory",
+      "season": 3,
+      "number": 8,
+      "airdate": "2024-03-20",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749667/star-wars-the-bad-batch-3x08-bad-territory"
+    },
+    {
+      "id": "bad-batch-s03e09",
+      "name": "The Harbinger",
+      "season": 3,
+      "number": 9,
+      "airdate": "2024-03-27",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749668/star-wars-the-bad-batch-3x09-the-harbinger"
+    },
+    {
+      "id": "bad-batch-s03e10",
+      "name": "Identity Crisis",
+      "season": 3,
+      "number": 10,
+      "airdate": "2024-04-03",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749669/star-wars-the-bad-batch-3x10-identity-crisis"
+    },
+    {
+      "id": "bad-batch-s03e11",
+      "name": "Point Of No Return",
+      "season": 3,
+      "number": 11,
+      "airdate": "2024-04-03",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749670/star-wars-the-bad-batch-3x11-point-of-no-return"
+    },
+    {
+      "id": "bad-batch-s03e12",
+      "name": "Juggernaut",
+      "season": 3,
+      "number": 12,
+      "airdate": "2024-04-10",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749671/star-wars-the-bad-batch-3x12-juggernaut"
+    },
+    {
+      "id": "bad-batch-s03e13",
+      "name": "Into The Breach",
+      "season": 3,
+      "number": 13,
+      "airdate": "2024-04-17",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749672/star-wars-the-bad-batch-3x13-into-the-breach"
+    },
+    {
+      "id": "bad-batch-s03e14",
+      "name": "Flash Strike",
+      "season": 3,
+      "number": 14,
+      "airdate": "2024-04-24",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749673/star-wars-the-bad-batch-3x14-flash-strike"
+    },
+    {
+      "id": "bad-batch-s03e15",
+      "name": "The Cavalry Has Arrived",
+      "season": 3,
+      "number": 15,
+      "airdate": "2024-05-01",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2749674/star-wars-the-bad-batch-3x15-the-cavalry-has-arrived"
+    }
+  ],
+  "episodeEvidence": [
+    {
+      "episode": 1,
+      "guideUrl": "https://www.starwars.com/series/the-bad-batch/confined-episode-guide",
+      "reviewType": "Official episode synopsis; season-three guides use trivia/stills rather than the season-two story-gallery format."
+    },
+    {
+      "episode": 2,
+      "guideUrl": "https://www.starwars.com/series/the-bad-batch/paths-unknown-episode-guide",
+      "reviewType": "Official episode synopsis; season-three guides use trivia/stills rather than the season-two story-gallery format."
+    },
+    {
+      "episode": 3,
+      "guideUrl": "https://www.starwars.com/series/the-bad-batch/shadows-of-tantiss-episode-guide",
+      "reviewType": "Official episode synopsis; season-three guides use trivia/stills rather than the season-two story-gallery format."
+    },
+    {
+      "episode": 4,
+      "guideUrl": "https://www.starwars.com/series/the-bad-batch/a-different-approach-episode-guide",
+      "reviewType": "Official episode synopsis; season-three guides use trivia/stills rather than the season-two story-gallery format."
+    },
+    {
+      "episode": 5,
+      "guideUrl": "https://www.starwars.com/series/the-bad-batch/the-return-episode-guide",
+      "reviewType": "Official episode synopsis; season-three guides use trivia/stills rather than the season-two story-gallery format."
+    },
+    {
+      "episode": 6,
+      "guideUrl": "https://www.starwars.com/series/the-bad-batch/infiltration-episode-guide",
+      "reviewType": "Official episode synopsis; season-three guides use trivia/stills rather than the season-two story-gallery format."
+    },
+    {
+      "episode": 7,
+      "guideUrl": "https://www.starwars.com/series/the-bad-batch/extraction-episode-guide",
+      "reviewType": "Official episode synopsis; season-three guides use trivia/stills rather than the season-two story-gallery format."
+    },
+    {
+      "episode": 8,
+      "guideUrl": "https://www.starwars.com/series/the-bad-batch/bad-territory-episode-guide",
+      "reviewType": "Official episode synopsis; season-three guides use trivia/stills rather than the season-two story-gallery format."
+    },
+    {
+      "episode": 9,
+      "guideUrl": "https://www.starwars.com/series/the-bad-batch/the-harbinger-episode-guide",
+      "reviewType": "Official episode synopsis; season-three guides use trivia/stills rather than the season-two story-gallery format."
+    },
+    {
+      "episode": 10,
+      "guideUrl": "https://www.starwars.com/series/the-bad-batch/identity-crisis-episode-guide",
+      "reviewType": "Official episode synopsis; season-three guides use trivia/stills rather than the season-two story-gallery format."
+    },
+    {
+      "episode": 11,
+      "guideUrl": "https://www.starwars.com/series/the-bad-batch/point-of-no-return-episode-guide",
+      "reviewType": "Official episode synopsis; season-three guides use trivia/stills rather than the season-two story-gallery format."
+    },
+    {
+      "episode": 12,
+      "guideUrl": "https://www.starwars.com/series/the-bad-batch/juggernaut-episode-guide",
+      "reviewType": "Official episode synopsis; season-three guides use trivia/stills rather than the season-two story-gallery format."
+    },
+    {
+      "episode": 13,
+      "guideUrl": "https://www.starwars.com/series/the-bad-batch/into-the-breach-episode-guide",
+      "reviewType": "Official episode synopsis; season-three guides use trivia/stills rather than the season-two story-gallery format."
+    },
+    {
+      "episode": 14,
+      "guideUrl": "https://www.starwars.com/series/the-bad-batch/flash-strike-episode-guide",
+      "reviewType": "Official episode synopsis; season-three guides use trivia/stills rather than the season-two story-gallery format."
+    },
+    {
+      "episode": 15,
+      "guideUrl": "https://www.starwars.com/series/the-bad-batch/the-cavalry-has-arrived-episode-guide",
+      "reviewType": "Official episode synopsis; season-three guides use trivia/stills rather than the season-two story-gallery format."
+    }
+  ],
+  "supplementarySources": [
+    "https://www.starwars.com/news/bad-batch-declassified-paths-unknown",
+    "https://www.starwars.com/news/bad-batch-declassified-infiltration",
+    "https://www.starwars.com/news/bad-batch-declassified-bad-territory",
+    "https://www.starwars.com/news/bad-batch-declassified-juggernaut",
+    "https://www.starwars.com/news/bad-batch-declassified-the-cavalry-has-arrived",
+    "https://www.starwars.com/databank/mount-tantiss"
+  ],
+  "reviewCaveats": [
+    "Partial episode-specific coverage; unnamed settings and unreviewed station identities remain omitted.",
+    "Mount Tantiss parent identity is explicitly sourced separately from exact episode settings.",
+    "Finale retirement and later epilogue remain distinguished; no inferred exact year or new destination.",
+    "No map coordinates, scene order, canonical route geometry or edition-specific runtimes are asserted."
+  ]
+}

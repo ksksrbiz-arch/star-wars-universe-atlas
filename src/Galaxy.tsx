@@ -237,7 +237,10 @@ function LabelDeclutter() {
       label.dataset.labelClamped = String(Boolean(dx || dy))
       const clipped = rect.left < bounds.left+4 || rect.right > bounds.right-4 || rect.top < bounds.top+4 || rect.bottom > bounds.bottom-4
       const overlaps = occupied.some(other => rect.left < other.right+4 && rect.right > other.left-4 && rect.top < other.bottom+4 && rect.bottom > other.top-4)
-      const hidden = !essential && (clipped || overlaps || protectedRects.some(other => overlapsRect(rect,other)))
+      // A featured background name must not leave an unreadable fragment at a viewport edge.
+      // Current, preview, chapter and keyboard-focused labels retain their priority treatment.
+      const clippedBackground = Number(label.dataset.labelPriority) === 1 && label !== document.activeElement && !onScreen && clipped
+      const hidden = clippedBackground || (!essential && (clipped || overlaps || protectedRects.some(other => overlapsRect(rect,other))))
       label.dataset.decluttered = String(hidden)
       leaderLayouts.get(gl.domElement)?.get(label.dataset.worldId ?? '')?.(dx,dy,!hidden,rect.width,rect.height)
       if (!hidden) occupied.push(rect)

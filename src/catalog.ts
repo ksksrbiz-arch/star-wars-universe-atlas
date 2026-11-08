@@ -18,7 +18,7 @@ export type CatalogItem = {
 };
 
 export const SERIES = [
-  { id: 'bad-batch', title: 'The Bad Batch · seasons 1–2', color: '#CB8672' },
+  { id: 'bad-batch', title: 'The Bad Batch · seasons 1–3', color: '#CB8672' },
   { id: 'rebels', title: 'Rebels · seasons 1–4', color: '#D6AD6B' },
   { id: 'pt', title: 'Prequel trilogy', color: '#D8B8F2' },
   { id: 'boba-fett', title: 'The Book of Boba Fett', color: '#D9AE6D' },
