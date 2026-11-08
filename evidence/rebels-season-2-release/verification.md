@@ -21,3 +21,7 @@ Neon publication succeeded as one transaction. All four public API counts and di
 Appearance coverage remains partial. Chromium/software-WebGL emulation is not a physical-device FPS measurement. Production retains large-chunk build warnings. Dense-label placement is bounded best-effort; it cannot guarantee unlimited label density.
 
 Database sequence-item readback after publication: 238 rows and zero sequences whose stored position order differs from their published itemIds. An independent agent reviewed the publication changes and found no blocking issues.
+
+## Live deployment verified
+
+Cloudflare build 42358be6-a612-4188-8e5f-feda3159a0e9 succeeded for application commit 1adeb319637b94d74c0b2d15ea24163fe5866425. Live HTML and all five JavaScript/CSS asset hashes match the final production build; see live/assets.json. Live season-two UI, all three new dossiers and dense priority-label tests pass at 1440/390/320, including the 320px unavailable-font case. All four API digests were rechecked successfully after deployment.
