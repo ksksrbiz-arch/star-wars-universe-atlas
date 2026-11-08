@@ -3,7 +3,7 @@
   "api": "https://api.tvmaze.com/shows/49190/episodes?specials=1",
   "provider": "TVmaze",
   "license": "CC BY-SA",
-  "numberingNote": "16 individually numbered season-two episodes. Same-day premiere, midseason and finale releases retain distinct episode IDs matching official guides. Provider titles/dates retained, including Truth & Consequences punctuation; runtimes withheld. Season3 remains outside scope.",
+  "numberingNote": "16 individually numbered season-two episodes. Same-day premiere, midseason and finale releases retain distinct episode IDs matching official guides. Provider titles/dates retained, including Truth & Consequences punctuation; runtimes withheld. Season 3 is catalogued in its own source file.",
   "officialIndex": "https://www.starwars.com/series/star-wars-the-bad-batch",
   "episodes": [
     {
