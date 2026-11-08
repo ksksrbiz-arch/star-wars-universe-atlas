@@ -13,6 +13,36 @@ export type WorldDossier = {
 
 const databank = 'https://www.starwars.com/databank/';
 export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
+  corellia: {
+    worldId: 'corellia', eyebrow: 'INDUSTRIAL WORLD · SHIPYARDS AND COAST',
+    overview: { text: 'Corellia is an ancient industrial world known for large shipyards. Under Imperial rule, its manufacturing and dockyards serve the Empire’s military priorities.', sourceUrl: databank + 'corellia' },
+    terrain: { label: 'Industrial districts and coastal facilities', text: 'Shipbuilding infrastructure and the coastal city of Coronet define the broad setting. The original dockyard motif is not a claim that all Corellian terrain is industrial.', sourceUrl: databank + 'corellia' },
+    highlights: [
+      { id: 'shipyards', name: 'Shipyards', description: 'Large facilities construct and service vessels, with production and dismantling roles varying by era. A ship at a yard remains distinct from the planet and its infrastructure.', sourceUrl: databank + 'corellia' },
+      { id: 'coronet-spaceport', name: 'Coronet Spaceport', description: 'A coastal facility handles civilian, commercial and military traffic. Imperial monitoring belongs to a particular period; the illustration supplies no terminal plan or exit route.', sourceUrl: databank + 'coronet-spaceport' },
+    ],
+    caveat: 'Industrial ownership and production change over time. The original cranes and waterfront forms establish neither exact coastlines nor facility dimensions, film appearances or galaxy coordinates.',
+  },
+  vandor: {
+    worldId: 'vandor', eyebrow: 'COLD FRONTIER · MOUNTAINS AND PLAINS',
+    overview: { text: 'Vandor is a sparsely settled frontier world with high mountains and broad plains. Imperial expansion changes a landscape with relatively little technological infrastructure.', sourceUrl: databank + 'vandor' },
+    terrain: { label: 'Cold mountains and open plains', text: 'The official setting pairs a cold climate with mountains and plains. Pale peaks and open ground in the original study are decorative, not measured elevation or a conveyex track.', sourceUrl: databank + 'vandor' },
+    highlights: [
+      { id: 'the-lodge', name: 'The Lodge at Fort Ypso', description: 'A timber-framed hall serves as saloon, gambling venue and hostel for Fort Ypso. It is a local building, not a separate world or a moving vessel.', sourceUrl: databank + 'the-lodge' },
+      { id: 'kodyok-habitat', name: 'Kod’yok habitat', description: 'Shaggy horned herd animals roam the plains and supply frontier communities with food and materials. No herd route or population estimate is inferred here.', sourceUrl: databank + 'kod-yok' },
+    ],
+    caveat: 'Vandor is distinct from the conveyex trains and the visiting yacht First Light. Peaks, plains and building motifs are illustrative; they do not establish film-specific travel order, rail routes or map placement.',
+  },
+  savareen: {
+    worldId: 'savareen', eyebrow: 'COASTAL WORLD · DESERT AND OCEAN',
+    overview: { text: 'Savareen combines desert landmasses with vast oceans. The Pnakotic coast contains a refinery associated with minerals brought from Kessel.', sourceUrl: databank + 'savareen' },
+    terrain: { label: 'Desert land and large oceans', text: 'Sand-colored land and blue water in the original study reflect the source’s contrasting environments. They are not traced continents, measured shorelines or a global climate model.', sourceUrl: databank + 'savareen' },
+    highlights: [
+      { id: 'pnakotic-coast', name: 'Pnakotic coast', description: 'The named coastal locality connects the desert environment with the sea. Its position within the illustrated globe is not established.', sourceUrl: databank + 'savareen' },
+      { id: 'refinery', name: 'Coastal refinery', description: 'An abandoned refinery is used by smugglers handling minerals from Kessel. The facility’s status is era-dependent; the guide omits mission outcomes and operational layouts.', sourceUrl: databank + 'savareen' },
+    ],
+    caveat: 'Savareen is not an all-desert world. A source’s reference to the Kessel Run does not establish a precise hyperspace route, distance or travel time; the coastal motif supplies no coordinates or film-specific join.',
+  },
   daiyu: {
     worldId: 'daiyu', eyebrow: 'URBAN WORLD · LIGHT AND SHADOW',
     overview: { text: 'Daiyu is an urban world marked by bright lights and sharp contrasts in wealth. Criminal activity and bounty hunters are part of its street-level setting.', sourceUrl: databank + 'daiyu' },
@@ -434,6 +464,9 @@ export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
 /** Reviewed broad categories for directory discovery; absence means not reviewed, not unknown geology. */
 export type WorldTerrainCategory = 'desert' | 'urban' | 'ice' | 'wetlands' | 'gas-giant' | 'swamp' | 'forest' | 'tropical' | 'cold-desert' | 'rugged' | 'mineral-rich' | 'volcanic' | 'ocean' | 'sinkholes' | 'plains' | 'caverns' | 'asteroid' | 'salvage';
 export const WORLD_TERRAIN: Readonly<Record<string, { category: WorldTerrainCategory; label: string; sourceUrl: string }>> = {
+  corellia: { category: 'urban', label: 'Industrial coast and shipyards', sourceUrl: databank + 'corellia' },
+  vandor: { category: 'rugged', label: 'Cold mountains and plains', sourceUrl: databank + 'vandor' },
+  savareen: { category: 'desert', label: 'Desert land and oceans', sourceUrl: databank + 'savareen' },
   daiyu: { category: 'urban', label: 'Illuminated urban sprawl', sourceUrl: databank + 'daiyu' },
   mapuzo: { category: 'mineral-rich', label: 'Terraced surface mines', sourceUrl: databank + 'mapuzo' },
   jabiim: { category: 'rugged', label: 'Muddy crust', sourceUrl: databank + 'jabiim' },

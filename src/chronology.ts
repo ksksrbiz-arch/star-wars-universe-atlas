@@ -35,6 +35,12 @@ const cloneWarsCodes = `
 
 export const STORY_SEQUENCES: StorySequence[] = [
   {
+    id: 'solo', title: 'Solo: A Star Wars Story',
+    description: 'A standalone film following Han’s early life, meeting with Chewbacca and first adventures aboard the Falcon.',
+    sourceUrl: 'https://www.starwars.com/films/solo', itemIds: ['solo'],
+    caveats: ['One whole-film record retains the time jump after Corellia; no exact scene calendar or cross-series interleaving is asserted.', 'Release date identifies the U.S. theatrical release, distinct from the undifferentiated date on the film landing page. Edition runtime remains unverified.', 'Planet appearances, ship interiors, proposed destinations and space transit are separate claims. Links are not a sequenced character route.'],
+  },
+  {
     id: 'obi-wan', title: 'Obi-Wan Kenobi · six-part narrative order',
     description: 'Follow Part I through Part VI as six separate episode records.',
     sourceUrl: 'https://www.starwars.com/series/obi-wan-kenobi',

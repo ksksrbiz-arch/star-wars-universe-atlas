@@ -1,8 +1,8 @@
 {
   "checkedOn": "2026-11-07",
-  "catalogItems": 323,
-  "relationships": 495,
-  "titlesWithLocationEvidence": 315,
+  "catalogItems": 324,
+  "relationships": 502,
+  "titlesWithLocationEvidence": 316,
   "titlesWithoutLocationEvidence": 8,
   "mapPlacements": 76,
   "referenceTraced": 27,
@@ -25,6 +25,10 @@
       "withLocations": 64
     },
     "rogue-one": {
+      "catalog": 1,
+      "withLocations": 1
+    },
+    "solo": {
       "catalog": 1,
       "withLocations": 1
     },
@@ -54,6 +58,11 @@
     }
   },
   "unplacedAssociatedWorlds": [
+    "Mimban",
+    "Vandor",
+    "Savareen",
+    "Numidian Prime",
+    "First Light",
     "Daiyu",
     "Mapuzo",
     "Nur",

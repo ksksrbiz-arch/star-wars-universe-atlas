@@ -1,11 +1,17 @@
 {
   "metadata": {
     "auditDate": "2026-11-07",
-    "scope": "Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1; Rogue One; The Book of Boba Fett season 1; prequel trilogy; Rebels seasons 1–4 (66 watch records covering 74 official numbered slots); The Bad Batch seasons 1–3; Obi-Wan Kenobi six-part series.",
-    "coreCount": 323,
+    "scope": "Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1; Rogue One; The Book of Boba Fett season 1; prequel trilogy; Rebels seasons 1–4 (66 watch records covering 74 official numbered slots); The Bad Batch seasons 1–3; Obi-Wan Kenobi six-part series; Solo: A Star Wars Story.",
+    "coreCount": 324,
     "regularEpisodeCount": 315,
     "originalAuditCohortCount": 185,
     "extensionCollections": [
+      {
+        "seriesId": "solo",
+        "count": 1,
+        "sourceFile": "solo-source.json",
+        "note": "Standalone film; U.S. theatrical release date separately sourced."
+      },
       {
         "seriesId": "obi-wan",
         "count": 6,
@@ -92,12 +98,13 @@
         "note": "Complete seven-chapter season; narrative order retains flashbacks."
       }
     ],
-    "filmCount": 8,
+    "filmCount": 9,
     "excludedSpecialCount": 9,
     "chronologySupported": false,
     "chronologyNote": "Catalog release dates are not story chronology. Official Clone Wars relative order was audited separately but is not imported here. No storyOrder values are inferred.",
     "episodeReleaseDateNote": "TVmaze airdate field retained as reported; territorial release times are not normalized.",
     "filmReleaseDateNotes": {
+      "solo": "2018-05-25 is explicitly U.S. theatrical release in the official poster gallery. Official film landing page lists 2018-05-23 without territory/type; these claims are retained separately.",
       "pt-phantom-menace": "1999-05-19 from the official film landing page; territory and release type not explicitly specified.",
       "pt-attack-of-the-clones": "2002-05-16 from the official film landing page; territory and release type not explicitly specified.",
       "pt-revenge-of-the-sith": "2005-05-19 from the official film landing page; territory and release type not explicitly specified.",
@@ -180,6 +187,10 @@
       {
         "name": "obi-wan-source.json",
         "sha256": "30cedd66ad0e542aaf82cacc80382483b725c0d22ee67087b030faf6b9fb8d2e"
+      },
+      {
+        "name": "solo-source.json",
+        "sha256": "fbec873de15ffef9d709a254ed92c65ca6add979a279adc016402bc188679a04"
       }
     ],
     "excludedSpecials": [
@@ -2572,6 +2583,16 @@
       "runtimeMinutes": null,
       "runtimeNote": "Finale is one official Disney+ numbered slot (S04E15), despite its extended length. Provider title encoding repaired using official guide; no episode 16 is invented. Runtime withheld.",
       "sourceUrl": "https://www.tvmaze.com/episodes/1392976/star-wars-rebels-4x15-family-reunion-and-farewell"
+    },
+    {
+      "id": "solo",
+      "title": "Solo: A Star Wars Story",
+      "seriesId": "solo",
+      "kind": "film",
+      "releaseDate": "2018-05-25",
+      "runtimeMinutes": null,
+      "runtimeNote": "Official film page reports 2h 15min; edition-specific runtime withheld. Release date is the explicitly sourced U.S. theatrical date; the landing page separately lists May 23 without territory/type.",
+      "sourceUrl": "https://www.starwars.com/films/solo-a-star-wars-story-poster-gallery"
     },
     {
       "id": "mandalorian-s01e01",

@@ -4,7 +4,7 @@ Read [CLAUDE.md](CLAUDE.md) to select a scoped workflow. Load the relevant contr
 
 ## Non-negotiable rules
 
-- Current bounded scope has 76 map worlds, a 323-item catalog, eleven whole-work viewing sequences, and partial story/location relationships; it is not the complete movies/shows atlas.
+- Current bounded scope has 76 map worlds, a 324-item catalog, twelve whole-work viewing sequences, and partial story/location relationships; it is not the complete movies/shows atlas.
 - Catalog/sequence completeness does not establish appearance completeness. Separate release dates, narrative viewing order and event chronology; preserve runtime, release-type, flashback, mention-only, edition and outside-collection bridge caveats.
 - Unjoined stories have no verified relationship in this atlas; reviewed gaps are recorded separately and do not establish absence of appearances. Broad world labels cannot establish an episode-specific join or character journey.
 - Keep source grid, schematic display coordinates, and illustrative rendering distinct.
@@ -36,3 +36,6 @@ The Bad Batch season three adds 15 individually numbered episodes and 21 reviewe
 
 
 Obi-Wan Kenobi adds six Part I–VI records, a separate eleventh collection and 12 reviewed associations. Part I Coruscant is a flashback; Nur is a moon distinct from Mustafar. Unnamed finale terrain, unreviewed dream/training localities and mentioned Path bases remain unjoined. A Jedi’s Return is an excluded behind-the-scenes special. All ten prior sequences are unchanged; no coordinates are added.
+
+
+Solo adds one standalone film, a twelfth collection and seven reviewed associations: six planets and the First Light ship. The U.S. theatrical date is May 25, 2018; the official landing page separately lists May 23 without territory/type. Runtime remains withheld. Intended destinations are not arrivals; the Kessel Run is not mapped as a canonical route. All eleven prior sequences remain unchanged; no coordinates are added.

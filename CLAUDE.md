@@ -1,6 +1,6 @@
 # Workflow router
 
-Status: local platform prototype, November 7, 2026: 76 schematic worlds, 323 catalog items, eleven collection viewing sequences, and partial story/location links. This router scopes development; it does not certify current-batch browser validation.
+Status: local platform prototype, November 7, 2026: 76 schematic worlds, 324 catalog items, twelve collection viewing sequences, and partial story/location links. This router scopes development; it does not certify current-batch browser validation.
 
 | Task | Load | Do not load |
 |---|---|---|
@@ -33,3 +33,6 @@ The Bad Batch season three adds 15 individually numbered episodes and 21 reviewe
 
 
 Obi-Wan Kenobi adds six Part I–VI records, a separate eleventh collection and 12 reviewed associations. Part I Coruscant is a flashback; Nur is a moon distinct from Mustafar. Unnamed finale terrain, unreviewed dream/training localities and mentioned Path bases remain unjoined. A Jedi’s Return is an excluded behind-the-scenes special. All ten prior sequences are unchanged; no coordinates are added.
+
+
+Solo adds one standalone film, a twelfth collection and seven reviewed associations: six planets and the First Light ship. The U.S. theatrical date is May 25, 2018; the official landing page separately lists May 23 without territory/type. Runtime remains withheld. Intended destinations are not arrivals; the Kessel Run is not mapped as a canonical route. All eleven prior sequences remain unchanged; no coordinates are added.
