@@ -11,3 +11,7 @@ Map-key text has an 11px minimum and 132px phone width. Agent six viewport/font 
 Embedded PostgreSQL fixture and full reviewed publication against a live-baseline copy pass. The separate standalone PostgreSQL integration suite was not run. Viewport emulation/software-WebGL is not physical-device FPS; multi-client locking is not established. Large-chunk build warnings remain. No new coordinates or external image imports are added.
 
 Neon publication succeeded as one transaction; all four public API digests match the reviewed manifest (public-data.json).
+
+## Live deployment verified
+
+Cloudflare build ebcc4f3c-067f-4452-a150-ad84c45237da succeeded for application commit 5c3dadfa8d753930dbac3412956774c78890c15a. Live HTML and all five JavaScript/CSS hashes match the integrated tested build (live/assets.json). Live trilogy UI and three-guide tests pass at 1440/390/320. Live legend checks pass all six viewport/font cases (live/map-key-results.json). All four public API digests were rechecked after deployment. Stored sequence readback has 327 items and zero order mismatches. Full 46-guide browser suite passes all three widths.
