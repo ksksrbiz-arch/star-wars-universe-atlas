@@ -5,7 +5,7 @@ import ImmersiveDossier from './ImmersiveDossier';
 import AtlasHero from './AtlasHero';
 import AtlasAudio from './AtlasAudio';
 import PlanetPortrait from './PlanetPortrait';
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { motion, MotionConfig } from 'motion/react';
 
 import { ArrowLeft, ArrowRight, ArrowUp, ArrowDown, Plus, Minus, ChevronDown, Check, ChevronRight, Compass, ExternalLink, Focus, Globe2, Info, Orbit, Radar, Rocket, Sparkles, X, BookOpen, Route, Clock3, BookmarkCheck } from 'lucide-react';
@@ -46,30 +46,41 @@ import { useWatchProgress } from './useWatchProgress';
 
 type View = 'journey' | 'galaxy' | 'library' | 'timeline' | 'watch';
 
-const readWorld = () => { const id = location.hash.split('/')[1]; return location.hash.startsWith('#galaxy/') && ALL_WORLDS.some(world => world.id === id) ? id : WORLDS[0].id; };
+/** A bare `#galaxy` (or anything unrecognised) means "no preview": callers fall back to the current world. */
+const readWorld = (): string | null => { const id = location.hash.split('/')[1]; return location.hash.startsWith('#galaxy/') && ALL_WORLDS.some(world => world.id === id) ? id : null; };
+
+/** Rewrite `#journey/<unknown>` and `#galaxy/<unknown>` to the bare section so the URL matches what is shown. */
+const normalizeHash = () => {
+  const [section, id] = location.hash.slice(1).split('/');
+  if (id === undefined) return;
+  const known = section === 'journey' ? CATALOG.some(item => item.id === id) : section === 'galaxy' ? ALL_WORLDS.some(world => world.id === id) : true;
+  if (!known) window.history.replaceState(null, '', `#${section}`);
+};
+
+const SECTION_TITLES: Record<View, string> = { galaxy: 'Galaxy map', journey: 'Story journey', library: 'Library', timeline: 'Release timeline', watch: 'My watchlist' };
 
 const readView = (): View => ['journey','library','timeline','watch'].includes(location.hash.slice(1).split('/')[0]) ? location.hash.slice(1).split('/')[0] as View : 'galaxy';
 
 
 
-const DETAILS: Record<string, { subtitle: string; terrain: string; kind: string; quote: string }> = {
+const DETAILS: Record<string, { subtitle: string; terrain: string; kind: string }> = {
 
-  endor: { subtitle: 'The forest moon', terrain: 'Forest', kind: 'Moon / system grid', quote: '' },
-  hoth: { subtitle: 'Rebellion on the frozen frontier', terrain: 'Ice', kind: 'Planet', quote: '' },
+  endor: { subtitle: 'The forest moon', terrain: 'Forest', kind: 'Moon / system grid' },
+  hoth: { subtitle: 'Rebellion on the frozen frontier', terrain: 'Ice', kind: 'Planet' },
 
-  dagobah: { subtitle: 'Wisdom beyond the familiar', terrain: 'Swamp', kind: 'Planet', quote: '' },
+  dagobah: { subtitle: 'Wisdom beyond the familiar', terrain: 'Swamp', kind: 'Planet' },
 
-  bespin: { subtitle: 'A city among the clouds', terrain: 'Gas giant', kind: 'Planet', quote: '' },
+  bespin: { subtitle: 'A city among the clouds', terrain: 'Gas giant', kind: 'Planet' },
 
-  coruscant: { subtitle: 'At the heart of galactic power', terrain: 'City-covered', kind: 'Planet', quote: '' },
+  coruscant: { subtitle: 'At the heart of galactic power', terrain: 'City-covered', kind: 'Planet' },
 
-  mandalore: { subtitle: 'A world shaped by its history', terrain: 'Rock & desert', kind: 'Planet', quote: '' },
+  mandalore: { subtitle: 'A world shaped by its history', terrain: 'Rock & desert', kind: 'Planet' },
 
-  tatooine: { subtitle: 'Where the journey begins', terrain: 'Desert', kind: 'Planet', quote: 'Beyond the familiar. Into the galaxy.' },
+  tatooine: { subtitle: 'Where the journey begins', terrain: 'Desert', kind: 'Planet' },
 
-  alderaan: { subtitle: 'A world worth remembering', terrain: 'Mountains & oceans', kind: 'Planet', quote: 'Every world has a story. Find the connections.' },
+  alderaan: { subtitle: 'A world worth remembering', terrain: 'Mountains & oceans', kind: 'Planet' },
 
-  yavin: { subtitle: 'A spark of rebellion', terrain: 'Jungle moon', kind: 'System / moon', quote: 'The next chapter is a jump away.' },
+  yavin: { subtitle: 'A spark of rebellion', terrain: 'Jungle moon', kind: 'System / moon' },
 
 };
 
@@ -96,7 +107,7 @@ export default function App() {
   const [journeyStatus, setJourneyStatus] = useState('Choose a story, reveal its locations, then select a mapped stop.');
   const [currentId, setCurrentId] = useState(WORLDS[0].id);
 
-  const [previewId, setPreviewId] = useState(readWorld);
+  const [previewId, setPreviewId] = useState(() => readWorld() ?? WORLDS[0].id);
 
   useEffect(() => {
     if (panelTab !== 'destination') return;
@@ -115,6 +126,15 @@ export default function App() {
   const [reducedMotion, setReducedMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
   const [quality, setQuality] = useState<'balanced' | 'cinematic'>(() => window.matchMedia('(min-width: 1024px)').matches ? 'cinematic' : 'balanced');
+  useEffect(() => {
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const viewportQuery = window.matchMedia('(min-width: 1024px)');
+    const onMotion = (event: MediaQueryListEvent) => setReducedMotion(event.matches);
+    const onViewport = (event: MediaQueryListEvent) => setQuality(event.matches ? 'cinematic' : 'balanced');
+    motionQuery.addEventListener('change', onMotion);
+    viewportQuery.addEventListener('change', onViewport);
+    return () => { motionQuery.removeEventListener('change', onMotion); viewportQuery.removeEventListener('change', onViewport); };
+  }, []);
   const [regionsVisible, setRegionsVisible] = useState(true);
   const [routesVisible, setRoutesVisible] = useState(true);
   const [gridVisible, setGridVisible] = useState(true);
@@ -129,7 +149,7 @@ export default function App() {
 
   const destination = ALL_WORLDS.find(w => w.id === targetId);
 
-  const detail = DETAILS[preview.id] || {subtitle: 'A stop on your story journey',terrain: 'Not cataloged',kind: 'System grid',quote: ''};
+  const detail = DETAILS[preview.id] || {subtitle: 'A stop on your story journey',terrain: 'Not cataloged',kind: 'System grid'};
   const displayedJourneyId = activeItemId ?? STORY_SEQUENCES[0]?.itemIds[0];
   const locationsDisclosed = view === 'journey' && journeyDisclosure?.itemId === displayedJourneyId && (journeyDisclosure.revealed || watchedIds.has(displayedJourneyId));
   const episodeWorldIds = useMemo(() => new Set(locationsDisclosed ? CONNECTIONS.filter(link => link.itemId === displayedJourneyId).map(link => link.worldId) : []), [locationsDisclosed, displayedJourneyId]);
@@ -137,19 +157,23 @@ export default function App() {
   const mapWorlds = useMemo(() => view === 'journey' ? ALL_WORLDS.filter(w => [currentId, previewId, targetId].includes(w.id) || episodeWorldIds.has(w.id)) : ALL_WORLDS, [view, currentId, previewId, targetId, episodeWorldIds]);
   useEffect(() => {
     const change = () => {
-      if (phase === 'warping') cancel();
+      if (phase === 'warping') cancel(false);
+      normalizeHash();
       const nextView = readView();
       setView(nextView);
       setPanelTab(nextView === 'journey' ? 'story' : 'destination');
       setInspectedLocationId(null);
       if (view !== 'journey' || nextView !== 'journey') setSheetExpanded(false);
       const id = location.hash.split('/')[1];
-      setActiveItemId(CATALOG.some(item => item.id === id) ? id : null);
-      if (nextView === 'galaxy') setPreviewId(readWorld());
+      // A bare `#journey` (nav link while already reading) keeps the current chapter.
+      if (CATALOG.some(item => item.id === id)) setActiveItemId(id);
+      else if (nextView !== 'journey') setActiveItemId(null);
+      else if (id === undefined && activeItemId) window.history.replaceState(null, '', `#journey/${activeItemId}`);
+      if (nextView === 'galaxy') setPreviewId(readWorld() ?? currentId);
     };
     window.addEventListener('hashchange', change);
     return () => window.removeEventListener('hashchange', change);
-  }, [phase, currentId, view]);
+  }, [phase, currentId, view, activeItemId]);
 
   function selectJourneyStop(itemId: string, worldId: string) {
     if (phase === 'warping') cancel();
@@ -190,6 +214,9 @@ export default function App() {
     revealMap(true);
 
   }
+
+  /** Shared by the error boundary and WebGL context loss: map controls go off and any transit is abandoned. */
+  function handleMapUnavailable() { setMapUnavailable(true); if (phase === 'warping') cancel(); }
 
   function arrive() {
 
@@ -239,8 +266,12 @@ export default function App() {
 
   }
 
-  function cancel() {
+  /** Drop a stale `#galaxy/<id>` so a later link to the same world fires hashchange again. */
+  function clearGalaxyHash() { if (view === 'galaxy' && location.hash.startsWith('#galaxy/')) window.history.replaceState(null, '', '#galaxy'); }
 
+  function cancel(clearHash = true) {
+
+    if (clearHash) clearGalaxyHash();
     setTargetId(null);
 
     setPhase('idle');
@@ -258,6 +289,7 @@ export default function App() {
 
     if (!previous || phase === 'warping') return;
 
+    clearGalaxyHash();
     setHistory(h => h.slice(0, -1));
 
     setCurrentId(previous);
@@ -269,6 +301,21 @@ export default function App() {
     setAnnouncement(`Returned to ${ALL_WORLDS.find(w => w.id === previous)?.name}.`);
 
   }
+
+  useEffect(() => { normalizeHash(); }, []);
+
+  const shownView = useRef<View | null>(null);
+  useEffect(() => {
+    document.title = `${SECTION_TITLES[view]} · Galactic Atlas`;
+    const previous = shownView.current;
+    shownView.current = view;
+    if (previous === null || previous === view) return; // never steal focus on initial load
+    const main = document.querySelector<HTMLElement>(view === 'galaxy' || view === 'journey' ? '#atlas' : '.platform-main');
+    const heading = main?.querySelector<HTMLElement>('h1, h2');
+    if (!heading) return;
+    heading.tabIndex = -1;
+    heading.focus();
+  }, [view]);
 
   useEffect(() => {
 
@@ -334,7 +381,7 @@ export default function App() {
 
         <div id="galaxy-map" tabIndex={-1} aria-label="Interactive galaxy map" className={`map-stage ${phase === 'warping' ? 'is-warping' : 'is-navigating'}`} data-quality={quality}>
 
-          <div className="galaxy-canvas">{galaxyMounted && <MapBoundary onUnavailable={() => { setMapUnavailable(true); if (phase === 'warping') cancel(); }}><Suspense fallback={<div className="galaxy-loading" role="status"><Orbit size={32} aria-hidden="true"/><strong>Charting the galaxy…</strong><span>Preparing your navigation view</span></div>}><Galaxy command={mapCommand} fitKey={episodeFitKey} highlightedIds={episodeWorldIds} worlds={mapWorlds} selectedId={currentId} previewId={previewId} targetId={targetId} phase={phase} reducedMotion={reducedMotion} quality={quality} regionsVisible={regionsVisible} routesVisible={routesVisible} gridVisible={gridVisible} onSelect={selectWorld} onArrive={arrive} resetKey={resetKey}/></Suspense></MapBoundary>}</div>
+          <div className="galaxy-canvas">{galaxyMounted && <MapBoundary onUnavailable={handleMapUnavailable}><Suspense fallback={<div className="galaxy-loading" role="status"><Orbit size={32} aria-hidden="true"/><strong>Charting the galaxy…</strong><span>Preparing your navigation view</span></div>}><Galaxy command={mapCommand} fitKey={episodeFitKey} highlightedIds={episodeWorldIds} worlds={mapWorlds} selectedId={currentId} previewId={previewId} targetId={targetId} phase={phase} reducedMotion={reducedMotion} quality={quality} regionsVisible={regionsVisible} routesVisible={routesVisible} gridVisible={gridVisible} onSelect={selectWorld} onArrive={arrive} resetKey={resetKey} onUnavailable={handleMapUnavailable} onRecovered={() => setMapUnavailable(false)}/></Suspense></MapBoundary>}</div>
 
           <div className="map-heading"><span className="eyebrow">GALAXY VIEW</span><span className="map-coordinate"><span className="live-dot"/> {phase === 'warping' ? 'HYPERSPACE TRANSIT' : 'NAVIGATION ONLINE'}</span></div>
 
@@ -347,7 +394,7 @@ export default function App() {
 
           {phase === 'idle' && previewId !== currentId && <div className="map-jump-bar"><div><span>DESTINATION SELECTED</span><strong>{preview.name}</strong></div><button aria-label={`Jump to ${preview.name}`} onClick={jump}><Rocket size={14}/> Jump <ArrowRight size={14}/></button></div>}
 
-          {phase === 'warping' && <motion.div initial={false} className="transit-panel" role="status"><span className="eyebrow"><Sparkles size={13}/> JUMP IN PROGRESS</span><strong>{current.name}<ArrowRight size={17}/>{destination?.name}</strong><div><button className="quiet-button" onClick={cancel}><X size={14}/> Cancel</button><button className="quiet-button" onClick={arrive}>Skip animation <ChevronRight size={14}/></button></div><div className="warp-progress" aria-hidden="true"><span/></div></motion.div>}
+          {phase === 'warping' && <motion.div initial={false} className="transit-panel" role="status"><span className="eyebrow"><Sparkles size={13}/> JUMP IN PROGRESS</span><strong>{current.name}<ArrowRight size={17}/>{destination?.name}</strong><div><button className="quiet-button" onClick={() => cancel()}><X size={14}/> Cancel</button><button className="quiet-button" onClick={arrive}>Skip animation <ChevronRight size={14}/></button></div><div className="warp-progress" aria-hidden="true"><span/></div></motion.div>}
 
         </div>
 
