@@ -35,6 +35,17 @@ const cloneWarsCodes = `
 
 export const STORY_SEQUENCES: StorySequence[] = [
   {
+    id: 'rebels', title: 'Rebels · season 1 narrative order',
+    description: 'Follow the first season as fourteen watch records covering fifteen official episode parts: the combined Spark of Rebellion premiere, then episodes 3–15.',
+    sourceUrl: 'https://www.starwars.com/series/star-wars-rebels',
+    itemIds: ['rebels-s01e01', ...Array.from({length:13}, (_,i) => episodeId('rebels',1,i+3))],
+    caveats: [
+      'Spark of Rebellion covers official parts 1–2 in one watch record. There is intentionally no separate episode 2 progress item; subsequent official numbering is retained.',
+      'The four introductory shorts and seasons 2–4 are outside this collection. Provider numbering differs and is normalized in the source snapshot.',
+      'Whole-work narrative order is not scene chronology or a continuous travel route. Andor and Rebels overlap broadly; no exact episode interleaving is inferred.',
+    ],
+  },
+  {
     id: 'pt', title: 'Prequel trilogy · film narrative order',
     description: 'Follow Episodes I, II and III as complete films. The Clone Wars television sequence is a separate collection, not interleaved scene by scene.',
     sourceUrl: 'https://www.starwars.com/news/star-wars-movies-and-series-guide',

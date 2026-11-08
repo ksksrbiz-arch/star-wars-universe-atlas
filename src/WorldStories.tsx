@@ -1,3 +1,4 @@
+import { episodeRange, episodeAliases } from './catalogPresentation';
 import { useState } from 'react';
 import { ArrowUpRight, BookOpen, Eye } from 'lucide-react';
 import { CONNECTIONS } from './connections';
@@ -15,7 +16,7 @@ export default function WorldStories({ worldId, worldName, watchedIds }: { world
   const visible = ids.filter(id => watchedIds.has(id) || revealed.has(worldId));
 
   const items = CATALOG.filter(item => visible.includes(item.id));
-  const matching = items.filter(item => (current.series === 'all' || item.seriesId === current.series) && `${item.title} ${SERIES.find(series => series.id === item.seriesId)?.title} ${item.season ? `s${String(item.season).padStart(2, '0')}e${String(item.episode).padStart(2, '0')}` : ''}`.toLowerCase().includes(current.query.trim().toLowerCase()));
+  const matching = items.filter(item => (current.series === 'all' || item.seriesId === current.series) && `${item.title} ${SERIES.find(series => series.id === item.seriesId)?.title} ${item.season ? episodeAliases(item) : ''}`.toLowerCase().includes(current.query.trim().toLowerCase()));
 
   return <section className="world-stories" aria-label="Linked stories">
     <div className="world-stories-kicker"><BookOpen size={13} aria-hidden="true"/> THE STORY CONTINUES</div>
@@ -30,7 +31,7 @@ export default function WorldStories({ worldId, worldName, watchedIds }: { world
       <div className="world-story-grid">{matching.slice(0, expandedWorlds.has(worldId) ? undefined : 6).map(item => {
         const id = item.id;
         return <article className="world-story-card" key={`${worldId}:${id}`}><a href={`#journey/${id}`}>
-          <span className="world-story-meta">{SERIES.find(series => series.id === item.seriesId)?.title} · {item.kind === 'film' ? 'Feature film' : `Season ${item.season} · Episode ${item.episode}`}</span>
+          <span className="world-story-meta">{SERIES.find(series => series.id === item.seriesId)?.title} · {item.kind === 'film' ? 'Feature film' : `Season ${item.season} · Episode${item.episodeEnd ? 's' : ''} ${episodeRange(item)}`}</span>
           <strong>{item.title}</strong><span className="world-story-action">Follow story <ArrowUpRight size={13} aria-hidden="true"/></span>
         </a><RelatedWorlds itemId={id} title={item.title} currentWorldId={worldId}/></article>;
       })}</div>

@@ -1,15 +1,15 @@
 {
-  "id": "catalog-sha256-5911680f3fb32e627a0d88758b38b738c96d635ed0ca8e6c7043926d32a002de",
-  "works": 204,
+  "id": "catalog-sha256-680a05cdde52b21a47e9c659d727cc13ef19cadc58919524857d4da5157cb994",
+  "works": 218,
   "worlds": 76,
-  "appearances": 322,
-  "sequences": 8,
+  "appearances": 342,
+  "sequences": 9,
   "regions": 8,
   "routes": 5,
   "note": "Last verified database snapshot. This is independent of the frontend bundled connection count. Update only after successful database publication and live verification.",
-  "sha256": "e9b23da35bdf70a59a8d2d59bfc46f5b885139b5fe53d17afe3e14e4fd5fd848",
-  "coveredTitles": 198,
-  "catalogSha256": "aaca4939c05f44c00c9ea2b5d2176728142d2113290fa268b3196251b4e71c85",
-  "sequencesSha256": "f2bc76bc61013f09e593d3c6d69b03070ecda8017848ec9778501c615dd180d6",
+  "sha256": "eec49d245952681ab2e82af6c9fc5a8e2c05c840817cdc21d4447a3bce45ffff",
+  "coveredTitles": 212,
+  "catalogSha256": "09b47d0258cc268215ecb86adbd0bacb7e739c72eb0f97f202693cd32e67f9e5",
+  "sequencesSha256": "cb56d2f1e4a9b234008c10e97ee2c4990aa3f2f71c9c82df538b8e83f963b291",
   "worldsSha256": "ee7e18f1b2794b5ca8839f6070bdd0645d4bf5d9363a98df0da972fcce35eb0e"
 }

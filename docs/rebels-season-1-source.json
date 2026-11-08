@@ -1,0 +1,403 @@
+{
+  "checkedOn": "2026-11-07",
+  "provider": "TVmaze with official numbering normalization",
+  "license": "CC BY-SA for TVmaze metadata",
+  "apiUrl": "https://api.tvmaze.com/shows/117/episodes?specials=1",
+  "officialIndex": "https://www.starwars.com/series/star-wars-rebels",
+  "numberingNote": "Fourteen watch records cover fifteen official episode parts. Spark of Rebellion is one combined record covering parts 1–2; subsequent provider numbers 1–13 map to official numbers 3–15. The combined premiere is not imported again as a special or phantom second progress item. Four introductory shorts are outside this bounded season collection.",
+  "premiereDateSource": "https://www.starwars.com/news/star-wars-rebels-turns-10",
+  "episodes": [
+    {
+      "id": "rebels-s01e01",
+      "name": "Spark of Rebellion",
+      "season": 1,
+      "number": 1,
+      "episodeEnd": 2,
+      "airdate": "2014-10-03",
+      "sourceUrl": "https://www.starwars.com/news/star-wars-rebels-turns-10",
+      "officialGuide": "https://www.starwars.com/series/star-wars-rebels/spark-of-rebellion-episode-guide",
+      "note": "Combined premiere covering official parts 1–2. Official broadcast date used; the provider special reports September 29, 2014, without release-type normalization."
+    },
+    {
+      "id": "rebels-s01e03",
+      "name": "Droids in Distress",
+      "season": 1,
+      "number": 3,
+      "airdate": "2014-10-13",
+      "sourceUrl": "https://www.tvmaze.com/episodes/9030/star-wars-rebels-1x01-droids-in-distress",
+      "providerNumber": 1
+    },
+    {
+      "id": "rebels-s01e04",
+      "name": "Fighter Flight",
+      "season": 1,
+      "number": 4,
+      "airdate": "2014-10-20",
+      "sourceUrl": "https://www.tvmaze.com/episodes/9022/star-wars-rebels-1x02-fighter-flight",
+      "providerNumber": 2
+    },
+    {
+      "id": "rebels-s01e05",
+      "name": "Rise of the Old Masters",
+      "season": 1,
+      "number": 5,
+      "airdate": "2014-10-27",
+      "sourceUrl": "https://www.tvmaze.com/episodes/9023/star-wars-rebels-1x03-rise-of-the-old-masters",
+      "providerNumber": 3
+    },
+    {
+      "id": "rebels-s01e06",
+      "name": "Breaking Ranks",
+      "season": 1,
+      "number": 6,
+      "airdate": "2014-11-03",
+      "sourceUrl": "https://www.tvmaze.com/episodes/14893/star-wars-rebels-1x04-breaking-ranks",
+      "providerNumber": 4
+    },
+    {
+      "id": "rebels-s01e07",
+      "name": "Out of Darkness",
+      "season": 1,
+      "number": 7,
+      "airdate": "2014-11-10",
+      "sourceUrl": "https://www.tvmaze.com/episodes/31867/star-wars-rebels-1x05-out-of-darkness",
+      "providerNumber": 5
+    },
+    {
+      "id": "rebels-s01e08",
+      "name": "Empire Day",
+      "season": 1,
+      "number": 8,
+      "airdate": "2014-11-17",
+      "sourceUrl": "https://www.tvmaze.com/episodes/31868/star-wars-rebels-1x06-empire-day",
+      "providerNumber": 6
+    },
+    {
+      "id": "rebels-s01e09",
+      "name": "Gathering Forces",
+      "season": 1,
+      "number": 9,
+      "airdate": "2014-11-24",
+      "sourceUrl": "https://www.tvmaze.com/episodes/31869/star-wars-rebels-1x07-gathering-forces",
+      "providerNumber": 7
+    },
+    {
+      "id": "rebels-s01e10",
+      "name": "Path of the Jedi",
+      "season": 1,
+      "number": 10,
+      "airdate": "2015-01-05",
+      "sourceUrl": "https://www.tvmaze.com/episodes/58141/star-wars-rebels-1x08-path-of-the-jedi",
+      "providerNumber": 8
+    },
+    {
+      "id": "rebels-s01e11",
+      "name": "Idiot's Array",
+      "season": 1,
+      "number": 11,
+      "airdate": "2015-01-19",
+      "sourceUrl": "https://www.tvmaze.com/episodes/96520/star-wars-rebels-1x09-idiots-array",
+      "providerNumber": 9
+    },
+    {
+      "id": "rebels-s01e12",
+      "name": "Vision of Hope",
+      "season": 1,
+      "number": 12,
+      "airdate": "2015-02-02",
+      "sourceUrl": "https://www.tvmaze.com/episodes/122983/star-wars-rebels-1x10-vision-of-hope",
+      "providerNumber": 10
+    },
+    {
+      "id": "rebels-s01e13",
+      "name": "Call to Action",
+      "season": 1,
+      "number": 13,
+      "airdate": "2015-02-09",
+      "sourceUrl": "https://www.tvmaze.com/episodes/124032/star-wars-rebels-1x11-call-to-action",
+      "providerNumber": 11
+    },
+    {
+      "id": "rebels-s01e14",
+      "name": "Rebel Resolve",
+      "season": 1,
+      "number": 14,
+      "airdate": "2015-02-23",
+      "sourceUrl": "https://www.tvmaze.com/episodes/124033/star-wars-rebels-1x12-rebel-resolve",
+      "providerNumber": 12
+    },
+    {
+      "id": "rebels-s01e15",
+      "name": "Fire Across the Galaxy",
+      "season": 1,
+      "number": 15,
+      "airdate": "2015-03-02",
+      "sourceUrl": "https://www.tvmaze.com/episodes/140336/star-wars-rebels-1x13-fire-across-the-galaxy",
+      "providerNumber": 13
+    }
+  ],
+  "providerSeasonSnapshot": [
+    {
+      "id": 122746,
+      "name": "Spark of Rebellion",
+      "season": 1,
+      "number": null,
+      "airdate": "2014-09-29",
+      "type": "significant_special",
+      "url": "https://www.tvmaze.com/episodes/122746/star-wars-rebels-s01-special-spark-of-rebellion"
+    },
+    {
+      "id": 9030,
+      "name": "Droids in Distress",
+      "season": 1,
+      "number": 1,
+      "airdate": "2014-10-13",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/9030/star-wars-rebels-1x01-droids-in-distress"
+    },
+    {
+      "id": 9022,
+      "name": "Fighter Flight",
+      "season": 1,
+      "number": 2,
+      "airdate": "2014-10-20",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/9022/star-wars-rebels-1x02-fighter-flight"
+    },
+    {
+      "id": 9023,
+      "name": "Rise of the Old Masters",
+      "season": 1,
+      "number": 3,
+      "airdate": "2014-10-27",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/9023/star-wars-rebels-1x03-rise-of-the-old-masters"
+    },
+    {
+      "id": 14893,
+      "name": "Breaking Ranks",
+      "season": 1,
+      "number": 4,
+      "airdate": "2014-11-03",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/14893/star-wars-rebels-1x04-breaking-ranks"
+    },
+    {
+      "id": 31867,
+      "name": "Out of Darkness",
+      "season": 1,
+      "number": 5,
+      "airdate": "2014-11-10",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/31867/star-wars-rebels-1x05-out-of-darkness"
+    },
+    {
+      "id": 31868,
+      "name": "Empire Day",
+      "season": 1,
+      "number": 6,
+      "airdate": "2014-11-17",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/31868/star-wars-rebels-1x06-empire-day"
+    },
+    {
+      "id": 31869,
+      "name": "Gathering Forces",
+      "season": 1,
+      "number": 7,
+      "airdate": "2014-11-24",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/31869/star-wars-rebels-1x07-gathering-forces"
+    },
+    {
+      "id": 58141,
+      "name": "Path of the Jedi",
+      "season": 1,
+      "number": 8,
+      "airdate": "2015-01-05",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/58141/star-wars-rebels-1x08-path-of-the-jedi"
+    },
+    {
+      "id": 96520,
+      "name": "Idiot's Array",
+      "season": 1,
+      "number": 9,
+      "airdate": "2015-01-19",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/96520/star-wars-rebels-1x09-idiots-array"
+    },
+    {
+      "id": 122983,
+      "name": "Vision of Hope",
+      "season": 1,
+      "number": 10,
+      "airdate": "2015-02-02",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/122983/star-wars-rebels-1x10-vision-of-hope"
+    },
+    {
+      "id": 124032,
+      "name": "Call to Action",
+      "season": 1,
+      "number": 11,
+      "airdate": "2015-02-09",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/124032/star-wars-rebels-1x11-call-to-action"
+    },
+    {
+      "id": 124033,
+      "name": "Rebel Resolve",
+      "season": 1,
+      "number": 12,
+      "airdate": "2015-02-23",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/124033/star-wars-rebels-1x12-rebel-resolve"
+    },
+    {
+      "id": 140336,
+      "name": "Fire Across the Galaxy",
+      "season": 1,
+      "number": 13,
+      "airdate": "2015-03-02",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/140336/star-wars-rebels-1x13-fire-across-the-galaxy"
+    },
+    {
+      "id": 9025,
+      "name": "The Machine in the Ghost",
+      "season": 1,
+      "number": null,
+      "airdate": "2014-08-11",
+      "type": "insignificant_special",
+      "url": "https://www.tvmaze.com/episodes/9025/star-wars-rebels-s01-special-the-machine-in-the-ghost"
+    },
+    {
+      "id": 9026,
+      "name": "Art Attack",
+      "season": 1,
+      "number": null,
+      "airdate": "2014-08-18",
+      "type": "insignificant_special",
+      "url": "https://www.tvmaze.com/episodes/9026/star-wars-rebels-s01-special-art-attack"
+    },
+    {
+      "id": 9027,
+      "name": "Entanglement",
+      "season": 1,
+      "number": null,
+      "airdate": "2014-08-25",
+      "type": "insignificant_special",
+      "url": "https://www.tvmaze.com/episodes/9027/star-wars-rebels-s01-special-entanglement"
+    },
+    {
+      "id": 9028,
+      "name": "Property of Ezra Bridger",
+      "season": 1,
+      "number": null,
+      "airdate": "2014-09-01",
+      "type": "insignificant_special",
+      "url": "https://www.tvmaze.com/episodes/9028/star-wars-rebels-s01-special-property-of-ezra-bridger"
+    }
+  ],
+  "episodeEvidence": [
+    {
+      "slug": "spark-of-rebellion",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/spark-of-rebellion-episode-guide",
+      "gallery": "https://www.starwars.com/series/spark-of-rebellion-episode-gallery",
+      "officialHeading": "S1E1:Spark of Rebellion Part 1",
+      "reviewedCaptionCount": 46
+    },
+    {
+      "slug": "droids-in-distress",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/droids-in-distress-episode-guide",
+      "gallery": "https://www.starwars.com/series/droids-in-distress-episode-gallery",
+      "officialHeading": "S1E3:Droids in Distress",
+      "reviewedCaptionCount": 25
+    },
+    {
+      "slug": "fighter-flight",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/fighter-flight-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/fighter-flight-episode-gallery",
+      "officialHeading": "S1E4:Fighter Flight",
+      "reviewedCaptionCount": 24
+    },
+    {
+      "slug": "rise-of-the-old-masters",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/rise-of-the-old-masters-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/rise-of-the-old-masters-episode-gallery",
+      "officialHeading": "S1E5:Rise of the Old Masters",
+      "reviewedCaptionCount": 22
+    },
+    {
+      "slug": "breaking-ranks",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/breaking-ranks-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/breaking-ranks-episode-gallery",
+      "officialHeading": "S1E6:Breaking Ranks",
+      "reviewedCaptionCount": 29
+    },
+    {
+      "slug": "out-of-darkness",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/out-of-darkness-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/out-of-darkness-episode-gallery",
+      "officialHeading": "S1E7:Out of Darkness",
+      "reviewedCaptionCount": 21
+    },
+    {
+      "slug": "empire-day",
+      "guide": "https://www.starwars.com/series/star-wars-rebels-empire-day-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/empire-day-episode-gallery",
+      "officialHeading": "S1E8:Empire Day",
+      "reviewedCaptionCount": 20
+    },
+    {
+      "slug": "gathering-forces",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/gathering-forces-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/gathering-forces-episode-gallery",
+      "officialHeading": "S1E9:Gathering Forces",
+      "reviewedCaptionCount": 26
+    },
+    {
+      "slug": "path-of-the-jedi",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/path-of-the-jedi-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/path-of-the-jedi-episode-gallery",
+      "officialHeading": "S1E10:Path of the Jedi",
+      "reviewedCaptionCount": 30
+    },
+    {
+      "slug": "idiots-array",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/idiots-array-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/idiots-array-episode-gallery",
+      "officialHeading": "S1E11:Idiot's Array",
+      "reviewedCaptionCount": 20
+    },
+    {
+      "slug": "vision-of-hope",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/vision-of-hope-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/vision-of-hope-episode-gallery",
+      "officialHeading": "S1E12:Vision of Hope",
+      "reviewedCaptionCount": 14
+    },
+    {
+      "slug": "call-to-action",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/call-to-action-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/call-to-action-episode-gallery",
+      "officialHeading": "S1E13:Call to Action",
+      "reviewedCaptionCount": 17
+    },
+    {
+      "slug": "rebel-resolve",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/rebel-resolve-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/rebel-resolve-episode-gallery",
+      "officialHeading": "S1E14:Rebel Resolve",
+      "reviewedCaptionCount": 22
+    },
+    {
+      "slug": "fire-across-the-galaxy",
+      "guide": "https://www.starwars.com/series/fire-across-the-galaxy-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/fire-across-the-galaxy-episode-gallery",
+      "officialHeading": "S1E15:Fire Across the Galaxy",
+      "reviewedCaptionCount": 26
+    }
+  ]
+}

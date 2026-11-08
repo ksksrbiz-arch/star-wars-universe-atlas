@@ -19,3 +19,8 @@
 
 /* Grid badge belongs to the source cell, not a distance or journey estimate. */
 .map-label-grid{font-size:9px;font-weight:500;letter-spacing:.08em;border-left:1px solid currentColor;padding-left:6px;margin-left:2px;opacity:.65}
+
+/* Compact symbol key describes state without implying a character itinerary. */
+.galaxy-symbol-key{position:absolute;top:68px;left:16px;z-index:14;pointer-events:none;display:grid;gap:6px;padding:9px 11px;border:1px solid #5c738444;border-radius:7px;background:#06131ee8;box-shadow:0 5px 18px #0003;color:#b6cad5;font-size:10px;line-height:1.4;max-width:160px}
+.galaxy-symbol-key span{display:flex;align-items:center;gap:7px}.galaxy-symbol-key i{font-style:normal;font-size:13px;width:14px;text-align:center}.symbol-current{color:#ffd49b}.symbol-preview{color:#c4edf5}.symbol-story{color:#dbb9ff}.galaxy-symbol-key small{font-size:8px;color:#9bafbd;border-top:1px solid #6c7e8e33;padding-top:5px}.galaxy-symbol-key[data-travelling=true]{opacity:.4}
+@media(max-width:720px){.galaxy-symbol-key{top:66px;left:10px;padding:7px;gap:4px;font-size:9px;max-width:116px}.galaxy-symbol-key span{gap:4px}.galaxy-symbol-key i{width:12px;font-size:11px}.galaxy-symbol-key small{font-size:7px}}

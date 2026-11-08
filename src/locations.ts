@@ -3,6 +3,13 @@ export type LocationKind = 'planet' | 'moon' | 'asteroid-outpost' | 'space-stati
 export type LocationIdentity = { kind: LocationKind; sourceUrl: string; note: string };
 const guide = 'https://www.starwars.com/news/where-in-the-galaxy-are-the-worlds-of-rogue-one';
 export const LOCATION_KINDS: Record<string, LocationIdentity> = {
+  'merchant-one': { kind: 'ship', sourceUrl: 'https://www.starwars.com/series/star-wars-rebels/idiots-array-episode-gallery', note: 'Azmorigan’s starship in Idiot’s Array, gallery captions 6–9; not a planet or fixed map position.' },
+  sovereign: { kind: 'ship', sourceUrl: 'https://www.starwars.com/series/star-wars-rebels/rebel-resolve-episode-gallery', note: 'Tarkin’s Star Destroyer holding Kanan in Rebel Resolve, gallery caption 22. A destination report does not establish arrival.' },
+  lothal: { kind: 'planet', sourceUrl: 'https://www.starwars.com/databank/lothal', note: 'Outer Rim world of open grasslands, farms and settlements under Imperial occupation during Rebels season one. Existing map placement is independently sourced.' },
+  kessel: { kind: 'planet', sourceUrl: 'https://www.starwars.com/databank/kessel', note: 'Mining world with dangerous spice caverns. No supported atlas grid is assigned here.' },
+  garel: { kind: 'planet', sourceUrl: 'https://www.starwars.com/databank/garel', note: 'World associated with the weapons transaction in Droids in Distress. No map coordinate is inferred from its proximity to Lothal.' },
+  'stygeon-prime': { kind: 'planet', sourceUrl: 'https://www.starwars.com/databank/stygeon-prime', note: 'Cold mountainous world containing the Spire prison. Setting identity is separate from any map placement.' },
+  'fort-anaxes': { kind: 'asteroid-outpost', sourceUrl: 'https://www.starwars.com/databank/fort-anaxes', note: 'Surviving military installation on a large rock after Anaxes was destroyed. The Rebels-era outpost is not an intact-planet Anaxes appearance or placement.' },
   mygeeto: { kind: 'planet', sourceUrl: 'https://www.starwars.com/databank/mygeeto', note: 'Cold Outer Rim world with crystalline terrain. No atlas map position is inferred from its film appearance.' },
   kamino: { kind: 'planet', sourceUrl: 'https://www.starwars.com/databank/kamino', note: 'Ocean world with storm-battered cities on stilts. No supported atlas grid is supplied here.' },
   kashyyyk: { kind: 'planet', sourceUrl: 'https://www.starwars.com/databank/kashyyyk', note: 'Forested Wookiee homeworld. Setting identity does not establish a map coordinate.' },
@@ -23,7 +30,7 @@ export const LOCATION_KINDS: Record<string, LocationIdentity> = {
 export const getLocationKind = (id: string): LocationKind => LOCATION_KINDS[id]?.kind ?? 'unknown';
 
 /** Textual destinations remain available without asserting map placement. */
-const names: Record<string, string> = { mygeeto: 'Mygeeto', kamino: 'Kamino', kashyyyk: 'Kashyyyk', utapau: 'Utapau', 'polis-massa': 'Polis Massa', 'glavis-ringworld': 'Glavis Ringworld', 'luke-jedi-school': 'Luke’s Jedi school', 'ring-of-kafrene': 'Ring of Kafrene', jedha: 'Jedha', yavin: 'Yavin 4', lahmu: 'Lah’mu', wobani: 'Wobani', eadu: 'Eadu', scarif: 'Scarif', mustafar: 'Mustafar' };
+const names: Record<string, string> = { 'merchant-one': 'Merchant One', sovereign: 'Sovereign', lothal: 'Lothal', kessel: 'Kessel', garel: 'Garel', 'stygeon-prime': 'Stygeon Prime', 'fort-anaxes': 'Fort Anaxes', mygeeto: 'Mygeeto', kamino: 'Kamino', kashyyyk: 'Kashyyyk', utapau: 'Utapau', 'polis-massa': 'Polis Massa', 'glavis-ringworld': 'Glavis Ringworld', 'luke-jedi-school': 'Luke’s Jedi school', 'ring-of-kafrene': 'Ring of Kafrene', jedha: 'Jedha', yavin: 'Yavin 4', lahmu: 'Lah’mu', wobani: 'Wobani', eadu: 'Eadu', scarif: 'Scarif', mustafar: 'Mustafar' };
 export type AtlasLocation = LocationIdentity & { id: string; name: string; overview: string };
 export const LOCATIONS: Record<string, AtlasLocation> = Object.fromEntries(Object.entries(LOCATION_KINDS).map(([id, identity]) => [id, { ...identity, id, name: names[id], overview: identity.note }]));
 export const getLocation = (id: string): AtlasLocation | undefined => LOCATIONS[id];

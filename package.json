@@ -74,7 +74,11 @@
     "test:prequel-ui": "node scripts/test-prequel-ui.mjs",
     "test:prequel-dossiers": "node scripts/test-prequel-dossiers.mjs",
     "test:prequel-visuals": "node scripts/test-prequel-visuals.mjs",
-    "test:prequel-overlap": "node scripts/test-prequel-overlap.mjs"
+    "test:prequel-overlap": "node scripts/test-prequel-overlap.mjs",
+    "test:rebels": "node scripts/test-rebels.mjs",
+    "test:rebels-ui": "node scripts/test-rebels-ui.mjs",
+    "test:rebels-dossiers": "node scripts/test-rebels-dossiers.mjs",
+    "test:rebels-visuals": "node scripts/test-rebels-visuals.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",

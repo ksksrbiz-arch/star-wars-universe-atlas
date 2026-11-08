@@ -127,17 +127,29 @@ const labelOffsets: Record<string, [number, number]> = {
   alderaan: [38, 20], coruscant: [-88, -12], mandalore: [-37, 6], yavin: [30, -12],
 }
 
-function LabelLeader({ offset, minZoom = 0 }: { offset: [number, number]; minZoom?: number }) {
-  const { camera } = useThree()
+const leaderLayouts = new WeakMap<HTMLCanvasElement, Map<string, (dx: number, dy: number) => void>>()
+function LabelLeader({ worldId, offset, minZoom = 0 }: { worldId: string; offset: [number, number]; minZoom?: number }) {
+  const { camera, gl } = useThree()
+  const hudOffset = useRef<[number, number]>([0,0])
   const positions = useMemo(() => new Float32Array([0, 0, .01, 0, 0, .01]), [])
   const geometry = useRef<THREE.BufferGeometry>(null)
   const leader = useRef<THREE.LineSegments>(null)
-  useFrame(() => {
+  const update = () => {
     if (leader.current) leader.current.visible = (camera as THREE.OrthographicCamera).zoom >= minZoom
-    positions[3] = offset[0] / (camera as THREE.OrthographicCamera).zoom
-    positions[4] = -.39 - offset[1] / (camera as THREE.OrthographicCamera).zoom
+    const x = (offset[0] + hudOffset.current[0]) / (camera as THREE.OrthographicCamera).zoom
+    const y = -.39 - (offset[1] + hudOffset.current[1]) / (camera as THREE.OrthographicCamera).zoom
+    if (positions[3] === Math.fround(x) && positions[4] === Math.fround(y)) return
+    positions[3] = x; positions[4] = y
     if (geometry.current) { geometry.current.attributes.position.needsUpdate = true; geometry.current.computeBoundingSphere() }
-  })
+  }
+  useEffect(() => {
+    let registry = leaderLayouts.get(gl.domElement)
+    if (!registry) { registry = new Map(); leaderLayouts.set(gl.domElement, registry) }
+    const apply = (dx: number, dy: number) => { hudOffset.current = [dx,dy]; update() }
+    registry.set(worldId, apply)
+    return () => { if (registry.get(worldId) === apply) registry.delete(worldId) }
+  }, [gl, worldId, offset, camera])
+  useFrame(update)
   return <lineSegments ref={leader}>
     <bufferGeometry ref={geometry}><bufferAttribute attach="attributes-position" args={[positions, 3]} /></bufferGeometry>
     <lineBasicMaterial color="#6e929f" transparent opacity={.22} depthWrite={false} />
@@ -158,6 +170,11 @@ function LabelDeclutter() {
     const bounds = gl.domElement.getBoundingClientRect()
     const labels = [...root.querySelectorAll<HTMLButtonElement>('.world-map-label')]
       .sort((a,b) => Number(b.dataset.labelPriority)-Number(a.dataset.labelPriority) || (a.textContent ?? '').localeCompare(b.textContent ?? ''))
+    const stage = gl.domElement.closest('.map-stage')
+    const protectedRects = [...(stage?.querySelectorAll<HTMLElement>('.map-tools,.map-pan-controls,.galaxy-symbol-key,.map-jump-bar,.current-location,.mini-map') ?? [])]
+      .map(element => element.getBoundingClientRect()).filter(rect => rect.width > 0 && rect.height > 0)
+    const overlapsRect = (a: DOMRect, b: DOMRect) => a.left < b.right+5 && a.right > b.left-5 && a.top < b.bottom+5 && a.bottom > b.top-5
+    const inside = (rect: DOMRect) => rect.left >= bounds.left+5 && rect.right <= bounds.right-5 && rect.top >= bounds.top+5 && rect.bottom <= bounds.bottom-5
     const occupied: DOMRect[] = []
     for (const label of labels) {
       const container = label.closest<HTMLElement>('[data-map-html]')
@@ -174,10 +191,22 @@ function LabelDeclutter() {
         dy = Math.max(bounds.top+5-rect.top, Math.min(0,bounds.bottom-5-rect.bottom))
         if (dx || dy) { label.style.translate = `${dx}px ${dy}px`; rect = new DOMRect(rect.x+dx,rect.y+dy,rect.width,rect.height) }
       }
+      // Move only the label; its leader follows the displacement to the unchanged source dot.
+      if (essential && onScreen && protectedRects.some(other => overlapsRect(rect, other))) {
+        const candidates = protectedRects.flatMap(other => [
+          new DOMRect(other.left-rect.width-6,rect.y,rect.width,rect.height),
+          new DOMRect(other.right+6,rect.y,rect.width,rect.height),
+          new DOMRect(rect.x,other.top-rect.height-6,rect.width,rect.height),
+          new DOMRect(rect.x,other.bottom+6,rect.width,rect.height),
+        ]).filter(candidate => inside(candidate) && ![...protectedRects,...occupied].some(other => overlapsRect(candidate,other)))
+          .sort((a,b) => Math.hypot(a.x-rect.x,a.y-rect.y)-Math.hypot(b.x-rect.x,b.y-rect.y))
+        if (candidates[0]) { const next = candidates[0]; dx += next.x-rect.x; dy += next.y-rect.y; rect = next; label.style.translate = `${dx}px ${dy}px` }
+      }
+      leaderLayouts.get(gl.domElement)?.get(label.dataset.worldId ?? '')?.(dx,dy)
       label.dataset.labelClamped = String(Boolean(dx || dy))
       const clipped = rect.left < bounds.left+4 || rect.right > bounds.right-4 || rect.top < bounds.top+4 || rect.bottom > bounds.bottom-4
       const overlaps = occupied.some(other => rect.left < other.right+4 && rect.right > other.left-4 && rect.top < other.bottom+4 && rect.bottom > other.top-4)
-      const hidden = !essential && (clipped || overlaps)
+      const hidden = !essential && (clipped || overlaps || protectedRects.some(other => overlapsRect(rect,other)))
       label.dataset.decluttered = String(hidden)
       if (!hidden) occupied.push(rect)
     }
@@ -205,6 +234,23 @@ function LocationReticle({ color }: { color: string }) {
   </group>
 }
 
+/** Screen-space story beacon stays legible at galaxy overview scale.
+ * It marks an independently sourced appearance, never a route or an event order. */
+function StoryBeacon() {
+  const group = useRef<THREE.Group>(null)
+  useFrame(({camera}) => { group.current?.scale.setScalar(1 / (camera as THREE.OrthographicCamera).zoom) })
+  return <group ref={group} position={[0,0,.035]} name="sourced-story-beacon">
+    <mesh raycast={() => undefined}>
+      <ringGeometry args={[14.5, 15.5, 48]}/>
+      <meshBasicMaterial color="#c49aff" transparent opacity={.75} depthWrite={false}/>
+    </mesh>
+    <mesh raycast={() => undefined}>
+      <ringGeometry args={[6, 7.5, 4]}/>
+      <meshBasicMaterial color="#e3c6ff" transparent opacity={.95} depthWrite={false}/>
+    </mesh>
+  </group>
+}
+
 function WorldMarker({ world, highlighted, selected, previewed, disabled, onSelect, sharedOffset }: { sharedOffset?: [number, number]; world: World; highlighted: boolean; selected: boolean; previewed: boolean; disabled: boolean; onSelect: Props['onSelect'] }) {
   const drag = useRef({ x: 0, y: 0, moved: false })
   const { size } = useThree()
@@ -214,13 +260,13 @@ function WorldMarker({ world, highlighted, selected, previewed, disabled, onSele
   const haloUniforms = useMemo(() => ({tint: {value: new THREE.Color(color)}}), [color])
   const minZoom = priority > 0 ? 0 : Math.max(24, Math.min(55, size.width / 9))
   return <group position={[world.x * 10, world.y * 10, .1]}>
-    <LabelLeader offset={offset} minZoom={minZoom} />
+    <LabelLeader worldId={world.id} offset={offset} minZoom={minZoom} />
     {(selected || previewed || highlighted) && <mesh position={[0,0,-.015]} raycast={()=>undefined}>
       <circleGeometry args={[highlighted ? .56 : .46,48]}/>
       <shaderMaterial vertexShader={haloVertex} fragmentShader={haloFragment} uniforms={haloUniforms} transparent depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false}/>
     </mesh>}
     <mesh><circleGeometry args={[selected ? .115 : .068, 24]} /><meshBasicMaterial color={color} /></mesh>
-    {highlighted && <mesh><ringGeometry args={[.40, .445, 48]} /><meshBasicMaterial color="#c49aff" transparent opacity={.95} depthWrite={false}/></mesh>}
+    {highlighted && <StoryBeacon/>}
     {selected && <>
       <LocationReticle color={color}/>
       <mesh><ringGeometry args={[.23, .242, 64]} /><meshBasicMaterial color="#dbad72" transparent opacity={.8} /></mesh>
@@ -414,10 +460,17 @@ function Scene(props: Props) {
 }
 
 export default function Galaxy(props: Props) {
+  const storyCount = props.worlds.filter(world => props.highlightedIds?.has(world.id)).length
+  const hasPreview = Boolean(props.previewId && props.previewId !== props.selectedId)
   return <div style={{ position: 'absolute', inset: 0, background: '#050c12', isolation: 'isolate' }} aria-label="Interactive schematic galaxy map">
     <Canvas orthographic camera={{ position: [0, 0, 22], zoom: 32, near: .1, far: 100 }} dpr={props.quality === 'cinematic' && !props.reducedMotion ? [1, 2] : [1, 1.5]} frameloop="demand" gl={{ antialias: true, alpha: false, powerPreference: 'default' }} fallback={<div style={{ padding: 32, color: '#d7e4e8' }}>The galaxy view needs WebGL. Choose a world using the destination list.</div>}>
       <Scene {...props} />
     </Canvas>
+    <aside className="galaxy-symbol-key" aria-label="Map symbols" data-story-count={storyCount} data-travelling={props.phase === 'warping'}>
+      <span><i className="symbol-current" aria-hidden="true">●</i> Current location</span>
+      {hasPreview && <span><i className="symbol-preview" aria-hidden="true">◇</i> Preview only</span>}
+      {storyCount > 0 && <><span><i className="symbol-story" aria-hidden="true">◆</i> {storyCount} story {storyCount === 1 ? 'marker' : 'markers'}</span><small>Appearances, not a route</small></>}
+    </aside>
     <div aria-hidden="true" style={{ pointerEvents: 'none', position: 'absolute', inset: 0, boxShadow: 'inset 0 0 130px 35px rgba(1,6,11,.55)' }} />
   </div>
 }

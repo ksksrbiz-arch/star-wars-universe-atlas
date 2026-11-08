@@ -1,0 +1,26 @@
+{
+  "browser": "Chromium software WebGL; not physical-device FPS",
+  "results": [
+    {
+      "width": 1440,
+      "storyCount": 2,
+      "settledDrawsOver600ms": 0,
+      "controlsClear": true,
+      "disclosurePreserved": true
+    },
+    {
+      "width": 390,
+      "storyCount": 2,
+      "settledDrawsOver600ms": 0,
+      "controlsClear": true,
+      "disclosurePreserved": true
+    },
+    {
+      "width": 320,
+      "storyCount": 2,
+      "settledDrawsOver600ms": 0,
+      "controlsClear": true,
+      "disclosurePreserved": true
+    }
+  ]
+}

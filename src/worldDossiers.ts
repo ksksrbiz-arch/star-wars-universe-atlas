@@ -13,6 +13,47 @@ export type WorldDossier = {
 
 const databank = 'https://www.starwars.com/databank/';
 export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
+  lothal: {
+    worldId: 'lothal', eyebrow: 'PLAINS WORLD · FARMS AND CITY',
+    overview: { text: 'Lothal combines open farmland with a city center. Imperial occupation brings expanding industry and restrictions that reshape life on the world.', sourceUrl: databank + 'lothal' },
+    terrain: { label: 'Temperate plains and farmland', text: 'Grasslands and agricultural land surround built settlements. The original patchwork illustration suggests these broad contrasts without tracing fields or roads.', sourceUrl: databank + 'lothal' },
+    highlights: [
+      { id: 'farmland', name: 'Farmland and grasslands', description: 'Imperial mines and factories encroach on Lothal’s agricultural landscape. This describes a period of occupation, not an unchanging condition.', sourceUrl: databank + 'lothal' },
+      { id: 'transmitter-tower', name: 'Transmitter tower', description: 'A lookout outside the capital once serves as Ezra Bridger’s home. Its occupants and uses change over time; no distance from the city is assigned here.', sourceUrl: databank + 'lothal-transmitter-tower' },
+    ],
+    caveat: 'The illustrated field patterns are decorative, not surveyed farmland or travel routes. Industry, ownership and the tower’s occupants vary by era; this dossier establishes no episode appearance.',
+  },
+  kessel: {
+    worldId: 'kessel', eyebrow: 'MINING WORLD · CAVERNS AND HAZE',
+    overview: { text: 'Kessel is a harsh mining world with a noxious atmosphere. Its mines extract valuable materials under dangerous working conditions.', sourceUrl: databank + 'kessel' },
+    terrain: { label: 'Hot caverns and mining terrain', text: 'The official setting description identifies a hot world with caverns. Dark channels in the portrait suggest excavation without measuring mine layouts or atmospheric composition.', sourceUrl: databank + 'kessel' },
+    highlights: [
+      { id: 'mines', name: 'The mines', description: 'Spice and coaxium are extracted for shipment offworld. Resources and their transport connect the planet to wider criminal and Imperial interests.', sourceUrl: databank + 'kessel' },
+      { id: 'mining-settlements', name: 'Mining work sites', description: 'Prisoners and people forced into servitude work in hazardous conditions. The broad setting reference does not identify a particular shaft or camp from an episode.', sourceUrl: databank + 'kessel-miners' },
+    ],
+    caveat: 'This is an illustrative environmental portrait, not a mine survey or a claim that every resource operation appears in Rebels season one. No shaft positions, depth measurements or galaxy coordinates are inferred.',
+  },
+  'stygeon-prime': {
+    worldId: 'stygeon-prime', eyebrow: 'COLD WORLD · MOUNTAINS AND PRISON',
+    overview: { text: 'Stygeon Prime is a cold, mountainous and sparsely inhabited world. The fortified prison called the Spire stands among its rugged surroundings.', sourceUrl: databank + 'stygeon-prime' },
+    terrain: { label: 'Cold mountain terrain', text: 'Mountain ranges dominate the setting description, with large flying tibidees among the native life. The portrait’s pale ridges are illustrative rather than measured elevation.', sourceUrl: databank + 'stygeon-prime' },
+    highlights: [
+      { id: 'spire', name: 'The Spire', description: 'A heavily protected penitentiary uses shielding, scanners and defensive weapons. Its Imperial use belongs to a particular era; the dossier does not disclose a rescue mission’s outcome.', sourceUrl: databank + 'the-spire' },
+      { id: 'tibidee-habitat', name: 'Mountain habitat', description: 'Large winged tibidees inhabit the mountain environment. Their presence distinguishes the world’s native ecology from the prison built upon it.', sourceUrl: databank + 'stygeon-prime' },
+    ],
+    caveat: 'The Spire is a locality on Stygeon Prime, not the entire planet. Mountain shapes, prison placement and distances are not established by the artwork, and no galaxy coordinate is supplied.',
+  },
+  'fort-anaxes': {
+    worldId: 'fort-anaxes', eyebrow: 'SURVIVING OUTPOST · ASTEROID REMNANT', environmentLabel: 'OUTPOST & HABITAT',
+    overview: { text: 'Fort Anaxes survives the destruction of its former planetary home on a large rock. In the later era it serves as a secluded fuel depot and meeting place.', sourceUrl: databank + 'fort-anaxes' },
+    terrain: { label: 'Rock remnant and abandoned facility', text: 'The surviving military installation shares its rocky surroundings with caverns and a colony of fyrnocks. The study depicts a stylized remnant, not an intact planet.', sourceUrl: databank + 'fort-anaxes' },
+    highlights: [
+      { id: 'fuel-depot', name: 'Fuel depot', description: 'After the Clone Wars, the surviving installation becomes a place to store fuel and conduct private meetings. The artwork does not reconstruct its architecture or storage layout.', sourceUrl: databank + 'fort-anaxes' },
+      { id: 'fyrnock-habitat', name: 'Fyrnock habitat', description: 'A colony of fyrnocks lives on the Fort Anaxes asteroid. These creatures avoid sunlight and become dangerous in darkness; no colony position is mapped.', sourceUrl: databank + 'fyrnock' },
+    ],
+    caveat: 'This file describes the surviving asteroid outpost during Rebels, not intact Clone Wars-era Anaxes. The silhouette and buildings are original illustrative forms, not engineering plans, dimensions or a galaxy placement.',
+  },
+
   kamino: {
     worldId: 'kamino', eyebrow: 'OCEAN WORLD · STORMS AND STILTS',
     overview: { text: 'Kamino is an ocean-covered world where storm clouds surround isolated cities raised above the water on enormous supports.', sourceUrl: databank + 'kamino' },
@@ -209,8 +250,12 @@ export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
 };
 
 /** Reviewed broad categories for directory discovery; absence means not reviewed, not unknown geology. */
-export type WorldTerrainCategory = 'desert' | 'urban' | 'ice' | 'wetlands' | 'gas-giant' | 'swamp' | 'forest' | 'tropical' | 'cold-desert' | 'rugged' | 'mineral-rich' | 'volcanic' | 'ocean' | 'sinkholes';
+export type WorldTerrainCategory = 'desert' | 'urban' | 'ice' | 'wetlands' | 'gas-giant' | 'swamp' | 'forest' | 'tropical' | 'cold-desert' | 'rugged' | 'mineral-rich' | 'volcanic' | 'ocean' | 'sinkholes' | 'plains' | 'caverns' | 'asteroid';
 export const WORLD_TERRAIN: Readonly<Record<string, { category: WorldTerrainCategory; label: string; sourceUrl: string }>> = {
+  lothal: { category: 'plains', label: 'Plains and farmland', sourceUrl: databank + 'lothal' },
+  kessel: { category: 'caverns', label: 'Caverns and mines', sourceUrl: databank + 'kessel' },
+  'stygeon-prime': { category: 'rugged', label: 'Cold mountains', sourceUrl: databank + 'stygeon-prime' },
+  'fort-anaxes': { category: 'asteroid', label: 'Asteroid outpost', sourceUrl: databank + 'fort-anaxes' },
   kamino: { category: 'ocean', label: 'Ocean and storms', sourceUrl: databank + 'kamino' },
   geonosis: { category: 'desert', label: 'Rocky desert', sourceUrl: databank + 'geonosis' },
   utapau: { category: 'sinkholes', label: 'Sinkholes and dry plains', sourceUrl: databank + 'utapau' },

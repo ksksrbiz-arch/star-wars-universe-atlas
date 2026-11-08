@@ -1,8 +1,8 @@
 {
   "checkedOn": "2026-11-07",
-  "catalogItems": 204,
-  "relationships": 322,
-  "titlesWithLocationEvidence": 198,
+  "catalogItems": 218,
+  "relationships": 342,
+  "titlesWithLocationEvidence": 212,
   "titlesWithoutLocationEvidence": 6,
   "mapPlacements": 76,
   "referenceTraced": 27,
@@ -19,6 +19,10 @@
     "clone-wars": {
       "catalog": 134,
       "withLocations": 130
+    },
+    "rebels": {
+      "catalog": 14,
+      "withLocations": 14
     },
     "rogue-one": {
       "catalog": 1,
@@ -42,6 +46,11 @@
     }
   },
   "unplacedAssociatedWorlds": [
+    "Garel",
+    "Stygeon Prime",
+    "Fort Anaxes",
+    "Merchant One",
+    "Sovereign",
     "Morlana One",
     "Narkina 5",
     "Kalevala",

@@ -1,3 +1,4 @@
+import { episodeRange, episodeAliases, matchesEpisode } from './catalogPresentation';
 import { motion, useReducedMotion } from 'motion/react';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
@@ -101,8 +102,8 @@ export default function Journey({ onInspectLocation, onLocationDisclosure, watch
   const matches = items.filter(entry => {
     const linked = linkedIds.has(entry.id);
     if (coverageFilter === 'linked' && !linked || coverageFilter === 'unreviewed' && linked) return false;
-    if (episodeQuery) return entry.season === Number(episodeQuery[1]) && entry.episode === Number(episodeQuery[2]);
-    return !normalizedQuery || `${entry.title} ${entry.season ? `season ${entry.season} episode ${entry.episode}` : 'film'}`.toLowerCase().includes(normalizedQuery);
+    if (episodeQuery) return matchesEpisode(entry, Number(episodeQuery[1]), Number(episodeQuery[2]));
+    return !normalizedQuery || `${entry.title} ${entry.season ? episodeAliases(entry) : 'film'}`.toLowerCase().includes(normalizedQuery);
   });
   const browsing = Boolean(normalizedQuery) || coverageFilter !== 'all';
   const linkedCount = items.filter(entry => linkedIds.has(entry.id)).length;
@@ -159,7 +160,7 @@ export default function Journey({ onInspectLocation, onLocationDisclosure, watch
 
         <div className="journey-reader-heading"><span className="journey-kicker">{sequence.title}</span><span className="journey-chapter-count">CHAPTER {String(index + 1).padStart(2, '0')} / {items.length}</span></div>
 
-        <div className="journey-current"><motion.div key={item.id} initial={reduceMotion ? false : { opacity: 0, y: 7 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : .22, ease: "easeOut" }}><span className="journey-item-meta">{item.kind === 'film' ? 'FEATURE FILM' : `SEASON ${item.season} · EPISODE ${item.episode}`}</span><h2>{item.title}</h2><span className={`journey-watch-status ${isWatched ? 'is-watched' : ''}`}>{isWatched ? <Check size={12}/> : <span className="journey-empty-dot"/>}{isWatched ? 'Watched' : 'Not marked watched'}</span></motion.div><div className="journey-step-controls"><button disabled={index === 0} aria-label="Previous story chapter" onClick={() => selectItem(items[index - 1].id)}><ArrowLeft size={19}/></button><button disabled={index === items.length - 1} aria-label="Next story chapter" onClick={() => selectItem(items[index + 1].id)}><ArrowRight size={19}/></button></div></div>
+        <div className="journey-current"><motion.div key={item.id} initial={reduceMotion ? false : { opacity: 0, y: 7 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : .22, ease: "easeOut" }}><span className="journey-item-meta">{item.kind === 'film' ? 'FEATURE FILM' : `SEASON ${item.season} · EPISODE${item.episodeEnd ? 'S' : ''} ${episodeRange(item)}`}</span><h2>{item.title}</h2><span className={`journey-watch-status ${isWatched ? 'is-watched' : ''}`}>{isWatched ? <Check size={12}/> : <span className="journey-empty-dot"/>}{isWatched ? 'Watched' : 'Not marked watched'}</span></motion.div><div className="journey-step-controls"><button disabled={index === 0} aria-label="Previous story chapter" onClick={() => selectItem(items[index - 1].id)}><ArrowLeft size={19}/></button><button disabled={index === items.length - 1} aria-label="Next story chapter" onClick={() => selectItem(items[index + 1].id)}><ArrowRight size={19}/></button></div></div>
 
 
 
@@ -173,7 +174,7 @@ export default function Journey({ onInspectLocation, onLocationDisclosure, watch
 
           <div className="journey-coverage-filter"><label htmlFor="journey-coverage-filter">Location research</label><select id="journey-coverage-filter" value={coverageFilter} onChange={event => { setCoverageFilter(event.target.value as typeof coverageFilter); setResultLimit(6); }}><option value="all">All {items.length} chapters</option><option value="linked">With sourced links ({linkedCount})</option><option value="unreviewed">Not yet linked ({items.length - linkedCount})</option></select></div>
           <p className="journey-browse-note">Sourced links are partial. A missing link does not establish that a chapter has no locations. Browsing keeps location names hidden.</p>
-          {browsing && <div className="journey-search-results" id="journey-search-results" role="region" aria-label="Chapter search results"><span className="journey-search-count" role="status">{matches.length ? `${matches.length} matching ${matches.length === 1 ? 'chapter' : 'chapters'} in story order` : 'No matching chapters in this collection.'}</span>{matches.slice(0, resultLimit).map(result => <button key={result.id} aria-current={result.id === item.id ? 'true' : undefined} onClick={() => selectItem(result.id)}><span>{result.title}<small>{result.kind === 'film' ? 'Film' : `S${String(result.season).padStart(2, '0')} · E${String(result.episode).padStart(2, '0')}`} · {linkedIds.has(result.id) ? 'Sourced location links' : 'Locations not yet linked'}</small></span><ArrowRight size={15}/></button>)}{matches.length > resultLimit && <button className="journey-more-results" onClick={() => setResultLimit(limit => limit + 12)}>Show more chapters ({matches.length - resultLimit} remaining)</button>}</div>}
+          {browsing && <div className="journey-search-results" id="journey-search-results" role="region" aria-label="Chapter search results"><span className="journey-search-count" role="status">{matches.length ? `${matches.length} matching ${matches.length === 1 ? 'chapter' : 'chapters'} in story order` : 'No matching chapters in this collection.'}</span>{matches.slice(0, resultLimit).map(result => <button key={result.id} aria-current={result.id === item.id ? 'true' : undefined} onClick={() => selectItem(result.id)}><span>{result.title}<small>{result.kind === 'film' ? 'Film' : `S${String(result.season).padStart(2, '0')} · E${episodeRange(result, true)}`} · {linkedIds.has(result.id) ? 'Sourced location links' : 'Locations not yet linked'}</small></span><ArrowRight size={15}/></button>)}{matches.length > resultLimit && <button className="journey-more-results" onClick={() => setResultLimit(limit => limit + 12)}>Show more chapters ({matches.length - resultLimit} remaining)</button>}</div>}
 
 
         </div>

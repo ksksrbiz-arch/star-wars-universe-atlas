@@ -1,3 +1,4 @@
+import { episodeRange, episodeAliases } from './catalogPresentation';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, ArrowUpRight, BookOpen, MapPin, Search, X } from 'lucide-react';
 import { ALL_WORLDS } from './journeyWorlds';
@@ -16,7 +17,7 @@ const locations = new Map<string, string>(CONNECTIONS.filter(link => !mapped.has
 const entries: SearchEntry[] = [
   ...ALL_WORLDS.map(world => ({ id: `world:${world.id}`, name: world.name, kind: 'World' as const, detail: `Mapped · ${world.grid} · ${world.region}`, keywords: `${world.name} ${world.grid} ${world.region}`, href: `#galaxy/${world.id}` })),
   ...[...locations].map(([id, name]) => ({ id: `location:${id}`, name, kind: 'Location' as const, detail: 'No map placement · view location file', keywords: name, locationId: id })),
-  ...CATALOG.map(item => ({ id: `title:${item.id}`, name: item.title, kind: item.kind === 'film' ? 'Movie' as const : 'Episode' as const, detail: `${collections.get(item.seriesId) ?? item.seriesId}${item.kind === 'episode' ? ` · S${String(item.season).padStart(2, '0')}E${String(item.episode).padStart(2, '0')}` : ''}`, keywords: `${item.title} ${collections.get(item.seriesId) ?? ''} ${item.id} ${item.kind === 'episode' ? `S${item.season}E${item.episode} S${String(item.season).padStart(2, '0')}E${String(item.episode).padStart(2, '0')}` : ''}`, href: `#journey/${item.id}` })),
+  ...CATALOG.map(item => ({ id: `title:${item.id}`, name: item.title, kind: item.kind === 'film' ? 'Movie' as const : 'Episode' as const, detail: `${collections.get(item.seriesId) ?? item.seriesId}${item.kind === 'episode' ? ` · S${String(item.season).padStart(2, '0')}E${episodeRange(item, true)}` : ''}`, keywords: `${item.title} ${collections.get(item.seriesId) ?? ''} ${item.id} ${item.kind === 'episode' ? episodeAliases(item) : ''}`, href: `#journey/${item.id}` })),
   ...STORY_SEQUENCES.filter(sequence => sequence.itemIds.length).map(sequence => ({ id: `collection:${sequence.id}`, name: collections.get(sequence.id) ?? sequence.title, kind: 'Collection' as const, detail: `${sequence.itemIds.length} chapters · open story journey`, keywords: `${sequence.title} ${collections.get(sequence.id) ?? ''}`, href: `#journey/${sequence.itemIds[0]}` })),
 ];
 const RESULT_LIMIT = 12;

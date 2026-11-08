@@ -2,19 +2,19 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 const { metadata, items } = JSON.parse(readFileSync(new URL('../src/catalog.generated.json', import.meta.url), 'utf8'));
-assert.equal(items.length, 204);
-assert.equal(new Set(items.map(item => item.id)).size, 204, 'Catalog IDs must be unique');
-assert.equal(items.filter(item => item.kind === 'episode').length, 196);
+assert.equal(items.length, 218);
+assert.equal(new Set(items.map(item => item.id)).size, 218, 'Catalog IDs must be unique');
+assert.equal(items.filter(item => item.kind === 'episode').length, 210);
 assert.equal(items.filter(item => item.kind === 'film').length, 8);
 assert.equal(metadata.excludedSpecials.length, 9);
 assert.equal(metadata.chronologySupported, false);
-const allowed = new Set(['id', 'title', 'seriesId', 'kind', 'season', 'episode', 'releaseDate', 'runtimeMinutes', 'runtimeNote', 'sourceUrl', 'storyOrder']);
+const allowed = new Set(['id', 'title', 'seriesId', 'kind', 'season', 'episode', 'releaseDate', 'runtimeMinutes', 'runtimeNote', 'sourceUrl', 'storyOrder', 'episodeEnd']);
 const expectedSeasons = { 'boba-fett': [7], andor: [12, 12], 'clone-wars': [22, 22, 22, 22, 20, 13, 12], mandalorian: [8, 8, 8], ahsoka: [8] };
 const episodeKeys = new Set();
 for (const item of items) {
   for (const key of Object.keys(item)) assert.ok(allowed.has(key), `Unexpected field ${item.id}.${key}`);
   for (const key of ['id', 'title', 'seriesId', 'releaseDate', 'sourceUrl']) assert.ok(typeof item[key] === 'string' && item[key].trim(), `${item.id}: missing ${key}`);
-  assert.ok(['pt', 'ot', 'andor', 'clone-wars', 'mandalorian', 'ahsoka', 'rogue-one', 'boba-fett'].includes(item.seriesId));
+  assert.ok(['rebels', 'pt', 'ot', 'andor', 'clone-wars', 'mandalorian', 'ahsoka', 'rogue-one', 'boba-fett'].includes(item.seriesId));
   assert.match(item.releaseDate, /^\d{4}-\d{2}-\d{2}$/);
   assert.equal(new Date(item.releaseDate).toISOString().slice(0, 10), item.releaseDate, `Invalid date ${item.id}`);
   assert.equal(new URL(item.sourceUrl).protocol, 'https:');
@@ -26,7 +26,7 @@ for (const item of items) {
     const key = `${item.seriesId}:${item.season}:${item.episode}`;
     assert.ok(!episodeKeys.has(key), `Duplicate episode ${key}`);
     episodeKeys.add(key);
-    assert.equal(new URL(item.sourceUrl).hostname, 'www.tvmaze.com');
+    assert.ok(['www.tvmaze.com', ...(item.id === 'rebels-s01e01' ? ['www.starwars.com'] : [])].includes(new URL(item.sourceUrl).hostname));
     if (item.seriesId === 'clone-wars') {
       assert.equal(item.runtimeMinutes, null, 'Unverified uniform TV runtime must not be published');
       assert.match(item.runtimeNote, /30-minute/);
@@ -47,10 +47,10 @@ for (const [series, seasons] of Object.entries(expectedSeasons)) {
 assert.equal(items.filter(item => item.seriesId === 'ot').length, 3);
 assert.equal(items.filter(item => item.seriesId === 'clone-wars').length, 134);
 assert.ok(items.some(item => item.id === 'clone-wars-film' && item.kind === 'film' && item.runtimeMinutes === null));
-console.log('Catalog checks passed: 204 items, 196 complete regular episode slots, eight separate films, nine specials excluded, sources and uncertainty retained.');
+console.log('Catalog checks passed: 218 items, 210 episode watch records, eight separate films, nine specials excluded, sources and uncertainty retained.');
 
 assert.equal(metadata.originalAuditCohortCount, 185);
-assert.equal(items.filter(item => !['ahsoka', 'rogue-one', 'boba-fett', 'pt'].includes(item.seriesId)).length, 185);
+assert.equal(items.filter(item => !['rebels', 'ahsoka', 'rogue-one', 'boba-fett', 'pt'].includes(item.seriesId)).length, 185);
 const ahsokaSource = JSON.parse(readFileSync(new URL('../docs/ahsoka-season-1-source.json', import.meta.url), 'utf8'));
 for (const source of ahsokaSource.episodes) {
   const item = items.find(item => item.id === `ahsoka-s01e${String(source.number).padStart(2, '0')}`);

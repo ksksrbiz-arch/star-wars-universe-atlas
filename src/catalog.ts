@@ -7,6 +7,8 @@ export type CatalogItem = {
   kind: 'film' | 'episode';
   season?: number;
   episode?: number;
+  /** Last official part included in a combined watch record. */
+  episodeEnd?: number;
   releaseDate: string;
   runtimeMinutes: number | null;
   runtimeNote?: string;
@@ -16,6 +18,7 @@ export type CatalogItem = {
 };
 
 export const SERIES = [
+  { id: 'rebels', title: 'Rebels · season 1', color: '#D6AD6B' },
   { id: 'pt', title: 'Prequel trilogy', color: '#D8B8F2' },
   { id: 'boba-fett', title: 'The Book of Boba Fett', color: '#D9AE6D' },
   { id: 'rogue-one', title: 'Rogue One', color: '#B9D3B0' },
