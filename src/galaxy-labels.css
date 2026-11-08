@@ -27,3 +27,6 @@
 
 /* Match the focused source ring and leader without changing label dimensions. */
 .world-map-label[data-source-focus="true"]{border-color:#d2f4ff;background:#102638;box-shadow:0 0 0 1px #c3f3ff35,0 3px 12px #0008}
+
+/* Visually hidden state description referenced by aria-describedby on each marker. */
+.map-label-state{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
