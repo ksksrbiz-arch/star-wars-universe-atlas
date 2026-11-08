@@ -26,4 +26,10 @@ Read-only preflight found zero conflicting existing payloads across catalog, wor
 
 Publication `catalog-sha256-5911680f3fb32e627a0d88758b38b738c96d635ed0ca8e6c7043926d32a002de` is present. All four public API content digests match it: 204 titles, 322 associations, eight sequences and 76 mapped worlds. There are 198 titles with at least one reviewed connection and six remaining evidence gaps. Database expectations were updated only after verification. See [public API results](public-data.json), [source review](../prequel-source-review.md), [dossiers](../prequel-dossiers-review.md), and [visual evidence](../prequel-visuals/verification.md).
 
-Frontend rollout verification follows after deployment.
+## Live rollout
+
+Cloudflare build `40027b5a-f873-4e99-b4f7-541076a79777` successfully deployed application commit `c899fde29bb7ceb4480fd492c4e4038eabaa2dcd`. Live verification completed November 8, 2026 around 02:18 UTC (November 7 local time).
+
+Live HTML matches the tested production build after Windows/Linux line-ending normalization, and all five JavaScript/CSS assets match byte for byte. Live prequel film progression, film/Clone Wars overlap links and four-dossier browser suites pass at 1440/390/320 widths. The live galaxy suite passes cinematic/balanced desktop and balanced mobile, zoom-revealed geography labels, source-grid badges, Cancel/Skip, no overflow and zero settled draws over 600ms. All four API content digests were reverified after rollout.
+
+Exact asset results and live screenshots remain in `work/prequel-release/live/`. No further database writes occurred during rollout verification.
