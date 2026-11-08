@@ -23,3 +23,12 @@ Dense episode label hit targets and map-key readability pass at1440/390/320px wi
 Warp, Skip, Cancel, route-label detail thresholds and static rendering pass the prequel visual regression at1440 cinematic,1440 balanced/reduced,390 and320px. Navigation commands pass direction, repeated bounds/reset, keyboard, reduced-motion and warp-disabled control checks. The command-idle regression passes1440/390px with zero draws during its settled600ms observation. WebGL context loss disables controls and restoration re-enables them without page errors. The synthetic context test yields one browser animation frame between loss and the restore request; its original5-second recovery assertion remains. Browser suites were run sequentially after concurrent software rendering produced timing failures; these results are not hardware benchmarks.
 
 Local checks: `npm run build`, `build:worker`, `check:icm`, `test:reference-data`, `test:worker`, `test:galaxy-immersion`, `test:prequel-visuals`, `test:label-hit-targets`, `test:map-key-legibility`, `test:map-commands`, `test:map-command-idle`, and `test:map-context-loss` passed. Database publication is unchanged. Deployment identity and live checks will be appended after release. Original screenshots are in this folder; before-galaxy.png captures the prior live map. Assets remain procedural; no third-party image collection or real planetary surface models were added.
+
+
+## Deployed release
+
+Application commit: `c4f459e157e0b9246ba71b276cac1884b0cc99c0` on main. Cloudflare build `47696b39-bc83-45f6-bf3a-2ca974019d6e` completed successfully. Live origin: https://star-wars-universe-atlas.skdev-371.workers.dev.
+
+Live HTML matches the local production HTML after line-ending normalization; all five JavaScript/CSS assets match SHA-256 byte for byte (`live/assets.json`). Live immersive/reference switching,76 globe nodes, inspection without arrival, single Canvas, no console errors and responsive layout pass at1440/390/320px (`live/results.json`). Separate desktop/mobile live travel checks verify Cancel preserves Tatooine, Skip commits Hoth and presentation switching is locked during transit (`live/warp.json`).
+
+All four published dataset hashes match the reviewed manifest (`live/public-data.json`):327 catalog items,76 mapped worlds,521 appearances and13 sequences. No database writes were needed. Screenshots in `live/` show the deployed release. Physical devices and hardware frame-rate benchmarks remain untested.

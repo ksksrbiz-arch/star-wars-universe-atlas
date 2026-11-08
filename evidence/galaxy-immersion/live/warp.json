@@ -1,0 +1,21 @@
+{
+  "base": "https://star-wars-universe-atlas.skdev-371.workers.dev",
+  "commit": "c4f459e",
+  "browser": "Chromium software WebGL; desktop emulation",
+  "results": [
+    {
+      "width": 1440,
+      "cancelPreservesOrigin": true,
+      "skipCommitsDestination": true,
+      "presentationLockedDuringTransit": true,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "cancelPreservesOrigin": true,
+      "skipCommitsDestination": true,
+      "presentationLockedDuringTransit": true,
+      "errors": []
+    }
+  ]
+}

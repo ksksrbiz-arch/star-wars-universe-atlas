@@ -1,0 +1,31 @@
+{
+  "checkedAt": "2026-11-08T22:05:53.617Z",
+  "commit": "c4f459e",
+  "results": [
+    {
+      "name": "CinematicBloom-Dyg3tJM7.js",
+      "bytes": 83039,
+      "sha256": "99090beeba5ed5a7e2cba45c04fe3aae7e3d141005953ca44e3cdf2acc9b65ce"
+    },
+    {
+      "name": "Galaxy-CIBUx9QM.css",
+      "bytes": 2895,
+      "sha256": "ad30a6050b5f75511125a03704a6eaa90bfcb36ac51bdd9a49eff08f0d6265d7"
+    },
+    {
+      "name": "Galaxy-DIh0WWVi.js",
+      "bytes": 976907,
+      "sha256": "0163515a1df6122df9b43314f26aa6c4af92f4a8e3d23dc93335fc65c601ff49"
+    },
+    {
+      "name": "index-9bXT6zMl.css",
+      "bytes": 127414,
+      "sha256": "267fedfb2b6ec3316d0734c25e29ac28e3c93b2693e1502801961e0454fcf28a"
+    },
+    {
+      "name": "index-C8Z-CgOu.js",
+      "bytes": 904279,
+      "sha256": "10b52bda0bf7e94f1964e8b6431632104c10df96a4134c989af86b402a380d40"
+    }
+  ]
+}
