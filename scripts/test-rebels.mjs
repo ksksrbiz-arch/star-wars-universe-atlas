@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { createHash } from 'node:crypto';
+import { sha256Lf } from './lib-hash.mjs';
 import { REBELS_CONNECTIONS } from '../src/connectionsRebels.ts';
 import { STORY_SEQUENCES } from '../src/chronology.ts';
 import { getLocationKind } from '../src/locations.ts';
@@ -15,7 +15,7 @@ assert(items.every(x=>x.runtimeMinutes===null));
 assert.deepEqual(STORY_SEQUENCES.find(x=>x.id==='rebels').itemIds.slice(0,14),items.map(x=>x.id));
 assert.equal(source.episodeEvidence.length,14);
 for(const e of source.episodes.slice(1))assert.equal(e.number,e.providerNumber+2);
-assert.equal(catalog.metadata.sourceFiles.find(x=>x.name==='rebels-season-1-source.json').sha256,createHash('sha256').update(readFileSync('docs/rebels-season-1-source.json')).digest('hex'));
+assert.equal(catalog.metadata.sourceFiles.find(x=>x.name==='rebels-season-1-source.json').sha256,sha256Lf(readFileSync('docs/rebels-season-1-source.json')));
 assert.equal(REBELS_CONNECTIONS.length,20);assert.equal(new Set(REBELS_CONNECTIONS.map(x=>x.itemId)).size,14);
 assert(REBELS_CONNECTIONS.every(x=>x.sourceUrl.startsWith('https://www.starwars.com/')&&!('x' in x)&&!('sequence' in x)));
 assert(!REBELS_CONNECTIONS.some(x=>['anaxes','lasan','kashyyyk','dagobah','coruscant'].includes(x.worldId)));

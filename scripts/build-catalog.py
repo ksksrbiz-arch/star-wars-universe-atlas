@@ -143,7 +143,7 @@ metadata = {
     },
     'filmDateSupportingSources': {'ot-return-of-the-jedi': 'https://www.starwars.com/news/jedi-at-40-deleted-scenes', 'clone-wars-film': 'https://www.starwars.com/films/star-wars-the-clone-wars'},
     'attribution': [{'provider': 'TVmaze', 'url': 'https://www.tvmaze.com/api', 'license': 'CC BY-SA', 'use': 'Episode titles, dates, numbering, runtime fields and source links; derived catalog fields preserve source attribution.'}, {'provider': 'SWAPI', 'url': 'https://swapi.dev/documentation', 'use': 'Three original-trilogy film titles and provider release dates from audited responses.'}],
-    'sourceFiles': [{'name': p.name, 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()} for p in [episode_path, film_path, extension_path, rogue_path, boba_path, prequel_path, rebels_path, rebels2_path, rebels3_path, rebels4_path, bad_batch_path, bad_batch2_path, bad_batch3_path]],
+    'sourceFiles': [{'name': p.name, 'sha256': hashlib.sha256(p.read_bytes().replace(b'\r\n', b'\n')).hexdigest()} for p in [episode_path, film_path, extension_path, rogue_path, boba_path, prequel_path, rebels_path, rebels2_path, rebels3_path, rebels4_path, bad_batch_path, bad_batch2_path, bad_batch3_path]],
     'excludedSpecials': excluded,
     'mediaNote': 'No summaries, poster URLs, episode images, or provider artwork included.'
 }
