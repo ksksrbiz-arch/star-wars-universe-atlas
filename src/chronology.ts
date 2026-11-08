@@ -35,13 +35,13 @@ const cloneWarsCodes = `
 
 export const STORY_SEQUENCES: StorySequence[] = [
   {
-    id: 'rebels', title: 'Rebels · season 1 narrative order',
-    description: 'Follow the first season as fourteen watch records covering fifteen official episode parts: the combined Spark of Rebellion premiere, then episodes 3–15.',
+    id: 'rebels', title: 'Rebels · seasons 1–2 narrative order',
+    description: 'Follow the first two seasons as 34 watch records covering 37 official parts. Combined premieres and the season-two finale each retain one progress record.',
     sourceUrl: 'https://www.starwars.com/series/star-wars-rebels',
-    itemIds: ['rebels-s01e01', ...Array.from({length:13}, (_,i) => episodeId('rebels',1,i+3))],
+    itemIds: ['rebels-s01e01', ...Array.from({length:13}, (_,i) => episodeId('rebels',1,i+3)), 'rebels-s02e01', ...Array.from({length:19}, (_,i) => episodeId('rebels',2,i+3))],
     caveats: [
       'Spark of Rebellion covers official parts 1–2 in one watch record. There is intentionally no separate episode 2 progress item; subsequent official numbering is retained.',
-      'The four introductory shorts and seasons 2–4 are outside this collection. Provider numbering differs and is normalized in the source snapshot.',
+      'Season two combines The Siege of Lothal (parts 1–2) and Twilight of the Apprentice (parts 21–22). Promotional specials and seasons 3–4 remain outside this collection; provider numbering is normalized.',
       'Whole-work narrative order is not scene chronology or a continuous travel route. Andor and Rebels overlap broadly; no exact episode interleaving is inferred.',
     ],
   },

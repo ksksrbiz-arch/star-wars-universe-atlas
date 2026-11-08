@@ -9,6 +9,7 @@ try {
  const page=await browser.newPage({viewport:{width:1280,height:1000},reducedMotion:'reduce'});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto(`${process.env.ATLAS_URL || 'http://localhost:4173'}/#journey/andor-s01e01`);
+ await page.locator('.story-chapter-picker summary').click();
  const search=page.getByRole('searchbox',{name:'Find a chapter'});
  for(const code of ['S01E02','s1e2','S01 E002','season 1 episode 2']) {
   await search.fill(code);
@@ -33,6 +34,7 @@ try {
  const unreviewed=CATALOG.find(item=>item.seriesId==='clone-wars'&&!linked.has(item.id));
  if(unreviewed) {
   await page.goto(`${process.env.ATLAS_URL || 'http://localhost:4173'}/#journey/${unreviewed.id}`);
+  if(await page.locator('.story-chapter-picker').getAttribute('open')===null)await page.locator('.story-chapter-picker summary').click();
   await page.getByLabel('Location research',{exact:true}).selectOption('unreviewed');
   assert.match(await page.locator('.journey-search-results').innerText(),/Locations not yet linked/);
   assert.equal(await page.locator('.journey-stop').count(),0);

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "rebels",
+    "title": "Rebels · season 1 narrative order",
+    "description": "Follow the first season as fourteen watch records covering fifteen official episode parts: the combined Spark of Rebellion premiere, then episodes 3–15.",
+    "sourceUrl": "https://www.starwars.com/series/star-wars-rebels",
+    "itemIds": [
+      "rebels-s01e01",
+      "rebels-s01e03",
+      "rebels-s01e04",
+      "rebels-s01e05",
+      "rebels-s01e06",
+      "rebels-s01e07",
+      "rebels-s01e08",
+      "rebels-s01e09",
+      "rebels-s01e10",
+      "rebels-s01e11",
+      "rebels-s01e12",
+      "rebels-s01e13",
+      "rebels-s01e14",
+      "rebels-s01e15"
+    ],
+    "caveats": [
+      "Spark of Rebellion covers official parts 1–2 in one watch record. There is intentionally no separate episode 2 progress item; subsequent official numbering is retained.",
+      "The four introductory shorts and seasons 2–4 are outside this collection. Provider numbering differs and is normalized in the source snapshot.",
+      "Whole-work narrative order is not scene chronology or a continuous travel route. Andor and Rebels overlap broadly; no exact episode interleaving is inferred."
+    ]
+  }
+]

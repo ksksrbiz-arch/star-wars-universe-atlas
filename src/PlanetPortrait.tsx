@@ -4,15 +4,15 @@ import './planet-portrait.css';
 type Props = { id: string; name: string; color: string; reducedMotion: boolean };
 const ice = new Set(['hoth','ilum','mygeeto','stygeon-prime']);
 const city = new Set(['coruscant']);
-const desert = new Set(['tatooine','geonosis','jakku','jedha']);
+const desert = new Set(['tatooine','geonosis','jakku','jedha','seelos']);
 const green = new Set(['endor','yavin','naboo','kashyyyk','dagobah','scarif','lahmu','lothal']);
-const rocky = new Set(['eadu','mustafar','utapau','kessel']);
+const rocky = new Set(['eadu','mustafar','utapau','kessel','atollon','malachor']);
 /** Original resolution-independent artwork. Surface motifs are illustrative, not cartography. */
 export default function PlanetPortrait({id,name,color,reducedMotion}: Props) {
  const key=useId().replaceAll(':','');
  const family=ice.has(id)?'ice':city.has(id)?'city':desert.has(id)?'desert':green.has(id)?'verdant':rocky.has(id)?'rocky':'atmosphere';
- const base=id==='lothal'?'#b4a66a':id==='kessel'?'#aa8657':family==='ice'?'#c8dce5':family==='city'?'#516478':id==='kamino'?'#4d829a':id==='geonosis'?'#b38152':id==='utapau'?'#a69b79':id==='kashyyyk'?'#668970':id==='scarif'?'#5fafa7':id==='eadu'?'#536c80':id==='lahmu'?'#71806a':id==='mustafar'?'#5e3028':color;
- return <figure className={`atlas-portrait surface-${family} ${['tatooine','coruscant','hoth','naboo','scarif','jedha','eadu','lahmu','mustafar','yavin','kamino','geonosis','utapau','kashyyyk','lothal','kessel','stygeon-prime'].includes(id) ? 'portrait-featured' : ''}`} data-motion={reducedMotion?'reduced':'full'}>
+ const base=id==='atollon'?'#bf9775':id==='malachor'?'#5f596b':id==='seelos'?'#cec7ab':id==='lothal'?'#b4a66a':id==='kessel'?'#aa8657':family==='ice'?'#c8dce5':family==='city'?'#516478':id==='kamino'?'#4d829a':id==='geonosis'?'#b38152':id==='utapau'?'#a69b79':id==='kashyyyk'?'#668970':id==='scarif'?'#5fafa7':id==='eadu'?'#536c80':id==='lahmu'?'#71806a':id==='mustafar'?'#5e3028':color;
+ return <figure className={`atlas-portrait surface-${family} ${['tatooine','coruscant','hoth','naboo','scarif','jedha','eadu','lahmu','mustafar','yavin','kamino','geonosis','utapau','kashyyyk','lothal','kessel','stygeon-prime','atollon','malachor','seelos'].includes(id) ? 'portrait-featured' : ''}`} data-motion={reducedMotion?'reduced':'full'}>
   <svg viewBox="0 0 400 320" role="img" aria-label={`Original illustrative portrait of ${name}; not an official surface map`}>
    <defs>
     <radialGradient id={`${key}-base`} cx="30%" cy="25%"><stop stopColor="#fff2d6"/><stop offset=".32" stopColor={base}/><stop offset="1" stopColor="#17232e"/></radialGradient>
@@ -33,6 +33,9 @@ export default function PlanetPortrait({id,name,color,reducedMotion}: Props) {
       {family==='verdant'&&<path d="M145 52l35 22 8 38-24 16 12 31-31 22-20-38-22-18 9-42zM231 175l38-12 24 28-12 35-33 8-21-27z" fill="#344e35" opacity=".65"/>}
       {family==='ice'&&<path d="M117 170l36-26 22 9 28-42 39 28 40-19M153 144l-10-30 13-19M204 113l-7-34" fill="none" stroke="#769ead" strokeWidth="2" opacity=".55"/>}
      </>}
+     {id==='atollon'&&<g fill="#795946" stroke="#c7a984" strokeWidth="2" opacity=".7"><path d="M106 164l19-50 13 13 7-39 16 67 17-28 7 53zM202 179l10-71 14 30 8-48 20 60 12-22 19 58z"/><path d="M118 192q65-18 152 6" fill="none"/></g>}
+     {id==='malachor'&&<g><path d="M92 168l43-44 39 25 36-52 38 45 63 10v93H90z" fill="#292736" opacity=".7"/><path d="M155 187h90l-10-11h-70zm15-17h60l-10-12h-40zm15-18h30l-15-23z" fill="#9f8791" opacity=".7"/><path d="M113 113l42-11m64-20 39 12M115 213l57-9m51 13 37-9" stroke="#bca6bd" opacity=".3" strokeWidth="2"/></g>}
+     {id==='seelos'&&<g><path d="M93 148l26-27 16 13 31-38 31 37 24-24 31 27 28-36 33 48z" fill="#607b98" opacity=".7"/><path d="M95 165q94-25 213 1v85H92z" fill="#dfd7b5" opacity=".55"/><path d="M105 180q88-14 191 0M123 202q83-13 154-1M146 220l94-2" fill="none" stroke="#f4edcf" strokeWidth="3" opacity=".6"/></g>}
      {id==='lothal'&&<g><path d="M104 104l33-27 42 10-9 30-39 7zM179 87l40-17 43 19-14 33-38-4zM118 137l40-11 29 19-17 31-45-7zM190 136l43-9 47 25-13 28-47-4zM139 185l37-2 30 24-20 25-42-12z" fill="#65744a" opacity=".55"/><path d="M105 115l51-5m34-9 53 4m-107 44 32 10m56-9 34 10m-112 39 37 8" stroke="#d1bb74" strokeWidth="4" opacity=".55"/><g fill="#ced3b0" opacity=".6"><rect x="205" y="109" width="7" height="8"/><rect x="214" y="101" width="6" height="15"/><rect x="222" y="106" width="8" height="12"/></g></g>}
      {id==='kessel'&&<g><path d="M108 90l38 23-12 29 29 25-15 39M173 59l22 36-13 24 37 29-8 40 28 33M227 78l-10 31 36 22-5 36 34 21" fill="none" stroke="#483f31" strokeWidth="10" opacity=".6"/><path d="M111 92l32 22-11 23m67 14 17 8-7 25M230 81l-10 26 29 25" fill="none" stroke="#ddba70" strokeWidth="2" opacity=".65"/><path d="M96 116q55-29 105-7t105-3M108 183q63-27 115-3t75-14" fill="none" stroke="#e3cd85" strokeWidth="16" opacity=".15"/></g>}
      {id==='stygeon-prime'&&<g><path d="M101 168l31-63 19 26 28-56 24 55 20-27 23 41 24-36 31 62z" fill="#4b6578" opacity=".6"/><path d="M118 134l14-29 10 15m25-18 12-27 14 31m66 20 11-18 11 21" fill="none" stroke="#f1f5ed" strokeWidth="6" opacity=".75"/><path d="M106 183q74-23 172 4M116 93q67-20 130 1" fill="none" stroke="#e2eff2" strokeWidth="8" opacity=".2"/></g>}

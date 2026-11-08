@@ -13,7 +13,7 @@ const manifest=JSON.parse(await readFile('db/publications/appearances.json','utf
 if(appearanceDigest(CONNECTIONS)!==manifest.sha256) throw new Error('Publication artifact is stale; regenerate and review it.');
 const catalog=JSON.parse(await readFile('src/catalog.generated.json','utf8'));
 const {ALL_WORLDS}=await import('../src/journeyWorlds.ts');
-const expected=buildPublication(CONNECTIONS,{works:catalog.items.length,worlds:ALL_WORLDS.length,mappedWorlds:ALL_WORLDS,catalog:catalog.items,sequences:STORY_SEQUENCES});
+const expected=buildPublication(CONNECTIONS,{works:catalog.items.length,worlds:ALL_WORLDS.length,mappedWorlds:ALL_WORLDS,catalog:catalog.items,sequences:STORY_SEQUENCES,sequenceBaselines:JSON.parse(await readFile('db/sequence-extension-baselines.json','utf8'))});
 const sql=await readFile('db/publications/appearances.sql','utf8');
 if(canonicalJson(expected.manifest)!==canonicalJson(manifest) || sql!==expected.sql) throw new Error('Reviewed SQL/manifest does not match the current generator and registry.');
 if(process.argv.includes('--apply') && process.env.ATLAS_DATABASE_HOST!==target.hostname) throw new Error('Set non-secret ATLAS_DATABASE_HOST to the independently verified dedicated Neon endpoint before applying.');

@@ -1,0 +1,545 @@
+{
+  "checkedOn": "2026-11-07",
+  "api": "https://api.tvmaze.com/shows/117/episodes?specials=1",
+  "provider": "TVmaze",
+  "license": "CC BY-SA",
+  "numberingNote": "20 watch records cover 22 official parts. The Siege of Lothal covers parts 1–2; Twilight of the Apprentice covers parts 21–22. No duplicate part 2 or 22 record. Ordinary provider numbers 2–19 normalize to official parts 3–20. The Ultimate Guide special is excluded.",
+  "officialIndex": "https://www.starwars.com/series/star-wars-rebels",
+  "episodes": [
+    {
+      "id": "rebels-s02e01",
+      "name": "The Siege of Lothal",
+      "season": 2,
+      "number": 1,
+      "providerNumber": 1,
+      "airdate": "2015-06-20",
+      "sourceUrl": "https://www.tvmaze.com/episodes/162883/star-wars-rebels-2x01-the-siege-of-lothal",
+      "episodeEnd": 2,
+      "note": "Combined official parts 1–2 share one watch record; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e03",
+      "name": "The Lost Commanders",
+      "season": 2,
+      "number": 3,
+      "providerNumber": 2,
+      "airdate": "2015-10-14",
+      "sourceUrl": "https://www.tvmaze.com/episodes/215193/star-wars-rebels-2x02-the-lost-commanders",
+      "note": "Official episode number normalized from provider numbering; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e04",
+      "name": "Relics of the Old Republic",
+      "season": 2,
+      "number": 4,
+      "providerNumber": 3,
+      "airdate": "2015-10-21",
+      "sourceUrl": "https://www.tvmaze.com/episodes/321623/star-wars-rebels-2x03-relics-of-the-old-republic",
+      "note": "Official episode number normalized from provider numbering; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e05",
+      "name": "Always Two There Are",
+      "season": 2,
+      "number": 5,
+      "providerNumber": 4,
+      "airdate": "2015-10-28",
+      "sourceUrl": "https://www.tvmaze.com/episodes/321624/star-wars-rebels-2x04-always-two-there-are",
+      "note": "Official episode number normalized from provider numbering; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e06",
+      "name": "Brothers of the Broken Horn",
+      "season": 2,
+      "number": 6,
+      "providerNumber": 5,
+      "airdate": "2015-11-04",
+      "sourceUrl": "https://www.tvmaze.com/episodes/9024/star-wars-rebels-2x05-brothers-of-the-broken-horn",
+      "note": "Official episode number normalized from provider numbering; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e07",
+      "name": "Wings of the Master",
+      "season": 2,
+      "number": 7,
+      "providerNumber": 6,
+      "airdate": "2015-11-11",
+      "sourceUrl": "https://www.tvmaze.com/episodes/155592/star-wars-rebels-2x06-wings-of-the-master",
+      "note": "Official episode number normalized from provider numbering; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e08",
+      "name": "Blood Sisters",
+      "season": 2,
+      "number": 8,
+      "providerNumber": 7,
+      "airdate": "2015-11-18",
+      "sourceUrl": "https://www.tvmaze.com/episodes/391808/star-wars-rebels-2x07-blood-sisters",
+      "note": "Official episode number normalized from provider numbering; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e09",
+      "name": "Stealth Strike",
+      "season": 2,
+      "number": 9,
+      "providerNumber": 8,
+      "airdate": "2015-11-25",
+      "sourceUrl": "https://www.tvmaze.com/episodes/391809/star-wars-rebels-2x08-stealth-strike",
+      "note": "Official episode number normalized from provider numbering; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e10",
+      "name": "The Future of the Force",
+      "season": 2,
+      "number": 10,
+      "providerNumber": 9,
+      "airdate": "2015-12-02",
+      "sourceUrl": "https://www.tvmaze.com/episodes/448752/star-wars-rebels-2x09-the-future-of-the-force",
+      "note": "Official episode number normalized from provider numbering; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e11",
+      "name": "Legacy",
+      "season": 2,
+      "number": 11,
+      "providerNumber": 10,
+      "airdate": "2015-12-09",
+      "sourceUrl": "https://www.tvmaze.com/episodes/448753/star-wars-rebels-2x10-legacy",
+      "note": "Official episode number normalized from provider numbering; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e12",
+      "name": "A Princess on Lothal",
+      "season": 2,
+      "number": 12,
+      "providerNumber": 11,
+      "airdate": "2016-01-20",
+      "sourceUrl": "https://www.tvmaze.com/episodes/448754/star-wars-rebels-2x11-a-princess-on-lothal",
+      "note": "Official episode number normalized from provider numbering; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e13",
+      "name": "The Protector of Concord Dawn",
+      "season": 2,
+      "number": 13,
+      "providerNumber": 12,
+      "airdate": "2016-01-27",
+      "sourceUrl": "https://www.tvmaze.com/episodes/574472/star-wars-rebels-2x12-the-protector-of-concord-dawn",
+      "note": "Official episode number normalized from provider numbering; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e14",
+      "name": "Legends of the Lasat",
+      "season": 2,
+      "number": 14,
+      "providerNumber": 13,
+      "airdate": "2016-02-03",
+      "sourceUrl": "https://www.tvmaze.com/episodes/574473/star-wars-rebels-2x13-legends-of-the-lasat",
+      "note": "Official episode number normalized from provider numbering; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e15",
+      "name": "The Call",
+      "season": 2,
+      "number": 15,
+      "providerNumber": 14,
+      "airdate": "2016-02-10",
+      "sourceUrl": "https://www.tvmaze.com/episodes/574474/star-wars-rebels-2x14-the-call",
+      "note": "Official episode number normalized from provider numbering; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e16",
+      "name": "Homecoming",
+      "season": 2,
+      "number": 16,
+      "providerNumber": 15,
+      "airdate": "2016-02-17",
+      "sourceUrl": "https://www.tvmaze.com/episodes/574475/star-wars-rebels-2x15-homecoming",
+      "note": "Official episode number normalized from provider numbering; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e17",
+      "name": "The Honorable Ones",
+      "season": 2,
+      "number": 17,
+      "providerNumber": 16,
+      "airdate": "2016-02-24",
+      "sourceUrl": "https://www.tvmaze.com/episodes/574476/star-wars-rebels-2x16-the-honorable-ones",
+      "note": "Official episode number normalized from provider numbering; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e18",
+      "name": "Shroud of Darkness",
+      "season": 2,
+      "number": 18,
+      "providerNumber": 17,
+      "airdate": "2016-03-02",
+      "sourceUrl": "https://www.tvmaze.com/episodes/609581/star-wars-rebels-2x17-shroud-of-darkness",
+      "note": "Official episode number normalized from provider numbering; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e19",
+      "name": "The Forgotten Droid",
+      "season": 2,
+      "number": 19,
+      "providerNumber": 18,
+      "airdate": "2016-03-16",
+      "sourceUrl": "https://www.tvmaze.com/episodes/609582/star-wars-rebels-2x18-the-forgotten-droid",
+      "note": "Official episode number normalized from provider numbering; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e20",
+      "name": "The Mystery of Chopper Base",
+      "season": 2,
+      "number": 20,
+      "providerNumber": 19,
+      "airdate": "2016-03-23",
+      "sourceUrl": "https://www.tvmaze.com/episodes/609583/star-wars-rebels-2x19-the-mystery-of-chopper-base",
+      "note": "Official episode number normalized from provider numbering; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s02e21",
+      "name": "Twilight of the Apprentice",
+      "season": 2,
+      "number": 21,
+      "providerNumber": 20,
+      "airdate": "2016-03-30",
+      "sourceUrl": "https://www.tvmaze.com/episodes/609585/star-wars-rebels-2x20-twilight-of-the-apprentice",
+      "episodeEnd": 22,
+      "note": "Combined official parts 21–22 share one watch record; runtime withheld pending edition verification."
+    }
+  ],
+  "providerSeasonSnapshot": [
+    {
+      "id": 162883,
+      "name": "The Siege of Lothal",
+      "number": 1,
+      "season": 2,
+      "airdate": "2015-06-20",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/162883/star-wars-rebels-2x01-the-siege-of-lothal"
+    },
+    {
+      "id": 215193,
+      "name": "The Lost Commanders",
+      "number": 2,
+      "season": 2,
+      "airdate": "2015-10-14",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/215193/star-wars-rebels-2x02-the-lost-commanders"
+    },
+    {
+      "id": 321623,
+      "name": "Relics of the Old Republic",
+      "number": 3,
+      "season": 2,
+      "airdate": "2015-10-21",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/321623/star-wars-rebels-2x03-relics-of-the-old-republic"
+    },
+    {
+      "id": 321624,
+      "name": "Always Two There Are",
+      "number": 4,
+      "season": 2,
+      "airdate": "2015-10-28",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/321624/star-wars-rebels-2x04-always-two-there-are"
+    },
+    {
+      "id": 9024,
+      "name": "Brothers of the Broken Horn",
+      "number": 5,
+      "season": 2,
+      "airdate": "2015-11-04",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/9024/star-wars-rebels-2x05-brothers-of-the-broken-horn"
+    },
+    {
+      "id": 155592,
+      "name": "Wings of the Master",
+      "number": 6,
+      "season": 2,
+      "airdate": "2015-11-11",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/155592/star-wars-rebels-2x06-wings-of-the-master"
+    },
+    {
+      "id": 391808,
+      "name": "Blood Sisters",
+      "number": 7,
+      "season": 2,
+      "airdate": "2015-11-18",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/391808/star-wars-rebels-2x07-blood-sisters"
+    },
+    {
+      "id": 391809,
+      "name": "Stealth Strike",
+      "number": 8,
+      "season": 2,
+      "airdate": "2015-11-25",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/391809/star-wars-rebels-2x08-stealth-strike"
+    },
+    {
+      "id": 448752,
+      "name": "The Future of the Force",
+      "number": 9,
+      "season": 2,
+      "airdate": "2015-12-02",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/448752/star-wars-rebels-2x09-the-future-of-the-force"
+    },
+    {
+      "id": 448753,
+      "name": "Legacy",
+      "number": 10,
+      "season": 2,
+      "airdate": "2015-12-09",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/448753/star-wars-rebels-2x10-legacy"
+    },
+    {
+      "id": 448754,
+      "name": "A Princess on Lothal",
+      "number": 11,
+      "season": 2,
+      "airdate": "2016-01-20",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/448754/star-wars-rebels-2x11-a-princess-on-lothal"
+    },
+    {
+      "id": 574472,
+      "name": "The Protector of Concord Dawn",
+      "number": 12,
+      "season": 2,
+      "airdate": "2016-01-27",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/574472/star-wars-rebels-2x12-the-protector-of-concord-dawn"
+    },
+    {
+      "id": 574473,
+      "name": "Legends of the Lasat",
+      "number": 13,
+      "season": 2,
+      "airdate": "2016-02-03",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/574473/star-wars-rebels-2x13-legends-of-the-lasat"
+    },
+    {
+      "id": 574474,
+      "name": "The Call",
+      "number": 14,
+      "season": 2,
+      "airdate": "2016-02-10",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/574474/star-wars-rebels-2x14-the-call"
+    },
+    {
+      "id": 574475,
+      "name": "Homecoming",
+      "number": 15,
+      "season": 2,
+      "airdate": "2016-02-17",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/574475/star-wars-rebels-2x15-homecoming"
+    },
+    {
+      "id": 574476,
+      "name": "The Honorable Ones",
+      "number": 16,
+      "season": 2,
+      "airdate": "2016-02-24",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/574476/star-wars-rebels-2x16-the-honorable-ones"
+    },
+    {
+      "id": 609581,
+      "name": "Shroud of Darkness",
+      "number": 17,
+      "season": 2,
+      "airdate": "2016-03-02",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/609581/star-wars-rebels-2x17-shroud-of-darkness"
+    },
+    {
+      "id": 609582,
+      "name": "The Forgotten Droid",
+      "number": 18,
+      "season": 2,
+      "airdate": "2016-03-16",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/609582/star-wars-rebels-2x18-the-forgotten-droid"
+    },
+    {
+      "id": 609583,
+      "name": "The Mystery of Chopper Base",
+      "number": 19,
+      "season": 2,
+      "airdate": "2016-03-23",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/609583/star-wars-rebels-2x19-the-mystery-of-chopper-base"
+    },
+    {
+      "id": 609585,
+      "name": "Twilight of the Apprentice",
+      "number": 20,
+      "season": 2,
+      "airdate": "2016-03-30",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/609585/star-wars-rebels-2x20-twilight-of-the-apprentice"
+    },
+    {
+      "id": 395433,
+      "name": "The Ultimate Guide",
+      "number": null,
+      "season": 2,
+      "airdate": "2015-05-04",
+      "type": "insignificant_special",
+      "url": "https://www.tvmaze.com/episodes/395433/star-wars-rebels-s02-special-the-ultimate-guide"
+    }
+  ],
+  "episodeEvidence": [
+    {
+      "slug": "the-siege-of-lothal",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/the-siege-of-lothal-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/the-siege-of-lothal-episode-gallery",
+      "officialHeading": "S2E1: The Siege of Lothal",
+      "reviewedCaptionCount": 41
+    },
+    {
+      "slug": "the-lost-commanders",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/the-lost-commanders-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/the-lost-commanders-episode-gallery",
+      "officialHeading": "S2E3: The Lost Commanders",
+      "reviewedCaptionCount": 20
+    },
+    {
+      "slug": "brothers-of-the-broken-horn",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/brothers-of-the-broken-horn-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/brothers-of-the-broken-horn-episode-gallery",
+      "officialHeading": "S2E6: Brothers of the Broken Horn",
+      "reviewedCaptionCount": 23
+    },
+    {
+      "slug": "wings-of-the-master",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/wings-of-the-master-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/wings-of-the-master-episode-gallery",
+      "officialHeading": "S2E7: Wings of the Master",
+      "reviewedCaptionCount": 22
+    },
+    {
+      "slug": "blood-sisters",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/blood-sisters-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/blood-sisters-episode-gallery",
+      "officialHeading": "S2E8: Blood Sisters",
+      "reviewedCaptionCount": 24
+    },
+    {
+      "slug": "stealth-strike",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/stealth-strike-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/stealth-strike-episode-gallery",
+      "officialHeading": "S2E9: Stealth Strike",
+      "reviewedCaptionCount": 24
+    },
+    {
+      "slug": "the-future-of-the-force",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/the-future-of-the-force-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/the-future-of-the-force-episode-gallery",
+      "officialHeading": "S2E10: The Future of the Force",
+      "reviewedCaptionCount": 26
+    },
+    {
+      "slug": "legacy",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/legacy-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/season-two-legacy-episode-gallery",
+      "officialHeading": "S2E11: Legacy",
+      "reviewedCaptionCount": 22
+    },
+    {
+      "slug": "a-princess-on-lothal",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/a-princess-on-lothal-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/a-princess-on-lothal-episode-gallery",
+      "officialHeading": "S2E12: A Princess on Lothal",
+      "reviewedCaptionCount": 21
+    },
+    {
+      "slug": "the-protector-of-concord-dawn",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/the-protector-of-concord-dawn-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/the-protector-of-concord-dawn-episode-gallery",
+      "officialHeading": "S2E13: The Protector of Concord Dawn",
+      "reviewedCaptionCount": 24
+    },
+    {
+      "slug": "legends-of-the-lasat",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/legends-of-the-lasat-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/legends-of-the-lasat-episode-gallery",
+      "officialHeading": "S2E14: Legends of the Lasat",
+      "reviewedCaptionCount": 25
+    },
+    {
+      "slug": "the-call",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/the-call-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/the-call-episode-gallery",
+      "officialHeading": "S2E15: The Call",
+      "reviewedCaptionCount": 27
+    },
+    {
+      "slug": "homecoming",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/homecoming-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/homecoming-episode-gallery",
+      "officialHeading": "S2E16: Homecoming",
+      "reviewedCaptionCount": 28
+    },
+    {
+      "slug": "the-honorable-ones",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/the-honorable-ones-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/the-honorable-ones-episode-gallery",
+      "officialHeading": "S2E17: The Honorable Ones",
+      "reviewedCaptionCount": 27
+    },
+    {
+      "slug": "shroud-of-darkness",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/shroud-of-darkness-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/shroud-of-darkness-episode-gallery",
+      "officialHeading": "S2E18: Shroud of Darkness",
+      "reviewedCaptionCount": 33
+    },
+    {
+      "slug": "the-forgotten-droid",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/the-forgotten-droid-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/the-forgotten-droid-episode-gallery",
+      "officialHeading": "S2E19: The Forgotten Droid",
+      "reviewedCaptionCount": 28
+    },
+    {
+      "slug": "the-mystery-of-chopper-base",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/the-mystery-of-chopper-base-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/the-mystery-of-chopper-base-episode-gallery",
+      "officialHeading": "S2E20: The Mystery of Chopper Base",
+      "reviewedCaptionCount": 29
+    },
+    {
+      "slug": "twilight-of-the-apprentice",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/twilight-of-the-apprentice-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/twilight-of-the-apprentice-episode-gallery-2",
+      "officialHeading": "S2E21-22: Twilight of the Apprentice",
+      "reviewedCaptionCount": 51
+    },
+    {
+      "slug": "relics-of-the-old-republic",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/relics-of-the-old-republic",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/relics-of-the-old-republic-episode-gallery",
+      "officialHeading": "S2E4: Relics of the Old Republic",
+      "reviewedCaptionCount": 28
+    },
+    {
+      "slug": "always-two-there-are",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/always-two-there-are",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/always-two-there-are-episode-gallery",
+      "officialHeading": "S2E5: Always Two There Are",
+      "reviewedCaptionCount": 29
+    }
+  ]
+}

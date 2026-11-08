@@ -13,6 +13,36 @@ export type WorldDossier = {
 
 const databank = 'https://www.starwars.com/databank/';
 export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
+  atollon: {
+    worldId: 'atollon', eyebrow: 'REMOTE WORLD · ROCK AND HIDDEN LIFE',
+    overview: { text: 'Atollon is a remote rocky world considered for a hidden rebel base. Its barren appearance conceals native creatures above and below ground.', sourceUrl: databank + 'atollon' },
+    terrain: { label: 'Barren rocky terrain', text: 'Rock dominates the broad setting description. The illustration suggests weathered formations without reconstructing the base or identifying cave entrances.', sourceUrl: databank + 'atollon' },
+    highlights: [
+      { id: 'krykna-habitat', name: 'Underground habitat', description: 'Large, six-legged krykna inhabit underground hives. Their presence makes an apparently empty landscape a living and hazardous environment.', sourceUrl: databank + 'krykna' },
+      { id: 'dokma-habitat', name: 'Dokma habitat', description: 'Small, timid dokma have protective shells and live among the sparse native life. They are prey for the larger krykna.', sourceUrl: databank + 'dokma' },
+    ],
+    caveat: 'These broad habitat notes omit the outcome of the base’s story. Rock shapes, hive entrances and base placement are illustrative; no episode association or galaxy coordinate is established here.',
+  },
+  malachor: {
+    worldId: 'malachor', eyebrow: 'ANCIENT SITE · SITH HERITAGE',
+    overview: { text: 'Malachor is a dark world associated with an ancient conflict between Jedi and Sith. Jedi traditions warn against visiting it.', sourceUrl: databank + 'malachor' },
+    terrain: { label: 'Dark surface and underground temple', text: 'The production design places the Sith temple in a vast cavern under a black surface. Its contrast of daylight above and darkness below informs the original portrait.', sourceUrl: 'https://www.starwars.com/news/fates-fulfilled-dave-filoni-reflects-on-star-wars-rebels-season-two-part-2' },
+    highlights: [
+      { id: 'sith-temple', name: 'Ancient Sith temple', description: 'The temple is a locality on Malachor. Its existence does not establish the world’s full geography or the locations of its entrances.', sourceUrl: databank + 'malachor' },
+      { id: 'ancient-conflict', name: 'Site of ancient conflict', description: 'Jedi and Sith once fought here. This broad historical context does not assign a precise date or disclose later visitors’ outcomes.', sourceUrl: databank + 'malachor' },
+    ],
+    caveat: 'This Rebels setting is not silently merged with similarly named worlds from other continuities. The dark palette and abstract temple motif are original interpretation, not measured geology, architecture or map placement.',
+  },
+  seelos: {
+    worldId: 'seelos', eyebrow: 'REMOTE WORLD · SALT PLAINS',
+    overview: { text: 'Seelos is a remote, dusty planet with salt plains and distant blue mountains. Its harsh terrain supports life beneath the surface.', sourceUrl: databank + 'seelos' },
+    terrain: { label: 'Salt plains and distant mountains', text: 'Pale open plains contrast with blue mountain silhouettes. These broad environmental features inform the illustration without defining ranges, roads or distances.', sourceUrl: databank + 'seelos' },
+    highlights: [
+      { id: 'salt-plains', name: 'Salt plains', description: 'Travelers cross dusty expanses in modified walkers. The landscape reference does not make a mobile vehicle a permanent geographical landmark.', sourceUrl: databank + 'seelos' },
+      { id: 'joopa-habitat', name: 'Subsurface habitat', description: 'Worm-like joopas live beneath the crust of Seelos. No burrow, hunting ground or depth measurement is inferred from that habitat description.', sourceUrl: databank + 'joopa' },
+    ],
+    caveat: 'The portrait shows illustrative salt plains and distant ridges, not a surface survey. Mobile clone residences have no fixed coordinates here; this file supplies neither episode joins nor a galaxy placement.',
+  },
   lothal: {
     worldId: 'lothal', eyebrow: 'PLAINS WORLD · FARMS AND CITY',
     overview: { text: 'Lothal combines open farmland with a city center. Imperial occupation brings expanding industry and restrictions that reshape life on the world.', sourceUrl: databank + 'lothal' },
@@ -252,6 +282,9 @@ export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
 /** Reviewed broad categories for directory discovery; absence means not reviewed, not unknown geology. */
 export type WorldTerrainCategory = 'desert' | 'urban' | 'ice' | 'wetlands' | 'gas-giant' | 'swamp' | 'forest' | 'tropical' | 'cold-desert' | 'rugged' | 'mineral-rich' | 'volcanic' | 'ocean' | 'sinkholes' | 'plains' | 'caverns' | 'asteroid';
 export const WORLD_TERRAIN: Readonly<Record<string, { category: WorldTerrainCategory; label: string; sourceUrl: string }>> = {
+  atollon: { category: 'rugged', label: 'Barren rock', sourceUrl: databank + 'atollon' },
+  malachor: { category: 'caverns', label: 'Dark surface and temple cavern', sourceUrl: 'https://www.starwars.com/news/fates-fulfilled-dave-filoni-reflects-on-star-wars-rebels-season-two-part-2' },
+  seelos: { category: 'plains', label: 'Salt plains', sourceUrl: databank + 'seelos' },
   lothal: { category: 'plains', label: 'Plains and farmland', sourceUrl: databank + 'lothal' },
   kessel: { category: 'caverns', label: 'Caverns and mines', sourceUrl: databank + 'kessel' },
   'stygeon-prime': { category: 'rugged', label: 'Cold mountains', sourceUrl: databank + 'stygeon-prime' },

@@ -163,13 +163,22 @@ const haloFragment = `varying vec2 vUv;uniform vec3 tint;void main(){float r=len
 /** Only optional zoom-level labels yield to overlaps. Current, preview and chapter
  * labels stay present; every destination also remains available in the finder. */
 function LabelDeclutter() {
-  const {gl,size} = useThree()
+  const {gl,size,invalidate} = useThree()
+  useEffect(() => {
+    let active = true
+    const reflow = () => { if (active) invalidate() }
+    document.fonts.ready.then(reflow)
+    document.fonts.addEventListener('loadingdone', reflow)
+    return () => { active = false; document.fonts.removeEventListener('loadingdone', reflow) }
+  }, [invalidate])
   useFrame(() => {
     const root = gl.domElement.parentElement
     if (!root) return
     const bounds = gl.domElement.getBoundingClientRect()
+    const priority = (label: HTMLButtonElement) => label === document.activeElement ? 5 : label.classList.contains('is-current') ? 4 : Number(label.dataset.labelPriority)
     const labels = [...root.querySelectorAll<HTMLButtonElement>('.world-map-label')]
-      .sort((a,b) => Number(b.dataset.labelPriority)-Number(a.dataset.labelPriority) || (a.textContent ?? '').localeCompare(b.textContent ?? ''))
+      .sort((a,b) => priority(b)-priority(a) || b.offsetWidth-a.offsetWidth || (a.textContent ?? '').localeCompare(b.textContent ?? ''))
+    const denseStory = size.width <= 400 && labels.filter(label => Number(label.dataset.labelPriority) === 2).length >= 6
     const stage = gl.domElement.closest('.map-stage')
     const protectedRects = [...(stage?.querySelectorAll<HTMLElement>('.map-tools,.map-pan-controls,.galaxy-symbol-key,.map-jump-bar,.current-location,.mini-map') ?? [])]
       .map(element => element.getBoundingClientRect()).filter(rect => rect.width > 0 && rect.height > 0)
@@ -192,14 +201,26 @@ function LabelDeclutter() {
         if (dx || dy) { label.style.translate = `${dx}px ${dy}px`; rect = new DOMRect(rect.x+dx,rect.y+dy,rect.width,rect.height) }
       }
       // Move only the label; its leader follows the displacement to the unchanged source dot.
-      if (essential && onScreen && protectedRects.some(other => overlapsRect(rect, other))) {
-        const candidates = protectedRects.flatMap(other => [
+      const obstacles = [...protectedRects,...occupied]
+      const packStory = denseStory && priority(label) === 2
+      if (essential && onScreen && (packStory || obstacles.some(other => overlapsRect(rect, other)))) {
+        // Edge candidates handle adjacent labels; a small bounded search handles tight clusters.
+        const nearby = [1,2,3].flatMap(step => [-1,0,1].flatMap(x => [-1,0,1].filter(y => x || y).map(y =>
+          new DOMRect(rect.x+x*step*(rect.width+6),rect.y+y*step*(rect.height+6),rect.width,rect.height))))
+        const clearCandidates = (items: DOMRect[]) => items.filter(candidate => inside(candidate) && !obstacles.some(other => overlapsRect(candidate,other)))
+          .sort((a,b) => packStory ? a.y-b.y || a.x-b.x : Math.hypot(a.x-rect.x,a.y-rect.y)-Math.hypot(b.x-rect.x,b.y-rect.y))
+        let candidates = clearCandidates([...obstacles.flatMap(other => [
           new DOMRect(other.left-rect.width-6,rect.y,rect.width,rect.height),
           new DOMRect(other.right+6,rect.y,rect.width,rect.height),
           new DOMRect(rect.x,other.top-rect.height-6,rect.width,rect.height),
           new DOMRect(rect.x,other.bottom+6,rect.width,rect.height),
-        ]).filter(candidate => inside(candidate) && ![...protectedRects,...occupied].some(other => overlapsRect(candidate,other)))
-          .sort((a,b) => Math.hypot(a.x-rect.x,a.y-rect.y)-Math.hypot(b.x-rect.x,b.y-rect.y))
+        ]), ...nearby])
+        if (packStory || !candidates.length) {
+          const xs = [bounds.left+6, bounds.right-rect.width-6, ...obstacles.flatMap(other => [other.left-rect.width-6, other.right+6])]
+          const ys = [bounds.top+6, bounds.bottom-rect.height-6, ...obstacles.flatMap(other => [other.top-rect.height-6, other.bottom+6])]
+          candidates = clearCandidates(xs.flatMap(x => ys.map(y => new DOMRect(x,y,rect.width,rect.height))))
+        }
+        if (!candidates.length) candidates = clearCandidates(Array.from({length: 32}, (_, row) => Array.from({length: 20}, (_, col) => new DOMRect(bounds.left+6+col*(bounds.width-rect.width-12)/19, bounds.top+6+row*(bounds.height-rect.height-12)/31, rect.width, rect.height))).flat())
         if (candidates[0]) { const next = candidates[0]; dx += next.x-rect.x; dy += next.y-rect.y; rect = next; label.style.translate = `${dx}px ${dy}px` }
       }
       leaderLayouts.get(gl.domElement)?.get(label.dataset.worldId ?? '')?.(dx,dy)
@@ -253,7 +274,7 @@ function StoryBeacon() {
 
 function WorldMarker({ world, highlighted, selected, previewed, disabled, onSelect, sharedOffset }: { sharedOffset?: [number, number]; world: World; highlighted: boolean; selected: boolean; previewed: boolean; disabled: boolean; onSelect: Props['onSelect'] }) {
   const drag = useRef({ x: 0, y: 0, moved: false })
-  const { size } = useThree()
+  const { size, invalidate } = useThree()
   const color = selected ? '#ffd49b' : previewed ? '#c4edf5' : highlighted ? '#dbb9ff' : '#91b9c8'
   const offset = sharedOffset ?? labelOffsets[world.id] ?? [0, 0]
   const priority = selected || previewed ? 3 : highlighted ? 2 : featuredWorlds.has(world.id) ? 1 : 0
@@ -275,6 +296,7 @@ function WorldMarker({ world, highlighted, selected, previewed, disabled, onSele
     {previewed && !selected && <mesh><ringGeometry args={[.2, .215, 48]} /><meshBasicMaterial color="#a3d9e6" transparent opacity={.8} /></mesh>}
     <Html center position={[0, -.39, .2]} zIndexRange={[12, 1]} minZoom={minZoom}>
       <button className={`world-map-label${selected ? ' is-current' : ''}${previewed ? ' is-preview' : ''}${highlighted ? ' is-episode' : ''}`} data-label-priority={priority} data-world-id={world.id} data-episode-location={highlighted ? world.id : undefined} title={`${world.name} · source grid ${world.grid}${highlighted ? ' · Sourced chapter location; no visit order implied' : ''}`} disabled={disabled}
+        onFocus={() => invalidate()} onBlur={() => invalidate()}
         onPointerDown={(e) => { drag.current = { x: e.clientX, y: e.clientY, moved: false }; e.currentTarget.setPointerCapture(e.pointerId) }}
         onPointerMove={(e) => { if (e.buttons && Math.hypot(e.clientX - drag.current.x, e.clientY - drag.current.y) > 6) drag.current.moved = true }}
         onPointerCancel={() => { drag.current.moved = true }}

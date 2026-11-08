@@ -1,3 +1,4 @@
+import { REBELS_SEASON_2_CONNECTIONS } from './connectionsRebelsSeason2.ts';
 import { REBELS_CONNECTIONS } from './connectionsRebels.ts';
 import { PREQUEL_CONNECTIONS } from './connectionsPrequels.ts';
 import { BOBA_FETT_CONNECTIONS } from './connectionsBobaFett.ts';
@@ -31,6 +32,7 @@ const connection = (itemId: string, worldId: string, worldName: string, sourceUr
 /** Curated title/world associations, not character journeys or exhaustive scene logs. */
 export const CONNECTIONS: PlanetConnection[] = [
   ...REBELS_CONNECTIONS,
+  ...REBELS_SEASON_2_CONNECTIONS,
   connection('ot-a-new-hope', 'tatooine', 'Tatooine', film + 'star-wars-episode-iv-a-new-hope', 'The official film synopsis locates Luke and Obi-Wan on Tatooine.'),
   connection('ot-a-new-hope', 'alderaan', 'Alderaan', 'https://www.starwars.com/databank/alderaan', 'Seen being destroyed, not a completed surface visit by Luke. Databank explicitly lists A New Hope and describes the destruction.'),
   connection('ot-a-new-hope', 'yavin', 'Yavin 4', 'https://www.starwars.com/databank/yavin-4', 'Databank lists A New Hope and identifies the moon as the Rebel base for the first Death Star attack.'),
@@ -154,6 +156,8 @@ export const CONNECTION_COVERAGE = {
   ordering: 'No within-title sequence has been assigned. Array order is editorial grouping, not story order or travel order.',
   omissions: 'Missing relationships do not establish absence of a world; reviewed title gaps are recorded separately. Edition-specific Return of the Jedi celebration locations are not included.',
   reviewedWithoutPlanetLink: [
+    { itemId: 'rebels-s02e15', reason: 'The official The Call gallery captions 8 and 26 establish a fuel-refinery planetoid/asteroid and space action. This review does not establish a stable named-world identity; no guessed name or coordinate is assigned.', sourceUrl: 'https://www.starwars.com/series/star-wars-rebels/the-call-episode-gallery' },
+    { itemId: 'rebels-s02e19', reason: 'The official The Forgotten Droid gallery caption 26 establishes arrival at an unnamed safe planet. Caption 22 rejects the proposed Yost system as a trap. This pass does not assume the unnamed planet identity from adjacent episodes; Ryloth is recalled history.', sourceUrl: 'https://www.starwars.com/series/star-wars-rebels/the-forgotten-droid-episode-gallery' },
     {
       "itemId": "clone-wars-s01e02",
       "reason": "The exact episode gallery names the Abregado and Bith systems and a debris-field rescue. It does not identify a particular planet or moon appearance; system names are not silently converted into planet IDs.",

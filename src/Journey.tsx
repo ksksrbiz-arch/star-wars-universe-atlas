@@ -49,6 +49,7 @@ export default function Journey({ onInspectLocation, onLocationDisclosure, watch
 
   const [query, setQuery] = useState('');
   const [coverageFilter, setCoverageFilter] = useState<'all' | 'linked' | 'unreviewed'>('all');
+  const [seasonSelection, setSeasonSelection] = useState({ sequenceId: '', value: 'all' });
   const [resultLimit, setResultLimit] = useState(6);
   const linkedIds = useMemo(() => new Set(CONNECTIONS.map(connection => connection.itemId)), []);
   const [progressMessage, setProgressMessage] = useState('');
@@ -99,14 +100,17 @@ export default function Journey({ onInspectLocation, onLocationDisclosure, watch
   const normalizedQuery = query.trim().toLowerCase();
 
   const episodeQuery = normalizedQuery.match(/^s(?:eason)?\s*0*(\d+)\s*e(?:pisode)?\s*0*(\d+)$/i);
-  const matches = items.filter(entry => {
+  const seasons = [...new Set(items.flatMap(entry => entry.season === undefined ? [] : [entry.season]))].sort((a, b) => a - b);
+  const seasonFilter = seasonSelection.sequenceId === sequence.id ? seasonSelection.value : 'all';
+  const seasonItems = items.filter(entry => seasonFilter === 'all' || (seasonFilter === 'films' ? entry.kind === 'film' : entry.season === Number(seasonFilter)));
+  const matches = seasonItems.filter(entry => {
     const linked = linkedIds.has(entry.id);
     if (coverageFilter === 'linked' && !linked || coverageFilter === 'unreviewed' && linked) return false;
     if (episodeQuery) return matchesEpisode(entry, Number(episodeQuery[1]), Number(episodeQuery[2]));
     return !normalizedQuery || `${entry.title} ${entry.season ? episodeAliases(entry) : 'film'}`.toLowerCase().includes(normalizedQuery);
   });
-  const browsing = Boolean(normalizedQuery) || coverageFilter !== 'all';
-  const linkedCount = items.filter(entry => linkedIds.has(entry.id)).length;
+  const browsing = Boolean(normalizedQuery) || coverageFilter !== 'all' || seasonFilter !== 'all';
+  const linkedCount = seasonItems.filter(entry => linkedIds.has(entry.id)).length;
   const mappedCount = connections.filter(connection => ALL_WORLDS.some(world => world.id === connection.worldId)).length;
 
   const selectItem = (id: string) => { onActiveItemChange(id); setQuery(''); setProgressMessage(''); };
@@ -172,7 +176,8 @@ export default function Journey({ onInspectLocation, onLocationDisclosure, watch
 
         <div className="journey-search"><label htmlFor="journey-title-search"><Search size={15}/><span>Find a chapter</span></label><input id="journey-title-search" type="search" placeholder="Title or episode code, e.g. S01E02" value={query} onChange={event => { setQuery(event.target.value); setResultLimit(6); }} aria-controls="journey-search-results" autoComplete="off"/>
 
-          <div className="journey-coverage-filter"><label htmlFor="journey-coverage-filter">Location research</label><select id="journey-coverage-filter" value={coverageFilter} onChange={event => { setCoverageFilter(event.target.value as typeof coverageFilter); setResultLimit(6); }}><option value="all">All {items.length} chapters</option><option value="linked">With sourced links ({linkedCount})</option><option value="unreviewed">Not yet linked ({items.length - linkedCount})</option></select></div>
+          {seasons.length > 1 && <div className="journey-coverage-filter"><label htmlFor="journey-season-filter">Season</label><select id="journey-season-filter" value={seasonFilter} onChange={event => { setSeasonSelection({ sequenceId: sequence.id, value: event.target.value }); setResultLimit(6); }}><option value="all">All seasons</option>{items.some(entry => entry.kind === 'film') && <option value="films">Films</option>}{seasons.map(season => <option key={season} value={season}>Season {season}</option>)}</select></div>}
+          <div className="journey-coverage-filter"><label htmlFor="journey-coverage-filter">Location research</label><select id="journey-coverage-filter" value={coverageFilter} onChange={event => { setCoverageFilter(event.target.value as typeof coverageFilter); setResultLimit(6); }}><option value="all">All {seasonItems.length} chapters</option><option value="linked">With sourced links ({linkedCount})</option><option value="unreviewed">Not yet linked ({seasonItems.length - linkedCount})</option></select></div>
           <p className="journey-browse-note">Sourced links are partial. A missing link does not establish that a chapter has no locations. Browsing keeps location names hidden.</p>
           {browsing && <div className="journey-search-results" id="journey-search-results" role="region" aria-label="Chapter search results"><span className="journey-search-count" role="status">{matches.length ? `${matches.length} matching ${matches.length === 1 ? 'chapter' : 'chapters'} in story order` : 'No matching chapters in this collection.'}</span>{matches.slice(0, resultLimit).map(result => <button key={result.id} aria-current={result.id === item.id ? 'true' : undefined} onClick={() => selectItem(result.id)}><span>{result.title}<small>{result.kind === 'film' ? 'Film' : `S${String(result.season).padStart(2, '0')} · E${episodeRange(result, true)}`} · {linkedIds.has(result.id) ? 'Sourced location links' : 'Locations not yet linked'}</small></span><ArrowRight size={15}/></button>)}{matches.length > resultLimit && <button className="journey-more-results" onClick={() => setResultLimit(limit => limit + 12)}>Show more chapters ({matches.length - resultLimit} remaining)</button>}</div>}
 

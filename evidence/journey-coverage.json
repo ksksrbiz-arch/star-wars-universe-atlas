@@ -1,9 +1,9 @@
 {
   "checkedOn": "2026-11-07",
-  "catalogItems": 218,
-  "relationships": 342,
-  "titlesWithLocationEvidence": 212,
-  "titlesWithoutLocationEvidence": 6,
+  "catalogItems": 238,
+  "relationships": 366,
+  "titlesWithLocationEvidence": 230,
+  "titlesWithoutLocationEvidence": 8,
   "mapPlacements": 76,
   "referenceTraced": 27,
   "cellCentered": 49,
@@ -21,8 +21,8 @@
       "withLocations": 130
     },
     "rebels": {
-      "catalog": 14,
-      "withLocations": 14
+      "catalog": 34,
+      "withLocations": 32
     },
     "rogue-one": {
       "catalog": 1,
@@ -51,6 +51,20 @@
     "Fort Anaxes",
     "Merchant One",
     "Sovereign",
+    "Seelos",
+    "Broken Horn",
+    "Shantipole",
+    "Ibaar",
+    "Shadow Caster",
+    "Titus’s Interdictor",
+    "Takobo",
+    "Abandoned Republic medical station",
+    "Concord Dawn system",
+    "Concord Dawn’s third moon",
+    "Lira San",
+    "Geonosis’s icy moon",
+    "Atollon",
+    "Malachor",
     "Morlana One",
     "Narkina 5",
     "Kalevala",
@@ -89,6 +103,8 @@
     "clone-wars-s01e02",
     "clone-wars-s01e03",
     "clone-wars-s01e04",
+    "rebels-s02e15",
+    "rebels-s02e19",
     "mandalorian-s01e06",
     "clone-wars-s07e12",
     "mandalorian-s02e08"

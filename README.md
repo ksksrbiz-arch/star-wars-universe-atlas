@@ -4,7 +4,7 @@ Live preview: https://star-wars-universe-atlas.skdev-371.workers.dev
 
 Cloudflare Workers hosts the app and read-only API, with dedicated Neon Postgres through Hyperdrive and separate R2 media buckets. Main-branch application changes build, validate, and deploy through Cloudflare Builds. See [deployment setup](docs/DEPLOYMENT.md). User watch progress remains browser-local.
 
-Deployed interactive atlas with 76 schematic map destinations (eight general, 67 direct journey placements, and the Endor parent-system placement), a 218-item film/episode catalog, nine sourced collection viewing sequences, and partial story/location relationships. The implementation includes galaxy navigation, cinematic jumps, reduced motion, library/release-timeline views, and browser-local watch progress. Release checks are recorded in [deployment verification](evidence/deployment/verification.md).
+Deployed interactive atlas with 76 schematic map destinations (eight general, 67 direct journey placements, and the Endor parent-system placement), a 238-item film/episode catalog, nine sourced collection viewing sequences, and partial story/location relationships. The implementation includes galaxy navigation, cinematic jumps, reduced motion, library/release-timeline views, and browser-local watch progress. Release checks are recorded in [deployment verification](evidence/deployment/verification.md).
 
 Latest visual upgrade details and validation: [visual verification](evidence/visual-upgrades-verification.md). Graphics settings, layered galaxy rendering, two-second warp effects, and reduced-motion-aware interface transitions are implemented locally.
 
@@ -12,7 +12,7 @@ Reference-map geography update: [verification and scope](evidence/reference-map-
 
 ## Run
 
-Integrated relationship coverage is 342 links across 212 of 218 titles and 113 location identities. Six titles have no current link. Only 76 worlds have supported map placements; title coverage does not establish complete scene coverage.
+Integrated relationship coverage is 366 links across 230 of 238 titles and 127 location identities. Eight titles have no current link. Only 76 worlds have supported map placements; title coverage does not establish complete scene coverage.
 
 Requires a current Node version supported by Vite (Node 26 used during development).
 
@@ -37,16 +37,16 @@ Eight general destinations in [data.ts](src/data.ts) combine with 68 additional 
 | The Mandalorian | 24 episodes, seasons 1–3 |
 | Ahsoka | 8 episodes, season 1 |
 | The Book of Boba Fett | 7 episodes, season 1 |
-| Rebels | 14 watch records covering 15 official parts, season 1 |
+| Rebels | 34 watch records covering 37 official parts, seasons 1–2 |
 
-The original 181 regular episodes and four films remain a distinct 185-item audit cohort. Eight Ahsoka season-one episodes from a separate TVmaze source snapshot one independently sourced Rogue One film, seven separately sourced Book of Boba Fett chapters, and the three prequel films bring the current catalog to 218 items, including 14 Rebels season-one watch records covering 15 official episode parts. This is a bounded collection, not all Star Wars movies/shows. Nine promotional/Legacy specials, the 2003 Clone Wars series, and The Mandalorian and Grogu film are excluded. The 76 worlds do not constitute complete geographic coverage. Story/location coverage is partial and independently counted in [journey data review](evidence/journey-data-review.md). An unjoined story has no verified relationship in this pass; it may be unaudited or reviewed without a named planet link.
+The original 181 regular episodes and four films remain a distinct 185-item audit cohort. Eight Ahsoka season-one episodes from a separate TVmaze source snapshot one independently sourced Rogue One film, seven separately sourced Book of Boba Fett chapters, and the three prequel films bring the current catalog to 238 items, including 34 Rebels watch records covering 37 official episode parts across seasons 1–2. This is a bounded collection, not all Star Wars movies/shows. Nine promotional/Legacy specials, the 2003 Clone Wars series, and The Mandalorian and Grogu film are excluded. The 76 worlds do not constitute complete geographic coverage. Story/location coverage is partial and independently counted in [journey data review](evidence/journey-data-review.md). An unjoined story has no verified relationship in this pass; it may be unaudited or reviewed without a named planet link.
 
 ## Source fidelity and limits
 
 - Episode titles, numbering, air dates, and selected runtime fields derive from [TVmaze](https://www.tvmaze.com/api), with CC BY-SA attribution retained. All 181 imported episode titles/dates/numbers match the audit CSV; both input-file SHA-256 values match the recorded metadata as checked November 7, 2026.
 - Film dates retain source caveats in [catalog.generated.json](src/catalog.generated.json). Empire's provider date is May 17, 1980, with premiere/theatrical/territory meaning unresolved. Return of the Jedi retains May 25, 1983, supported by an official anniversary article despite a conflicting film landing-page date. These are not a definitive worldwide release calendar.
 - Ahsoka season one uses a separate [metadata snapshot](docs/ahsoka-season-1-source.json); its eight runtimes are withheld, and future-season stubs are excluded. Its 14 episode/world associations retain vision and orbital-arrival caveats; see [source review](evidence/ahsoka-source-review.md).
-- Release chronology remains separate from [collection viewing sequences](src/chronology.ts), which cover all 218 catalog IDs. Clone Wars uses its complete official chronological order including the film; the other collections use film/episode narrative order. Embedded flashbacks are retained, not globally reordered. No exact BBY/ABY calendar is asserted.
+- Release chronology remains separate from [collection viewing sequences](src/chronology.ts), which cover all 238 catalog IDs. Clone Wars uses its complete official chronological order including the film; the other collections use film/episode narrative order. Embedded flashbacks are retained, not globally reordered. No exact BBY/ABY calendar is asserted.
 - Rogue One and Book of Boba Fett chapters 5–7 have included bridge links while retaining separate collection identities. Revenge of the Sith is now an included film linked from the final Clone Wars arc as an overlap, not a prescribed scene-interleaving order. The base catalog metadata's chronology flag describes its release-only import; the separately sourced chronology module now owns collection sequences.
 - All 133 Clone Wars episode runtimes are null because the audit found the same suspect 30-minute provider value throughout. Eight film runtimes remain null pending edition-specific verification. Other episode runtimes are provider values, not independently checked streaming durations; no exact full-marathon total is supported.
 - No provider summaries or image assets are imported into the catalog. World descriptions are short original reference text. Planet illustrations are original procedural artwork, not screen stills.
@@ -115,3 +115,9 @@ All three prequel films have a separately sourced catalog snapshot, whole-film v
 ## Rebels season one
 
 The combined Spark of Rebellion premiere covers official episodes 1–2 with one watch-progress record; searches for either number resolve to it. Remaining chapters retain official numbers 3–15. Twenty reviewed connections distinguish planets, ships, Fort Anaxes asteroid outpost, and Mustafar orbit. Four new illustrated guides cover Lothal, Kessel, Stygeon Prime and Fort Anaxes. Revealed mapped appearances have violet beacons; the map key distinguishes story, preview and current markers. These markers do not imply a travel route. See [release verification](evidence/rebels-release/verification.md).
+
+## Rebels season two and dense-map clarity
+
+Season two adds 20 watch records covering 22 official parts, with The Siege of Lothal and Twilight of the Apprentice each stored once. Its 24 reviewed location links cover 18 records; The Call and The Forgotten Droid retain explicit unnamed-setting evidence gaps. Atollon, Malachor and Seelos have original illustrated guides. Season filters narrow chapter browsing without changing progress, location disclosure or whole-collection story order. Dense story labels avoid one another and controls while their leader lines retain the fixed source points.
+
+Publication now permits an existing sequence to grow only from a checked-in exact baseline with an unchanged ID prefix and unchanged stored positions. Embedded PostgreSQL checks cover conflict rollback and idempotent replay; `npm run test:sequence-publication` uses a development-only dependency. See [season-two release verification](evidence/rebels-season-2-release/verification.md).

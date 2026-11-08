@@ -33,3 +33,11 @@ Both buckets have no r2.dev public-access requirement. The current procedural gr
 
 Git stores source, documentation, data, migrations, test scripts, and verification evidence. Installed dependencies, build output, secrets, and scratch downloads are excluded. The original user-supplied reference JPEG is not redistributed; its trace metadata and source filename remain documented.
 
+
+## Reviewed content and sequence extensions
+
+Generate a versioned transaction with `npm run db:prepare-publication`, then run `npm run test:publication` and `npm run test:sequence-publication -- --live-baseline`. The latter executes the full transaction in embedded PostgreSQL populated from the read-only live API; it does not write to production. It also tests prefix preservation, idempotent replay and rollback on unexpected sequence payloads or positions. It does not measure concurrent locking or network behavior.
+
+Existing catalog, map and appearance payloads remain immutable in this publication path. To extend an existing collection, record its exact previously verified payload in `db/sequence-extension-baselines.json`. The generator requires all previous work IDs to remain an unchanged prefix; the SQL additionally requires unchanged stored positions. Metadata may be revised only alongside an actual extension. Only an exact baseline or the already-published desired payload is accepted. Keep the baseline for idempotent replay; replace it with the newly verified live payload when preparing a later extension. Never substitute a broader upsert or silently rebuild stored order.
+
+Apply the reviewed SQL as one transaction to the dedicated atlas database, verify all four public API hashes with `npm run verify:live-publication`, then update `cloudflare/database-expectation.json`. The existing CLI writer additionally checks its dedicated database/host, TLS and regenerated artifact identity; credentials remain environment-injected. Publish the frontend and verify its exact built assets and browser behavior separately.

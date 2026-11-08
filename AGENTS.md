@@ -4,7 +4,7 @@ Read [CLAUDE.md](CLAUDE.md) to select a scoped workflow. Load the relevant contr
 
 ## Non-negotiable rules
 
-- Current bounded scope has 76 map worlds, a 218-item catalog, nine whole-work viewing sequences, and partial story/location relationships; it is not the complete movies/shows atlas.
+- Current bounded scope has 76 map worlds, a 238-item catalog, nine whole-work viewing sequences, and partial story/location relationships; it is not the complete movies/shows atlas.
 - Catalog/sequence completeness does not establish appearance completeness. Separate release dates, narrative viewing order and event chronology; preserve runtime, release-type, flashback, mention-only, edition and outside-collection bridge caveats.
 - Unjoined stories have no verified relationship in this atlas; reviewed gaps are recorded separately and do not establish absence of appearances. Broad world labels cannot establish an episode-specific join or character journey.
 - Keep source grid, schematic display coordinates, and illustrative rendering distinct.
@@ -19,3 +19,5 @@ See [context/CONTEXT.md](context/CONTEXT.md) for references and current status.
 
 
 Rebels season one adds 14 watch records covering all 15 official parts: the two-part Spark of Rebellion premiere is one progress record (S01E01–02), followed by S01E03–15. Four Rebels promotional shorts are excluded separately from the original nine excluded specials. Twenty sourced associations cover all 14 records, without claiming exhaustive scene coverage. Fort Anaxes remains an asteroid outpost; Merchant One and Sovereign remain ships; the finale’s Mustafar setting is orbital. See [Rebels source review](evidence/rebels-source-review.md).
+
+Rebels season two adds 20 watch records covering 22 official parts, extending the existing Rebels sequence to 34 records across seasons 1–2. The Siege of Lothal (S02E01–02) and Twilight of the Apprentice (S02E21–22) retain combined progress records. Twenty-four associations cover 18 of the 20 new records; The Call and The Forgotten Droid retain explicit identity-evidence gaps. The Ultimate Guide promotional special is excluded separately. No mapped coordinates are added.

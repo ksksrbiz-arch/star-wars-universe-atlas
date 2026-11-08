@@ -31,8 +31,8 @@ try {
     await open(); await search.fill('Kassa'); await search.press('Enter');
     assert.equal(await page.locator('.journey-stop').count(), 0, 'Same-title selection keeps the reveal gate');
     await open(); await search.fill('Lothal');
-    assert.match(await page.getByRole('dialog').getByRole('option').innerText(), /Mapped/);
-    await search.press('ArrowUp'); await search.press('Enter');
+    assert.match(await page.getByRole('dialog').getByRole('option').first().innerText(), /WORLD[\s\S]*Lothal[\s\S]*Mapped/);
+    await search.press('ArrowDown'); await search.press('Enter');
     await page.waitForURL(/#galaxy\/lothal$/);
     assert.equal(await page.locator('.current-location strong').innerText(), 'Tatooine', 'Search selects; it does not jump');
     assert.match(await page.locator('.map-jump-bar').innerText(), /Lothal/);

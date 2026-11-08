@@ -8,7 +8,7 @@ World descriptions are mild setting context, but the prototype is not certified 
 
 Conflicting or missing evidence remains explicit. Do not invent coordinates, routes, dates, or character appearances to complete the visual.
 
-The [catalog](../../src/catalog.ts) exposes 218 release records. [Chronology](../../src/chronology.ts) separately supplies nine whole-work viewing sequences for those IDs. Clone Wars follows its official table; Andor and Mandalorian preserve numbered narrative order, including flashbacks within their original episodes; the trilogy follows IV–V–VI. No exact BBY/ABY event calendar is asserted. The catalog’s original chronology flag describes the base release-only import, not the added sequence module.
+The [catalog](../../src/catalog.ts) exposes 238 release records. [Chronology](../../src/chronology.ts) separately supplies nine whole-work viewing sequences for those IDs. Clone Wars follows its official table; Andor and Mandalorian preserve numbered narrative order, including flashbacks within their original episodes; the trilogy follows IV–V–VI. No exact BBY/ABY event calendar is asserted. The catalog’s original chronology flag describes the base release-only import, not the added sequence module.
 
 The [relationship registry](../../src/connections.ts) is partial. Each join needs a title-specific source and an explicit note distinguishing appearance, mention, flashback, orbital setting or destruction where relevant. Gallery labels alone may not establish that distinction. Unjoined stories lack a verified relationship; reviewed gaps are recorded separately, not treated as “no locations.” Array order does not establish within-story travel order. Broad world labels cannot establish character trajectories.
 
@@ -16,3 +16,5 @@ Rogue One is a separately sourced catalog film with its own sequence; its Andor-
 
 
 Rebels season one adds 14 watch records covering all 15 official parts: the two-part Spark of Rebellion premiere is one progress record (S01E01–02), followed by S01E03–15. Four Rebels promotional shorts are excluded separately from the original nine excluded specials. Twenty sourced associations cover all 14 records, without claiming exhaustive scene coverage. Fort Anaxes remains an asteroid outpost; Merchant One and Sovereign remain ships; the finale’s Mustafar setting is orbital. See [Rebels source review](../../evidence/rebels-source-review.md).
+
+Rebels season two adds 20 watch records covering 22 official parts, extending the existing Rebels sequence to 34 records across seasons 1–2. The Siege of Lothal (S02E01–02) and Twilight of the Apprentice (S02E21–22) retain combined progress records. Twenty-four associations cover 18 of the 20 new records; The Call and The Forgotten Droid retain explicit identity-evidence gaps. The Ultimate Guide promotional special is excluded separately. No mapped coordinates are added.

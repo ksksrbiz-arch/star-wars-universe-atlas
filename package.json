@@ -78,7 +78,12 @@
     "test:rebels": "node scripts/test-rebels.mjs",
     "test:rebels-ui": "node scripts/test-rebels-ui.mjs",
     "test:rebels-dossiers": "node scripts/test-rebels-dossiers.mjs",
-    "test:rebels-visuals": "node scripts/test-rebels-visuals.mjs"
+    "test:rebels-visuals": "node scripts/test-rebels-visuals.mjs",
+    "test:sequence-publication": "node scripts/test-sequence-publication.mjs",
+    "test:rebels-season-2-ui": "node scripts/test-rebels-season-2-ui.mjs",
+    "test:rebels-season-two-dossiers": "node scripts/test-rebels-season-two-dossiers.mjs",
+    "test:rebels-season-2": "node scripts/test-rebels-season-2.mjs",
+    "test:priority-labels": "node scripts/test-priority-labels.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",
@@ -93,6 +98,7 @@
     "three": "0.187.0"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "0.5.15",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@types/three": "0.187.0",

@@ -1,0 +1,33 @@
+{
+  "browser": "Chromium software WebGL; not physical-device FPS",
+  "results": [
+    {
+      "width": 1440,
+      "fontCase": "normal",
+      "overlaps": 0,
+      "keyboardFocus": true,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 390,
+      "fontCase": "normal",
+      "overlaps": 0,
+      "keyboardFocus": true,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 320,
+      "fontCase": "normal",
+      "overlaps": 0,
+      "keyboardFocus": true,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 320,
+      "fontCase": "unavailable",
+      "overlaps": 0,
+      "keyboardFocus": true,
+      "idleDrawsOver600ms": 0
+    }
+  ]
+}
