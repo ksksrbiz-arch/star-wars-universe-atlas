@@ -127,7 +127,9 @@
     "test:source-cell": "node scripts/test-source-cell.mjs",
     "test:audio-search-a11y": "node scripts/test-audio-search-a11y.mjs",
     "test:progress-storage": "node scripts/test-progress-storage.mjs",
-    "test:deploy-assets": "node scripts/test-deploy-assets.mjs"
+    "test:deploy-assets": "node scripts/test-deploy-assets.mjs",
+    "test:hash-routing": "node scripts/test-hash-routing.mjs",
+    "test:map-context-loss": "node scripts/test-map-context-loss.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",
