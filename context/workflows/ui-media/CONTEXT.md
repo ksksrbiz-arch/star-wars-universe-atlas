@@ -1,10 +1,10 @@
 # UI/media workflow
 
-Status: initial.
+Status: current contract for the deployed preview. `npm run check:icm` verifies the named `context/` paths, npm scripts and relative links.
 
 ## Input
 
-Read [design system](../../references/design-system.md), [media policy](../../references/media-policy.md), [canon and sources](../../references/canon-and-sources.md), and the selected view implementation.
+Read [design system](../../references/design-system.md), [media policy](../../references/media-policy.md), [canon and sources](../../references/canon-and-sources.md), and only the selected view implementation, for example [Journey.tsx](../../../src/Journey.tsx), [Library.tsx](../../../src/Library.tsx), [LocationDossier.tsx](../../../src/LocationDossier.tsx), [WorldDirectory.tsx](../../../src/WorldDirectory.tsx) or [mediaAssets.ts](../../../src/mediaAssets.ts). Non-browser checks: `npm run test:media`, `npm run test:dossiers`. Browser checks (`npm run test:ui`, `npm run test:a11y`) need `ATLAS_URL` per [QA/release](../qa-release/CONTEXT.md).
 
 | Load | Do not load |
 |---|---|

@@ -134,19 +134,19 @@
     "sourceFiles": [
       {
         "name": "episode-coverage.csv",
-        "sha256": "061bd8b1b777fd149a1f24926c937e710c874406321275d035918e83a5aba6fa"
+        "sha256": "965816b817f19e0fb1293a6fe8dcd8df3cfb6c60afc9a26b6d58df4c0306965c"
       },
       {
         "name": "original-trilogy-coverage.csv",
-        "sha256": "cc760fb155d896387337f5beca12e40e53bdba880d7db6d9ac0ca38fa7b3ab19"
+        "sha256": "eccdf7ab71428e587d69651770ee333100344ea3719c40252bd7e506f9fd361e"
       },
       {
         "name": "ahsoka-season-1-source.json",
-        "sha256": "d9b74226673ddd3b96c82bb4c9161db67477c4acc930bb17c8934abf8c834dce"
+        "sha256": "f07393eb7f612cdf64fb013eb0318071a6b45ae629a9855767cd03d8916315e5"
       },
       {
         "name": "rogue-one-source.json",
-        "sha256": "e62250416754d07b032aa237854e0bb150cffde6c2f021ba6cca853b1a02f359"
+        "sha256": "64ab390af48de221a1e95dc2aa106b9648c7187045dfc1afa318031f410bba25"
       },
       {
         "name": "boba-fett-source.json",
@@ -154,43 +154,43 @@
       },
       {
         "name": "prequel-trilogy-source.json",
-        "sha256": "83cb0fa82c986f08faed33599020cd6331e0fb85d46186b6610ba34b09f717a4"
+        "sha256": "211d45900e19c75427e817c528be1508523ce44319dbea2cf5876afcd25e23ab"
       },
       {
         "name": "rebels-season-1-source.json",
-        "sha256": "2b9aecfd368f9d45a4bd90d583b4eca4a0acf616fb6bdc80b141447584cff63b"
+        "sha256": "b8c73b4dbd0ed91d0fc6c3a5d28dfe95ab177b435e090b5238a46190d559c74a"
       },
       {
         "name": "rebels-season-2-source.json",
-        "sha256": "fae6aa5867b2d5bb48af75b9fbd84a2302139f89a8a7d5cfcf5fa3ae1fff52a8"
+        "sha256": "2a41eb7feb267e9951cf7f84e8c82d65002627cd461ef7429761855ae9b10cef"
       },
       {
         "name": "rebels-season-3-source.json",
-        "sha256": "fcbb52b7da2c8a62fc9df603dec5c239ed6b43016309f3de054a0f8b57686115"
+        "sha256": "fcb2e770dad16be965ab89ebe0a90e89936a26357c3205eb4c6539349d91533a"
       },
       {
         "name": "rebels-season-4-source.json",
-        "sha256": "3efab82d7dbe0d1bcf9c44f3ca52a44f02c55f2743889d426bcf9e4917d4b4d4"
+        "sha256": "666f52f19c4b35ecf36a3d800bb5c2c1dd84b5a4ea21c3d75a05e1cfa499df84"
       },
       {
         "name": "bad-batch-season-1-source.json",
-        "sha256": "8f1d2203f6169f06bace1c931308360b56da9884a3f6a8f3dbe768de91525515"
+        "sha256": "420b4d1da493e226b5cee35920ba7c5b3fc34a7f4173211372d0d1de3ab5489c"
       },
       {
         "name": "bad-batch-season-2-source.json",
-        "sha256": "89ae1d899f4a665590bcfe77788f58acdf25314cc70232a483bb623c5409fab1"
+        "sha256": "569f5efa2a0e9fc67cb7c83cf6cd495c7e923ad3f6bdd8b519a801158e9112a3"
       },
       {
         "name": "bad-batch-season-3-source.json",
-        "sha256": "133916215e468ce6433461756e133d1ff92787153d632848be2c7e7af1fc4980"
+        "sha256": "b3572d8413c9867b4d6d4ac47764f8c55ad7d210e65b3fb700a8dbd6b86d3bfb"
       },
       {
         "name": "obi-wan-source.json",
-        "sha256": "30cedd66ad0e542aaf82cacc80382483b725c0d22ee67087b030faf6b9fb8d2e"
+        "sha256": "c26e5b0fbda40ee325594dfffaf68bd113905ec10468e228a07942c752028cd4"
       },
       {
         "name": "solo-source.json",
-        "sha256": "fbec873de15ffef9d709a254ed92c65ca6add979a279adc016402bc188679a04"
+        "sha256": "867f1ccc419cb18fc6b8120a07e376898e66e8b8e94da21a1302013c32d2d131"
       }
     ],
     "excludedSpecials": [

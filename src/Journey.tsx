@@ -70,15 +70,20 @@ export default function Journey({ onInspectLocation, onLocationDisclosure, watch
 
   const catalogById = useMemo(() => new Map(CATALOG.map(item => [item.id, item])), []);
 
-  const sequence = STORY_SEQUENCES.find(s => activeItemId && s.itemIds.includes(activeItemId)) ?? STORY_SEQUENCES.find(s => s.id === sequenceId) ?? STORY_SEQUENCES[0];
+  const sequence = STORY_SEQUENCES.find(s => s.id === sequenceId && activeItemId && s.itemIds.includes(activeItemId)) ?? STORY_SEQUENCES.find(s => activeItemId && s.itemIds.includes(activeItemId)) ?? STORY_SEQUENCES.find(s => s.id === sequenceId) ?? STORY_SEQUENCES[0];
 
-  if (!sequence) return <section className="journey-panel"><p>Story journeys are being prepared.</p></section>;
-
-  const items = sequence.itemIds.map(id => catalogById.get(id)).filter((item): item is (typeof CATALOG)[number] => Boolean(item));
+  const items = (sequence?.itemIds ?? []).map(id => catalogById.get(id)).filter((item): item is (typeof CATALOG)[number] => Boolean(item));
 
   const index = Math.max(0, items.findIndex(item => item.id === activeItemId));
 
   const item = items[index];
+
+  // Keep App's displayed chapter in step with what is rendered when activeItemId is unknown to every sequence.
+  useEffect(() => {
+    if (activeItemId && item && item.id !== activeItemId) onActiveItemChange(item.id);
+  }, [activeItemId, item, onActiveItemChange]);
+
+  if (!sequence) return <section className="journey-panel"><p>Story journeys are being prepared.</p></section>;
 
   if (!item) return <section className="journey-panel"><p>This journey has no available titles yet.</p></section>;
 
@@ -130,7 +135,7 @@ export default function Journey({ onInspectLocation, onLocationDisclosure, watch
   return <section className="journey-panel" aria-label="Story journeys">
     <LocationDisclosure itemId={item.id} revealed={revealedIds.has(item.id)} onChange={onLocationDisclosure}/>
 
-    <div className="journey-intro"><div><span className="journey-kicker"><Compass size={13}/> FOLLOW THE STORY</span><h1>A galaxy, one chapter at a time.</h1><p>Choose a story. Discover its worlds. Keep your place.</p><p className="journey-coverage">{new Set(CONNECTIONS.map(connection => connection.itemId)).size} / {CATALOG.length} titles with sourced location links · Partial appearance coverage</p></div><span className="journey-mode-badge">CURATED STORY ORDER</span></div>
+    <div className="journey-intro"><div><span className="journey-kicker"><Compass size={13}/> FOLLOW THE STORY</span><h1>A galaxy, one chapter at a time.</h1><p>Choose a story. Discover its worlds. Keep your place.</p><p className="journey-coverage">{linkedIds.size} / {CATALOG.length} titles with sourced location links · Partial appearance coverage</p></div><span className="journey-mode-badge">CURATED STORY ORDER</span></div>
 
 
 
@@ -141,13 +146,13 @@ export default function Journey({ onInspectLocation, onLocationDisclosure, watch
         const collectionWatched = entry.itemIds.filter(id => watchedIds.has(id)).length;
         const color = SERIES.find(series => series.id === entry.id)?.color ?? ['#F2B96B', '#E38167', '#65DBFF', '#9FCB85'][entryIndex % 4];
 
-        return <button key={entry.id} className={`journey-collection ${entry.id === sequence.id ? 'is-active' : ''}`} aria-pressed={entry.id === sequence.id}
+        return <button key={entry.id} className={`journey-collection ${entry.id === sequence.id ? 'is-active' : ''}`} aria-pressed={entry.id === sequence.id} disabled={entry.itemIds.length === 0}
 
           style={{ '--journey-accent': color } as React.CSSProperties}
 
           onClick={() => { setSequenceId(entry.id); setQuery(''); setCoverageFilter('all'); setResultLimit(6); setProgressMessage(''); if (entry.itemIds[0]) onActiveItemChange(entry.itemIds[0]); }}>
 
-          <span className="journey-collection-number">{String(entryIndex + 1).padStart(2, '0')}<span/></span><strong>{SERIES.find(series => series.id === entry.id)?.title ?? entry.title}</strong><span className="journey-collection-meta">{entry.itemIds.length} chapters <ChevronRight size={14}/></span><span className="journey-collection-progress" aria-hidden="true"><span style={{ width: `${collectionWatched / entry.itemIds.length * 100}%` }}/></span><span className="journey-collection-watched">{collectionWatched ? `${collectionWatched} watched` : 'Begin the journey'}</span>
+          <span className="journey-collection-number">{String(entryIndex + 1).padStart(2, '0')}<span/></span><strong>{SERIES.find(series => series.id === entry.id)?.title ?? entry.title}</strong><span className="journey-collection-meta">{entry.itemIds.length ? `${entry.itemIds.length} chapters` : 'No chapters yet'} <ChevronRight size={14}/></span><span className="journey-collection-progress" aria-hidden="true"><span style={{ width: `${entry.itemIds.length ? collectionWatched / entry.itemIds.length * 100 : 0}%` }}/></span><span className="journey-collection-watched">{collectionWatched ? `${collectionWatched} watched` : 'Begin the journey'}</span>
 
         </button>;
 
@@ -174,7 +179,7 @@ export default function Journey({ onInspectLocation, onLocationDisclosure, watch
         </div>
         <details className="story-chapter-picker"><summary>Browse chapters &amp; watch progress</summary><div className="journey-resume"><div><span>{firstUnwatched ? 'NEXT UNWATCHED IN STORY ORDER' : 'COLLECTION COMPLETE'}</span><strong>{firstUnwatched?.title ?? 'Every chapter watched'}</strong><small>{firstUnwatched ? 'First unwatched chapter in this collection; locations stay hidden.' : 'Revisit any chapter below.'}</small></div>{firstUnwatched && <button disabled={firstUnwatched.id === item.id} onClick={() => selectItem(firstUnwatched.id)}>{firstUnwatched.id === item.id ? 'You are here' : 'Resume'}<ArrowRight size={15}/></button>}</div>
 
-        <div className="journey-search"><label htmlFor="journey-title-search"><Search size={15}/><span>Find a chapter</span></label><input id="journey-title-search" type="search" placeholder="Title or episode code, e.g. S01E02" value={query} onChange={event => { setQuery(event.target.value); setResultLimit(6); }} aria-controls="journey-search-results" autoComplete="off"/>
+        <div className="journey-search"><label htmlFor="journey-title-search"><Search size={15}/><span>Find a chapter</span></label><input id="journey-title-search" type="search" placeholder="Title or episode code, e.g. S01E02" value={query} onChange={event => { setQuery(event.target.value); setResultLimit(6); }} aria-controls={browsing ? 'journey-search-results' : undefined} autoComplete="off"/>
 
           {seasons.length > 1 && <div className="journey-coverage-filter"><label htmlFor="journey-season-filter">Season</label><select id="journey-season-filter" value={seasonFilter} onChange={event => { setSeasonSelection({ sequenceId: sequence.id, value: event.target.value }); setResultLimit(6); }}><option value="all">All seasons</option>{items.some(entry => entry.kind === 'film') && <option value="films">Films</option>}{seasons.map(season => <option key={season} value={season}>Season {season}</option>)}</select></div>}
           <div className="journey-coverage-filter"><label htmlFor="journey-coverage-filter">Location research</label><select id="journey-coverage-filter" value={coverageFilter} onChange={event => { setCoverageFilter(event.target.value as typeof coverageFilter); setResultLimit(6); }}><option value="all">All {seasonItems.length} chapters</option><option value="linked">With sourced links ({linkedCount})</option><option value="unreviewed">Not yet linked ({seasonItems.length - linkedCount})</option></select></div>

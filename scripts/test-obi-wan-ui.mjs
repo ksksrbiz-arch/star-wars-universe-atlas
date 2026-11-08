@@ -1,3 +1,4 @@
+import {STORY_SEQUENCES} from '../src/chronology.ts';
 import {chromium} from 'playwright';import assert from 'node:assert/strict';import {CONNECTIONS} from '../src/connections.ts';
 const base=process.env.ATLAS_URL||'http://localhost:4175';const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
 try{for(const width of [1440,390,320]){
@@ -5,7 +6,7 @@ try{for(const width of [1440,390,320]){
  const expand=async()=>{if(width<721&&await page.locator('.sheet-toggle').getAttribute('aria-expanded')==='false')await page.locator('.sheet-toggle').click();};
  await page.goto(base+'/#galaxy');await page.getByRole('button',{name:'Search the atlas',exact:true}).click();const search=page.getByRole('combobox',{name:'World, location, movie, episode or collection'});
  await search.fill('Obi Wan S01E04');assert.equal(await page.getByRole('dialog').getByRole('option').count(),1);await search.press('Enter');await page.waitForURL('**/#journey/obi-wan-s01e04');await expand();await page.waitForFunction(()=>document.querySelector('.journey-item-meta')?.textContent?.endsWith('EPISODE 4'));
- assert.equal(await page.locator('.journey-collection').count(),11);assert.equal(await page.locator('.journey-stop').count(),0);assert.equal(await page.locator('.current-location strong').innerText(),'Tatooine');
+ assert.equal(await page.locator('.journey-collection').count(),STORY_SEQUENCES.length);assert.equal(await page.locator('.journey-stop').count(),0);assert.equal(await page.locator('.current-location strong').innerText(),'Tatooine');
  await page.getByRole('button',{name:'Reveal locations for this title',exact:true}).click();const links=CONNECTIONS.filter(x=>x.itemId==='obi-wan-s01e04');assert(links.length>0);assert.equal(await page.locator('.journey-stop').count(),links.length);assert.equal(await page.evaluate(()=>localStorage.getItem('galactic-atlas.watch.v1')),null);
  await page.getByRole('button',{name:'Mark watched & continue',exact:true}).click();await page.waitForURL('**/#journey/obi-wan-s01e05');await page.waitForFunction(()=>document.querySelector('.journey-item-meta')?.textContent?.endsWith('EPISODE 5'));assert.equal(await page.locator('.journey-stop').count(),0);assert.deepEqual(await page.evaluate(()=>JSON.parse(localStorage.getItem('galactic-atlas.watch.v1')).watchedIds),['obi-wan-s01e04']);
  await page.goto(base+'/#journey/obi-wan-s01e06');await expand();await page.waitForFunction(()=>document.querySelector('.journey-item-meta')?.textContent?.endsWith('EPISODE 6'));assert.equal(await page.getByRole('button',{name:'Next story chapter',exact:true}).isDisabled(),true);

@@ -18,7 +18,7 @@ assert.equal(await page.locator('.catalog-item').count(),1);
 await page.getByRole('button',{name:'Mark watched: Chapter 13: The Jedi',exact:true}).click();
 await page.reload();
 await page.getByRole('textbox',{name:'Search films and episodes'}).fill('Chapter 13: The Jedi');
-assert.equal(await page.getByRole('button',{name:'Mark unwatched: Chapter 13: The Jedi',exact:true}).getAttribute('aria-pressed'),'true');
+assert.equal(await page.getByRole('button',{name:'Mark unwatched: Chapter 13: The Jedi',exact:true}).count(),1);
 checks.push('Series filtering, search, marking watched and reload persistence');
 await page.getByRole('textbox',{name:'Search films and episodes'}).fill('zzzzzznonexistent');
 await page.getByRole('heading',{name:'No stories in this selection.'}).waitFor();

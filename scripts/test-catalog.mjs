@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { sha256Lf } from './lib-hash.mjs';
 
 const { metadata, items } = JSON.parse(readFileSync(new URL('../src/catalog.generated.json', import.meta.url), 'utf8'));
 assert.equal(items.length, 324);
@@ -55,4 +56,9 @@ const ahsokaSource = JSON.parse(readFileSync(new URL('../docs/ahsoka-season-1-so
 for (const source of ahsokaSource.episodes) {
   const item = items.find(item => item.id === `ahsoka-s01e${String(source.number).padStart(2, '0')}`);
   assert.equal(item.title, source.name); assert.equal(item.releaseDate, source.airdate); assert.equal(item.sourceUrl, source.url); assert.equal(item.runtimeMinutes, null);
+}
+
+// Source-file hashes are computed over LF-normalised bytes (see scripts/lib-hash.mjs).
+for (const { name, sha256 } of metadata.sourceFiles) {
+  assert.equal(sha256Lf(readFileSync(new URL(`../docs/${name}`, import.meta.url))), sha256, `Stale source hash for ${name}; rerun python3 scripts/build-catalog.py`);
 }

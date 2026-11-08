@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {createHash} from 'node:crypto';
+import {sha256Lf} from './lib-hash.mjs';
 import {PREQUEL_CONNECTIONS} from '../src/connectionsPrequels.ts';
 import {STORY_SEQUENCES,STORY_CONNECTIONS} from '../src/chronology.ts';
 import {getLocation} from '../src/locations.ts';
@@ -9,7 +9,7 @@ const bytes=readFileSync(new URL('../docs/prequel-trilogy-source.json',import.me
 const source=JSON.parse(bytes);const {items,metadata}=JSON.parse(readFileSync(new URL('../src/catalog.generated.json',import.meta.url)));
 const ids=['pt-phantom-menace','pt-attack-of-the-clones','pt-revenge-of-the-sith'];
 assert.deepEqual(STORY_SEQUENCES.find(s=>s.id==='pt').itemIds,ids);
-assert.equal(metadata.sourceFiles.find(s=>s.name==='prequel-trilogy-source.json').sha256,createHash('sha256').update(bytes).digest('hex'));
+assert.equal(metadata.sourceFiles.find(s=>s.name==='prequel-trilogy-source.json').sha256,sha256Lf(bytes));
 for(const original of source.films){const item=items.find(i=>i.id===original.id);assert.equal(item.seriesId,'pt');assert.equal(item.title,original.title);assert.equal(item.releaseDate,original.releaseDate);assert.equal(item.sourceUrl,original.sourceUrl);assert.equal(item.runtimeMinutes,null);assert.equal(item.kind,'film');assert(!('episode' in item));}
 assert.deepEqual(ids.map(id=>PREQUEL_CONNECTIONS.filter(c=>c.itemId===id).length),[3,5,12]);
 for(const c of PREQUEL_CONNECTIONS){assert(ids.includes(c.itemId));assert.equal(new URL(c.sourceUrl).hostname,'www.starwars.com');assert(!('sequence' in c));assert(!('x' in c));assert(!('grid' in c));}

@@ -11,3 +11,9 @@ The source-cell highlight reuses gridToDisplay calibration, outlining one publis
 Chromium/software-WebGL tests do not establish physical-device FPS or multi-client database locking. Large-chunk build warnings remain. No new coordinates are asserted. Original art is illustrative.
 
 Neon publication succeeded as one transaction. All four public API counts and digests match the reviewed manifest (public-data.json). Final rebuild matches the integrated tested build.
+
+## Concurrent main integration
+
+Merged origin/main 3ee9f06 before deployment, retaining the incoming worker/deploy security headers and asset MIME support, progress-storage preservation, UI/accessibility fixes, slim ICM contracts and LF-normalized catalog source hashes. Merge resolution keeps all Solo additions and existing item payloads. Solo and Obi-Wan source-hash assertions now use the shared normalized helper. Regenerated publication identity and all four dataset hashes are unchanged.
+
+Merged production frontend/Worker builds, full test:data aggregate (including Solo), ICM, worker/deploy checks, Solo/Obi-Wan UI, audio/search accessibility, corrupt/unknown watch-storage preservation, directory filters and six-case source-cell browser tests pass. Historical directory fixture now includes the already-reviewed Krownest ice guide. Full43-guide suite passed before the merge; the new guide checks and final live checks are recorded separately.
