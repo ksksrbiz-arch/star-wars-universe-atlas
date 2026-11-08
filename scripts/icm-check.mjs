@@ -1,22 +1,26 @@
 #!/usr/bin/env node
-// icm-check: verifies a project follows the ICM layout (see README.md and principles.md).
+// icm-check: verifies a project follows the ICM (Interpretable Context Methodology) layout:
+// a short root router, small references, and per-workflow CONTEXT.md contracts.
 // Zero dependencies. Usage:
-//   node bin/icm-check.mjs [projectDir] [--root-only]
+//   node scripts/icm-check.mjs [projectDir] [--root-only]    (or: npm run check:icm)
 //
 // Rules (defaults; override in <projectDir>/.icmcheck.json):
-//   - CLAUDE.md exists and is a router: <= rootMax lines (80)
+//   - CLAUDE.md exists and is a router: <= rootMax lines (80) and <= rootMaxBytes (3072)
+//   - AGENTS.md, when present, is a pointer: <= entryMaxBytes (3072)
 //   - CLAUDE.md has a "Load | Do not load" table and an exclusion rule
 //   - <context>/references/*.md are <= refMax lines (200)       (context = "context" or ".ai")
 //   - every <context>/workflows/**/CONTEXT.md has Input, Process, Output, Completion sections
 //     (and Stop conditions when "requireStopConditions" is true)
 //   - every top-level workflow has its own "Load | Do not load" table
 //   - every top-level workflow directory is routed from CLAUDE.md
+//   - relative markdown links in CLAUDE.md, AGENTS.md, context files and evidence/release-history.md resolve
 //   - backticked repo paths and `npm run` scripts named in CLAUDE.md and context files exist
+// Byte caps are defaults; override rootMaxBytes/entryMaxBytes in .icmcheck.json for other projects.
 // --root-only checks only the root router (for repos that are not themselves ICM projects).
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
-import { join, relative, resolve } from 'node:path';
+import { dirname, join, relative, resolve } from 'node:path';
 
-export const DEFAULTS = { rootMax: 80, refMax: 200, requireStopConditions: false, contextDirs: ['context', '.ai'] };
+export const DEFAULTS = { rootMax: 80, rootMaxBytes: 3072, entryMaxBytes: 3072, refMax: 200, requireStopConditions: false, contextDirs: ['context', '.ai'] };
 
 const lineCount = (text) => text.replace(/\n$/, '').split('\n').length;
 
@@ -51,11 +55,18 @@ export function check(projectDir, options = {}) {
   const claude = readFileSync(claudePath, 'utf8');
   const rootLines = lineCount(claude);
   if (rootLines > cfg.rootMax) fail(`CLAUDE.md is ${rootLines} lines; router cap is ${cfg.rootMax}`);
+  const rootBytes = Buffer.byteLength(claude, 'utf8');
+  if (rootBytes > cfg.rootMaxBytes) fail(`CLAUDE.md is ${rootBytes} bytes; router byte cap is ${cfg.rootMaxBytes} (move batch/status prose to evidence/ or context/)`);
+  const agentsPath = join(root, 'AGENTS.md');
+  if (existsSync(agentsPath)) {
+    const agentsBytes = Buffer.byteLength(readFileSync(agentsPath, 'utf8'), 'utf8');
+    if (agentsBytes > cfg.entryMaxBytes) fail(`AGENTS.md is ${agentsBytes} bytes; entry-pointer byte cap is ${cfg.entryMaxBytes}`);
+  }
   if (!/\|\s*Load\s*\|\s*Do not load\s*\|/i.test(claude)) fail('CLAUDE.md needs a table with "Load" and "Do not load" columns');
   if (!/exclusion/i.test(claude)) fail('CLAUDE.md needs an explicit exclusion rule (say what NOT to load)');
 
   if (options.rootOnly) {
-    return { problems, summary: `root router ${rootLines}/${cfg.rootMax} lines (root-only check)` };
+    return { problems, summary: `root router ${rootLines}/${cfg.rootMax} lines, ${rootBytes}/${cfg.rootMaxBytes} bytes (root-only check)` };
   }
 
   // Context directory.
@@ -105,7 +116,7 @@ export function check(projectDir, options = {}) {
   if (existsSync(pkgPath)) {
     try { scripts = JSON.parse(readFileSync(pkgPath, 'utf8')).scripts || {}; } catch { fail('package.json is not valid JSON'); }
   }
-  const docs = [claudePath, ...ctxFiles];
+  const docs = [claudePath, ...(existsSync(agentsPath) ? [agentsPath] : []), ...ctxFiles];
   const skipToken = (t) => /[*<>{}…]|\.\.\./.test(t);
   for (const f of docs) {
     const text = readFileSync(f, 'utf8');
@@ -125,9 +136,18 @@ export function check(projectDir, options = {}) {
     }
   }
 
+  const linkDocs = [...docs, join(root, 'evidence', 'release-history.md')].filter((f) => existsSync(f));
+  for (const f of linkDocs) {
+    for (const m of readFileSync(f, 'utf8').matchAll(/\[[^\]]*\]\(([^)\s]+)\)/g)) {
+      const href = m[1].split('#')[0];
+      if (!href || /^[a-z][a-z0-9+.-]*:/i.test(href)) continue;
+      if (!existsSync(resolve(dirname(f), href))) fail(`${rel(f)} has a broken relative link: ${m[1]}`);
+    }
+  }
+
   return {
     problems,
-    summary: `router ${rootLines}/${cfg.rootMax} lines, ${contracts.length} workflow contracts, ${refs.length} references (context dir: ${ctxName}/)`,
+    summary: `router ${rootLines}/${cfg.rootMax} lines, ${rootBytes}/${cfg.rootMaxBytes} bytes, ${contracts.length} workflow contracts, ${refs.length} references (context dir: ${ctxName}/)`,
   };
 }
 
