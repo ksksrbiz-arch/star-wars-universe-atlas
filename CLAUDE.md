@@ -1,6 +1,6 @@
 # Workflow router
 
-Status: local platform prototype, November 7, 2026: 76 schematic worlds, 286 catalog items, ten collection viewing sequences, and partial story/location links. This router scopes development; it does not certify current-batch browser validation.
+Status: local platform prototype, November 7, 2026: 76 schematic worlds, 302 catalog items, ten collection viewing sequences, and partial story/location links. This router scopes development; it does not certify current-batch browser validation.
 
 | Task | Load | Do not load |
 |---|---|---|
@@ -23,4 +23,7 @@ Rebels season three adds 19 watch records covering 22 official parts: Steps Into
 
 Rebels season four adds 13 watch records covering its 15 Disney+ numbered slots. Heroes of Mandalore (1–2) and In the Name of the Rebellion (3–4) share progress records; the extended finale remains E15 with no invented E16. Twenty-one sourced associations cover all 13 records at least once, with partial scene coverage and an explicitly later Lira San epilogue. World Between Worlds is a non-geographic realm, not a planet. The Rebels sequence preserves its 53-ID prefix and now contains 66 records across all four seasons. No map coordinates are added.
 
-The Bad Batch season one adds 16 consecutive episode records, a separate tenth collection sequence and 25 sourced associations covering all 16 episodes at least once. Pantora and Ordo Moon retain moon identities. Bora Vio and the finale’s Wayland destination have explicit retrospective official confirmation; Wayland is Nala Se’s parallel storyline, not a squad journey. Tipoca City is destroyed, not all of Kamino. Seasons two and three remain outside this catalog batch; no coordinates or exact Order 66 scene interleaving are added.
+The Bad Batch season one adds 16 consecutive episode records, a separate tenth collection sequence and 25 sourced associations covering all 16 episodes at least once. Pantora and Ordo Moon retain moon identities. Bora Vio and the finale’s Wayland destination have explicit retrospective official confirmation; Wayland is Nala Se’s parallel storyline, not a squad journey. Tipoca City is destroyed, not all of Kamino. Season three remains outside the current catalog; no coordinates or exact Order 66 scene interleaving are added.
+
+
+The Bad Batch season two adds 16 individually numbered records and 26 reviewed associations covering every new episode at least once. Its existing collection extends to 32 records, preserving the season-one prefix; the other nine sequence payloads remain unchanged. Safa Toma Raceway and Skara Nal are surface sites without inferred parent planets; Balmorra is an orbital association. Wayland/Weyland spelling is normalized without adopting the conflicting ice-planet descriptor. Season three remains outside scope. No map coordinates are added. See [source review](evidence/bad-batch-season-2-source-review.md).

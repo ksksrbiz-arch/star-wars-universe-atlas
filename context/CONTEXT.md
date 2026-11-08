@@ -1,6 +1,6 @@
 # Context index
 
-Status: deployed platform preview, November 7, 2026. There are 76 schematic map destinations: eight general worlds, 67 direct journey placements, and Endor's parent-system placement. The catalog exposes 286 watchable items: 278 episode watch records and eight films across the original trilogy, Andor, The Clone Wars (2008), The Mandalorian, Ahsoka season one, Rogue One, The Book of Boba Fett season one, the prequel trilogy, Rebels seasons 1–4, and The Bad Batch season one. The original nine specials, four Rebels introductory shorts The Ultimate Guide and Season 2 Recap are excluded. Ten sourced collection viewing sequences cover all 286 items. Story/location relationships are a partial evidence pass; see [review](../evidence/journey-data-review.md).
+Status: deployed platform preview, November 7, 2026. There are 76 schematic map destinations: eight general worlds, 67 direct journey placements, and Endor's parent-system placement. The catalog exposes 302 watchable items: 294 episode watch records and eight films across the original trilogy, Andor, The Clone Wars (2008), The Mandalorian, Ahsoka season one, Rogue One, The Book of Boba Fett season one, the prequel trilogy, Rebels seasons 1–4, and The Bad Batch seasons one and two. The original nine specials, four Rebels introductory shorts The Ultimate Guide and Season 2 Recap are excluded. Ten sourced collection viewing sequences cover all 302 items. Story/location relationships are a partial evidence pass; see [review](../evidence/journey-data-review.md).
 
 ## Workflows
 
@@ -20,7 +20,7 @@ Status: deployed platform preview, November 7, 2026. There are 76 schematic map 
 
 ## Current evidence
 
-Integrated relationships: 436 links, 278 covered titles, 147 distinct locations, and 8 titles without current links. Coverage is partial even for covered titles. The 76 mapped destinations and 147 relationship-location names measure different things; unsupported placements remain textual.
+Integrated relationships: 462 links, 294 covered titles, 156 distinct locations, and 8 titles without current links. Coverage is partial even for covered titles. The 76 mapped destinations and 156 relationship-location names measure different things; unsupported placements remain textual.
 
 Geographic source and schematic projection are documented in the data module. Eight world names/grids were checked against the earlier official-appendix audit; all current entries match. Official Databank pages support the broad setting descriptions, with era/edition limits retained. Hoth and Bespin share cell K-18; Yavin 4 uses the parent-system cell.
 
@@ -47,4 +47,7 @@ Rebels season three adds 19 watch records covering 22 official parts: Steps Into
 
 Rebels season four adds 13 watch records covering its 15 Disney+ numbered slots. Heroes of Mandalore (1–2) and In the Name of the Rebellion (3–4) share progress records; the extended finale remains E15 with no invented E16. Twenty-one sourced associations cover all 13 records at least once, with partial scene coverage and an explicitly later Lira San epilogue. World Between Worlds is a non-geographic realm, not a planet. The Rebels sequence preserves its 53-ID prefix and now contains 66 records across all four seasons. No map coordinates are added.
 
-The Bad Batch season one adds 16 consecutive episode records, a separate tenth collection sequence and 25 sourced associations covering all 16 episodes at least once. Pantora and Ordo Moon retain moon identities. Bora Vio and the finale’s Wayland destination have explicit retrospective official confirmation; Wayland is Nala Se’s parallel storyline, not a squad journey. Tipoca City is destroyed, not all of Kamino. Seasons two and three remain outside this catalog batch; no coordinates or exact Order 66 scene interleaving are added.
+The Bad Batch season one adds 16 consecutive episode records, a separate tenth collection sequence and 25 sourced associations covering all 16 episodes at least once. Pantora and Ordo Moon retain moon identities. Bora Vio and the finale’s Wayland destination have explicit retrospective official confirmation; Wayland is Nala Se’s parallel storyline, not a squad journey. Tipoca City is destroyed, not all of Kamino. Season three remains outside the current catalog; no coordinates or exact Order 66 scene interleaving are added.
+
+
+The Bad Batch season two adds 16 individually numbered records and 26 reviewed associations covering every new episode at least once. Its existing collection extends to 32 records, preserving the season-one prefix; the other nine sequence payloads remain unchanged. Safa Toma Raceway and Skara Nal are surface sites without inferred parent planets; Balmorra is an orbital association. Wayland/Weyland spelling is normalized without adopting the conflicting ice-planet descriptor. Season three remains outside scope. No map coordinates are added. See [source review](../evidence/bad-batch-season-2-source-review.md).

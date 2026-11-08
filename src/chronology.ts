@@ -35,12 +35,12 @@ const cloneWarsCodes = `
 
 export const STORY_SEQUENCES: StorySequence[] = [
   {
-    id: 'bad-batch', title: 'The Bad Batch · season 1 narrative order',
-    description: 'Follow sixteen numbered episodes from Order 66 into the early Empire. The extended premiere remains one watch record.',
+    id: 'bad-batch', title: 'The Bad Batch · seasons 1–2 narrative order',
+    description: 'Follow 32 numbered episodes from Order 66 through the early Empire. Same-day season-two releases retain their individual episode records.',
     sourceUrl: 'https://www.starwars.com/series/star-wars-the-bad-batch',
-    itemIds: numberedEpisodes('bad-batch', [16]),
+    itemIds: numberedEpisodes('bad-batch', [16,16]),
     caveats: [
-      'Season one only. Seasons two and three are outside this collection; provider dates and uncertain edition runtimes remain separate from narrative order.',
+      'Seasons one and two only; season three is outside this collection. Provider dates and uncertain edition runtimes remain separate from narrative order.',
       'Aftermath depicts events around Order 66, overlapping Revenge of the Sith and the end of The Clone Wars. No exact scene-interleaving or BBY/ABY event calendar is asserted.',
       'Whole-work order is not a character journey. Ship settings, mentions, flashbacks and unresolved planet identities remain qualified in individual evidence records.',
     ],

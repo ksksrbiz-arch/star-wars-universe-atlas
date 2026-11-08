@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import './galaxy-labels.css'
+import { leaderEndAtLabelEdge } from './labelLeaderGeometry'
 import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
@@ -127,18 +128,21 @@ const labelOffsets: Record<string, [number, number]> = {
   alderaan: [38, 20], coruscant: [-88, -12], mandalore: [-37, 6], yavin: [30, -12],
 }
 
-const leaderLayouts = new WeakMap<HTMLCanvasElement, Map<string, (dx: number, dy: number, visible: boolean) => void>>()
+const leaderLayouts = new WeakMap<HTMLCanvasElement, Map<string, (dx: number, dy: number, visible: boolean, width?: number, height?: number) => void>>()
 function LabelLeader({ worldId, offset, minZoom = 0, active = false }: { worldId: string; offset: [number, number]; minZoom?: number; active?: boolean }) {
   const { camera, gl } = useThree()
   const hudOffset = useRef<[number, number]>([0,0])
   const labelVisible = useRef(false)
+  const labelSize = useRef<[number, number]>([0,0])
   const positions = useMemo(() => new Float32Array([0, 0, .01, 0, 0, .01]), [])
   const geometry = useRef<THREE.BufferGeometry>(null)
   const leader = useRef<THREE.LineSegments>(null)
   const update = () => {
-    if (leader.current) leader.current.visible = labelVisible.current && (camera as THREE.OrthographicCamera).zoom >= minZoom
-    const x = (offset[0] + hudOffset.current[0]) / (camera as THREE.OrthographicCamera).zoom
-    const y = -.39 - (offset[1] + hudOffset.current[1]) / (camera as THREE.OrthographicCamera).zoom
+    const zoom = (camera as THREE.OrthographicCamera).zoom
+    const [screenX, screenY] = leaderEndAtLabelEdge(offset[0] + hudOffset.current[0], .39 * zoom + offset[1] + hudOffset.current[1], ...labelSize.current)
+    if (leader.current) leader.current.visible = labelVisible.current && zoom >= minZoom && Math.hypot(screenX,screenY) > 1
+    const x = screenX / zoom
+    const y = -screenY / zoom
     if (positions[3] === Math.fround(x) && positions[4] === Math.fround(y)) return
     positions[3] = x; positions[4] = y
     if (geometry.current) { geometry.current.attributes.position.needsUpdate = true; geometry.current.computeBoundingSphere() }
@@ -146,7 +150,7 @@ function LabelLeader({ worldId, offset, minZoom = 0, active = false }: { worldId
   useEffect(() => {
     let registry = leaderLayouts.get(gl.domElement)
     if (!registry) { registry = new Map(); leaderLayouts.set(gl.domElement, registry) }
-    const apply = (dx: number, dy: number, visible: boolean) => { hudOffset.current = [dx,dy]; labelVisible.current = visible; update() }
+    const apply = (dx: number, dy: number, visible: boolean, width = 0, height = 0) => { hudOffset.current = [dx,dy]; labelVisible.current = visible; labelSize.current = [width,height]; update() }
     registry.set(worldId, apply)
     return () => { if (registry.get(worldId) === apply) registry.delete(worldId) }
   }, [gl, worldId, offset, camera])
@@ -235,7 +239,7 @@ function LabelDeclutter() {
       const overlaps = occupied.some(other => rect.left < other.right+4 && rect.right > other.left-4 && rect.top < other.bottom+4 && rect.bottom > other.top-4)
       const hidden = !essential && (clipped || overlaps || protectedRects.some(other => overlapsRect(rect,other)))
       label.dataset.decluttered = String(hidden)
-      leaderLayouts.get(gl.domElement)?.get(label.dataset.worldId ?? '')?.(dx,dy,!hidden)
+      leaderLayouts.get(gl.domElement)?.get(label.dataset.worldId ?? '')?.(dx,dy,!hidden,rect.width,rect.height)
       if (!hidden) occupied.push(rect)
     }
   })

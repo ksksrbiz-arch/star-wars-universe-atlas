@@ -1,11 +1,18 @@
 {
   "metadata": {
     "auditDate": "2026-11-07",
-    "scope": "Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1; Rogue One; The Book of Boba Fett season 1; prequel trilogy; Rebels seasons 1–4 (66 watch records covering 74 official numbered slots); The Bad Batch season 1.",
-    "coreCount": 286,
-    "regularEpisodeCount": 278,
+    "scope": "Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1; Rogue One; The Book of Boba Fett season 1; prequel trilogy; Rebels seasons 1–4 (66 watch records covering 74 official numbered slots); The Bad Batch seasons 1–2.",
+    "coreCount": 302,
+    "regularEpisodeCount": 294,
     "originalAuditCohortCount": 185,
     "extensionCollections": [
+      {
+        "seriesId": "bad-batch",
+        "season": 2,
+        "count": 16,
+        "sourceFile": "bad-batch-season-2-source.json",
+        "note": "16 individually numbered season-two episodes. Same-day premiere, midseason and finale releases retain distinct episode IDs matching official guides. Provider titles/dates retained, including Truth & Consequences punctuation; runtimes withheld. Season3 remains outside scope."
+      },
       {
         "seriesId": "bad-batch",
         "season": 1,
@@ -148,6 +155,10 @@
       {
         "name": "bad-batch-season-1-source.json",
         "sha256": "8f1d2203f6169f06bace1c931308360b56da9884a3f6a8f3dbe768de91525515"
+      },
+      {
+        "name": "bad-batch-season-2-source.json",
+        "sha256": "89ae1d899f4a665590bcfe77788f58acdf25314cc70232a483bb623c5409fab1"
       }
     ],
     "excludedSpecials": [
@@ -3298,6 +3309,138 @@
       "sourceUrl": "https://www.tvmaze.com/episodes/2369091/andor-1x12-rix-road"
     },
     {
+      "id": "bad-batch-s02e01",
+      "title": "Spoils of War",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 2,
+      "episode": 1,
+      "releaseDate": "2023-01-04",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2338973/star-wars-the-bad-batch-2x01-spoils-of-war"
+    },
+    {
+      "id": "bad-batch-s02e02",
+      "title": "Ruins of War",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 2,
+      "episode": 2,
+      "releaseDate": "2023-01-04",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2444765/star-wars-the-bad-batch-2x02-ruins-of-war"
+    },
+    {
+      "id": "bad-batch-s02e03",
+      "title": "The Solitary Clone",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 2,
+      "episode": 3,
+      "releaseDate": "2023-01-11",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2444766/star-wars-the-bad-batch-2x03-the-solitary-clone"
+    },
+    {
+      "id": "bad-batch-s02e04",
+      "title": "Faster",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 2,
+      "episode": 4,
+      "releaseDate": "2023-01-18",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2444767/star-wars-the-bad-batch-2x04-faster"
+    },
+    {
+      "id": "bad-batch-s02e05",
+      "title": "Entombed",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 2,
+      "episode": 5,
+      "releaseDate": "2023-01-25",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2444768/star-wars-the-bad-batch-2x05-entombed"
+    },
+    {
+      "id": "bad-batch-s02e06",
+      "title": "Tribe",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 2,
+      "episode": 6,
+      "releaseDate": "2023-02-01",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2444769/star-wars-the-bad-batch-2x06-tribe"
+    },
+    {
+      "id": "bad-batch-s02e07",
+      "title": "The Clone Conspiracy",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 2,
+      "episode": 7,
+      "releaseDate": "2023-02-08",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2444770/star-wars-the-bad-batch-2x07-the-clone-conspiracy"
+    },
+    {
+      "id": "bad-batch-s02e08",
+      "title": "Truth & Consequences",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 2,
+      "episode": 8,
+      "releaseDate": "2023-02-08",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2444771/star-wars-the-bad-batch-2x08-truth-consequences"
+    },
+    {
+      "id": "bad-batch-s02e09",
+      "title": "The Crossing",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 2,
+      "episode": 9,
+      "releaseDate": "2023-02-15",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2444772/star-wars-the-bad-batch-2x09-the-crossing"
+    },
+    {
+      "id": "bad-batch-s02e10",
+      "title": "Retrieval",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 2,
+      "episode": 10,
+      "releaseDate": "2023-02-22",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2444773/star-wars-the-bad-batch-2x10-retrieval"
+    },
+    {
+      "id": "bad-batch-s02e11",
+      "title": "Metamorphosis",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 2,
+      "episode": 11,
+      "releaseDate": "2023-03-01",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2444774/star-wars-the-bad-batch-2x11-metamorphosis"
+    },
+    {
       "id": "mandalorian-s03e01",
       "title": "Chapter 17: The Apostate",
       "seriesId": "mandalorian",
@@ -3308,6 +3451,18 @@
       "runtimeMinutes": 35,
       "runtimeNote": "Provider runtime; streaming duration and credit treatment not independently verified.",
       "sourceUrl": "https://www.tvmaze.com/episodes/2440805/the-mandalorian-3x01-chapter-17-the-apostate"
+    },
+    {
+      "id": "bad-batch-s02e12",
+      "title": "The Outpost",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 2,
+      "episode": 12,
+      "releaseDate": "2023-03-08",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2444775/star-wars-the-bad-batch-2x12-the-outpost"
     },
     {
       "id": "mandalorian-s03e02",
@@ -3322,6 +3477,18 @@
       "sourceUrl": "https://www.tvmaze.com/episodes/2494390/the-mandalorian-3x02-chapter-18-the-mines-of-mandalore"
     },
     {
+      "id": "bad-batch-s02e13",
+      "title": "Pabu",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 2,
+      "episode": 13,
+      "releaseDate": "2023-03-15",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2444776/star-wars-the-bad-batch-2x13-pabu"
+    },
+    {
       "id": "mandalorian-s03e03",
       "title": "Chapter 19: The Convert",
       "seriesId": "mandalorian",
@@ -3334,6 +3501,18 @@
       "sourceUrl": "https://www.tvmaze.com/episodes/2494391/the-mandalorian-3x03-chapter-19-the-convert"
     },
     {
+      "id": "bad-batch-s02e14",
+      "title": "Tipping Point",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 2,
+      "episode": 14,
+      "releaseDate": "2023-03-22",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2444777/star-wars-the-bad-batch-2x14-tipping-point"
+    },
+    {
       "id": "mandalorian-s03e04",
       "title": "Chapter 20: The Foundling",
       "seriesId": "mandalorian",
@@ -3344,6 +3523,30 @@
       "runtimeMinutes": 31,
       "runtimeNote": "Provider runtime; streaming duration and credit treatment not independently verified.",
       "sourceUrl": "https://www.tvmaze.com/episodes/2494392/the-mandalorian-3x04-chapter-20-the-foundling"
+    },
+    {
+      "id": "bad-batch-s02e15",
+      "title": "The Summit",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 2,
+      "episode": 15,
+      "releaseDate": "2023-03-29",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2444778/star-wars-the-bad-batch-2x15-the-summit"
+    },
+    {
+      "id": "bad-batch-s02e16",
+      "title": "Plan 99",
+      "seriesId": "bad-batch",
+      "kind": "episode",
+      "season": 2,
+      "episode": 16,
+      "releaseDate": "2023-03-29",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending edition-specific verification; same-day releases retain separate episode records.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2444779/star-wars-the-bad-batch-2x16-plan-99"
     },
     {
       "id": "mandalorian-s03e05",

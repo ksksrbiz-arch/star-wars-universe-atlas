@@ -17,7 +17,7 @@ try {for(const width of [1440,390,320]) {
  await page.getByRole('button',{name:'Mark watched & continue',exact:true}).click();await page.waitForURL('**/#journey/bad-batch-s01e02');
  await page.waitForFunction(()=>document.querySelector('.journey-current h2')?.textContent==='Cut and Run');assert.equal(await page.locator('.journey-stop').count(),0);
  assert.deepEqual(await page.evaluate(()=>JSON.parse(localStorage.getItem('galactic-atlas.watch.v1')).watchedIds),['bad-batch-s01e01']);
- await page.goto(base+'/#journey/bad-batch-s01e16');await expand();await page.waitForFunction(()=>document.querySelector('.journey-current h2')?.textContent==='Kamino Lost');assert.equal(await page.getByRole('button',{name:'Next story chapter',exact:true}).isDisabled(),true);
+ await page.goto(base+'/#journey/bad-batch-s01e16');await expand();await page.waitForFunction(()=>document.querySelector('.journey-current h2')?.textContent==='Kamino Lost');assert.equal(await page.getByRole('button',{name:'Next story chapter',exact:true}).isDisabled(),false);await page.getByRole('button',{name:'Next story chapter',exact:true}).click();await page.waitForURL('**/#journey/bad-batch-s02e01');
  await page.getByRole('link',{name:'Library',exact:true}).click();await page.locator('.collection-tabs').getByRole('button',{name:/Bad Batch/}).click();
  await page.getByLabel('Search films and episodes').fill('S01E16');assert.equal(await page.locator('.catalog-item').count(),1);assert.match(await page.locator('.catalog-item h2').innerText(),/Kamino Lost/);
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);assert.deepEqual(errors,[]);await page.close();

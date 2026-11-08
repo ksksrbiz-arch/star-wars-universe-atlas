@@ -13,6 +13,36 @@ export type WorldDossier = {
 
 const databank = 'https://www.starwars.com/databank/';
 export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
+  pabu: {
+    worldId: 'pabu', eyebrow: 'ISLAND SANCTUARY · SEA AND HERITAGE',
+    overview: { text: 'Pabu is a small planet where an island village welcomes refugees from across the galaxy. Blue seas surround a community with a strong interest in preserving cultural heritage.', sourceUrl: databank + 'pabu' },
+    terrain: { label: 'Island settlement and open sea', text: 'The source describes an island village surrounded by sea. A stylized island and terraced buildings suggest that setting without claiming that the entire planet is ocean-covered.', sourceUrl: databank + 'pabu' },
+    highlights: [
+      { id: 'island-village', name: 'Island village', description: 'People from many worlds make a home in this settlement. Its buildings and shoreline in the artwork are original forms, not a reconstruction of streets or evacuation routes.', sourceUrl: databank + 'pabu' },
+      { id: 'archium', name: 'Pabu Archium', description: 'At the highest point of Upper Pabu, the Archium preserves artifacts representing cultures from across the galaxy. No elevation or building dimensions are supplied.', sourceUrl: databank + 'pabu-archium' },
+    ],
+    caveat: 'The island is a locality on the planet Pabu, not a separate world. Population, buildings and conditions change over time; this environmental guide omits later outcomes and establishes no episode join or coordinates.',
+  },
+  serenno: {
+    worldId: 'serenno', eyebrow: 'FOREST WORLD · CLIFFSIDE ESTATE',
+    overview: { text: 'Serenno is Count Dooku’s homeworld, with lush forests and ancestral lands. During the Clone Wars, his cliffside palace serves as a Separatist base of operations.', sourceUrl: databank + 'serenno' },
+    terrain: { label: 'Forests, mountains and plains', text: 'The official landscape combines lush forests with mountains and plains. Green ridges and a distant estate motif illustrate that broad setting rather than a particular wartime condition.', sourceUrl: databank + 'serenno' },
+    highlights: [
+      { id: 'cliffside-palace', name: 'Dooku’s cliffside palace', description: 'An ancestral estate overlooks forest during the Clone Wars. This historical description does not imply that the palace remains occupied or intact in later eras.', sourceUrl: databank + 'serenno' },
+      { id: 'forest-landscape', name: 'Forest landscape', description: 'Forests lie below the estate, among broader mountains and plains. No forest boundary, palace approach or distance is inferred from the description.', sourceUrl: databank + 'serenno' },
+    ],
+    caveat: 'The cited overview primarily describes Clone Wars-era Serenno. It must not be read as a guarantee of postwar condition or an episode-specific appearance; the original estate motif is not a damage assessment or floor plan.',
+  },
+  ipsidon: {
+    worldId: 'ipsidon', eyebrow: 'MINING WORLD · RED ROCK AND RAW ORE',
+    overview: { text: 'Ipsidon is a dusty world with red rock formations, scorched ground and valuable seams of ipsium. Mining operations extract the volatile raw mineral from below the surface.', sourceUrl: databank + 'ipsidon' },
+    terrain: { label: 'Red rock and scorched mining terrain', text: 'Rocky red outcrops and charred terrain define the broad setting. The portrait suggests these contrasts without locating ore veins or reconstructing mine tunnels.', sourceUrl: databank + 'ipsidon' },
+    highlights: [
+      { id: 'ipsium-deposits', name: 'Ipsium deposits', description: 'Golden-yellow raw ipsium is refined into fuel. Its volatility makes extraction hazardous; the guide supplies neither deposit coordinates nor handling instructions.', sourceUrl: databank + 'ipsium' },
+      { id: 'spaceport', name: 'Ipsidon spaceport', description: 'A once-busy mining hub stands abandoned with discarded skiffs and machinery. It is a surface locality on Ipsidon, not a separately orbiting station.', sourceUrl: databank + 'ipsidon-spaceport' },
+    ],
+    caveat: 'Ipsidon is the world; ipsium is its mined resource. Mine ownership and infrastructure condition are era-dependent. Decorative rock and mineral motifs are neither a resource survey nor galaxy placement.',
+  },
   bracca: {
     worldId: 'bracca', eyebrow: 'SALVAGE WORLD · SHIP GRAVEYARDS',
     overview: { text: 'Bracca is an inhospitable industrial world where retired starships are dismantled and their components sold for reuse.', sourceUrl: databank + 'bracca' },
@@ -354,6 +384,9 @@ export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
 /** Reviewed broad categories for directory discovery; absence means not reviewed, not unknown geology. */
 export type WorldTerrainCategory = 'desert' | 'urban' | 'ice' | 'wetlands' | 'gas-giant' | 'swamp' | 'forest' | 'tropical' | 'cold-desert' | 'rugged' | 'mineral-rich' | 'volcanic' | 'ocean' | 'sinkholes' | 'plains' | 'caverns' | 'asteroid' | 'salvage';
 export const WORLD_TERRAIN: Readonly<Record<string, { category: WorldTerrainCategory; label: string; sourceUrl: string }>> = {
+  pabu: { category: 'tropical', label: 'Island and sea', sourceUrl: databank + 'pabu' },
+  serenno: { category: 'forest', label: 'Forests, mountains and plains', sourceUrl: databank + 'serenno' },
+  ipsidon: { category: 'mineral-rich', label: 'Red rock and mining terrain', sourceUrl: databank + 'ipsidon' },
   bracca: { category: 'salvage', label: 'Salvage yards and plains', sourceUrl: databank + 'bracca' },
   'ord-mantell': { category: 'rugged', label: 'Mountains and urban districts', sourceUrl: databank + 'ord-mantell' },
   pantora: { category: 'wetlands', label: 'Marshes and outposts', sourceUrl: databank + 'pantora' },

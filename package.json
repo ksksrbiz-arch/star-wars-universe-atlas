@@ -95,7 +95,11 @@
     "test:bad-batch-season-1-ui": "node scripts/test-bad-batch-season-1-ui.mjs",
     "test:bad-batch-season-1": "node scripts/test-bad-batch.mjs",
     "test:bad-batch-season-one-dossiers": "node scripts/test-bad-batch-season-one-dossiers.mjs",
-    "test:preview-beacon": "node scripts/test-preview-beacon.mjs"
+    "test:preview-beacon": "node scripts/test-preview-beacon.mjs",
+    "test:bad-batch-season-2-ui": "node scripts/test-bad-batch-season-2-ui.mjs",
+    "test:bad-batch-season-2": "node scripts/test-bad-batch-season-2.mjs",
+    "test:bad-batch-season-two-dossiers": "node scripts/test-bad-batch-season-two-dossiers.mjs",
+    "test:label-leader-geometry": "node scripts/test-label-leader-geometry.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",

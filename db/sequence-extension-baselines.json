@@ -1,1 +1,31 @@
-[]
+[
+  {
+    "id": "bad-batch",
+    "title": "The Bad Batch · season 1 narrative order",
+    "description": "Follow sixteen numbered episodes from Order 66 into the early Empire. The extended premiere remains one watch record.",
+    "sourceUrl": "https://www.starwars.com/series/star-wars-the-bad-batch",
+    "itemIds": [
+      "bad-batch-s01e01",
+      "bad-batch-s01e02",
+      "bad-batch-s01e03",
+      "bad-batch-s01e04",
+      "bad-batch-s01e05",
+      "bad-batch-s01e06",
+      "bad-batch-s01e07",
+      "bad-batch-s01e08",
+      "bad-batch-s01e09",
+      "bad-batch-s01e10",
+      "bad-batch-s01e11",
+      "bad-batch-s01e12",
+      "bad-batch-s01e13",
+      "bad-batch-s01e14",
+      "bad-batch-s01e15",
+      "bad-batch-s01e16"
+    ],
+    "caveats": [
+      "Season one only. Seasons two and three are outside this collection; provider dates and uncertain edition runtimes remain separate from narrative order.",
+      "Aftermath depicts events around Order 66, overlapping Revenge of the Sith and the end of The Clone Wars. No exact scene-interleaving or BBY/ABY event calendar is asserted.",
+      "Whole-work order is not a character journey. Ship settings, mentions, flashbacks and unresolved planet identities remain qualified in individual evidence records."
+    ]
+  }
+]

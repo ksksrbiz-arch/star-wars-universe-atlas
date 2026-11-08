@@ -1,8 +1,8 @@
 {
   "checkedOn": "2026-11-07",
-  "catalogItems": 286,
-  "relationships": 436,
-  "titlesWithLocationEvidence": 278,
+  "catalogItems": 302,
+  "relationships": 462,
+  "titlesWithLocationEvidence": 294,
   "titlesWithoutLocationEvidence": 8,
   "mapPlacements": 76,
   "referenceTraced": 27,
@@ -33,8 +33,8 @@
       "withLocations": 22
     },
     "bad-batch": {
-      "catalog": 16,
-      "withLocations": 16
+      "catalog": 32,
+      "withLocations": 32
     },
     "boba-fett": {
       "catalog": 7,
@@ -50,15 +50,25 @@
     }
   },
   "unplacedAssociatedWorlds": [
+    "Aynaboni",
+    "Desix",
+    "Safa Toma Raceway",
+    "Skara Nal",
+    "Kashyyyk",
+    "Ord Mantell",
+    "Ipsidon",
+    "Wayland",
+    "Barton IV",
+    "Pabu",
+    "Balmorra",
+    "Eriadu",
     "Kaller",
     "Kamino",
     "Ordo Moon",
-    "Ord Mantell",
     "Bracca",
     "Bora Vio",
     "Raxus",
     "Daro",
-    "Wayland",
     "Garel",
     "Stygeon Prime",
     "Fort Anaxes",
@@ -118,7 +128,6 @@
     "Scarif",
     "Glavis Ringworld",
     "Luke’s Jedi school",
-    "Kashyyyk",
     "Utapau",
     "Mygeeto",
     "Polis Massa"

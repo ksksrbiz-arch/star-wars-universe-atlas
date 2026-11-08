@@ -1,0 +1,54 @@
+{
+  "browser": "Chromium software WebGL; not physical-device FPS",
+  "measurement": "Two-vertex GL_LINES draws in the latest clear/frame; no preview connection in this scenario",
+  "results": [
+    {
+      "width": 1440,
+      "fontCase": "normal",
+      "leaderDraws": 5,
+      "visibleLabels": 18,
+      "hiddenLabels": 58,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 1440,
+      "fontCase": "unavailable",
+      "leaderDraws": 5,
+      "visibleLabels": 18,
+      "hiddenLabels": 58,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 390,
+      "fontCase": "normal",
+      "leaderDraws": 2,
+      "visibleLabels": 11,
+      "hiddenLabels": 65,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 390,
+      "fontCase": "unavailable",
+      "leaderDraws": 2,
+      "visibleLabels": 11,
+      "hiddenLabels": 65,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 320,
+      "fontCase": "normal",
+      "leaderDraws": 2,
+      "visibleLabels": 10,
+      "hiddenLabels": 66,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 320,
+      "fontCase": "unavailable",
+      "leaderDraws": 2,
+      "visibleLabels": 10,
+      "hiddenLabels": 66,
+      "idleDrawsOver600ms": 0
+    }
+  ]
+}
