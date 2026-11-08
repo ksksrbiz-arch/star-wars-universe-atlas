@@ -158,7 +158,7 @@ CONNECTIONS.push(...AHSOKA_CONNECTIONS, ...ROGUE_ONE_CONNECTIONS, ...BOBA_FETT_C
 export const CONNECTION_COVERAGE = {
   checkedOn: '2026-11-07',
   status: 'Curated, incomplete evidence batches',
-  scope: 'Original-trilogy films, the 2008 Clone Wars film, and selected episode/world relationships from Andor, The Clone Wars (2008), The Mandalorian, Ahsoka season one, and The Book of Boba Fett. Having a relationship does not mean every location in that title is covered.',
+  scope: 'Original-trilogy films, the prequel films, Rogue One, the 2008 Clone Wars film, and selected episode/world relationships from Andor, The Clone Wars (2008), Star Wars Rebels (seasons 1-4), The Bad Batch (seasons 1-3), The Mandalorian, Ahsoka season one, and The Book of Boba Fett. Having a relationship does not mean every location in that title is covered.',
   relationshipCount: CONNECTIONS.length,
   coveredItemIds: [...new Set(CONNECTIONS.map(connection => connection.itemId))],
   semantics: 'Title/world associations include planets, moons, surrounding orbital action, and explicitly labeled flashbacks or destruction scenes. They are not a single character’s itinerary.',
