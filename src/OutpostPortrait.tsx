@@ -3,7 +3,7 @@ import './planet-portrait.css';
 
 /** Original static silhouette. Neither asteroid shape nor facility layout is surveyed. */
 export default function OutpostPortrait({ name }: { name: string }) {
- const id=useId().replaceAll(':','');
+ const id=useId();
  return <figure className="atlas-portrait portrait-featured outpost-portrait" data-motion="reduced">
   <svg viewBox="0 0 400 320" role="img" aria-label={`Original illustrative asteroid outpost study of ${name}; not a planet or a map`}>
    <defs><linearGradient id={`${id}-rock`} x1="0" y1="0" x2="1" y2="1"><stop stopColor="#ab9e88"/><stop offset=".6" stopColor="#5a6060"/><stop offset="1" stopColor="#233546"/></linearGradient></defs>
