@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-11-08T19:31:18.362048+00:00",
+  "base": "https://star-wars-universe-atlas.skdev-371.workers.dev",
+  "script": "scripts/test-label-touch.mjs",
+  "browser": "Chromium emulated touch via CDP; not physical-device testing",
+  "viewports": [
+    390,
+    320
+  ],
+  "displacedCoruscantTap": true,
+  "previewDistinctFromArrival": true,
+  "canvasPanMovesSourceAnchors": true,
+  "result": "Passed; recorded from the completed live assertion suite, which prints results without writing a report."
+}

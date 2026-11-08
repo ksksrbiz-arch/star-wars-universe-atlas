@@ -1,8 +1,8 @@
 {
   "checkedOn": "2026-11-07",
-  "catalogItems": 317,
-  "relationships": 483,
-  "titlesWithLocationEvidence": 309,
+  "catalogItems": 323,
+  "relationships": 495,
+  "titlesWithLocationEvidence": 315,
   "titlesWithoutLocationEvidence": 8,
   "mapPlacements": 76,
   "referenceTraced": 27,
@@ -40,6 +40,10 @@
       "catalog": 7,
       "withLocations": 7
     },
+    "obi-wan": {
+      "catalog": 6,
+      "withLocations": 6
+    },
     "andor": {
       "catalog": 24,
       "withLocations": 24
@@ -50,6 +54,10 @@
     }
   },
   "unplacedAssociatedWorlds": [
+    "Daiyu",
+    "Mapuzo",
+    "Nur",
+    "Jabiim",
     "Wayland",
     "Setron",
     "Lau",

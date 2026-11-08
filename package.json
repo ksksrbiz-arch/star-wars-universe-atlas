@@ -103,7 +103,12 @@
     "test:bad-batch-season-3-ui": "node scripts/test-bad-batch-season-3-ui.mjs",
     "test:bad-batch-season-3": "node scripts/test-bad-batch-season-3.mjs",
     "test:bad-batch-season-three-dossiers": "node scripts/test-bad-batch-season-three-dossiers.mjs",
-    "test:map-edge-labels": "node scripts/test-map-edge-labels.mjs"
+    "test:map-edge-labels": "node scripts/test-map-edge-labels.mjs",
+    "test:obi-wan-ui": "node scripts/test-obi-wan-ui.mjs",
+    "test:kenobi-dossiers": "node scripts/test-kenobi-dossiers.mjs",
+    "test:obi-wan": "node scripts/test-obi-wan.mjs",
+    "test:label-hit-targets": "node scripts/test-label-hit-targets.mjs",
+    "test:label-touch": "node scripts/test-label-touch.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",
