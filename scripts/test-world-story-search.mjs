@@ -4,7 +4,7 @@ const browser = await chromium.launch({args:['--enable-unsafe-swiftshader']});
 try {
   const page = await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});
   const errors=[]; page.on('pageerror',e=>errors.push(e.message));
-  await page.goto('http://localhost:4173/#galaxy');
+  await page.goto((process.env.ATLAS_URL||'http://localhost:4173')+'/#galaxy');
   const stories=page.getByRole('region',{name:'Linked stories'});
   await stories.waitFor();
   assert.equal(await stories.getByRole('searchbox').count(),0,'hidden stories must not be searchable');

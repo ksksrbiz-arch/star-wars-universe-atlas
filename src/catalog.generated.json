@@ -30,14 +30,14 @@
         "season": 2,
         "count": 16,
         "sourceFile": "bad-batch-season-2-source.json",
-        "note": "16 individually numbered season-two episodes. Same-day premiere, midseason and finale releases retain distinct episode IDs matching official guides. Provider titles/dates retained, including Truth & Consequences punctuation; runtimes withheld. Season3 remains outside scope."
+        "note": "16 individually numbered season-two episodes. Same-day premiere, midseason and finale releases retain distinct episode IDs matching official guides. Provider titles/dates retained, including Truth & Consequences punctuation; runtimes withheld. Season 3 is catalogued in its own source file."
       },
       {
         "seriesId": "bad-batch",
         "season": 1,
         "count": 16,
         "sourceFile": "bad-batch-season-1-source.json",
-        "note": "16 consecutive season-one records, matching official episode-guide numbers. Extended premiere remains episode1, not a split record. Provider dates retained; runtimes withheld pending edition verification. Seasons2–3 are outside this batch."
+        "note": "16 consecutive season-one records, matching official episode-guide numbers. Extended premiere remains episode1, not a split record. Provider dates retained; runtimes withheld pending edition verification. Seasons 2 and 3 are catalogued in their own source files."
       },
       {
         "seriesId": "rebels",
@@ -101,7 +101,7 @@
     "filmCount": 9,
     "excludedSpecialCount": 9,
     "chronologySupported": false,
-    "chronologyNote": "Catalog release dates are not story chronology. Official Clone Wars relative order was audited separately but is not imported here. No storyOrder values are inferred.",
+    "chronologyNote": "Catalog release dates are not story chronology. This catalog carries no story-order data: items have no storyOrder values and none are inferred. Viewing-sequence orders are supplied separately from this catalog metadata.",
     "episodeReleaseDateNote": "TVmaze airdate field retained as reported; territorial release times are not normalized.",
     "filmReleaseDateNotes": {
       "solo": "2018-05-25 is explicitly U.S. theatrical release in the official poster gallery. Official film landing page lists 2018-05-23 without territory/type; these claims are retained separately.",
@@ -174,11 +174,11 @@
       },
       {
         "name": "bad-batch-season-1-source.json",
-        "sha256": "420b4d1da493e226b5cee35920ba7c5b3fc34a7f4173211372d0d1de3ab5489c"
+        "sha256": "fbb04823a7ac69046a6cf523d225f265a5c7a50de9a3d342610c223dab446b04"
       },
       {
         "name": "bad-batch-season-2-source.json",
-        "sha256": "569f5efa2a0e9fc67cb7c83cf6cd495c7e923ad3f6bdd8b519a801158e9112a3"
+        "sha256": "7c4f070f0b77791306d01a6bcbbe16f82680f34d05133b9d73357e6d0952cce5"
       },
       {
         "name": "bad-batch-season-3-source.json",

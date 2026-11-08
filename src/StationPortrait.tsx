@@ -3,7 +3,7 @@ import './planet-portrait.css';
 
 /** Original static illustration. Ring shape is sourced; proportions and plate layout are invented. */
 export default function StationPortrait({ name }: { name: string }) {
- const key = useId().replaceAll(':', '');
+ const key = useId();
  return <figure className="atlas-portrait portrait-featured station-portrait" data-motion="reduced">
   <svg viewBox="0 0 400 320" role="img" aria-label={`Original illustrative ring station study of ${name}; not to scale or a galaxy map`}>
    <defs>

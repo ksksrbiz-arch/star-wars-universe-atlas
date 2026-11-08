@@ -4,7 +4,7 @@ The application uses Cloudflare Workers Static Assets. `cloudflare/deployment.js
 
 Live URL: https://star-wars-universe-atlas.skdev-371.workers.dev
 
-Automatic Cloudflare build trigger: `b6b0e600-fa22-4aec-93b2-c8dfd38b6467`, connected to main. It runs the production builds, ICM checks, catalog, connection, chronology, journey-data, and reference-data validations before deploying. The initial GitHub Actions run could not start because the GitHub account is locked by a billing issue. Its workflow is manual-only until that issue is resolved; automatic validation runs in Cloudflare instead. Documentation/evidence-only changes do not redeploy the app.
+Automatic Cloudflare build trigger: `b6b0e600-fa22-4aec-93b2-c8dfd38b6467`, connected to main. It runs the production builds, ICM checks, catalog, connection, chronology, journey-data, and reference-data validations before deploying. GitHub Actions (`.github/workflows/ci.yml`) is manual-only (`workflow_dispatch`) because the GitHub account is locked by a billing issue; Cloudflare Builds runs the automatic checks until push/pull_request triggers are restored. Documentation/evidence-only changes do not redeploy the app.
 
 The server bundle explicitly selects the `workerd` package condition, so pg-cloudflare's real socket implementation is included. It uses a Worker-compatible createRequire fallback for Node built-ins. `node scripts/test-deployment.mjs` verifies the deployed database endpoints and desktop/mobile map transitions.
 
@@ -18,7 +18,7 @@ npm run build:worker
 
 Deploy with a Cloudflare Workers-edit API token injected into `CLOUDFLARE_API_TOKEN` by the deployment environment, then `npm run deploy`. Tokens are never committed. Cloudflare Workers Builds connects the repository's main branch to this build/deploy sequence; consult the deployment evidence for the verified trigger and release.
 
-The dedicated Neon project is `young-hall-18334569`, database `atlas`, production branch `br-bitter-violet-ak7la0ve`. The initial additive schema is in `db/001_atlas.sql`; `npm run db:prepare` produces an ordered seed transaction from the checked-in domain data. Initial seeding is not run on each deployment. Future schema/content publication changes require reviewed migrations and a new publication version. The initial setup uses the existing free Neon plan and its default recovery settings; no paid SLA or restore drill is established.
+The dedicated Neon project is `young-hall-18334569`, database `atlas`, production branch `br-bitter-violet-ak7la0ve`. The initial additive schema is in `db/001_atlas.sql`; `npm run db:prepare` writes an ordered JSON array of SQL statements (schema DDL followed by inserts) to `work/deploy/seed-statements.json` from the checked-in domain data. The file is not a transaction: it contains no `BEGIN`/`COMMIT`, so whoever applies it must supply transactional wrapping. Initial seeding is not run on each deployment. Future schema/content publication changes require reviewed migrations and a new publication version. The initial setup uses the existing free Neon plan and its default recovery settings; no paid SLA or restore drill is established.
 
 Hyperdrive connects using the scoped `atlas_reader` role and query caching is disabled. The Worker exposes only GET/HEAD catalog endpoints; there are no public database writes. The current UI continues using its bundled catalog snapshot, so exploration does not depend on database availability. Browser watch progress remains local; user authentication/sync is not implemented.
 
