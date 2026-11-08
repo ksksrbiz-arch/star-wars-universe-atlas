@@ -1,5 +1,5 @@
 import {chromium} from 'playwright';import assert from 'node:assert/strict';import {CONNECTIONS} from '../src/connections.ts';
-const base=process.env.ATLAS_URL||'http://localhost:4175';const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
+const base=process.env.ATLAS_URL||'http://localhost:4173';const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
 try{for(const width of [1440,390,320]){
  const page=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
  const expand=async()=>{if(width<721&&await page.locator('.sheet-toggle').getAttribute('aria-expanded')==='false')await page.locator('.sheet-toggle').click();};
