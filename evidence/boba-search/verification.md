@@ -27,4 +27,10 @@ Two test failures led to fixes: focus could leave the search dialog, and mobile 
 
 No physical-device FPS claim is made. Large JavaScript chunk warnings remain; physical-device profiling and further code splitting are future work. The disposable-local-PostgreSQL integration suite was not run in this environment; artifact checks and actual guarded production publication/digest verification were performed.
 
-Frontend rollout verification is recorded below after deployment.
+## Live rollout
+
+Cloudflare build `c1557ceb-0679-42be-af0b-58625868cb16` successfully deployed application commit `5ff3b1fafb5af840e35d92d1328850f8e348ace9`. Verified November 8, 2026 at approximately 00:25 UTC (November 7 local time).
+
+Live HTML matches the production build after Windows/Linux line-ending normalization. All five JavaScript/CSS assets match byte for byte. Live search, Boba bridge and station-dossier suites pass at 1440/390/320 widths, including keyboard focus, travel cancellation, separate watched state, no automatic location reveal, mobile panel continuity and unmapped location handling. The four API digests were independently reverified after frontend rollout.
+
+Live screenshots and exact asset results are retained under `work/boba-qa/live/`; this verification made no further database writes.
