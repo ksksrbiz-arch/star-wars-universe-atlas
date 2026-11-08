@@ -18,6 +18,8 @@ export type CatalogItem = {
 };
 
 export const SERIES = [
+  { id: 'solo', title: 'Solo: A Star Wars Story', color: '#D2A263' },
+  { id: 'obi-wan', title: 'Obi-Wan Kenobi', color: '#C6A47C' },
   { id: 'bad-batch', title: 'The Bad Batch · seasons 1–3', color: '#CB8672' },
   { id: 'rebels', title: 'Rebels · seasons 1–4', color: '#D6AD6B' },
   { id: 'pt', title: 'Prequel trilogy', color: '#D8B8F2' },

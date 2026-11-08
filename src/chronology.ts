@@ -35,6 +35,19 @@ const cloneWarsCodes = `
 
 export const STORY_SEQUENCES: StorySequence[] = [
   {
+    id: 'solo', title: 'Solo: A Star Wars Story',
+    description: 'A standalone film following Han’s early life, meeting with Chewbacca and first adventures aboard the Falcon.',
+    sourceUrl: 'https://www.starwars.com/films/solo', itemIds: ['solo'],
+    caveats: ['One whole-film record retains the time jump after Corellia; no exact scene calendar or cross-series interleaving is asserted.', 'Release date identifies the U.S. theatrical release, distinct from the undifferentiated date on the film landing page. Edition runtime remains unverified.', 'Planet appearances, ship interiors, proposed destinations and space transit are separate claims. Links are not a sequenced character route.'],
+  },
+  {
+    id: 'obi-wan', title: 'Obi-Wan Kenobi · six-part narrative order',
+    description: 'Follow Part I through Part VI as six separate episode records.',
+    sourceUrl: 'https://www.starwars.com/series/obi-wan-kenobi',
+    itemIds: numberedEpisodes('obi-wan', [6]),
+    caveats: ['Whole-episode order retains Order 66 flashbacks, nightmares and earlier training scenes inside their episode records; no exact scene interleaving is asserted.', 'The main story follows Kenobi in exile; release dates and edition-specific runtimes remain separate from narrative chronology.', 'A Jedi’s Return is a behind-the-scenes special outside this narrative collection. Location links do not imply all characters travel together.'],
+  },
+  {
     id: 'bad-batch', title: 'The Bad Batch · seasons 1–3 narrative order',
     description: 'Follow 47 numbered episodes from Order 66 through the early Empire. Same-day releases retain their individual episode records.',
     sourceUrl: 'https://www.starwars.com/series/star-wars-the-bad-batch',

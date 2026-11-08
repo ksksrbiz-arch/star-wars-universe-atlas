@@ -34,8 +34,8 @@ export default function WorldExplorer({ selectedId, disabled, onSelect }: {
       </label>
       <label htmlFor={`${id}-region`}><span>Region</span><select id={`${id}-region`} value={region} disabled={disabled}
         onChange={event => setRegion(event.target.value)}><option value="">All regions</option>{regions.map(name => <option key={name}>{name}</option>)}</select></label>
-      <label className="world-explorer-destination" htmlFor={`${id}-world`}><span>Choose destination</span>
-        <select id={`${id}-world`} aria-label="Find a mapped world" value={selectedInResults ? selectedId : ''}
+      <label className="world-explorer-destination" htmlFor={`${id}-world`}><span>Find a mapped world</span>
+        <select id={`${id}-world`} value={selectedInResults ? selectedId : ''}
           disabled={disabled || !worlds.length} onChange={event => { if (event.target.value) onSelect(event.target.value); }}>
           {!selectedInResults && <option value="" disabled>{worlds.length ? 'Select a matching world' : 'No matching worlds'}</option>}
           {worlds.map(world => <option key={world.id} value={world.id}>{world.name} · {world.grid}</option>)}

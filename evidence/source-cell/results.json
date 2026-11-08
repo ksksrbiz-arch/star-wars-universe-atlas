@@ -1,0 +1,71 @@
+{
+  "browser": "Chromium software WebGL; not physical-device FPS",
+  "results": [
+    {
+      "width": 1440,
+      "fontCase": "normal",
+      "sourceGrid": "S-8",
+      "gridToggleRespected": true,
+      "visibleLabelReceivesPointer": true,
+      "hoverAndFocusPreserveSource": true,
+      "overlaps": 0,
+      "keyboardFocus": true,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 390,
+      "fontCase": "normal",
+      "sourceGrid": "S-8",
+      "gridToggleRespected": true,
+      "visibleLabelReceivesPointer": true,
+      "hoverAndFocusPreserveSource": true,
+      "overlaps": 0,
+      "keyboardFocus": true,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 320,
+      "fontCase": "normal",
+      "sourceGrid": "S-8",
+      "gridToggleRespected": true,
+      "visibleLabelReceivesPointer": true,
+      "hoverAndFocusPreserveSource": true,
+      "overlaps": 0,
+      "keyboardFocus": true,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 1440,
+      "fontCase": "unavailable",
+      "sourceGrid": "S-8",
+      "gridToggleRespected": true,
+      "visibleLabelReceivesPointer": true,
+      "hoverAndFocusPreserveSource": true,
+      "overlaps": 0,
+      "keyboardFocus": true,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 390,
+      "fontCase": "unavailable",
+      "sourceGrid": "S-8",
+      "gridToggleRespected": true,
+      "visibleLabelReceivesPointer": true,
+      "hoverAndFocusPreserveSource": true,
+      "overlaps": 0,
+      "keyboardFocus": true,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 320,
+      "fontCase": "unavailable",
+      "sourceGrid": "S-8",
+      "gridToggleRespected": true,
+      "visibleLabelReceivesPointer": true,
+      "hoverAndFocusPreserveSource": true,
+      "overlaps": 0,
+      "keyboardFocus": true,
+      "idleDrawsOver600ms": 0
+    }
+  ]
+}

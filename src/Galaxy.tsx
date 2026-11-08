@@ -6,7 +6,7 @@ import './galaxy-labels.css'
 import { leaderEndAtLabelEdge } from './labelLeaderGeometry'
 import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
-import type { World } from './data'
+import { gridToDisplay, type World } from './data'
 import WarpEffect from './WarpEffect'
 import GalaxyAtmosphere, { type GalaxyQuality } from './GalaxyAtmosphere'
 import GalacticGeography from './GalacticGeography'
@@ -41,7 +41,7 @@ function Html({ children, position, style, zIndexRange = [12, 1], minZoom = 0 }:
     }
   }, [gl])
   useEffect(() => {
-    root.current?.render(<div style={{ transform: 'translate(-50%, -50%)', pointerEvents: 'auto', ...style }}>{children}</div>)
+    root.current?.render(<div style={{ transform: 'translate(-50%, -50%)', pointerEvents: 'none', ...style }}>{children}</div>)
   })
   useFrame(({ camera, size }) => {
     if (!group.current || !element.current) return
@@ -350,7 +350,23 @@ function LabelSourceFocus() {
   </mesh>
 }
 
-function WorldMarker({ world, highlighted, selected, previewed, disabled, onSelect, sharedOffset }: { sharedOffset?: [number, number]; world: World; highlighted: boolean; selected: boolean; previewed: boolean; disabled: boolean; onSelect: Props['onSelect'] }) {
+/** Published grid provenance, not a planet-size boundary or a precision claim. */
+function SourceCell({ world }: { world: World }) {
+  const center = gridToDisplay(world.grid)
+  const edges = useMemo(() => new Float32Array([-.5,-.5,0, .5,-.5,0, .5,.5,0, -.5,.5,0]), [])
+  return <group position={[(center.x-world.x)*10,(center.y-world.y)*10,-.025]}>
+    <mesh raycast={() => undefined}>
+      <planeGeometry args={[1,1]}/>
+      <meshBasicMaterial color="#a8e5f0" transparent opacity={.07} depthWrite={false}/>
+    </mesh>
+    <lineLoop raycast={() => undefined}>
+      <bufferGeometry><bufferAttribute attach="attributes-position" args={[edges,3]}/></bufferGeometry>
+      <lineBasicMaterial color="#a8e5f0" transparent opacity={.7} depthWrite={false}/>
+    </lineLoop>
+  </group>
+}
+
+function WorldMarker({ world, showSourceCell, highlighted, selected, previewed, disabled, onSelect, sharedOffset }: { sharedOffset?: [number, number]; world: World; showSourceCell?: boolean; highlighted: boolean; selected: boolean; previewed: boolean; disabled: boolean; onSelect: Props['onSelect'] }) {
   const drag = useRef({ x: 0, y: 0, moved: false })
   const [hovered, setHovered] = useState(false)
   const [focused, setFocused] = useState(false)
@@ -366,6 +382,7 @@ function WorldMarker({ world, highlighted, selected, previewed, disabled, onSele
   return <group position={[world.x * 10, world.y * 10, .1]}>
     <LabelLeader worldId={world.id} offset={offset} minZoom={minZoom} active={tracingSource} />
     {tracingSource && <LabelSourceFocus/>}
+    {tracingSource && showSourceCell && <SourceCell world={world}/>}
     {(selected || previewed || highlighted) && <mesh position={[0,0,-.015]} raycast={()=>undefined}>
       <circleGeometry args={[highlighted ? .56 : .46,48]}/>
       <shaderMaterial vertexShader={haloVertex} fragmentShader={haloFragment} uniforms={haloUniforms} transparent depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false}/>
@@ -380,7 +397,7 @@ function WorldMarker({ world, highlighted, selected, previewed, disabled, onSele
     {previewed && !selected && <PreviewBeacon/>}
     <Html center position={[0, -.39, .2]} zIndexRange={[12, 1]} minZoom={minZoom}>
       <>
-      <button className={`world-map-label${selected ? ' is-current' : ''}${previewed ? ' is-preview' : ''}${highlighted ? ' is-episode' : ''}`} data-source-focus={tracingSource} data-label-priority={priority} data-world-id={world.id} data-episode-location={highlighted ? world.id : undefined} title={`${world.name} · source grid ${world.grid}${highlighted ? ' · Sourced chapter location; no visit order implied' : ''}`} disabled={disabled}
+      <button className={`world-map-label${selected ? ' is-current' : ''}${previewed ? ' is-preview' : ''}${highlighted ? ' is-episode' : ''}`} data-source-cell={tracingSource && showSourceCell ? world.grid : undefined} data-source-focus={tracingSource} data-label-priority={priority} data-world-id={world.id} data-episode-location={highlighted ? world.id : undefined} title={`${world.name} · source grid ${world.grid}${highlighted ? ' · Sourced chapter location; no visit order implied' : ''}`} disabled={disabled}
         onFocus={() => { setFocused(true); invalidate() }} onBlur={() => { setFocused(false); invalidate() }}
         onPointerEnter={(e) => { if (e.pointerType !== 'touch') setHovered(true) }} onPointerLeave={() => setHovered(false)}
         onPointerDown={(e) => { drag.current = { x: e.clientX, y: e.clientY, moved: false }; e.currentTarget.setPointerCapture(e.pointerId) }}
@@ -586,7 +603,7 @@ function Scene(props: Props) {
     {props.regionsVisible && GALACTIC_REGION_LABELS.map(label=><Html key={label.id} position={label.position} minZoom={size.width < 600 && !['core','outer-rim'].includes(label.id) ? 24 : 0} style={{pointerEvents:'none'}} zIndexRange={[3,1]}><span className="region-map-label" style={{borderLeft:`2px solid ${label.color}`}}>{label.name}</span></Html>)}
     {props.gridVisible && <ReferenceGridLabels/>}
     {from && preview && from.id !== preview.id && (from.x !== preview.x || from.y !== preview.y) && <PreviewConnection from={from} to={preview} />}
-    {props.worlds.map(w => <WorldMarker key={w.id} sharedOffset={markerOffsets.get(w.id)} world={w} highlighted={props.highlightedIds?.has(w.id) ?? false} selected={w.id === props.selectedId} previewed={w.id === props.previewId} disabled={props.phase === 'warping'} onSelect={props.onSelect} />)}
+    {props.worlds.map(w => <WorldMarker key={w.id} sharedOffset={markerOffsets.get(w.id)} world={w} showSourceCell={props.gridVisible} highlighted={props.highlightedIds?.has(w.id) ?? false} selected={w.id === props.selectedId} previewed={w.id === props.previewId} disabled={props.phase === 'warping'} onSelect={props.onSelect} />)}
     <LabelDeclutter />
     <ContextGuard onUnavailable={props.onUnavailable} onRecovered={props.onRecovered} />
     <WarpEffect progressRef={warpProgress} active={props.phase === 'warping'} reducedMotion={props.reducedMotion} quality={props.quality} />

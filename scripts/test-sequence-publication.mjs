@@ -37,7 +37,7 @@ try {
  await assert.rejects(db.exec(make([after], works).sql), /sequence conflicts/); await db.exec('ROLLBACK');
  console.log('PASS embedded PostgreSQL: reviewed prefix extension, stable old positions, idempotent replay, unexpected payload/order rejection and transactional rollback');
  if (process.argv.includes('--live-baseline')) {
-  const data = Object.fromEntries(await Promise.all(['catalog','worlds','sequences','appearances'].map(async route => [route, (await (await fetch(`https://star-wars-universe-atlas.skdev-371.workers.dev/api/${route}?baseline=${Date.now()}`)).json()).items])));
+  const data = Object.fromEntries(await Promise.all(['catalog','worlds','sequences','appearances'].map(async route => [route, (await (await fetch(`${process.env.ATLAS_LIVE_URL||"https://star-wars-universe-atlas.skdev-371.workers.dev"}/api/${route}?baseline=${Date.now()}`)).json()).items])));
   await db.exec('TRUNCATE atlas_sequence_items, atlas_sequences, atlas_appearances, atlas_works, atlas_worlds, atlas_publications;');
   await db.query("INSERT INTO atlas_publications(id,payload) VALUES ('initial-2026-11-07','{}')");
   await db.exec(buildPublication(data.appearances, { works: data.catalog.length, worlds: data.worlds.length, mappedWorlds: data.worlds, catalog: data.catalog, sequences: data.sequences }).sql);

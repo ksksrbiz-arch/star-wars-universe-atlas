@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { createHash } from 'node:crypto';
+import { sha256Lf } from './lib-hash.mjs';
 import { BOBA_FETT_CONNECTIONS } from '../src/connectionsBobaFett.ts';
 import { STORY_SEQUENCES, STORY_CONNECTIONS } from '../src/chronology.ts';
 import { getLocation } from '../src/locations.ts';
@@ -9,7 +9,7 @@ const sourceBytes=readFileSync(new URL('../docs/boba-fett-source.json',import.me
 const source=JSON.parse(sourceBytes);
 const {items,metadata}=JSON.parse(readFileSync(new URL('../src/catalog.generated.json',import.meta.url)));
 assert.equal(source.episodes.length,7);
-assert.equal(metadata.sourceFiles.find(s=>s.name==='boba-fett-source.json').sha256,createHash('sha256').update(sourceBytes).digest('hex'));
+assert.equal(metadata.sourceFiles.find(s=>s.name==='boba-fett-source.json').sha256,sha256Lf(sourceBytes));
 const ids=source.episodes.map(e=>`boba-fett-s01e${String(e.number).padStart(2,'0')}`);
 assert.deepEqual(STORY_SEQUENCES.find(s=>s.id==='boba-fett').itemIds,ids);
 for(const [i,id] of ids.entries()) {

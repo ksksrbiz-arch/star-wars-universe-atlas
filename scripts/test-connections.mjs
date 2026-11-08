@@ -20,7 +20,7 @@ for (const connection of CONNECTIONS) {
   assert.equal(connection.sequence, undefined, 'This evidence pass supports no travel sequence');
 }
 assert.match(CONNECTIONS.find(c => c.itemId === 'andor-s01e01' && c.worldId === 'kenari').note, /flashback/i);
-assert.match(CONNECTIONS.find(c => c.worldId === 'alderaan').note, /destroyed.*not a completed surface visit/i);
+assert.match(CONNECTIONS.find(c => c.worldId === 'alderaan' && c.itemId === 'ot-a-new-hope').note, /destroyed.*not a completed surface visit/i);
 assert(!pairs.has('andor-s02e01:ghorman'), 'A meeting about Ghorman is not a visit');
 assert(!pairs.has('andor-s02e12:jedha'), 'A future mission mention is not an appearance');
 assert(!pairs.has('clone-wars-s02e14:mandalore'), 'Title text alone is not location evidence');

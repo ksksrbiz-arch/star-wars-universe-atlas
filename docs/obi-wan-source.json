@@ -1,0 +1,106 @@
+{
+  "checkedOn": "2026-11-08",
+  "provider": "TVmaze",
+  "providerUrl": "https://api.tvmaze.com/shows/52260/episodes?specials=1",
+  "license": "CC BY-SA",
+  "numberingNote": "Six separately numbered episodes, Part I through Part VI. Shared premiere date does not combine records; edition-specific runtimes withheld. A Jedi’s Return is a behind-the-scenes special excluded separately from the original nine-special cohort.",
+  "episodes": [
+    {
+      "id": "obi-wan-s01e01",
+      "name": "Part I",
+      "season": 1,
+      "number": 1,
+      "airdate": "2022-05-27",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2273199/obi-wan-kenobi-1x01-part-i"
+    },
+    {
+      "id": "obi-wan-s01e02",
+      "name": "Part II",
+      "season": 1,
+      "number": 2,
+      "airdate": "2022-05-27",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2304904/obi-wan-kenobi-1x02-part-ii"
+    },
+    {
+      "id": "obi-wan-s01e03",
+      "name": "Part III",
+      "season": 1,
+      "number": 3,
+      "airdate": "2022-06-01",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2305186/obi-wan-kenobi-1x03-part-iii"
+    },
+    {
+      "id": "obi-wan-s01e04",
+      "name": "Part IV",
+      "season": 1,
+      "number": 4,
+      "airdate": "2022-06-08",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2305333/obi-wan-kenobi-1x04-part-iv"
+    },
+    {
+      "id": "obi-wan-s01e05",
+      "name": "Part V",
+      "season": 1,
+      "number": 5,
+      "airdate": "2022-06-15",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2305334/obi-wan-kenobi-1x05-part-v"
+    },
+    {
+      "id": "obi-wan-s01e06",
+      "name": "Part VI",
+      "season": 1,
+      "number": 6,
+      "airdate": "2022-06-22",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2305335/obi-wan-kenobi-1x06-part-vi"
+    }
+  ],
+  "excludedSpecials": [
+    {
+      "title": "Obi-Wan Kenobi: A Jedi's Return",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2380976/obi-wan-kenobi-s01-special-obi-wan-kenobi-a-jedis-return",
+      "reason": "Behind-the-scenes special; not a narrative episode."
+    }
+  ],
+  "episodeEvidence": [
+    {
+      "episode": 1,
+      "guideUrl": "https://www.starwars.com/series/obi-wan-kenobi/part-i-guide",
+      "reviewType": "Inline Story Gallery and episode-specific trivia; empty image captions excluded from evidence."
+    },
+    {
+      "episode": 2,
+      "guideUrl": "https://www.starwars.com/series/obi-wan-kenobi/part-ii-guide",
+      "reviewType": "Inline Story Gallery and episode-specific trivia; empty image captions excluded from evidence."
+    },
+    {
+      "episode": 3,
+      "guideUrl": "https://www.starwars.com/series/obi-wan-kenobi/part-iii-guide",
+      "reviewType": "Inline Story Gallery and episode-specific trivia; empty image captions excluded from evidence."
+    },
+    {
+      "episode": 4,
+      "guideUrl": "https://www.starwars.com/series/obi-wan-kenobi/part-iv-guide",
+      "reviewType": "Inline Story Gallery and episode-specific trivia; empty image captions excluded from evidence."
+    },
+    {
+      "episode": 5,
+      "guideUrl": "https://www.starwars.com/series/obi-wan-kenobi/part-v-guide",
+      "reviewType": "Inline Story Gallery and episode-specific trivia; empty image captions excluded from evidence."
+    },
+    {
+      "episode": 6,
+      "guideUrl": "https://www.starwars.com/series/obi-wan-kenobi/part-vi-guide",
+      "reviewType": "Inline Story Gallery and episode-specific trivia; empty image captions excluded from evidence."
+    }
+  ],
+  "supplementarySources": [
+    "https://www.starwars.com/databank/fortress-inquisitorius",
+    "https://www.starwars.com/databank/nur"
+  ],
+  "reviewCaveats": [
+    "Partial appearance coverage; unnamed final-duel world is not assigned a speculative name or coordinates.",
+    "Part I Coruscant opening is a flashback; dreams, visions and Part V training scenes are not treated as present-day visits.",
+    "Nur is a moon in the Mustafar system, not the surface of Mustafar.",
+    "Mentioned destinations and claimed Path bases do not establish appearances."
+  ]
+}

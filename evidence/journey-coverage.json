@@ -1,8 +1,8 @@
 {
   "checkedOn": "2026-11-07",
-  "catalogItems": 317,
-  "relationships": 483,
-  "titlesWithLocationEvidence": 309,
+  "catalogItems": 324,
+  "relationships": 502,
+  "titlesWithLocationEvidence": 316,
   "titlesWithoutLocationEvidence": 8,
   "mapPlacements": 76,
   "referenceTraced": 27,
@@ -28,6 +28,10 @@
       "catalog": 1,
       "withLocations": 1
     },
+    "solo": {
+      "catalog": 1,
+      "withLocations": 1
+    },
     "mandalorian": {
       "catalog": 24,
       "withLocations": 22
@@ -40,6 +44,10 @@
       "catalog": 7,
       "withLocations": 7
     },
+    "obi-wan": {
+      "catalog": 6,
+      "withLocations": 6
+    },
     "andor": {
       "catalog": 24,
       "withLocations": 24
@@ -50,6 +58,15 @@
     }
   },
   "unplacedAssociatedWorlds": [
+    "Mimban",
+    "Vandor",
+    "Savareen",
+    "Numidian Prime",
+    "First Light",
+    "Daiyu",
+    "Mapuzo",
+    "Nur",
+    "Jabiim",
     "Wayland",
     "Setron",
     "Lau",

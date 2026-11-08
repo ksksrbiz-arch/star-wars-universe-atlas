@@ -13,6 +13,66 @@ export type WorldDossier = {
 
 const databank = 'https://www.starwars.com/databank/';
 export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
+  corellia: {
+    worldId: 'corellia', eyebrow: 'INDUSTRIAL WORLD · SHIPYARDS AND COAST',
+    overview: { text: 'Corellia is an ancient industrial world known for large shipyards. Under Imperial rule, its manufacturing and dockyards serve the Empire’s military priorities.', sourceUrl: databank + 'corellia' },
+    terrain: { label: 'Industrial districts and coastal facilities', text: 'Shipbuilding infrastructure and the coastal city of Coronet define the broad setting. The original dockyard motif is not a claim that all Corellian terrain is industrial.', sourceUrl: databank + 'corellia' },
+    highlights: [
+      { id: 'shipyards', name: 'Shipyards', description: 'Large facilities construct and service vessels, with production and dismantling roles varying by era. A ship at a yard remains distinct from the planet and its infrastructure.', sourceUrl: databank + 'corellia' },
+      { id: 'coronet-spaceport', name: 'Coronet Spaceport', description: 'A coastal facility handles civilian, commercial and military traffic. Imperial monitoring belongs to a particular period; the illustration supplies no terminal plan or exit route.', sourceUrl: databank + 'coronet-spaceport' },
+    ],
+    caveat: 'Industrial ownership and production change over time. The original cranes and waterfront forms establish neither exact coastlines nor facility dimensions, film appearances or galaxy coordinates.',
+  },
+  vandor: {
+    worldId: 'vandor', eyebrow: 'COLD FRONTIER · MOUNTAINS AND PLAINS',
+    overview: { text: 'Vandor is a sparsely settled frontier world with high mountains and broad plains. Imperial expansion changes a landscape with relatively little technological infrastructure.', sourceUrl: databank + 'vandor' },
+    terrain: { label: 'Cold mountains and open plains', text: 'The official setting pairs a cold climate with mountains and plains. Pale peaks and open ground in the original study are decorative, not measured elevation or a conveyex track.', sourceUrl: databank + 'vandor' },
+    highlights: [
+      { id: 'the-lodge', name: 'The Lodge at Fort Ypso', description: 'A timber-framed hall serves as saloon, gambling venue and hostel for Fort Ypso. It is a local building, not a separate world or a moving vessel.', sourceUrl: databank + 'the-lodge' },
+      { id: 'kodyok-habitat', name: 'Kod’yok habitat', description: 'Shaggy horned herd animals roam the plains and supply frontier communities with food and materials. No herd route or population estimate is inferred here.', sourceUrl: databank + 'kod-yok' },
+    ],
+    caveat: 'Vandor is distinct from the conveyex trains and the visiting yacht First Light. Peaks, plains and building motifs are illustrative; they do not establish film-specific travel order, rail routes or map placement.',
+  },
+  savareen: {
+    worldId: 'savareen', eyebrow: 'COASTAL WORLD · DESERT AND OCEAN',
+    overview: { text: 'Savareen combines desert landmasses with vast oceans. The Pnakotic coast contains a refinery associated with minerals brought from Kessel.', sourceUrl: databank + 'savareen' },
+    terrain: { label: 'Desert land and large oceans', text: 'Sand-colored land and blue water in the original study reflect the source’s contrasting environments. They are not traced continents, measured shorelines or a global climate model.', sourceUrl: databank + 'savareen' },
+    highlights: [
+      { id: 'pnakotic-coast', name: 'Pnakotic coast', description: 'The named coastal locality connects the desert environment with the sea. Its position within the illustrated globe is not established.', sourceUrl: databank + 'savareen' },
+      { id: 'refinery', name: 'Coastal refinery', description: 'An abandoned refinery is used by smugglers handling minerals from Kessel. The facility’s status is era-dependent; the guide omits mission outcomes and operational layouts.', sourceUrl: databank + 'savareen' },
+    ],
+    caveat: 'Savareen is not an all-desert world. A source’s reference to the Kessel Run does not establish a precise hyperspace route, distance or travel time; the coastal motif supplies no coordinates or film-specific join.',
+  },
+  daiyu: {
+    worldId: 'daiyu', eyebrow: 'URBAN WORLD · LIGHT AND SHADOW',
+    overview: { text: 'Daiyu is an urban world marked by bright lights and sharp contrasts in wealth. Criminal activity and bounty hunters are part of its street-level setting.', sourceUrl: databank + 'daiyu' },
+    terrain: { label: 'Dense urban sprawl', text: 'The official description emphasizes urban terrain and garish lighting. The original illuminated skyline suggests that atmosphere without claiming the entire planet is one continuous city.', sourceUrl: databank + 'daiyu' },
+    highlights: [
+      { id: 'illuminated-districts', name: 'Illuminated districts', description: 'Bright artificial light is a defining visual feature of the urban setting. Decorative windows and colored signs do not reproduce a district or readable street address.', sourceUrl: databank + 'daiyu' },
+      { id: 'urban-contrasts', name: 'Contrasting streets', description: 'Affluence and deprivation sit together within the urban sprawl. This broad social context does not identify every resident with the criminal activity described in the source.', sourceUrl: databank + 'daiyu' },
+    ],
+    caveat: 'The skyline is original illustrative artwork, not a city plan or claim of planet-wide urban coverage. Broad setting descriptions establish neither an episode appearance nor a surface route or galaxy coordinate.',
+  },
+  mapuzo: {
+    worldId: 'mapuzo', eyebrow: 'MINING WORLD · TERRACED GROUND',
+    overview: { text: 'Mapuzo’s surface has been reshaped by mineral extraction. Under Imperial rule, the demand for vintrium takes priority over the needs of local people.', sourceUrl: databank + 'mapuzo' },
+    terrain: { label: 'Tiered surface mines', text: 'Mining cuts the landscape into stepped terraces. The original contour-like bands suggest excavation without tracing a real pit, road or deposit boundary.', sourceUrl: databank + 'mapuzo' },
+    highlights: [
+      { id: 'surface-mines', name: 'Surface mining operations', description: 'Vintrium extraction shapes the working landscape. No ore concentration, mining depth or industrial capacity is inferred from the broad source.', sourceUrl: databank + 'mapuzo' },
+      { id: 'safehouse', name: 'Mapuzo safehouse', description: 'A Hidden Path safehouse contains messages left by earlier travelers. It is a locality on Mapuzo, not a separately mapped world or an established route through the galaxy.', sourceUrl: databank + 'mapuzo-safehouse' },
+    ],
+    caveat: 'The mining terraces are decorative, not survey contours. Imperial priorities belong to a historical era; no safehouse entrance, tunnel layout, episode-specific appearance or galaxy coordinate is supplied.',
+  },
+  jabiim: {
+    worldId: 'jabiim', eyebrow: 'MUDDY WORLD · HARDENED CRUST',
+    overview: { text: 'Jabiim is a muddy world with a hardened crust, largely overlooked by travelers and settlers. Its isolation provides shelter for the Hidden Path.', sourceUrl: databank + 'jabiim' },
+    terrain: { label: 'Mud and hardened surface crust', text: 'The official environmental description pairs muddy ground with a hardened crust. Abstract broken surface patches suggest that contrast without defining geological layers or crater locations.', sourceUrl: databank + 'jabiim' },
+    highlights: [
+      { id: 'surface-crust', name: 'Hardened crust', description: 'The surface description combines muddy conditions with a hardened outer crust. The illustration does not establish bearing strength, depths or traversable paths.', sourceUrl: databank + 'jabiim' },
+      { id: 'sanitation-depot', name: 'Former sanitation depot', description: 'An abandoned sanitation depot serves as a Hidden Path staging site. The local facility is distinct from the freight transport that uses the planet’s waste-extraction infrastructure.', sourceUrl: databank + 'jabiim-hidden-path-safehouse' },
+    ],
+    caveat: 'The guide describes a planet and a local depot, not an orbital station or transport ship. Illustrative surface patches are not measured geology; facility uses change over time and establish no episode-specific join.',
+  },
   wayland: {
     worldId: 'wayland', eyebrow: 'RUGGED WORLD · MOUNTAIN AND WILDS',
     overview: { text: 'Wayland is a world of jagged terrain where Mount Tantiss conceals an Imperial research installation. The mountain facility is one locality within the wider planetary environment.', sourceUrl: databank + 'wayland' },
@@ -404,6 +464,12 @@ export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
 /** Reviewed broad categories for directory discovery; absence means not reviewed, not unknown geology. */
 export type WorldTerrainCategory = 'desert' | 'urban' | 'ice' | 'wetlands' | 'gas-giant' | 'swamp' | 'forest' | 'tropical' | 'cold-desert' | 'rugged' | 'mineral-rich' | 'volcanic' | 'ocean' | 'sinkholes' | 'plains' | 'caverns' | 'asteroid' | 'salvage';
 export const WORLD_TERRAIN: Readonly<Record<string, { category: WorldTerrainCategory; label: string; sourceUrl: string }>> = {
+  corellia: { category: 'urban', label: 'Industrial coast and shipyards', sourceUrl: databank + 'corellia' },
+  vandor: { category: 'rugged', label: 'Cold mountains and plains', sourceUrl: databank + 'vandor' },
+  savareen: { category: 'desert', label: 'Desert land and oceans', sourceUrl: databank + 'savareen' },
+  daiyu: { category: 'urban', label: 'Illuminated urban sprawl', sourceUrl: databank + 'daiyu' },
+  mapuzo: { category: 'mineral-rich', label: 'Terraced surface mines', sourceUrl: databank + 'mapuzo' },
+  jabiim: { category: 'rugged', label: 'Muddy crust', sourceUrl: databank + 'jabiim' },
   wayland: { category: 'rugged', label: 'Jagged landscape and wilds', sourceUrl: databank + 'wayland' },
   lau: { category: 'rugged', label: 'Frigid cliffs', sourceUrl: databank + 'lau' },
   pabu: { category: 'tropical', label: 'Island and sea', sourceUrl: databank + 'pabu' },

@@ -1,0 +1,16 @@
+{
+  "reviewedDate": "2026-11-08",
+  "id": "solo",
+  "title": "Solo: A Star Wars Story",
+  "releaseDate": "2018-05-25",
+  "sourceUrl": "https://www.starwars.com/films/solo-a-star-wars-story-poster-gallery",
+  "runtimeNote": "Official film page reports 2h 15min; edition-specific runtime withheld. Release date is the explicitly sourced U.S. theatrical date; the landing page separately lists May 23 without territory/type.",
+  "releaseDateNote": "2018-05-25 is explicitly U.S. theatrical release in the official poster gallery. Official film landing page lists 2018-05-23 without territory/type; these claims are retained separately.",
+  "supportingSources": [
+    "https://www.starwars.com/films/solo",
+    "https://www.starwars.com/news/solo-a-star-wars-story-is-here",
+    "https://www.starwars.com/databank/han-solo",
+    "https://www.starwars.com/databank/numidian-prime",
+    "https://www.starwars.com/databank/first-light"
+  ]
+}
