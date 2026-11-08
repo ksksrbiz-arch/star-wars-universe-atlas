@@ -35,13 +35,13 @@ const cloneWarsCodes = `
 
 export const STORY_SEQUENCES: StorySequence[] = [
   {
-    id: 'rebels', title: 'Rebels · seasons 1–2 narrative order',
-    description: 'Follow the first two seasons as 34 watch records covering 37 official parts. Combined premieres and the season-two finale each retain one progress record.',
+    id: 'rebels', title: 'Rebels · seasons 1–3 narrative order',
+    description: 'Follow the first three seasons as 53 watch records covering 59 official parts. Combined premieres, finales and Ghosts of Geonosis retain one progress record per shared story gallery.',
     sourceUrl: 'https://www.starwars.com/series/star-wars-rebels',
-    itemIds: ['rebels-s01e01', ...Array.from({length:13}, (_,i) => episodeId('rebels',1,i+3)), 'rebels-s02e01', ...Array.from({length:19}, (_,i) => episodeId('rebels',2,i+3))],
+    itemIds: ['rebels-s01e01', ...Array.from({length:13}, (_,i) => episodeId('rebels',1,i+3)), 'rebels-s02e01', ...Array.from({length:19}, (_,i) => episodeId('rebels',2,i+3)), ...[1,3,4,5,6,7,8,9,10,11,12,14,15,16,17,18,19,20,21].map(n => episodeId('rebels',3,n))],
     caveats: [
       'Spark of Rebellion covers official parts 1–2 in one watch record. There is intentionally no separate episode 2 progress item; subsequent official numbering is retained.',
-      'Season two combines The Siege of Lothal (parts 1–2) and Twilight of the Apprentice (parts 21–22). Promotional specials and seasons 3–4 remain outside this collection; provider numbering is normalized.',
+      'Season two combines The Siege of Lothal (parts 1–2) and Twilight of the Apprentice (parts 21–22). Season three combines Steps Into Shadow (1–2), Ghosts of Geonosis (12–13) and Zero Hour (21–22). Promotional specials and season four remain outside this collection; provider numbering is normalized.',
       'Whole-work narrative order is not scene chronology or a continuous travel route. Andor and Rebels overlap broadly; no exact episode interleaving is inferred.',
     ],
   },

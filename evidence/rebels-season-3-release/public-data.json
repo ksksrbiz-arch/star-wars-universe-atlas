@@ -1,0 +1,27 @@
+{
+  "checkedAt": "2026-11-08T03:18:50.826Z",
+  "base": "https://star-wars-universe-atlas.skdev-371.workers.dev",
+  "publication": "catalog-sha256-3cc67183021e7e8391b86cdbe2e1cea8b523f7ce7925a79d7d6f6fd20e198ee2",
+  "results": [
+    {
+      "route": "catalog",
+      "count": 257,
+      "sha256": "8de44e24fd17486f630692cee8d26d066e1df744141e65c4277f642bf8243ef7"
+    },
+    {
+      "route": "worlds",
+      "count": 76,
+      "sha256": "ee7e18f1b2794b5ca8839f6070bdd0645d4bf5d9363a98df0da972fcce35eb0e"
+    },
+    {
+      "route": "appearances",
+      "count": 390,
+      "sha256": "4c382e9c447ec47401e67837324a2db5b43c7a53a496a90c50801e8d48dc376f"
+    },
+    {
+      "route": "sequences",
+      "count": 9,
+      "sha256": "d837f33c641bcf63b80e6ee072258d3814a51fe0cb7681c368db0f45f3e80873"
+    }
+  ]
+}

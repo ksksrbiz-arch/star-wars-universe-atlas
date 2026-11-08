@@ -22,7 +22,9 @@ try {
   await page.locator('.journey-search-results').getByRole('button',{name:/Twilight of the Apprentice/}).click();
   await page.waitForURL('**/#journey/rebels-s02e21');
   assert.match(await page.locator('.journey-item-meta').innerText(),/EPISODES 21–22/);
-  assert.equal(await page.getByRole('button',{name:'Next story chapter',exact:true}).isDisabled(),true);
+  assert.equal(await page.getByRole('button',{name:'Next story chapter',exact:true}).isDisabled(),false);
+  await page.getByRole('button',{name:'Next story chapter',exact:true}).click();
+  await page.waitForURL('**/#journey/rebels-s03e01');
   await page.getByRole('button',{name:'Search the atlas',exact:true}).click();
   const search=page.getByRole('combobox',{name:'World, location, movie, episode or collection'});
   await search.fill('Rebels S02E02');

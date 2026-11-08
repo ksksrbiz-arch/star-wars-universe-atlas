@@ -1,0 +1,562 @@
+{
+  "checkedOn": "2026-11-07",
+  "api": "https://api.tvmaze.com/shows/117/episodes?specials=1",
+  "provider": "TVmaze",
+  "license": "CC BY-SA",
+  "numberingNote": "19 watch records cover 22 official parts. Steps Into Shadow (1–2), Ghosts of Geonosis (12–13), and Zero Hour (21–22) use combined records matching official gallery granularity. TVmaze combines the premiere but splits both other pairs; raw records and both URLs are retained. No duplicate part 2, 13 or 22 progress items. Season 2 Recap special excluded.",
+  "officialIndex": "https://www.starwars.com/series/star-wars-rebels",
+  "episodes": [
+    {
+      "id": "rebels-s03e01",
+      "name": "Steps Into Shadow",
+      "season": 3,
+      "number": 1,
+      "providerNumber": 1,
+      "airdate": "2016-09-24",
+      "sourceUrl": "https://www.tvmaze.com/episodes/889382/star-wars-rebels-3x01-steps-into-shadow",
+      "note": "Combined official parts 1–2 share one watch record and official story gallery; runtime withheld pending edition verification.",
+      "episodeEnd": 2,
+      "providerUrls": [
+        "https://www.tvmaze.com/episodes/889382/star-wars-rebels-3x01-steps-into-shadow"
+      ]
+    },
+    {
+      "id": "rebels-s03e03",
+      "name": "The Holocrons of Fate",
+      "season": 3,
+      "number": 3,
+      "providerNumber": 2,
+      "airdate": "2016-10-01",
+      "sourceUrl": "https://www.tvmaze.com/episodes/924199/star-wars-rebels-3x02-the-holocrons-of-fate",
+      "note": "Official numbering normalized from provider records; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s03e04",
+      "name": "The Antilles Extraction",
+      "season": 3,
+      "number": 4,
+      "providerNumber": 3,
+      "airdate": "2016-10-08",
+      "sourceUrl": "https://www.tvmaze.com/episodes/929381/star-wars-rebels-3x03-the-antilles-extraction",
+      "note": "Official numbering normalized from provider records; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s03e05",
+      "name": "Hera's Heroes",
+      "season": 3,
+      "number": 5,
+      "providerNumber": 4,
+      "airdate": "2016-10-15",
+      "sourceUrl": "https://www.tvmaze.com/episodes/929385/star-wars-rebels-3x04-heras-heroes",
+      "note": "Official numbering normalized from provider records; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s03e06",
+      "name": "The Last Battle",
+      "season": 3,
+      "number": 6,
+      "providerNumber": 5,
+      "airdate": "2016-10-22",
+      "sourceUrl": "https://www.tvmaze.com/episodes/929387/star-wars-rebels-3x05-the-last-battle",
+      "note": "Official numbering normalized from provider records; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s03e07",
+      "name": "Imperial Supercommandos",
+      "season": 3,
+      "number": 7,
+      "providerNumber": 6,
+      "airdate": "2016-11-05",
+      "sourceUrl": "https://www.tvmaze.com/episodes/929389/star-wars-rebels-3x06-imperial-supercommandos",
+      "note": "Official numbering normalized from provider records; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s03e08",
+      "name": "Iron Squadron",
+      "season": 3,
+      "number": 8,
+      "providerNumber": 7,
+      "airdate": "2016-11-19",
+      "sourceUrl": "https://www.tvmaze.com/episodes/961965/star-wars-rebels-3x07-iron-squadron",
+      "note": "Official numbering normalized from provider records; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s03e09",
+      "name": "The Wynkahthu Job",
+      "season": 3,
+      "number": 9,
+      "providerNumber": 8,
+      "airdate": "2016-11-26",
+      "sourceUrl": "https://www.tvmaze.com/episodes/961966/star-wars-rebels-3x08-the-wynkahthu-job",
+      "note": "Official numbering normalized from provider records; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s03e10",
+      "name": "An Inside Man",
+      "season": 3,
+      "number": 10,
+      "providerNumber": 9,
+      "airdate": "2016-12-03",
+      "sourceUrl": "https://www.tvmaze.com/episodes/981501/star-wars-rebels-3x09-an-inside-man",
+      "note": "Official numbering normalized from provider records; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s03e11",
+      "name": "Visions and Voices",
+      "season": 3,
+      "number": 11,
+      "providerNumber": 10,
+      "airdate": "2016-12-10",
+      "sourceUrl": "https://www.tvmaze.com/episodes/981503/star-wars-rebels-3x10-visions-and-voices",
+      "note": "Official numbering normalized from provider records; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s03e12",
+      "name": "Ghosts of Geonosis",
+      "season": 3,
+      "number": 12,
+      "providerNumber": 11,
+      "airdate": "2017-01-07",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1004325/star-wars-rebels-3x11-ghosts-of-geonosis-part-1",
+      "note": "Combined official parts 12–13 share one watch record and official story gallery; runtime withheld pending edition verification.",
+      "episodeEnd": 13,
+      "providerUrls": [
+        "https://www.tvmaze.com/episodes/1004325/star-wars-rebels-3x11-ghosts-of-geonosis-part-1",
+        "https://www.tvmaze.com/episodes/1004327/star-wars-rebels-3x12-ghosts-of-geonosis-part-2"
+      ]
+    },
+    {
+      "id": "rebels-s03e14",
+      "name": "Warhead",
+      "season": 3,
+      "number": 14,
+      "providerNumber": 13,
+      "airdate": "2017-01-14",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1022826/star-wars-rebels-3x13-warhead",
+      "note": "Official numbering normalized from provider records; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s03e15",
+      "name": "Trials of the Darksaber",
+      "season": 3,
+      "number": 15,
+      "providerNumber": 14,
+      "airdate": "2017-01-21",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1022827/star-wars-rebels-3x14-trials-of-the-darksaber",
+      "note": "Official numbering normalized from provider records; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s03e16",
+      "name": "Legacy of Mandalore",
+      "season": 3,
+      "number": 16,
+      "providerNumber": 15,
+      "airdate": "2017-02-18",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1035759/star-wars-rebels-3x15-legacy-of-mandalore",
+      "note": "Official numbering normalized from provider records; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s03e17",
+      "name": "Through Imperial Eyes",
+      "season": 3,
+      "number": 17,
+      "providerNumber": 16,
+      "airdate": "2017-02-25",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1035760/star-wars-rebels-3x16-through-imperial-eyes",
+      "note": "Official numbering normalized from provider records; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s03e18",
+      "name": "Secret Cargo",
+      "season": 3,
+      "number": 18,
+      "providerNumber": 17,
+      "airdate": "2017-03-04",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1082149/star-wars-rebels-3x17-secret-cargo",
+      "note": "Official numbering normalized from provider records; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s03e19",
+      "name": "Double Agent Droid",
+      "season": 3,
+      "number": 19,
+      "providerNumber": 18,
+      "airdate": "2017-03-11",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1082150/star-wars-rebels-3x18-double-agent-droid",
+      "note": "Official numbering normalized from provider records; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s03e20",
+      "name": "Twin Suns",
+      "season": 3,
+      "number": 20,
+      "providerNumber": 19,
+      "airdate": "2017-03-18",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1082151/star-wars-rebels-3x19-twin-suns",
+      "note": "Official numbering normalized from provider records; runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s03e21",
+      "name": "Zero Hour",
+      "season": 3,
+      "number": 21,
+      "providerNumber": 20,
+      "airdate": "2017-03-25",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1084001/star-wars-rebels-3x20-zero-hour-part-1",
+      "note": "Combined official parts 21–22 share one watch record and official story gallery; runtime withheld pending edition verification.",
+      "episodeEnd": 22,
+      "providerUrls": [
+        "https://www.tvmaze.com/episodes/1084001/star-wars-rebels-3x20-zero-hour-part-1",
+        "https://www.tvmaze.com/episodes/1102806/star-wars-rebels-3x21-zero-hour-part-2"
+      ]
+    }
+  ],
+  "providerSeasonSnapshot": [
+    {
+      "id": 889382,
+      "name": "Steps Into Shadow",
+      "number": 1,
+      "season": 3,
+      "airdate": "2016-09-24",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/889382/star-wars-rebels-3x01-steps-into-shadow"
+    },
+    {
+      "id": 924199,
+      "name": "The Holocrons of Fate",
+      "number": 2,
+      "season": 3,
+      "airdate": "2016-10-01",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/924199/star-wars-rebels-3x02-the-holocrons-of-fate"
+    },
+    {
+      "id": 929381,
+      "name": "The Antilles Extraction",
+      "number": 3,
+      "season": 3,
+      "airdate": "2016-10-08",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/929381/star-wars-rebels-3x03-the-antilles-extraction"
+    },
+    {
+      "id": 929385,
+      "name": "Hera's Heroes",
+      "number": 4,
+      "season": 3,
+      "airdate": "2016-10-15",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/929385/star-wars-rebels-3x04-heras-heroes"
+    },
+    {
+      "id": 929387,
+      "name": "The Last Battle",
+      "number": 5,
+      "season": 3,
+      "airdate": "2016-10-22",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/929387/star-wars-rebels-3x05-the-last-battle"
+    },
+    {
+      "id": 929389,
+      "name": "Imperial Supercommandos",
+      "number": 6,
+      "season": 3,
+      "airdate": "2016-11-05",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/929389/star-wars-rebels-3x06-imperial-supercommandos"
+    },
+    {
+      "id": 961965,
+      "name": "Iron Squadron",
+      "number": 7,
+      "season": 3,
+      "airdate": "2016-11-19",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/961965/star-wars-rebels-3x07-iron-squadron"
+    },
+    {
+      "id": 961966,
+      "name": "The Wynkahthu Job",
+      "number": 8,
+      "season": 3,
+      "airdate": "2016-11-26",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/961966/star-wars-rebels-3x08-the-wynkahthu-job"
+    },
+    {
+      "id": 981501,
+      "name": "An Inside Man",
+      "number": 9,
+      "season": 3,
+      "airdate": "2016-12-03",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/981501/star-wars-rebels-3x09-an-inside-man"
+    },
+    {
+      "id": 981503,
+      "name": "Visions and Voices",
+      "number": 10,
+      "season": 3,
+      "airdate": "2016-12-10",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/981503/star-wars-rebels-3x10-visions-and-voices"
+    },
+    {
+      "id": 1004325,
+      "name": "Ghosts of Geonosis: Part 1",
+      "number": 11,
+      "season": 3,
+      "airdate": "2017-01-07",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1004325/star-wars-rebels-3x11-ghosts-of-geonosis-part-1"
+    },
+    {
+      "id": 1004327,
+      "name": "Ghosts of Geonosis: Part 2",
+      "number": 12,
+      "season": 3,
+      "airdate": "2017-01-07",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1004327/star-wars-rebels-3x12-ghosts-of-geonosis-part-2"
+    },
+    {
+      "id": 1022826,
+      "name": "Warhead",
+      "number": 13,
+      "season": 3,
+      "airdate": "2017-01-14",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1022826/star-wars-rebels-3x13-warhead"
+    },
+    {
+      "id": 1022827,
+      "name": "Trials of the Darksaber",
+      "number": 14,
+      "season": 3,
+      "airdate": "2017-01-21",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1022827/star-wars-rebels-3x14-trials-of-the-darksaber"
+    },
+    {
+      "id": 1035759,
+      "name": "Legacy of Mandalore",
+      "number": 15,
+      "season": 3,
+      "airdate": "2017-02-18",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1035759/star-wars-rebels-3x15-legacy-of-mandalore"
+    },
+    {
+      "id": 1035760,
+      "name": "Through Imperial Eyes",
+      "number": 16,
+      "season": 3,
+      "airdate": "2017-02-25",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1035760/star-wars-rebels-3x16-through-imperial-eyes"
+    },
+    {
+      "id": 1082149,
+      "name": "Secret Cargo",
+      "number": 17,
+      "season": 3,
+      "airdate": "2017-03-04",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1082149/star-wars-rebels-3x17-secret-cargo"
+    },
+    {
+      "id": 1082150,
+      "name": "Double Agent Droid",
+      "number": 18,
+      "season": 3,
+      "airdate": "2017-03-11",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1082150/star-wars-rebels-3x18-double-agent-droid"
+    },
+    {
+      "id": 1082151,
+      "name": "Twin Suns",
+      "number": 19,
+      "season": 3,
+      "airdate": "2017-03-18",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1082151/star-wars-rebels-3x19-twin-suns"
+    },
+    {
+      "id": 1084001,
+      "name": "Zero Hour: Part 1",
+      "number": 20,
+      "season": 3,
+      "airdate": "2017-03-25",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1084001/star-wars-rebels-3x20-zero-hour-part-1"
+    },
+    {
+      "id": 1102806,
+      "name": "Zero Hour: Part 2",
+      "number": 21,
+      "season": 3,
+      "airdate": "2017-03-25",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1102806/star-wars-rebels-3x21-zero-hour-part-2"
+    },
+    {
+      "id": 932592,
+      "name": "Season 2 Recap",
+      "number": null,
+      "season": 3,
+      "airdate": "2016-09-17",
+      "type": "insignificant_special",
+      "url": "https://www.tvmaze.com/episodes/932592/star-wars-rebels-s03-special-season-2-recap"
+    }
+  ],
+  "episodeEvidence": [
+    {
+      "slug": "steps-into-shadow",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/steps-into-shadow-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/steps-into-shadow-episode-gallery-full",
+      "officialHeading": "S3E51 & 2: Steps Into Shadow",
+      "reviewedCaptionCount": 20
+    },
+    {
+      "slug": "the-holocrons-of-fate",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/the-holocrons-of-fate-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/the-holocrons-of-fate-episode-gallery",
+      "officialHeading": "S3E3: The Holocrons of Fate",
+      "reviewedCaptionCount": 9
+    },
+    {
+      "slug": "the-antilles-extraction",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/the-antilles-extraction-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels-the-antilles-extraction-episode-gallery",
+      "officialHeading": "S3E4: The Antilles Extraction",
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "heras-heroes",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/heras-heroes-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/heras-heroes-episode-gallery",
+      "officialHeading": "S3E5: Hera's Heroes",
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "the-last-battle",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/the-last-battle-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/the-last-battle-episode-gallery-2",
+      "officialHeading": "S3E6: The Last Battle",
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "iron-squadron",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/iron-squadron-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/iron-squadron-episode-gallery",
+      "officialHeading": "S3E8: Iron Squadron",
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "the-wynkahthu-job",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/the-wynkahthu-job-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/the-wynkahthu-job-episode-gallery",
+      "officialHeading": null,
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "an-inside-man",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/an-inside-man-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/an-inside-man-episode-gallery",
+      "officialHeading": null,
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "ghosts-of-geonosis",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/ghosts-of-geonosis-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/ghosts-of-geonosis-episode-gallery",
+      "officialHeading": null,
+      "reviewedCaptionCount": 18
+    },
+    {
+      "slug": "warhead",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/warhead-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/warhead-episode-gallery",
+      "officialHeading": null,
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "trials-of-the-darksaber",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/trials-of-the-darksaber-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/trials-of-the-darksaber-episode-gallery",
+      "officialHeading": null,
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "legacy-of-mandalore",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/legacy-of-mandalore-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/legacy-of-mandalore-episode-gallery",
+      "officialHeading": null,
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "through-imperial-eyes",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/through-imperial-eyes-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/through-imperial-eyes-episode-gallery",
+      "officialHeading": null,
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "secret-cargo",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/secret-cargo-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/secret-cargo-episode-gallery",
+      "officialHeading": null,
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "double-agent-droid",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/double-agent-droid-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/double-agent-droid-episode-gallery",
+      "officialHeading": null,
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "twin-suns",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/twin-suns-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/twin-suns-episode-gallery",
+      "officialHeading": null,
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "zero-hour",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/zero-hour-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/zero-hour-episode-gallery",
+      "officialHeading": "S3E21 & 22: Zero Hour",
+      "reviewedCaptionCount": 20
+    },
+    {
+      "slug": "imperial-supercommandos",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/imperial-super-commandos-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/imperial-super-commandos-episode-gallery",
+      "officialHeading": "S3E7: Imperial Super Commandos",
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "visions-and-voices",
+      "guide": "https://www.starwars.com/series/star-wars-rebels-visions-and-voices-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/visions-and-voices-episode-gallery",
+      "officialHeading": "S3E11: Visions and Voices",
+      "reviewedCaptionCount": 10
+    }
+  ],
+  "supplementaryIdentitySources": [
+    "https://www.starwars.com/databank/bendu",
+    "https://www.starwars.com/databank/skystrike-academy",
+    "https://www.starwars.com/databank/agamar",
+    "https://www.starwars.com/databank/ezra-bridger",
+    "https://www.starwars.com/databank/krownest",
+    "https://www.starwars.com/databank/wynkahthu"
+  ],
+  "sourceCaveats": [
+    "Steps Into Shadow guide heading contains S3E51 & 2, an apparent typo; combined parts 1–2 normalized from the season order, TVmaze premiere record and official September 24 one-hour premiere announcement.",
+    "Imperial Supercommandos guide identifies Concord Dawn; gallery caption 3 calls the shattered world Mandalore. Only the consistent Concord Dawn system identity is retained.",
+    "Antilles Extraction gallery caption 10 spells Atollon as Atollan; normalized identity documented."
+  ]
+}

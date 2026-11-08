@@ -128,7 +128,7 @@ const labelOffsets: Record<string, [number, number]> = {
 }
 
 const leaderLayouts = new WeakMap<HTMLCanvasElement, Map<string, (dx: number, dy: number) => void>>()
-function LabelLeader({ worldId, offset, minZoom = 0 }: { worldId: string; offset: [number, number]; minZoom?: number }) {
+function LabelLeader({ worldId, offset, minZoom = 0, active = false }: { worldId: string; offset: [number, number]; minZoom?: number; active?: boolean }) {
   const { camera, gl } = useThree()
   const hudOffset = useRef<[number, number]>([0,0])
   const positions = useMemo(() => new Float32Array([0, 0, .01, 0, 0, .01]), [])
@@ -152,7 +152,7 @@ function LabelLeader({ worldId, offset, minZoom = 0 }: { worldId: string; offset
   useFrame(update)
   return <lineSegments ref={leader}>
     <bufferGeometry ref={geometry}><bufferAttribute attach="attributes-position" args={[positions, 3]} /></bufferGeometry>
-    <lineBasicMaterial color="#6e929f" transparent opacity={.22} depthWrite={false} />
+    <lineBasicMaterial color={active ? '#e1f8ff' : '#6e929f'} transparent opacity={active ? .95 : .22} depthWrite={false} />
   </lineSegments>
 }
 
@@ -163,7 +163,7 @@ const haloFragment = `varying vec2 vUv;uniform vec3 tint;void main(){float r=len
 /** Only optional zoom-level labels yield to overlaps. Current, preview and chapter
  * labels stay present; every destination also remains available in the finder. */
 function LabelDeclutter() {
-  const {gl,size,invalidate} = useThree()
+  const {gl,size,camera,invalidate} = useThree()
   useEffect(() => {
     let active = true
     const reflow = () => { if (active) invalidate() }
@@ -201,7 +201,10 @@ function LabelDeclutter() {
         if (dx || dy) { label.style.translate = `${dx}px ${dy}px`; rect = new DOMRect(rect.x+dx,rect.y+dy,rect.width,rect.height) }
       }
       // Move only the label; its leader follows the displacement to the unchanged source dot.
-      const obstacles = [...protectedRects,...occupied]
+      // Keep the traced source ring visible beside its label, including at overview zoom.
+      const sourceClearance = label === document.activeElement
+        ? [new DOMRect(anchor.left-14, anchor.top-.39*(camera as THREE.OrthographicCamera).zoom-14, 28, 28)] : []
+      const obstacles = [...protectedRects,...occupied,...sourceClearance]
       const packStory = denseStory && priority(label) === 2
       if (essential && onScreen && (packStory || obstacles.some(other => overlapsRect(rect, other)))) {
         // Edge candidates handle adjacent labels; a small bounded search handles tight clusters.
@@ -272,8 +275,21 @@ function StoryBeacon() {
   </group>
 }
 
+/** Interaction-only ring identifies the source dot of a displaced name. */
+function LabelSourceFocus() {
+  const ring = useRef<THREE.Mesh>(null)
+  useFrame(({camera}) => { ring.current?.scale.setScalar(1 / (camera as THREE.OrthographicCamera).zoom) })
+  return <mesh ref={ring} position={[0,0,.05]} raycast={() => undefined}>
+    <ringGeometry args={[10,11.5,48]}/>
+    <meshBasicMaterial color="#e1f8ff" transparent opacity={.95} depthWrite={false}/>
+  </mesh>
+}
+
 function WorldMarker({ world, highlighted, selected, previewed, disabled, onSelect, sharedOffset }: { sharedOffset?: [number, number]; world: World; highlighted: boolean; selected: boolean; previewed: boolean; disabled: boolean; onSelect: Props['onSelect'] }) {
   const drag = useRef({ x: 0, y: 0, moved: false })
+  const [hovered, setHovered] = useState(false)
+  const [focused, setFocused] = useState(false)
+  const tracingSource = !disabled && (hovered || focused)
   const { size, invalidate } = useThree()
   const color = selected ? '#ffd49b' : previewed ? '#c4edf5' : highlighted ? '#dbb9ff' : '#91b9c8'
   const offset = sharedOffset ?? labelOffsets[world.id] ?? [0, 0]
@@ -281,7 +297,8 @@ function WorldMarker({ world, highlighted, selected, previewed, disabled, onSele
   const haloUniforms = useMemo(() => ({tint: {value: new THREE.Color(color)}}), [color])
   const minZoom = priority > 0 ? 0 : Math.max(24, Math.min(55, size.width / 9))
   return <group position={[world.x * 10, world.y * 10, .1]}>
-    <LabelLeader worldId={world.id} offset={offset} minZoom={minZoom} />
+    <LabelLeader worldId={world.id} offset={offset} minZoom={minZoom} active={tracingSource} />
+    {tracingSource && <LabelSourceFocus/>}
     {(selected || previewed || highlighted) && <mesh position={[0,0,-.015]} raycast={()=>undefined}>
       <circleGeometry args={[highlighted ? .56 : .46,48]}/>
       <shaderMaterial vertexShader={haloVertex} fragmentShader={haloFragment} uniforms={haloUniforms} transparent depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false}/>
@@ -295,8 +312,9 @@ function WorldMarker({ world, highlighted, selected, previewed, disabled, onSele
     </>}
     {previewed && !selected && <mesh><ringGeometry args={[.2, .215, 48]} /><meshBasicMaterial color="#a3d9e6" transparent opacity={.8} /></mesh>}
     <Html center position={[0, -.39, .2]} zIndexRange={[12, 1]} minZoom={minZoom}>
-      <button className={`world-map-label${selected ? ' is-current' : ''}${previewed ? ' is-preview' : ''}${highlighted ? ' is-episode' : ''}`} data-label-priority={priority} data-world-id={world.id} data-episode-location={highlighted ? world.id : undefined} title={`${world.name} · source grid ${world.grid}${highlighted ? ' · Sourced chapter location; no visit order implied' : ''}`} disabled={disabled}
-        onFocus={() => invalidate()} onBlur={() => invalidate()}
+      <button className={`world-map-label${selected ? ' is-current' : ''}${previewed ? ' is-preview' : ''}${highlighted ? ' is-episode' : ''}`} data-source-focus={tracingSource} data-label-priority={priority} data-world-id={world.id} data-episode-location={highlighted ? world.id : undefined} title={`${world.name} · source grid ${world.grid}${highlighted ? ' · Sourced chapter location; no visit order implied' : ''}`} disabled={disabled}
+        onFocus={() => { setFocused(true); invalidate() }} onBlur={() => { setFocused(false); invalidate() }}
+        onPointerEnter={(e) => { if (e.pointerType !== 'touch') setHovered(true) }} onPointerLeave={() => setHovered(false)}
         onPointerDown={(e) => { drag.current = { x: e.clientX, y: e.clientY, moved: false }; e.currentTarget.setPointerCapture(e.pointerId) }}
         onPointerMove={(e) => { if (e.buttons && Math.hypot(e.clientX - drag.current.x, e.clientY - drag.current.y) > 6) drag.current.moved = true }}
         onPointerCancel={() => { drag.current.moved = true }}

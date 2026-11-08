@@ -1,8 +1,8 @@
 {
   "checkedOn": "2026-11-07",
-  "catalogItems": 238,
-  "relationships": 366,
-  "titlesWithLocationEvidence": 230,
+  "catalogItems": 257,
+  "relationships": 390,
+  "titlesWithLocationEvidence": 249,
   "titlesWithoutLocationEvidence": 8,
   "mapPlacements": 76,
   "referenceTraced": 27,
@@ -21,8 +21,8 @@
       "withLocations": 130
     },
     "rebels": {
-      "catalog": 34,
-      "withLocations": 32
+      "catalog": 53,
+      "withLocations": 51
     },
     "rogue-one": {
       "catalog": 1,
@@ -65,6 +65,15 @@
     "Geonosis’s icy moon",
     "Atollon",
     "Malachor",
+    "Reklam Station",
+    "Skystrike Academy",
+    "Agamar",
+    "Mykapo",
+    "Wynkahthu",
+    "Krownest",
+    "Thrawn’s command ship",
+    "Archeon Nebula",
+    "LT-319’s listener ship",
     "Morlana One",
     "Narkina 5",
     "Kalevala",

@@ -1,3 +1,4 @@
+import { REBELS_SEASON_3_CONNECTIONS } from './connectionsRebelsSeason3.ts';
 import { REBELS_SEASON_2_CONNECTIONS } from './connectionsRebelsSeason2.ts';
 import { REBELS_CONNECTIONS } from './connectionsRebels.ts';
 import { PREQUEL_CONNECTIONS } from './connectionsPrequels.ts';
@@ -33,6 +34,7 @@ const connection = (itemId: string, worldId: string, worldName: string, sourceUr
 export const CONNECTIONS: PlanetConnection[] = [
   ...REBELS_CONNECTIONS,
   ...REBELS_SEASON_2_CONNECTIONS,
+  ...REBELS_SEASON_3_CONNECTIONS,
   connection('ot-a-new-hope', 'tatooine', 'Tatooine', film + 'star-wars-episode-iv-a-new-hope', 'The official film synopsis locates Luke and Obi-Wan on Tatooine.'),
   connection('ot-a-new-hope', 'alderaan', 'Alderaan', 'https://www.starwars.com/databank/alderaan', 'Seen being destroyed, not a completed surface visit by Luke. Databank explicitly lists A New Hope and describes the destruction.'),
   connection('ot-a-new-hope', 'yavin', 'Yavin 4', 'https://www.starwars.com/databank/yavin-4', 'Databank lists A New Hope and identifies the moon as the Rebel base for the first Death Star attack.'),

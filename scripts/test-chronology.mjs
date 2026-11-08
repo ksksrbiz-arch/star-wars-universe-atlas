@@ -4,7 +4,7 @@ import { STORY_SEQUENCES, STORY_CONNECTIONS } from '../src/chronology.ts';
 
 const { items } = JSON.parse(await readFile(new URL('../src/catalog.generated.json', import.meta.url), 'utf8'));
 const catalog = new Map(items.map(item => [item.id, item]));
-const expected = { rebels: 34, pt: 3, 'boba-fett': 7, 'clone-wars': 134, andor: 24, ot: 3, mandalorian: 24, ahsoka: 8, 'rogue-one': 1 };
+const expected = { rebels: 53, pt: 3, 'boba-fett': 7, 'clone-wars': 134, andor: 24, ot: 3, mandalorian: 24, ahsoka: 8, 'rogue-one': 1 };
 const covered = [];
 for (const sequence of STORY_SEQUENCES) {
   assert.equal(sequence.itemIds.length, expected[sequence.id], `${sequence.id} count`);
@@ -15,8 +15,8 @@ for (const sequence of STORY_SEQUENCES) {
   for (const id of sequence.itemIds) assert.ok(catalog.has(id), `Unresolved story ID ${id}`);
   covered.push(...sequence.itemIds);
 }
-assert.equal(covered.length, 238);
-assert.equal(new Set(covered).size, 238);
+assert.equal(covered.length, 257);
+assert.equal(new Set(covered).size, 257);
 assert.equal(Object.keys(expected).length, STORY_SEQUENCES.length);
 
 const cw = STORY_SEQUENCES.find(sequence => sequence.id === 'clone-wars').itemIds;
@@ -53,4 +53,4 @@ const overlap = STORY_CONNECTIONS.find(connection => connection.id === 'clone-wa
 assert.equal(overlap.kind, 'overlap');
 assert.equal(overlap.itemIds.length, 4);
 assert.ok(!Object.hasOwn(overlap, 'afterItemId'), 'Overlap is not falsely serialized as watch-next');
-console.log('Chronology passed: 238 unique catalog items, official Clone Wars reorder anchors, narrative sequences, sourced external bridges and overlap.');
+console.log('Chronology passed: 257 unique catalog items, official Clone Wars reorder anchors, narrative sequences, sourced external bridges and overlap.');

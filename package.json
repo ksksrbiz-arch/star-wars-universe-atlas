@@ -83,7 +83,11 @@
     "test:rebels-season-2-ui": "node scripts/test-rebels-season-2-ui.mjs",
     "test:rebels-season-two-dossiers": "node scripts/test-rebels-season-two-dossiers.mjs",
     "test:rebels-season-2": "node scripts/test-rebels-season-2.mjs",
-    "test:priority-labels": "node scripts/test-priority-labels.mjs"
+    "test:priority-labels": "node scripts/test-priority-labels.mjs",
+    "test:rebels-season-3": "node scripts/test-rebels-season-3.mjs",
+    "test:rebels-season-3-ui": "node scripts/test-rebels-season-3-ui.mjs",
+    "test:rebels-season-three-dossiers": "node scripts/test-rebels-season-three-dossiers.mjs",
+    "test:source-focus": "node scripts/test-source-focus.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",

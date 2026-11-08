@@ -13,6 +13,36 @@ export type WorldDossier = {
 
 const databank = 'https://www.starwars.com/databank/';
 export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
+  dathomir: {
+    worldId: 'dathomir', eyebrow: 'RED-LIT WORLD · FORESTS AND SWAMPS',
+    overview: { text: 'Dathomir receives red light from its star. Twisted forests and dense swamps surround stone strongholds associated with the Nightsisters.', sourceUrl: databank + 'dathomir' },
+    terrain: { label: 'Twisted woodland and swampland', text: 'Bent trees carry large cocoon-like fruit across overgrown terrain. The red palette reflects the setting description, not a measured atmospheric spectrum.', sourceUrl: databank + 'dathomir' },
+    highlights: [
+      { id: 'twisted-forests', name: 'Twisted forests', description: 'Dense vegetation and bent trees distinguish the woodland. Decorative branching shapes do not locate individual trees, paths or settlements.', sourceUrl: databank + 'dathomir' },
+      { id: 'stone-strongholds', name: 'Nightsister strongholds', description: 'Stone fortresses border the swamplands. Their occupants and condition vary across eras; the guide does not disclose the outcome of later visits.', sourceUrl: databank + 'dathomir' },
+    ],
+    caveat: 'Forests, swamps and strongholds are broad setting context. The original red woodland study establishes no local route, building plan or episode appearance, and historical occupation is not a timeless condition.',
+  },
+  ryloth: {
+    worldId: 'ryloth', eyebrow: 'TWI’LEK HOMEWORLD · MESAS AND VALLEYS',
+    overview: { text: 'Ryloth is the Twi’lek homeworld, with a varied landscape of mesas, valleys, jungles and volcanoes. Its communities experience different periods of occupation.', sourceUrl: databank + 'ryloth' },
+    terrain: { label: 'Mesas, valleys and jungle', text: 'The official terrain list spans several environments. Warm escarpments and muted vegetation in the portrait suggest that variety rather than treating the entire world as desert.', sourceUrl: databank + 'ryloth' },
+    highlights: [
+      { id: 'lessu', name: 'Lessu', description: 'Lessu is Ryloth’s capital city. This broad identity does not position the city within the planet portrait or establish a specific Rebels episode appearance.', sourceUrl: databank + 'ryloth' },
+      { id: 'blurrg-habitat', name: 'Blurrgs and overland travel', description: 'Blurrgs serve as mounts for Ryloth’s resistance fighters. The species also lives on other worlds; its presence is not exclusive to Ryloth.', sourceUrl: databank + 'blurrg' },
+    ],
+    caveat: 'This environmental file does not turn a system grid into exact surface geography. Occupation and resistance belong to particular eras; neither the capital nor the terrain artwork establishes an episode-specific join.',
+  },
+  krownest: {
+    worldId: 'krownest', eyebrow: 'FROZEN WORLD · CLAN WREN',
+    overview: { text: 'Krownest is a cold world of snow, ice and mountains, home to Clan Wren. Its stronghold combines steel and glass within the snowy landscape.', sourceUrl: databank + 'krownest' },
+    terrain: { label: 'Snow, ice and mountains', text: 'Pale mountain forms and angular structures inform the original study. They suggest the setting without reconstructing elevations or placing the stronghold on a map.', sourceUrl: databank + 'krownest' },
+    highlights: [
+      { id: 'wren-stronghold', name: 'Wren Stronghold', description: 'Clan Wren’s minimalist steel-and-glass base blends with its snowy surroundings. Its architecture is a locality on Krownest, not a separate planet.', sourceUrl: databank + 'wren-stronghold' },
+      { id: 'mountain-landscape', name: 'Mountain landscape', description: 'Cold mountain terrain frames the setting. No pass, mountain height, approach route or building dimensions are inferred from the source description.', sourceUrl: databank + 'krownest' },
+    ],
+    caveat: 'Krownest is a distinct world, not a substitute name for Mandalore. Clan affiliations and leadership change by era. The original snow-and-glass motif supplies no galaxy coordinate or architectural reconstruction.',
+  },
   atollon: {
     worldId: 'atollon', eyebrow: 'REMOTE WORLD · ROCK AND HIDDEN LIFE',
     overview: { text: 'Atollon is a remote rocky world considered for a hidden rebel base. Its barren appearance conceals native creatures above and below ground.', sourceUrl: databank + 'atollon' },
@@ -282,6 +312,9 @@ export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
 /** Reviewed broad categories for directory discovery; absence means not reviewed, not unknown geology. */
 export type WorldTerrainCategory = 'desert' | 'urban' | 'ice' | 'wetlands' | 'gas-giant' | 'swamp' | 'forest' | 'tropical' | 'cold-desert' | 'rugged' | 'mineral-rich' | 'volcanic' | 'ocean' | 'sinkholes' | 'plains' | 'caverns' | 'asteroid';
 export const WORLD_TERRAIN: Readonly<Record<string, { category: WorldTerrainCategory; label: string; sourceUrl: string }>> = {
+  dathomir: { category: 'forest', label: 'Forests and swamps', sourceUrl: databank + 'dathomir' },
+  ryloth: { category: 'rugged', label: 'Mesas, valleys and jungle', sourceUrl: databank + 'ryloth' },
+  krownest: { category: 'ice', label: 'Snow and mountains', sourceUrl: databank + 'krownest' },
   atollon: { category: 'rugged', label: 'Barren rock', sourceUrl: databank + 'atollon' },
   malachor: { category: 'caverns', label: 'Dark surface and temple cavern', sourceUrl: 'https://www.starwars.com/news/fates-fulfilled-dave-filoni-reflects-on-star-wars-rebels-season-two-part-2' },
   seelos: { category: 'plains', label: 'Salt plains', sourceUrl: databank + 'seelos' },
