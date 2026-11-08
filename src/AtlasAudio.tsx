@@ -17,6 +17,7 @@ export default function AtlasAudio({ phase, currentId }: { phase: string; curren
   function tone(kind: 'tap' | 'launch' | 'arrival') {
     const ctx = context.current;
     if (!active.current || !ctx || ctx.state !== 'running' || document.hidden) return;
+    if (kind === 'tap' && nodes.current.length) return; // never cut off a longer launch/arrival tone
     silence();
     const time = ctx.currentTime;
     const duration = kind === 'launch' ? 1.3 : kind === 'arrival' ? .45 : .07;
@@ -67,7 +68,7 @@ export default function AtlasAudio({ phase, currentId }: { phase: string; curren
     const onHidden = () => { if (document.hidden) silence(); };
     document.addEventListener('click', onClick);
     document.addEventListener('visibilitychange', onHidden);
-    return () => { document.removeEventListener('click', onClick); document.removeEventListener('visibilitychange', onHidden); requestId.current++; pending.current = false; active.current = false; silence(); void context.current?.close(); context.current = null; };
+    return () => { document.removeEventListener('click', onClick); document.removeEventListener('visibilitychange', onHidden); requestId.current++; pending.current = false; active.current = false; silence(); context.current?.close().catch(() => {}); context.current = null; };
   }, []);
-  return <div className="atlas-audio"><button type="button" role="switch" aria-checked={enabled} aria-label="Interface sound" disabled={busy} onClick={toggle}>{enabled ? <Volume2 size={16} aria-hidden="true"/> : <VolumeX size={16} aria-hidden="true"/>}<span>Sound {enabled ? 'on' : 'off'}</span></button>{unavailable && <span role="status">Sound unavailable in this browser.</span>}</div>;
+  return <div className="atlas-audio"><button type="button" role="switch" aria-checked={enabled} aria-label={`Sound ${enabled ? 'on' : 'off'}, interface sound`} aria-disabled={busy || undefined} onClick={toggle}>{enabled ? <Volume2 size={16} aria-hidden="true"/> : <VolumeX size={16} aria-hidden="true"/>}<span>Sound {enabled ? 'on' : 'off'}</span></button>{unavailable && <span role="status">Sound unavailable in this browser.</span>}</div>;
 }
