@@ -8,7 +8,7 @@ const expected=JSON.parse(await readFile(expectationSource,'utf8'));
 for(const key of ['works','worlds','appearances']) assert.ok(Number.isSafeInteger(expected[key]) && expected[key]>0,`Invalid database expectation: ${key}`);
 assert.ok(typeof expected.id==='string' && expected.id.length>0,'Database expectation must name its intended publication');
 assert.match(expected.sha256,/^[0-9a-f]{64}$/,'Database expectation must include the reviewed appearance payload digest');
-const expectedCounts={...{sequences:4,regions:8,routes:5},...expected};
+const expectedCounts={...{sequences:10,regions:8,routes:5},...expected};
 for(const key of ['sequences','regions','routes']) assert.ok(Number.isSafeInteger(expectedCounts[key]) && expectedCounts[key]>0,`Invalid database expectation: ${key}`);
 await mkdir('evidence/deployment',{recursive:true});
 const checks=[];
