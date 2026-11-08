@@ -31,3 +31,11 @@ After zero-conflict comparisons of all four existing public datasets, the exact 
 Final frontend assets: `index-Dh8hoO2k.js`, `index-BnzF1qBl.css`, `Galaxy-BNjsCdw2.js`, `Galaxy-DAA9VngG.css`, `CinematicBloom-C5ASbg9m.js`. Additional expanded Rogue One/Jedha/Ring screenshots at all three widths and publication results are retained under `/workspace/map-workspace-qa/`.
 
 Final finder usability check: choosing a world closes the settings popover and moves keyboard focus to the map. The final production workspace and camera command suites pass after this change.
+
+## Live rollout verification
+
+Verified 2026-11-08T00:05:06+00:00 for commit `ad5b392` at https://star-wars-universe-atlas.skdev-371.workers.dev. Live HTML references the final entry assets and all five JavaScript/CSS assets match the production build byte for byte. All four public API payload digests match publication `catalog-sha256-5932b0b0c57fb2f6510af138f432e7b8a492f06f0ad66cdf825ec30524c1d554`: 194 titles, 76 worlds, 291 associations and six sequences.
+
+Live workspace tests pass at 1440/390/320 pixels, including map position, mobile expansion, reveal/preview/arrival boundaries, watch-state preservation, and finder popover closing with map focus. Live Rogue One tests pass at the same widths for eight typed locations, asteroid-outpost versus moon presentation, unchanged map/watch state, and the internal Andor bridge spoiler boundary. Live camera tests pass zoom/pan directions and limits, repeat commands, reset, keyboard activation, disabled controls during transit, re-enabled controls after arrival, and mobile overflow. The camera test installs its virtual clock only after the network-loaded scene is ready; this removes a test startup race without changing production behavior.
+
+Live screenshots/results remain outside the repository under `/workspace/map-workspace-qa/live/`; exact asset/API results are in `/workspace/map-workspace-qa/live-assets-api.json`. Rollout verification performed no additional database writes.

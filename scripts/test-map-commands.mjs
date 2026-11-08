@@ -17,7 +17,7 @@ try{
  await page.setViewportSize({width:390,height:844});await click('Zoom in');await click('Pan right');await click('Reset map view');assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);assert.deepEqual(errors,[]);
  await page.close();
  const travel=await browser.newPage({viewport:{width:1440,height:1050},reducedMotion:'no-preference'});const travelErrors=[];travel.on('pageerror',e=>travelErrors.push(e.message));
- await travel.clock.install();await travel.goto(base+'/#galaxy');await travel.getByRole('button',{name:'Explore Hoth',exact:true}).click();
+ await travel.goto(base+'/#galaxy');await travel.getByRole('button',{name:'Explore Hoth',exact:true}).waitFor();await travel.clock.install();await travel.getByRole('button',{name:'Explore Hoth',exact:true}).click();
  await travel.clock.pauseAt(await travel.evaluate(()=>Date.now()+1000));await travel.getByRole('button',{name:'Jump to Hoth',exact:true}).first().click();await travel.clock.runFor(200);
  for(const name of ['Zoom in','Zoom out','Pan left','Pan right','Pan up','Pan down'])assert.equal(await travel.getByRole('button',{name,exact:true}).isDisabled(),true,`${name} disabled during warp`);
  await travel.getByRole('button',{name:'Skip animation'}).click();await travel.clock.runFor(100);assert.equal(await travel.getByRole('button',{name:'Zoom in',exact:true}).isEnabled(),true);assert.deepEqual(travelErrors,[]);
