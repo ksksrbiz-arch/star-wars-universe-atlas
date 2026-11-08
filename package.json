@@ -120,7 +120,10 @@
     "test:kenobi-dossiers": "node scripts/test-kenobi-dossiers.mjs",
     "test:obi-wan": "node scripts/test-obi-wan.mjs",
     "test:label-hit-targets": "node scripts/test-label-hit-targets.mjs",
-    "test:label-touch": "node scripts/test-label-touch.mjs"
+    "test:label-touch": "node scripts/test-label-touch.mjs",
+    "test:deploy-assets": "node scripts/test-deploy-assets.mjs",
+    "test:progress-storage": "node scripts/test-progress-storage.mjs",
+    "test:audio-search-a11y": "node scripts/test-audio-search-a11y.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",
