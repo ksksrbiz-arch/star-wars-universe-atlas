@@ -8,7 +8,7 @@ World descriptions are mild setting context, but the prototype is not certified 
 
 Conflicting or missing evidence remains explicit. Do not invent coordinates, routes, dates, or character appearances to complete the visual.
 
-The [catalog](../../src/catalog.ts) exposes 317 release records. [Chronology](../../src/chronology.ts) separately supplies ten whole-work viewing sequences for those IDs. Clone Wars follows its official table; Andor and Mandalorian preserve numbered narrative order, including flashbacks within their original episodes; the trilogy follows IV–V–VI. No exact BBY/ABY event calendar is asserted. The catalog’s original chronology flag describes the base release-only import, not the added sequence module.
+The [catalog](../../src/catalog.ts) exposes 323 release records. [Chronology](../../src/chronology.ts) separately supplies eleven whole-work viewing sequences for those IDs. Clone Wars follows its official table; Andor and Mandalorian preserve numbered narrative order, including flashbacks within their original episodes; the trilogy follows IV–V–VI. No exact BBY/ABY event calendar is asserted. The catalog’s original chronology flag describes the base release-only import, not the added sequence module.
 
 The [relationship registry](../../src/connections.ts) is partial. Each join needs a title-specific source and an explicit note distinguishing appearance, mention, flashback, orbital setting or destruction where relevant. Gallery labels alone may not establish that distinction. Unjoined stories lack a verified relationship; reviewed gaps are recorded separately, not treated as “no locations.” Array order does not establish within-story travel order. Broad world labels cannot establish character trajectories.
 
