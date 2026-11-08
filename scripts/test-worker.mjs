@@ -55,6 +55,67 @@ assert.equal(await (await request('/media/missing', {method:'HEAD'})).text(), ''
 assert.equal((await request('/api/unknown')).status, 404);
 assert.equal((await request('/api/catalog', {method:'POST'})).status, 405);
 
+// Hardening: headers on error responses, CSP on media, traversal, generic R2 failures.
+const nosniff = response => assert.equal(response.headers.get('X-Content-Type-Options'), 'nosniff');
+const sandboxed = response => assert.match(response.headers.get('Content-Security-Policy'), /sandbox/);
+{
+  const post = await request('/api/catalog', {method:'POST'});
+  nosniff(post);
+  assert.equal(post.headers.get('Allow'), 'GET, HEAD');
+  object = null;
+  const missing = await request('/media/missing');
+  nosniff(missing); sandboxed(missing);
+  object = new Error('get: The requested range is not satisfiable. (10039)');
+  const range416 = await request('/media/test', {headers:{Range:'bytes=100-200'}});
+  assert.equal(range416.status, 416); nosniff(range416); sandboxed(range416);
+  const full = {...metadata, body:'0123456789'}; object = full;
+  const ok = await request('/media/test');
+  nosniff(ok); sandboxed(ok);
+  object = metadata;
+  const notModified = await request('/media/test', {headers:{'If-None-Match':'"version-2"'}});
+  assert.equal(notModified.status, 304); nosniff(notModified); sandboxed(notModified);
+  assert.equal(notModified.headers.get('ETag'), '"version-2"');
+  object = full;
+  const mediaHead = await request('/media/test', {method:'HEAD'});
+  assert.equal(mediaHead.status, 200); nosniff(mediaHead); sandboxed(mediaHead);
+  assert.equal(mediaHead.headers.get('Content-Length'), '10');
+  assert.equal((await request('/media/test', {method:'POST'})).status, 405);
+
+  // Traversal (raw dot segments are normalized by URL parsing before the worker runs): whole '..' segments are rejected (raw, encoded, backslash); '..' inside a name is allowed.
+  for (const path of ['/media/%2e%2e%2fprivate', '/media/a%5C..%5Cb', '/media/a%2f%2E%2E%2fb', '/media/..%2f..%2fx', '/media/a%2f..']) {
+    lastRead = undefined; object = metadata;
+    const blocked = await request(path);
+    assert.equal(blocked.status, 404, path); nosniff(blocked);
+    assert.equal(lastRead, undefined, `${path} must not reach R2`);
+  }
+  for (const [path, key] of [['/media/a..b.png', 'a..b.png'], ['/media/dir/..hidden', 'dir/..hidden'], ['/media/x%2E%2Ey/z', 'x..y/z']]) {
+    object = full;
+    assert.equal((await request(path)).status, 200, path);
+    assert.equal(lastRead.key, key);
+  }
+
+  // Generic R2 failure -> clean 503 without details; the logged string is constant.
+  const logged = []; const realError = console.error; console.error = (...args) => logged.push(args);
+  try {
+    object = new Error('secret-token R2 exploded');
+    for (const headers of [{}, {Range:'bytes=1-2'}]) {
+      const failed = await request('/media/test', {headers});
+      assert.equal(failed.status, 503); nosniff(failed); sandboxed(failed);
+      assert.doesNotMatch(await failed.text(), /secret|exploded/);
+    }
+    assert.ok(logged.length === 2 && logged.every(args => args.length === 1 && !/secret/.test(String(args[0]))));
+    // InvalidRange for an object that vanished (head() null) is a 404, not a bare 416.
+    object = new Error('InvalidRange (10039)');
+    { const h = env.PUBLISHED_ASSETS.head; env.PUBLISHED_ASSETS.head = async () => null;
+      try { assert.equal((await request('/media/test', {headers:{Range:'bytes=9-99'}})).status, 404); } finally { env.PUBLISHED_ASSETS.head = h; } }
+    // InvalidRange followed by a failing head() is also a 503, not an unhandled throw.
+    object = new Error('InvalidRange (10039)');
+    const headFail = env.PUBLISHED_ASSETS.head; env.PUBLISHED_ASSETS.head = async () => { throw new Error('head failed'); };
+    try { assert.equal((await request('/media/test', {headers:{Range:'bytes=9-99'}})).status, 503); }
+    finally { env.PUBLISHED_ASSETS.head = headFail; }
+  } finally { console.error = realError; }
+}
+
 const originals = {connect:Client.prototype.connect,query:Client.prototype.query,end:Client.prototype.end};
 try {
   Client.prototype.connect = async () => {};
@@ -69,4 +130,4 @@ try {
   await Promise.all(pending);
   Object.assign(Client.prototype, originals);
 }
-console.log('Worker regressions passed: conditional media, ranges, encoded keys, read-only routes, and HEAD responses (mocked R2/Postgres).');
+console.log('Worker regressions passed: conditional media, ranges, encoded keys, traversal, security headers, R2 failures, read-only routes, and HEAD responses (mocked R2/Postgres).');
