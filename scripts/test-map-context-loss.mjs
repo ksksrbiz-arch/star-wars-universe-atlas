@@ -24,7 +24,9 @@ try {
   assert.equal(lost, true, 'context loss event fired');
   await page.waitForFunction(() => document.querySelector('button[aria-label="Zoom in"]')?.disabled === true, null, { timeout: 5000 });
   await page.evaluate(() => window.__loseContext.restoreContext());
-  await page.waitForTimeout(500);
+  // webglcontextrestored must clear the unavailable flag so map controls come back.
+  await page.waitForFunction(() => document.querySelector('button[aria-label="Zoom in"]')?.disabled === false, null, { timeout: 5000 });
+  assert.equal(await page.getByRole('button', { name: 'Zoom out', exact: true }).isDisabled(), false, 'zoom out re-enabled after restore');
   assert.deepEqual(errors, [], 'no page errors across loss/restore');
-  console.log(JSON.stringify({ contextLossDisablesMapControls: true, restoreWithoutErrors: true }));
+  console.log(JSON.stringify({ contextLossDisablesMapControls: true, controlsReenabledAfterRestore: true, restoreWithoutErrors: true }));
 } finally { await browser.close(); }
