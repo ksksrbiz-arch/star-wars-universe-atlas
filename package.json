@@ -135,7 +135,11 @@
     "test:sequel-dossiers": "node scripts/test-sequel-dossiers.mjs",
     "test:map-key-legibility": "node scripts/test-map-key-legibility.mjs",
     "test:galaxy-immersion": "node scripts/test-galaxy-immersion.mjs",
-    "test:hyperspace-flight": "node scripts/test-hyperspace-flight.mjs"
+    "test:hyperspace-flight": "node scripts/test-hyperspace-flight.mjs",
+    "test:planet-appearance": "node scripts/test-planet-appearance.mjs",
+    "test:planet-renderer": "node scripts/test-planet-renderer.mjs",
+    "test:planet-artwork": "node scripts/test-planet-artwork.mjs",
+    "test:orbit-viewer": "node scripts/test-orbit-viewer.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",

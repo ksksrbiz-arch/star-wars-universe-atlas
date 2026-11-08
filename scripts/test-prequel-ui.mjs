@@ -29,7 +29,7 @@ try {
     assert.equal(await page.locator('.current-location strong').innerText(), 'Tatooine');
     await page.locator('.map-jump-bar').getByRole('button', { name: 'Jump to Mustafar', exact: true }).click();
     await page.waitForFunction(() => document.querySelector('.current-location strong')?.textContent === 'Mustafar');
-    assert.equal(await page.locator('canvas').count(), 1);
+    assert.equal(await page.locator('.galaxy-canvas canvas').count(), 1);
     if (width < 721 && await page.locator('.sheet-toggle').getAttribute('aria-expanded') === 'false') await page.locator('.sheet-toggle').click();
     await page.getByRole('group', { name: 'Exploration panel views' }).getByRole('button', { name: 'Story', exact: true }).click();
     assert.equal(await page.locator('.journey-stop').count(), CONNECTIONS.filter(row => row.itemId === ids[2]).length);

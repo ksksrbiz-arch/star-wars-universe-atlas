@@ -23,7 +23,7 @@ async function start(name) {
 try {
   await page.clock.install();
   await page.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#galaxy");
-  await page.locator('canvas').waitFor();
+  await page.locator('.galaxy-canvas canvas').waitFor();
   await page.getByRole('combobox', { name: 'Graphics quality' }).selectOption('balanced');
   const initial = await current();
   // Freeze travel time while scheduling controls; advance frames explicitly for partial warps.
@@ -50,7 +50,7 @@ try {
     await start('Alderaan');
     await page.getByRole('link', { name: target, exact: true }).click();
     await page.getByRole('link', { name: 'Galaxy', exact: true }).click();
-    await page.locator('canvas').waitFor();
+    await page.locator('.galaxy-canvas canvas').waitFor();
     await settled();
     assert.equal(await current(), initial);
   }

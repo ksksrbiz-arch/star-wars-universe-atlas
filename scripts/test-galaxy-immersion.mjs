@@ -28,7 +28,7 @@ try {
     }
     assert.equal(await stage.getAttribute('data-presentation'), 'immersive');
     assert.equal(await page.locator('[data-planetary-body="true"]').count(), 76);
-    assert.equal(await page.locator('canvas').count(), 1);
+    assert.equal(await page.locator('.galaxy-canvas canvas').count(), 1);
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
     const visibleNames = await page.locator('.world-map-label').evaluateAll(es => es.filter(e => e.closest('[data-map-html]').style.visibility === 'visible' && e.dataset.decluttered !== 'true').length);
     await stage.screenshot({ path: `${out}/galaxy-${width}.png` });

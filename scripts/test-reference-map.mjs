@@ -20,7 +20,7 @@ try {
     await page.getByRole('button',{name:'Explore Tatooine',exact:true}).waitFor();
     await page.waitForTimeout(700);
     assert.equal(await finder.locator('option').count(),ALL_WORLDS.length);
-    assert.equal(await page.locator('canvas').count(),1);
+    assert.equal(await page.locator('.galaxy-canvas canvas').count(),1);
     const layers = [['Regions','.region-map-label',9],['Hyperspace routes','.route-map-label',5],['Grid','.grid-map-label',42]];
     for (const [name, selector, count] of layers) {
       const checkbox = page.getByRole('checkbox',{name,exact:true});

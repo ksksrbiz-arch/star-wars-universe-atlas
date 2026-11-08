@@ -6,7 +6,7 @@ try {
  const errors=[];page.on('pageerror',error=>errors.push(error.message));
  const url=process.env.ATLAS_URL || 'http://localhost:4173';
  await page.goto(`${url}/#journey/andor-s01e01`);
- await page.locator('canvas').waitFor();
+ await page.locator('.galaxy-canvas canvas').waitFor();
  assert.equal(await page.locator('[data-episode-location]').count(),0);
  await page.getByRole('button',{name:'Reveal locations for this title'}).click();
  await page.locator('[data-episode-location="ferrix"]').waitFor({state:'attached'});

@@ -8,7 +8,7 @@ await page.getByRole('button',{name:'Explore Alderaan',exact:true}).waitFor();
 const cdp=await page.context().newCDPSession(page);
 const marker=()=>page.getByRole('button',{name:'Explore Alderaan',exact:true}).boundingBox();
 await page.waitForTimeout(700);
-const bounds=await page.locator('canvas').boundingBox();
+const bounds=await page.locator('.galaxy-canvas canvas').boundingBox();
 const touchY=Math.round(bounds.y+bounds.height*.42);
 const start=await marker();
 await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:80,y:touchY,id:1}]});

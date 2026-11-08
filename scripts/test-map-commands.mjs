@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});const base=process.env.ATLAS_URL||'http://localhost:4173';
 try{
  const page=await browser.newPage({viewport:{width:1440,height:1050},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
- await page.goto(base+'/#galaxy');await page.locator('canvas').waitFor();await page.getByRole('button',{name:'Explore Hoth',exact:true}).waitFor();
+ await page.goto(base+'/#galaxy');await page.locator('.galaxy-canvas canvas').waitFor();await page.getByRole('button',{name:'Explore Hoth',exact:true}).waitFor();
  const click=async name=>{await page.getByRole('button',{name,exact:true}).click();await page.waitForTimeout(80);};
  const point=id=>page.locator(`[data-world-id="${id}"]`).evaluate(el=>{const p=el.closest('[data-map-html]');const m=new DOMMatrix(getComputedStyle(p).transform);return{x:m.m41,y:m.m42};});
  const distance=async()=>{const a=await point('tatooine'),b=await point('hoth');return Math.hypot(a.x-b.x,a.y-b.y);};

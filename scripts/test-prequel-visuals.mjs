@@ -24,8 +24,8 @@ try {
   await page.locator('.workspace-settings>summary').click();await page.getByLabel('Find a mapped world').selectOption('naboo');
   assert.equal(await page.getByRole('button',{name:'Explore Naboo',exact:true}).locator('.map-label-grid').innerText(),'O-17');
   assert.equal(await page.locator('.current-location strong').innerText(),'Tatooine');
-  const selected=await page.getByRole('button',{name:'Explore Naboo',exact:true}).boundingBox(),frame=await page.locator('canvas').boundingBox();assert(selected.x>=frame.x&&selected.x+selected.width<=frame.x+frame.width+1,'Priority badge stays in map');
-  assert.equal(await page.locator('canvas').count(),1);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);assert.deepEqual(errors,[]);
+  const selected=await page.getByRole('button',{name:'Explore Naboo',exact:true}).boundingBox(),frame=await page.locator('.galaxy-canvas canvas').boundingBox();assert(selected.x>=frame.x&&selected.x+selected.width<=frame.x+frame.width+1,'Priority badge stays in map');
+  assert.equal(await page.locator('.galaxy-canvas canvas').count(),1);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);assert.deepEqual(errors,[]);
   results.push({width,quality,motion,settledDrawsOver600ms:draws,errors});await page.close();
  }
  const travel=await browser.newPage({viewport:{width:1440,height:900}});await travel.goto(base+'/#galaxy');await travel.getByRole('button',{name:'Explore Hoth',exact:true}).waitFor();await travel.clock.install();await travel.clock.pauseAt(await travel.evaluate(()=>Date.now()+1000));

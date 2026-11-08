@@ -11,7 +11,7 @@ try {
   await page.locator('.workspace-settings > summary').click();
   if(['mobile','reduced'].includes(scenario))assert.equal(requests,0,'ineligible scene must not request bloom');
   else {assert.equal(requests,1);await page.getByLabel('Graphics quality').selectOption('balanced');await page.getByLabel('Graphics quality').selectOption('cinematic');await page.waitForTimeout(200);assert.equal(requests,1,'quality switch reuses module');}
-  await page.getByLabel('Find a mapped world').selectOption('hoth');assert.equal(await page.locator('canvas').count(),1);assert.deepEqual(errors,[]);await page.close();
+  await page.getByLabel('Find a mapped world').selectOption('hoth');assert.equal(await page.locator('.galaxy-canvas canvas').count(),1);assert.deepEqual(errors,[]);await page.close();
  }
  console.log('PASS optional bloom skips mobile/reduced, quality switching reuses loaded module, failed download preserves canvas/navigation');
 }finally{await browser.close();}

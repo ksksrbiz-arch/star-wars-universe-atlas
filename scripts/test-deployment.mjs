@@ -26,7 +26,7 @@ try{
   const page=await browser.newPage({viewport:mobile?{width:390,height:844}:{width:1440,height:1050},isMobile:mobile,hasTouch:mobile});
   page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
   await page.clock.install();await page.goto(base);await page.getByRole('button',{name:'Explore Hoth',exact:true}).waitFor();
-  assert.equal(await page.locator('canvas').count(),1);assert.equal(await page.getByLabel('Find a mapped world').locator('option').count(),expected.worlds);
+  assert.equal(await page.locator('.galaxy-canvas canvas').count(),1);assert.equal(await page.getByLabel('Find a mapped world').locator('option').count(),expected.worlds);
   await page.waitForTimeout(500);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   await page.locator('.map-stage').screenshot({path:`evidence/deployment/live-${mobile?'mobile':'desktop'}-map.png`});
   await page.getByLabel('Find a mapped world').selectOption('hoth');

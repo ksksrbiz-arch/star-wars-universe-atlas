@@ -9,7 +9,7 @@ try {
   const page=await browser.newPage({viewport:{width,height:1050},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto(base+'/#galaxy');await page.getByRole('button',{name:'Explore Tatooine',exact:true}).waitFor();
   await page.locator('.map-stage').scrollIntoViewIfNeeded();
-  const stage=await page.locator('canvas').boundingBox();await page.mouse.move(stage.x+stage.width*.5,stage.y+stage.height*.5);
+  const stage=await page.locator('.galaxy-canvas canvas').boundingBox();await page.mouse.move(stage.x+stage.width*.5,stage.y+stage.height*.5);
   for(let i=0;i<38;i++){await page.mouse.wheel(0,-100);await page.waitForTimeout(40);}
   await page.waitForTimeout(1000);
   const stats=await page.evaluate(()=>{
@@ -30,9 +30,9 @@ try {
   await page.getByRole('button',{name:'Reset map view',exact:true}).click();await page.keyboard.press('Tab');await selected.focus();assert.equal(await selected.evaluate(e=>getComputedStyle(e).outlineStyle),'solid');
   await page.getByLabel('Find a mapped world').selectOption('lothal');
   await page.getByRole('button',{name:'Reset map view',exact:true}).click();await page.waitForTimeout(300);
-  const edge = await page.getByRole('button',{name:'Explore Lothal',exact:true}).boundingBox();const frame = await page.locator('canvas').boundingBox();
+  const edge = await page.getByRole('button',{name:'Explore Lothal',exact:true}).boundingBox();const frame = await page.locator('.galaxy-canvas canvas').boundingBox();
   assert(edge.x>=frame.x && edge.x+edge.width<=frame.x+frame.width+1,'Lothal edge label fits canvas');
-  assert.equal(await page.locator('canvas').count(),1);assert.deepEqual(errors,[]);
+  assert.equal(await page.locator('.galaxy-canvas canvas').count(),1);assert.deepEqual(errors,[]);
   await mkdir('evidence/map-density',{recursive:true});await page.locator('.map-stage').screenshot({path:`evidence/map-density/${width}.png`});
   checks.push({width,...stats,selectedAlwaysAvailable:true,errors});await page.close();
  }
