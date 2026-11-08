@@ -9,48 +9,62 @@ export type GalaxyQuality = 'balanced' | 'cinematic'
 
 // Decorative, seeded geometry. Neither the arms nor these stars encode map positions.
 const vertex = `varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`
+const cloudNoise = `
+float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453123);}
+float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
+float fbm(vec2 p){float n=0.,w=.52;for(int i=0;i<5;i++){n+=noise(p)*w;p=mat2(.8,-.6,.6,.8)*p*2.13+vec2(8.7,3.2);w*=.48;}return n;}
+vec2 discPoint(vec2 uv){vec2 p=(uv-.5)*2.;p=mat2(.94,-.342,.342,.94)*p;p.y*=1.22;return p;}
+`
 const fragment = `
 varying vec2 vUv;
 uniform float detail;
-float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453123);}
-float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
-float fbm(vec2 p){float n=noise(p)*.55; p=mat2(.8,-.6,.6,.8)*p*2.1; n+=noise(p)*.28; p*=2.13; n+=noise(p)*.12; return n;}
+${cloudNoise}
 void main(){
- vec2 p=(vUv-.5)*2.; p=mat2(.94,-.342,.342,.94)*p; p.y*=1.22;
- float r=length(p), a=atan(p.y,p.x);
- float grain=fbm(p*25.);
- // Broken, feathered arms keep the decorative disc from reading as solid rings.
- float turbulence=fbm(p*12.+vec2(3.,17.));
- float spiral=a*3.+r*17.-grain*2.8-turbulence*.85;
- float arms=pow(.5+.5*sin(spiral),5.);
- float rim=pow(.5+.5*sin(spiral-.65),9.);
- float disc=exp(-r*2.45)*(1.-smoothstep(.54,1.05,r));
- float lanes=pow(.5+.5*sin(spiral+.42+noise(p*63.)*.6),12.);
- float wisps=fbm(p*48.+vec2(8.,2.));
- // Fine static filaments thread the broad dust clouds; no time uniform or loop.
- float filaments=pow(.5+.5*sin(spiral*2.4+wisps*7.),8.);
- float broken= smoothstep(.22,.73,fbm(p*32.+vec2(21.,4.)));
- float inner=1.-smoothstep(.12,.48,r);
- float veil=fbm(p*9.+vec2(15.,7.))*exp(-r*r*2.8);
- vec3 c=vec3(.009,.019,.031);
- c+=vec3(.105,.23,.29)*veil*.24;
- c+=mix(vec3(.12,.34,.60),vec3(.43,.32,.23),inner*.65)*arms*disc*(.24+grain*.9)*1.12;
- c+=vec3(.16,.49,.63)*filaments*arms*disc*broken*.48;
- c+=vec3(.12,.52,.65)*rim*disc*(.2+wisps)*.68;
- c*=1.-lanes*disc*.78;
- // Cool hydrogen clouds and warm star-forming knots: illustrative, not locations.
- float knots=pow(max(0.,wisps-.32)*2.2,3.);
- float clouds=grain*grain;
- c+=vec3(.24,.38,.52)*clouds*arms*disc*.32;
- c+=vec3(.58,.20,.22)*knots*rim*disc*.72;
- c+=vec3(.14,.21,.38)*pow(wisps,3.)*disc*.3;
- float halo=exp(-r*r*5.)*(1.-exp(-r*r*22.));
- c+=vec3(.18,.22,.31)*halo*.08;
- c+=vec3(.18,.26,.32)*exp(-r*r*8.)*.16;
- c+=vec3(.88,.58,.29)*exp(-r*r*95.)*.72;
- c+=vec3(1.2,.94,.61)*exp(-r*r*650.)*.58;
- if(detail>.5) c+=vec3(.32,.43,.47)*pow(noise(p*190.),16.)*disc*.24;
+ vec2 p=discPoint(vUv);float r=length(p),a=atan(p.y,p.x);
+ float envelope=exp(-r*1.55)*(1.-smoothstep(.65,1.04,r));
+ float broad=fbm(p*7.+vec2(1.,19.));
+ float cloud=fbm(p*36.+broad*2.7);
+ float fine=fbm(p*115.);
+ float phase=a*3.+r*17.-broad*2.2;
+ float arm=pow(.5+.5*sin(phase),3.2);
+ float feather=pow(.5+.5*sin(phase-.65),8.);
+ float ridge=smoothstep(.29,.74,cloud);
+ float filaments=pow(1.-abs(cloud*2.-1.),7.);
+ float split=pow(.5+.5*sin(phase+.32+cloud*2.1),10.);
+ float stars=pow(noise(p*420.),26.);
+ vec3 cool=mix(vec3(.025,.07,.21),vec3(.10,.24,.46),ridge);
+ cool=mix(cool,vec3(.25,.065,.33),smoothstep(.36,.68,broad)*.72);
+ vec3 c=vec3(.002,.004,.009);
+ // Broad light is carved into distinct cloud banks and granular filaments.
+ c+=cool*arm*envelope*(.3+ridge*1.9+fine*.45)*(1.-exp(-r*r*35.)*.6);
+ c+=vec3(.08,.19,.39)*feather*envelope*filaments*.65;
+ c+=vec3(.10,.14,.29)*broad*envelope*.25;
+ c*=1.-split*envelope*.87;
+ // Rust-colored gas threads the inner blue-white stellar disc.
+ float inner=exp(-r*r*9.);
+ c+=vec3(.48,.21,.10)*ridge*arm*inner*.48;
+ c+=vec3(.72,.34,.10)*exp(-r*r*38.)*(.22+cloud*.38);
+ c+=vec3(.95,.55,.21)*exp(-r*r*210.)*(.18+ridge*.24);
+ c+=vec3(1.,.68,.30)*exp(-r*r*1300.)*.2;
+ c+=vec3(.48,.63,.86)*stars*arm*envelope*(.32+detail*.2);
  gl_FragColor=vec4(c,1.);
+}`
+
+// A separate absorbing sheet sits in front of the stellar field. Its broken
+// silhouettes create depth without moving geography, the camera, or the sky.
+const foregroundDust = `
+varying vec2 vUv;
+${cloudNoise}
+void main(){
+ vec2 p=discPoint(vUv);float r=length(p),a=atan(p.y,p.x);
+ float broad=fbm(p*7.+vec2(1.,19.));
+ float cloud=fbm(p*36.+broad*2.7);
+ float phase=a*3.+r*17.-broad*2.2;
+ float lane=pow(.5+.5*sin(phase+.22+cloud*1.5),13.);
+ float torn=smoothstep(.28,.68,fbm(p*68.));
+ float disc=exp(-r*1.5)*(1.-smoothstep(.64,1.02,r));
+ float alpha=lane*disc*(.35+torn*.65)*.88*smoothstep(.035,.16,r);
+ gl_FragColor=vec4(vec3(.004,.006,.012),alpha);
 }`
 
 const pointVertex = `
@@ -74,29 +88,33 @@ gl_FragColor=vec4(vTint,halo+core*.62+rays*step(3.,vSize));}
 export default function GalaxyAtmosphere({ quality = 'balanced', reducedMotion }: { quality?: GalaxyQuality; reducedMotion: boolean }) {
   const { size, gl } = useThree()
   const cinematic = quality === 'cinematic' && size.width >= 900 && !reducedMotion
-  const count = cinematic ? 6500 : 2600
+  const count = cinematic ? 44000 : size.width < 600 ? 14000 : 24000
   const particles = useMemo(() => {
     let seed = 87421
     const random = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296 }
     const positions = new Float32Array(count * 3)
     const colors = new Float32Array(count * 3)
     const sizes = new Float32Array(count)
-    const gold = new THREE.Color('#e4c692'), blue = new THREE.Color('#8dbbd9'), tint = new THREE.Color()
+    const gold = new THREE.Color('#ffe0ad'), blue = new THREE.Color('#bbd3ff'), tint = new THREE.Color()
     for (let i = 0; i < count; i++) {
       // Sparse inter-arm stars add depth without another draw call or frame loop.
-      const ambient = i % 6 === 0
-      const radius = Math.pow(random(), ambient ? .5 : .67) * (ambient ? 1.04 : .9)
+      const ambient = i % 8 === 0
+      const nuclear = i % 5 === 0
+      const radius = nuclear ? Math.pow(random(), .7) * .18 : Math.pow(random(), ambient ? .5 : .67) * (ambient ? 1.04 : .9)
       const arm = i % 3
-      const spread = (random() + random() - 1) * (.07 + radius * .19)
+      const spread = (random() + random() + random() - 1.5) * (.12 + radius * .32)
+      const drift = Math.sin(radius * 37 + arm * 2.1) * .14 + Math.sin(radius * 83) * .07
       // Same broad arm orientation as the shader, with independent soft scatter.
-      const angle = ambient ? random() * Math.PI * 2 : (Math.PI / 2 + arm * Math.PI * 2 - radius * 17) / 3 + spread
+      const angle = ambient || nuclear ? random() * Math.PI * 2 : (Math.PI / 2 + arm * Math.PI * 2 - radius * 17 + 1.1) / 3 + spread + drift
       const x = Math.cos(angle) * radius, y = Math.sin(angle) * radius / 1.22
       positions[i * 3] = (x * .94 + y * .342) * 18.5
       positions[i * 3 + 1] = (-x * .342 + y * .94) * 15.5
-      positions[i * 3 + 2] = -1.35 + random() * .16
-      tint.copy(gold).lerp(blue, Math.min(1, radius * 1.35 + random() * .25)).multiplyScalar((ambient ? .3 : .48) + random() * .6)
+      positions[i * 3 + 2] = -1.7 + random() * .42
+      tint.copy(gold).lerp(blue, Math.min(1, radius * 1.35 + random() * .25)).multiplyScalar((ambient ? .22 : .45) + random() * .75)
+      if (nuclear) tint.multiplyScalar(.32)
       colors.set([tint.r, tint.g, tint.b], i * 3)
-      sizes[i] = random() > .985 ? 3.5 : .7 + random() * 1.25
+      const prominence = random()
+      sizes[i] = nuclear ? .45 + random() * .65 : prominence > .998 ? 5.5 : prominence > .98 ? 2.4 : .7 + random() * 1.15
     }
     return { positions, colors, sizes }
   }, [count])
@@ -115,6 +133,10 @@ export default function GalaxyAtmosphere({ quality = 'balanced', reducedMotion }
       </bufferGeometry>
       <shaderMaterial vertexShader={pointVertex} fragmentShader={pointFragment} uniforms={starUniforms} transparent depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false} />
     </points>
+    <mesh position={[0,0,-1.1]} raycast={() => {}}>
+      <planeGeometry args={[37,31]}/>
+      <shaderMaterial vertexShader={vertex} fragmentShader={foregroundDust} transparent depthWrite={false} toneMapped={false}/>
+    </mesh>
     {cinematic && <Suspense fallback={null}><CinematicBloom /></Suspense>}
   </>
 }

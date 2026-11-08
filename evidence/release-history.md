@@ -34,3 +34,5 @@ Obi-Wan Kenobi adds six Part I–VI records, a separate eleventh collection and 
 
 
 The sequel trilogy adds three film records, a thirteenth collection and 19 reviewed associations. Kef Bir is a moon, Supremacy a ship and Hosnian Prime a destruction setting. Force projections do not establish physical arrivals; Ajan Kloss is conservatively represented by its base locality. TLJ/TROS domestic opening dates are distinguished from earlier international rollouts. All twelve previous sequences remain exact; no coordinates are added. See [sequel source review](sequel-source-review.md).
+
+The galaxy immersion overhaul adds original layered stellar clouds and dust, 76 illustrative 3D globes, Immersive/Reference presentations and inspection without arrival. Geography, catalog and database publication remain unchanged. Mobile controls and dense labels are checked separately; see [visual overhaul verification](galaxy-immersion/verification.md).

@@ -23,6 +23,9 @@ try {
   }));
   assert.equal(lost, true, 'context loss event fired');
   await page.waitForFunction(() => document.querySelector('button[aria-label="Zoom in"]')?.disabled === true, null, { timeout: 5000 });
+  // Let the synthetic loss dispatch finish before requesting its reversal. Without
+  // a browser turn, the synthetic loss can still be settling during initial setup.
+  await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => resolve(null))));
   await page.evaluate(() => window.__loseContext.restoreContext());
   // webglcontextrestored must clear the unavailable flag so map controls come back.
   await page.waitForFunction(() => document.querySelector('button[aria-label="Zoom in"]')?.disabled === false, null, { timeout: 5000 });

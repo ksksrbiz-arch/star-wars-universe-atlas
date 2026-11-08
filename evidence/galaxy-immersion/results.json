@@ -1,0 +1,30 @@
+{
+  "browser": "Chromium software WebGL; desktop emulation, not physical-device validation",
+  "base": "http://localhost:4175",
+  "results": [
+    {
+      "width": 1440,
+      "visibleNames": 21,
+      "illustrativeGlobes": 76,
+      "referenceSwitch": true,
+      "inspectPreservesCurrent": true,
+      "consoleErrors": []
+    },
+    {
+      "width": 390,
+      "visibleNames": 10,
+      "illustrativeGlobes": 76,
+      "referenceSwitch": true,
+      "inspectPreservesCurrent": true,
+      "consoleErrors": []
+    },
+    {
+      "width": 320,
+      "visibleNames": 8,
+      "illustrativeGlobes": 76,
+      "referenceSwitch": true,
+      "inspectPreservesCurrent": true,
+      "consoleErrors": []
+    }
+  ]
+}

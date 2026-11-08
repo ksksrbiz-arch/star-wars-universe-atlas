@@ -133,7 +133,8 @@
     "test:sequels-ui": "node scripts/test-sequels-ui.mjs",
     "test:sequel": "node scripts/test-sequel.mjs",
     "test:sequel-dossiers": "node scripts/test-sequel-dossiers.mjs",
-    "test:map-key-legibility": "node scripts/test-map-key-legibility.mjs"
+    "test:map-key-legibility": "node scripts/test-map-key-legibility.mjs",
+    "test:galaxy-immersion": "node scripts/test-galaxy-immersion.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",

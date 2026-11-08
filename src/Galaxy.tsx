@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import type { ComponentRef, CSSProperties, ReactNode } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
@@ -10,6 +10,7 @@ import { gridToDisplay, type World } from './data'
 import WarpEffect from './WarpEffect'
 import GalaxyAtmosphere, { type GalaxyQuality } from './GalaxyAtmosphere'
 import GalacticGeography from './GalacticGeography'
+import PlanetaryBody from './PlanetaryBody'
 import { GALACTIC_REGION_LABELS } from './galacticRegions'
 import HyperspaceRoutes from './HyperspaceLayer'
 import { HYPERSPACE_ROUTE_LABELS } from './hyperspaceRoutes'
@@ -17,11 +18,18 @@ import { HYPERSPACE_ROUTE_LABELS } from './hyperspaceRoutes'
 /** Small screen-aligned label bridge. Drei Html synchronously unmounts its DOM
  * root during React's effect cleanup, which warns during StrictMode replay.
  * Detach immediately, then dispose that root after the current React commit. */
+function ProjectedLabel({ children, style, onCommit }: { children: ReactNode; style?: CSSProperties; onCommit: () => void }) {
+  // This separate DOM root can commit after the Canvas's demanded frame. Reflow
+  // once after that commit so a newly selected label cannot retain old culling.
+  useLayoutEffect(onCommit)
+  return <div style={{ transform: 'translate(-50%, -50%)', pointerEvents: 'none', ...style }}>{children}</div>
+}
+
 function Html({ children, position, style, zIndexRange = [12, 1], minZoom = 0 }: {
   children: ReactNode; position?: [number, number, number]; style?: CSSProperties;
   center?: boolean; zIndexRange?: [number, number]; minZoom?: number;
 }) {
-  const { gl } = useThree()
+  const { gl, invalidate } = useThree()
   const group = useRef<THREE.Group>(null)
   const element = useRef<HTMLDivElement | null>(null)
   const root = useRef<Root | null>(null)
@@ -41,7 +49,7 @@ function Html({ children, position, style, zIndexRange = [12, 1], minZoom = 0 }:
     }
   }, [gl])
   useEffect(() => {
-    root.current?.render(<div style={{ transform: 'translate(-50%, -50%)', pointerEvents: 'none', ...style }}>{children}</div>)
+    root.current?.render(<ProjectedLabel style={style} onCommit={invalidate}>{children}</ProjectedLabel>)
   })
   useFrame(({ camera, size }) => {
     if (!group.current || !element.current) return
@@ -59,7 +67,7 @@ type OrbitControlsImpl = ComponentRef<typeof OrbitControls>
 
 export type MapCommand = {
   id: number
-  action: 'zoomIn' | 'zoomOut' | 'panLeft' | 'panRight' | 'panUp' | 'panDown'
+  action: 'zoomIn' | 'zoomOut' | 'panLeft' | 'panRight' | 'panUp' | 'panDown' | 'inspect'
 }
 
 type Props = {
@@ -68,6 +76,7 @@ type Props = {
   routesVisible?: boolean
   gridVisible?: boolean
   quality?: GalaxyQuality
+  presentation?: 'immersive' | 'reference'
   highlightedIds?: ReadonlySet<string>
   worlds: World[]
   selectedId: string
@@ -228,6 +237,14 @@ function LabelDeclutter() {
     })
     for (const item of measured) if (item.visible) item.label.style.translate = 'none'
     const rects = measured.map(item => item.visible ? { rect: item.label.getBoundingClientRect(), anchor: item.container!.getBoundingClientRect() } : null)
+    // Larger illustrative globes stay clear of every name, including nearby systems.
+    const globeClearance = measured.flatMap((item, index) => {
+      const measure = rects[index]
+      if (!measure || (!item.label.classList.contains('is-current') && !item.label.classList.contains('is-preview')) || !item.label.dataset.planetaryBody) return []
+      const zoom = (camera as THREE.OrthographicCamera).zoom
+      const radius = Number(item.label.dataset.bodyRadius) * zoom + 4
+      return [new DOMRect(measure.anchor.left-radius, measure.anchor.top-.39*zoom-radius, radius*2, radius*2)]
+    })
     const writes: { label: HTMLButtonElement; translate: string | null; clamped: boolean; hidden: boolean; dx: number; dy: number; width: number; height: number }[] = []
     for (let index = 0; index < measured.length; index++) {
       const { label, visible } = measured[index]
@@ -237,7 +254,7 @@ function LabelDeclutter() {
         continue
       }
       let rect = measure.rect
-      const essential = Number(label.dataset.labelPriority)>0 || label === document.activeElement
+      const essential = Number(label.dataset.labelPriority)>=(denseStory ? 2 : 1) || label === document.activeElement
       // Clamp labels for on-screen priority markers, never move their source dots.
       const anchor = measure.anchor
       const onScreen = anchor.left >= bounds.left && anchor.left <= bounds.right && anchor.top >= bounds.top && anchor.top <= bounds.bottom
@@ -252,7 +269,7 @@ function LabelDeclutter() {
       // Keep traced and preview source markers visible beside their labels at overview zoom.
       const sourceClearance = label === document.activeElement || label.classList.contains('is-preview')
         ? [new DOMRect(anchor.left-14, anchor.top-.39*(camera as THREE.OrthographicCamera).zoom-14, 28, 28)] : []
-      const obstacles = [...protectedRects,...occupied,...sourceClearance]
+      const obstacles = [...protectedRects,...occupied,...sourceClearance,...globeClearance]
       const packStory = denseStory && priority(label) === 2
       if (essential && onScreen && (packStory || obstacles.some(other => overlapsRect(rect, other)))) {
         // Edge candidates handle adjacent labels; a small bounded search handles tight clusters.
@@ -279,7 +296,7 @@ function LabelDeclutter() {
       // A featured background name must not leave an unreadable fragment at a viewport edge.
       // Current, preview, chapter and keyboard-focused labels retain their priority treatment.
       const clippedBackground = Number(label.dataset.labelPriority) === 1 && label !== document.activeElement && !onScreen && clipped
-      const hidden = clippedBackground || (!essential && (clipped || overlaps || protectedRects.some(other => overlapsRect(rect,other))))
+      const hidden = clippedBackground || (!essential && (clipped || overlaps || [...protectedRects,...globeClearance].some(other => overlapsRect(rect,other))))
       writes.push({ label, translate, clamped: Boolean(dx || dy), hidden, dx, dy, width: rect.width, height: rect.height })
       if (!hidden) occupied.push(rect)
     }
@@ -366,17 +383,22 @@ function SourceCell({ world }: { world: World }) {
   </group>
 }
 
-function WorldMarker({ world, showSourceCell, highlighted, selected, previewed, disabled, onSelect, sharedOffset }: { sharedOffset?: [number, number]; world: World; showSourceCell?: boolean; highlighted: boolean; selected: boolean; previewed: boolean; disabled: boolean; onSelect: Props['onSelect'] }) {
+function WorldMarker({ world, immersive, showSourceCell, highlighted, selected, previewed, disabled, onSelect, sharedOffset }: { immersive: boolean; sharedOffset?: [number, number]; world: World; showSourceCell?: boolean; highlighted: boolean; selected: boolean; previewed: boolean; disabled: boolean; onSelect: Props['onSelect'] }) {
   const drag = useRef({ x: 0, y: 0, moved: false })
   const [hovered, setHovered] = useState(false)
   const [focused, setFocused] = useState(false)
   const tracingSource = !disabled && (hovered || focused)
   const { size, invalidate } = useThree()
   const color = selected ? '#ffd49b' : previewed ? '#c4edf5' : highlighted ? '#dbb9ff' : '#91b9c8'
-  const offset = sharedOffset ?? labelOffsets[world.id] ?? NO_OFFSET
+  const baseOffset = sharedOffset ?? labelOffsets[world.id] ?? NO_OFFSET
+  const landmarkBody = immersive && (selected || previewed || featuredWorlds.has(world.id))
+  const bodyVisible = immersive
+  const bodyScale = selected ? 1.15 : previewed ? 1 : featuredWorlds.has(world.id) ? .5 : .32
+  // Screen-space displacement is shared with the source leader; coordinates stay fixed.
+  const offset: [number, number] = [baseOffset[0], baseOffset[1] + (landmarkBody ? (selected || previewed ? 23 : 8) : 0)]
   const priority = selected || previewed ? 3 : highlighted ? 2 : featuredWorlds.has(world.id) ? 1 : 0
   const haloUniforms = useMemo(() => ({tint: {value: new THREE.Color(color)}}), [color])
-  const minZoom = priority > 0 ? 0 : Math.max(24, Math.min(55, size.width / 9))
+  const minZoom = priority > 0 ? 0 : immersive ? (size.width < 600 ? 0 : 18) : Math.max(24, Math.min(55, size.width / 9))
   const stateNotes = [selected && 'Current location', previewed && !selected && 'Preview only, not yet arrived', highlighted && 'Sourced chapter location, no visit order implied'].filter(Boolean).join('. ')
   const descriptionId = `map-label-state-${world.id}`
   return <group position={[world.x * 10, world.y * 10, .1]}>
@@ -387,7 +409,8 @@ function WorldMarker({ world, showSourceCell, highlighted, selected, previewed, 
       <circleGeometry args={[highlighted ? .56 : .46,48]}/>
       <shaderMaterial vertexShader={haloVertex} fragmentShader={haloFragment} uniforms={haloUniforms} transparent depthWrite={false} blending={THREE.AdditiveBlending} toneMapped={false}/>
     </mesh>}
-    <mesh><circleGeometry args={[selected ? .115 : .068, 24]} /><meshBasicMaterial color={color} /></mesh>
+    <mesh><circleGeometry args={[selected ? .115 : immersive ? .09 : .068, 24]} /><meshBasicMaterial color={color} /></mesh>
+    {bodyVisible && <group scale={bodyScale} position={[0,0,.12]}><PlanetaryBody world={world} preview={previewed && !selected}/></group>}
     {highlighted && <StoryBeacon/>}
     {selected && <>
       <LocationReticle color={color}/>
@@ -397,7 +420,7 @@ function WorldMarker({ world, showSourceCell, highlighted, selected, previewed, 
     {previewed && !selected && <PreviewBeacon/>}
     <Html center position={[0, -.39, .2]} zIndexRange={[12, 1]} minZoom={minZoom}>
       <>
-      <button className={`world-map-label${selected ? ' is-current' : ''}${previewed ? ' is-preview' : ''}${highlighted ? ' is-episode' : ''}`} data-source-cell={tracingSource && showSourceCell ? world.grid : undefined} data-source-focus={tracingSource} data-label-priority={priority} data-world-id={world.id} data-episode-location={highlighted ? world.id : undefined} title={`${world.name} · source grid ${world.grid}${highlighted ? ' · Sourced chapter location; no visit order implied' : ''}`} disabled={disabled}
+      <button className={`world-map-label${selected ? ' is-current' : ''}${previewed ? ' is-preview' : ''}${highlighted ? ' is-episode' : ''}`} data-planetary-body={bodyVisible || undefined} data-body-radius={bodyVisible ? .478 * bodyScale : undefined} data-source-cell={tracingSource && showSourceCell ? world.grid : undefined} data-source-focus={tracingSource} data-label-priority={priority} data-world-id={world.id} data-episode-location={highlighted ? world.id : undefined} title={`${world.name} · source grid ${world.grid}${bodyVisible ? ' · Illustrative globe, not to scale' : ''}${highlighted ? ' · Sourced chapter location; no visit order implied' : ''}`} disabled={disabled}
         onFocus={() => { setFocused(true); invalidate() }} onBlur={() => { setFocused(false); invalidate() }}
         onPointerEnter={(e) => { if (e.pointerType !== 'touch') setHovered(true) }} onPointerLeave={() => setHovered(false)}
         onPointerDown={(e) => { drag.current = { x: e.clientX, y: e.clientY, moved: false }; e.currentTarget.setPointerCapture(e.pointerId) }}
@@ -431,7 +454,7 @@ function Scene(props: Props) {
   const { camera, size, invalidate } = useThree()
   const controls = useRef<OrbitControlsImpl>(null)
   const cameraO = camera as THREE.OrthographicCamera
-  const baseZoom = Math.max(12, Math.min(size.width / 29, size.height / 23))
+  const baseZoom = Math.max(12, Math.min(size.width / (size.width < 600 ? 25 : 29), size.height / 23))
   const [limits, setLimits] = useState([baseZoom * .65, baseZoom * 4])
   const animation = useRef<{ started: number; from: THREE.Vector3; to: THREE.Vector3; zoom: number; targetId: string; done: boolean } | null>(null)
   const fitted = useRef({ key: props.fitKey ?? 0, ids: '', active: false });
@@ -492,7 +515,14 @@ function Scene(props: Props) {
     lastCommand.current = command.id
     if (props.phase !== 'idle') return
     fitted.current.active = false
-    if (command.action === 'zoomIn' || command.action === 'zoomOut') {
+    if (command.action === 'inspect') {
+      const world = props.worlds.find(world => world.id === (props.previewId ?? props.selectedId))
+      if (!world) return
+      cameraO.position.set(world.x * 10, world.y * 10, 22)
+      controls.current?.target.set(world.x * 10, world.y * 10, 0)
+      cameraO.zoom = limits[1]
+      cameraO.updateProjectionMatrix()
+    } else if (command.action === 'zoomIn' || command.action === 'zoomOut') {
       cameraO.zoom = THREE.MathUtils.clamp(cameraO.zoom * (command.action === 'zoomIn' ? 1.25 : .8), limits[0], limits[1])
       cameraO.updateProjectionMatrix()
     } else {
@@ -597,13 +627,13 @@ function Scene(props: Props) {
   const preview = props.worlds.find(w => w.id === props.previewId)
   return <>
     <Background quality={props.quality} reducedMotion={props.reducedMotion} gridVisible={props.gridVisible} />
-    <GalacticGeography visible={props.regionsVisible}/>
+    <GalacticGeography visible={props.regionsVisible} immersive={props.presentation === 'immersive'}/>
     <HyperspaceRoutes visible={props.routesVisible}/>
     {props.routesVisible && HYPERSPACE_ROUTE_LABELS.map(label=><Html key={label.id} position={label.position} minZoom={size.width < 600 ? 24 : 0} style={{pointerEvents:'none'}} zIndexRange={[4,1]}><span className="route-map-label">{label.name}</span></Html>)}
     {props.regionsVisible && GALACTIC_REGION_LABELS.map(label=><Html key={label.id} position={label.position} minZoom={size.width < 600 && !['core','outer-rim'].includes(label.id) ? 24 : 0} style={{pointerEvents:'none'}} zIndexRange={[3,1]}><span className="region-map-label" style={{borderLeft:`2px solid ${label.color}`}}>{label.name}</span></Html>)}
     {props.gridVisible && <ReferenceGridLabels/>}
     {from && preview && from.id !== preview.id && (from.x !== preview.x || from.y !== preview.y) && <PreviewConnection from={from} to={preview} />}
-    {props.worlds.map(w => <WorldMarker key={w.id} sharedOffset={markerOffsets.get(w.id)} world={w} showSourceCell={props.gridVisible} highlighted={props.highlightedIds?.has(w.id) ?? false} selected={w.id === props.selectedId} previewed={w.id === props.previewId} disabled={props.phase === 'warping'} onSelect={props.onSelect} />)}
+    {props.worlds.map(w => <WorldMarker key={w.id} immersive={props.presentation === 'immersive'} sharedOffset={markerOffsets.get(w.id)} world={w} showSourceCell={props.gridVisible} highlighted={props.highlightedIds?.has(w.id) ?? false} selected={w.id === props.selectedId} previewed={w.id === props.previewId} disabled={props.phase === 'warping'} onSelect={props.onSelect} />)}
     <LabelDeclutter />
     <ContextGuard onUnavailable={props.onUnavailable} onRecovered={props.onRecovered} />
     <WarpEffect progressRef={warpProgress} active={props.phase === 'warping'} reducedMotion={props.reducedMotion} quality={props.quality} />

@@ -9,3 +9,5 @@ Keep one stable map viewport. Camera/scene transforms own pan and zoom. Distingu
 Check coordinate agreement among main map, minimap, and fallback after projection changes. Avoid hiding all geography behind an opaque travel overlay.
 
 Region silhouettes and five major corridor traces share the image calibration in their source modules. They are approximate geographic overlays, not complete topology or era-specific route availability. The overview uses the same geometry. Story connection lines remain distinct from hyperspace corridors.
+
+Immersive presentation draws all 76 mapped destinations as original procedural globes with exaggerated sizes, over layered star clouds and dust. Reference chart uses the same coordinates and restores stronger region fills. Inspect centers and enlarges the preview without committing arrival; Jump retains the existing warp/Skip/Cancel state machine. Mobile pan arrows have an accessible disclosure. Dense chapter layouts may cull non-story landmark names while retaining their source markers.
