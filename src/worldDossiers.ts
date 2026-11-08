@@ -6,6 +6,7 @@ export type WorldDossier = {
   eyebrow: string;
   overview: DossierFact;
   terrain: DossierFact & { label: string };
+  environmentLabel?: string;
   highlights: DossierHighlight[];
   caveat: string;
 };
@@ -21,8 +22,22 @@ export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
       { id: 'mos-eisley', name: 'Mos Eisley Spaceport', description: 'A busy, lawless port where travelers, traders and smugglers cross paths.', sourceUrl: databank + 'mos-eisley-spaceport' },
       { id: 'mos-espa', name: 'Mos Espa', description: 'Domed buildings shelter a port city from the glare and heat of the twin suns; its arena is built on a much larger scale.', sourceUrl: databank + 'mos-espa' },
       { id: 'jundland-wastes', name: 'Jundland Wastes', description: 'A rocky desert region associated with Tusken clans, distinct from the planet’s spaceport settlements.', sourceUrl: databank + 'jundland-wastes' },
+      { id: 'garsas-sanctuary', name: 'Garsa’s Sanctuary', description: 'A Mos Espa establishment combining live entertainment, gambling and hospitality under Garsa Fwip. This describes its setting during The Book of Boba Fett, not its condition in every era.', sourceUrl: databank + 'garsa-s-sanctuary' },
+      { id: 'boba-fetts-palace', name: 'Boba Fett’s Palace', description: 'After the Empire’s fall, Boba Fett uses the former fortress of Jabba the Hutt as his Tatooine headquarters. Its throne room is a place for receiving guests and tribute.', sourceUrl: databank + 'boba-fett-s-palace' },
     ],
     caveat: 'These are broad setting references, not a surface map or a suggested route between settlements. Political control varies by era.',
+  },
+  'glavis-ringworld': {
+    worldId: 'glavis-ringworld',
+    eyebrow: 'ARTIFICIAL RING · SPACE STATION',
+    environmentLabel: 'STRUCTURE & LIGHT',
+    overview: { text: 'Glavis is an inhabited artificial ring surrounding a small star. Its ribbon-like structure is a space station, rather than the surface of a natural planet.', sourceUrl: databank + 'glavis-ringworld' },
+    terrain: { label: 'Urban habitat around a star', text: 'Sunlight provides a continuous power source for the station. Moving eclipse plates create an artificial night cycle over its sunward face.', sourceUrl: databank + 'glavis-ringworld' },
+    highlights: [
+      { id: 'ring-habitat', name: 'The ring habitat', description: 'The official description identifies an urban artificial structure encircling a small star. The illustration suggests that form without establishing its dimensions or engineering.', sourceUrl: databank + 'glavis-ringworld' },
+      { id: 'eclipse-plates', name: 'Eclipse plates', description: 'Sliding plates on the sunward face interrupt the light to provide an artificial night. Their number, layout and timing are not measured by this atlas.', sourceUrl: databank + 'glavis-ringworld' },
+    ],
+    caveat: 'An artificial station, not a planet. The original ring study is an illustration, not an engineering diagram or a galaxy-map placement. No dimensions, orbital parameters or travel route are inferred.',
   },
   coruscant: {
     worldId: 'coruscant',
@@ -156,6 +171,7 @@ export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
 /** Reviewed broad categories for directory discovery; absence means not reviewed, not unknown geology. */
 export type WorldTerrainCategory = 'desert' | 'urban' | 'ice' | 'wetlands' | 'gas-giant' | 'swamp' | 'forest' | 'tropical' | 'cold-desert' | 'rugged' | 'mineral-rich' | 'volcanic';
 export const WORLD_TERRAIN: Readonly<Record<string, { category: WorldTerrainCategory; label: string; sourceUrl: string }>> = {
+  'glavis-ringworld': { category: 'urban', label: 'Artificial urban habitat', sourceUrl: databank + 'glavis-ringworld' },
   tatooine: { category: 'desert', label: 'Desert', sourceUrl: databank + 'tatooine' },
   coruscant: { category: 'urban', label: 'Urban', sourceUrl: databank + 'coruscant' },
   hoth: { category: 'ice', label: 'Ice', sourceUrl: databank + 'hoth' },

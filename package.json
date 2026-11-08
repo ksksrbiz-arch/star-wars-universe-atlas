@@ -64,7 +64,12 @@
     "test:rogue-one": "node scripts/test-rogue-one.mjs",
     "test:rogue-one-ui": "node scripts/test-rogue-one-ui.mjs",
     "test:map-commands": "node scripts/test-map-commands.mjs",
-    "test:workspace-fallback": "node scripts/test-workspace-fallback.mjs"
+    "test:workspace-fallback": "node scripts/test-workspace-fallback.mjs",
+    "test:boba-fett": "node scripts/test-boba-fett.mjs",
+    "test:atlas-search": "node scripts/test-atlas-search.mjs",
+    "test:station-dossier": "node scripts/test-station-dossier.mjs",
+    "verify:live-publication": "node scripts/verify-live-publication.mjs",
+    "test:boba-bridge": "node scripts/test-boba-bridge-ui.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",

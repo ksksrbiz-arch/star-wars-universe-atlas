@@ -60,18 +60,25 @@ for episode in extension['episodes']:
 rogue_path = ROOT / 'docs/rogue-one-source.json'
 rogue = json.loads(rogue_path.read_text(encoding='utf-8'))
 items.append({'id': rogue['id'], 'title': rogue['title'], 'seriesId': 'rogue-one', 'kind': 'film', 'releaseDate': rogue['releaseDate'], 'runtimeMinutes': None, 'runtimeNote': rogue['runtimeNote'], 'sourceUrl': rogue['sourceUrl']})
+boba_path = ROOT / 'docs/boba-fett-source.json'
+boba = json.loads(boba_path.read_text(encoding='utf-8'))
+assert len(boba['episodes']) == 7
+assert sorted(e['number'] for e in boba['episodes']) == list(range(1, 8))
+for episode in boba['episodes']:
+    assert episode['season'] == 1
+    items.append({'id': f"boba-fett-s01e{episode['number']:02d}", 'title': title(episode['name']), 'seriesId': 'boba-fett', 'kind': 'episode', 'season': 1, 'episode': episode['number'], 'releaseDate': episode['airdate'], 'runtimeMinutes': None, 'runtimeNote': 'Runtime withheld pending independent verification.', 'sourceUrl': episode['url']})
 items.sort(key=lambda item: (item['releaseDate'], item['seriesId'], item.get('season', 0), item.get('episode', 0), item['id']))
-assert len(items) == 194, f'Expected 194 catalog items, got {len(items)}'
+assert len(items) == 201, f'Expected 201 catalog items, got {len(items)}'
 assert len(excluded) == 9, f'Expected 9 specials, got {len(excluded)}'
 assert len({item['id'] for item in items}) == len(items), 'Duplicate catalog IDs'
 
 metadata = {
     'auditDate': '2026-11-07',
-    'scope': 'Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1; Rogue One.',
+    'scope': 'Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1; Rogue One. The Book of Boba Fett season 1.',
     'coreCount': len(items),
-    'regularEpisodeCount': 189,
+    'regularEpisodeCount': 196,
     'originalAuditCohortCount': original_cohort_count,
-    'extensionCollections': [{'seriesId': 'rogue-one', 'count': 1, 'sourceFile': rogue_path.name, 'note': 'Standalone film, separate from the original audit cohort.'}, {'seriesId': 'ahsoka', 'season': 1, 'count': 8, 'sourceFile': extension_path.name, 'note': 'Complete first season only; no season 2 future stubs.'}],
+    'extensionCollections': [{'seriesId': 'rogue-one', 'count': 1, 'sourceFile': rogue_path.name, 'note': 'Standalone film, separate from the original audit cohort.'}, {'seriesId': 'ahsoka', 'season': 1, 'count': 8, 'sourceFile': extension_path.name, 'note': 'Complete first season only; no season 2 future stubs.'}, {'seriesId': 'boba-fett', 'season': 1, 'count': 7, 'sourceFile': boba_path.name, 'note': 'Complete seven-chapter season; narrative order retains flashbacks.'}],
     'filmCount': 5,
     'excludedSpecialCount': len(excluded),
     'chronologySupported': False,
@@ -86,7 +93,7 @@ metadata = {
     },
     'filmDateSupportingSources': {'ot-return-of-the-jedi': 'https://www.starwars.com/news/jedi-at-40-deleted-scenes', 'clone-wars-film': 'https://www.starwars.com/films/star-wars-the-clone-wars'},
     'attribution': [{'provider': 'TVmaze', 'url': 'https://www.tvmaze.com/api', 'license': 'CC BY-SA', 'use': 'Episode titles, dates, numbering, runtime fields and source links; derived catalog fields preserve source attribution.'}, {'provider': 'SWAPI', 'url': 'https://swapi.dev/documentation', 'use': 'Three original-trilogy film titles and provider release dates from audited responses.'}],
-    'sourceFiles': [{'name': p.name, 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()} for p in [episode_path, film_path, extension_path, rogue_path]],
+    'sourceFiles': [{'name': p.name, 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()} for p in [episode_path, film_path, extension_path, rogue_path, boba_path]],
     'excludedSpecials': excluded,
     'mediaNote': 'No summaries, poster URLs, episode images, or provider artwork included.'
 }

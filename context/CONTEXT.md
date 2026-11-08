@@ -1,6 +1,6 @@
 # Context index
 
-Status: deployed platform preview, November 7, 2026. There are 76 schematic map destinations: eight general worlds, 67 direct journey placements, and Endor's parent-system placement. The catalog exposes 194 watchable items: 189 regular episodes and five films across the original trilogy, Andor, The Clone Wars (2008), The Mandalorian, Ahsoka season one, and Rogue One. Nine specials are excluded. Six sourced collection viewing sequences cover all 194 items. Story/location relationships are a partial evidence pass; see [review](../evidence/journey-data-review.md).
+Status: deployed platform preview, November 7, 2026. There are 76 schematic map destinations: eight general worlds, 67 direct journey placements, and Endor's parent-system placement. The catalog exposes 201 watchable items: 196 regular episodes and five films across the original trilogy, Andor, The Clone Wars (2008), The Mandalorian, Ahsoka season one, Rogue One, and The Book of Boba Fett season one. Nine specials are excluded. Seven sourced collection viewing sequences cover all 201 items. Story/location relationships are a partial evidence pass; see [review](../evidence/journey-data-review.md).
 
 ## Workflows
 
@@ -20,7 +20,7 @@ Status: deployed platform preview, November 7, 2026. There are 76 schematic map 
 
 ## Current evidence
 
-Integrated relationships: 291 links, 188 covered titles, 102 distinct locations, and 6 titles without current links. Coverage is partial even for covered titles. The 76 mapped destinations and 102 relationship-location names measure different things; unsupported placements remain textual.
+Integrated relationships: 302 links, 195 covered titles, 104 distinct locations, and 6 titles without current links. Coverage is partial even for covered titles. The 76 mapped destinations and 104 relationship-location names measure different things; unsupported placements remain textual.
 
 Geographic source and schematic projection are documented in the data module. Eight world names/grids were checked against the earlier official-appendix audit; all current entries match. Official Databank pages support the broad setting descriptions, with era/edition limits retained. Hoth and Bespin share cell K-18; Yavin 4 uses the parent-system cell.
 
@@ -32,3 +32,5 @@ Library/release-timeline/watch views and browser-local progress are implemented 
 Ahsoka season one adds eight separately sourced metadata records and 14 episode/world associations. The original 185-item audit remains distinct. Provider dates are preserved; unknown runtimes remain withheld. See `evidence/ahsoka-source-review.md`.
 
 The visual world directory contains 103 unique locations (76 mapped), with original thumbnails and reviewed terrain filters. Thirteen field guides include five Rogue One destination studies. Linked-world exploration has a separate disclosure from title reveal. The earlier geography and appearance reconciliation preserved its existing live publication; see `evidence/reconciled-world-geography.md` and `evidence/live-associations-reconciliation.md`.
+
+The Book of Boba Fett adds seven chapters and eleven partial associations, including historical Mandalore/Coruscant scenes, the unmapped Glavis station, and an unnamed-parent Jedi-school site. See [Boba evidence review](../evidence/boba-fett-source-review.md). No new galaxy coordinates are asserted.

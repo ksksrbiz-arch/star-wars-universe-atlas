@@ -1,0 +1,66 @@
+{
+  "checkedOn": "2026-11-07",
+  "provider": "TVmaze",
+  "license": "CC BY-SA",
+  "apiUrl": "https://api.tvmaze.com/shows/52523/episodes",
+  "officialIndex": "https://www.starwars.com/series/the-book-of-boba-fett",
+  "scope": "Seven regular season-one chapters. Titles and chapter numbering checked against official episode index; provider release dates retained, runtimes withheld.",
+  "episodes": [
+    {
+      "id": 2182677,
+      "name": "Chapter 1: Stranger in a Strange Land",
+      "season": 1,
+      "number": 1,
+      "airdate": "2021-12-29",
+      "url": "https://www.tvmaze.com/episodes/2182677/the-book-of-boba-fett-1x01-chapter-1-stranger-in-a-strange-land"
+    },
+    {
+      "id": 2238551,
+      "name": "Chapter 2: The Tribes of Tatooine",
+      "season": 1,
+      "number": 2,
+      "airdate": "2022-01-05",
+      "url": "https://www.tvmaze.com/episodes/2238551/the-book-of-boba-fett-1x02-chapter-2-the-tribes-of-tatooine"
+    },
+    {
+      "id": 2238552,
+      "name": "Chapter 3: The Streets of Mos Espa",
+      "season": 1,
+      "number": 3,
+      "airdate": "2022-01-12",
+      "url": "https://www.tvmaze.com/episodes/2238552/the-book-of-boba-fett-1x03-chapter-3-the-streets-of-mos-espa"
+    },
+    {
+      "id": 2238553,
+      "name": "Chapter 4: The Gathering Storm",
+      "season": 1,
+      "number": 4,
+      "airdate": "2022-01-19",
+      "url": "https://www.tvmaze.com/episodes/2238553/the-book-of-boba-fett-1x04-chapter-4-the-gathering-storm"
+    },
+    {
+      "id": 2238554,
+      "name": "Chapter 5: Return of the Mandalorian",
+      "season": 1,
+      "number": 5,
+      "airdate": "2022-01-26",
+      "url": "https://www.tvmaze.com/episodes/2238554/the-book-of-boba-fett-1x05-chapter-5-return-of-the-mandalorian"
+    },
+    {
+      "id": 2238555,
+      "name": "Chapter 6: From the Desert Comes a Stranger",
+      "season": 1,
+      "number": 6,
+      "airdate": "2022-02-02",
+      "url": "https://www.tvmaze.com/episodes/2238555/the-book-of-boba-fett-1x06-chapter-6-from-the-desert-comes-a-stranger"
+    },
+    {
+      "id": 2238556,
+      "name": "Chapter 7: In the Name of Honor",
+      "season": 1,
+      "number": 7,
+      "airdate": "2022-02-09",
+      "url": "https://www.tvmaze.com/episodes/2238556/the-book-of-boba-fett-1x07-chapter-7-in-the-name-of-honor"
+    }
+  ]
+}

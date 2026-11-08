@@ -1,12 +1,12 @@
 import assert from 'node:assert/strict';
 import { WORLD_DOSSIERS, WORLD_TERRAIN } from '../src/worldDossiers.ts';
 import { ALL_WORLDS } from '../src/journeyWorlds.ts';
-assert.deepEqual(Object.keys(WORLD_DOSSIERS).sort(), ['bespin','coruscant','dagobah','eadu','endor','hoth','jedha','lahmu','mustafar','naboo','scarif','tatooine','yavin']);
+assert.deepEqual(Object.keys(WORLD_DOSSIERS).sort(), ['bespin','coruscant','dagobah','eadu','endor','glavis-ringworld','hoth','jedha','lahmu','mustafar','naboo','scarif','tatooine','yavin']);
 const mapped = new Set(ALL_WORLDS.map(world=>world.id));
 const sources = new Set();
 for (const [id, dossier] of Object.entries(WORLD_DOSSIERS)) {
   assert.equal(dossier.worldId,id);
-  assert(mapped.has(id) || ['scarif','jedha','eadu','lahmu'].includes(id), 'A textual dossier must not imply a map placement');
+  assert(mapped.has(id) || ['scarif','jedha','eadu','lahmu','glavis-ringworld'].includes(id), 'A textual dossier must not imply a map placement');
   assert(dossier.caveat.length > 50);
   assert(dossier.highlights.length >= 2);
   assert.equal(new Set(dossier.highlights.map(item=>item.id)).size,dossier.highlights.length);
@@ -48,3 +48,7 @@ assert.match(WORLD_DOSSIERS.jedha.caveat,/moon, not a parent planet/);
 assert.match(WORLD_DOSSIERS.lahmu.terrain.text,/contaminated/);
 assert.match(WORLD_DOSSIERS.mustafar.highlights.find(place=>place.id==='vaders-castle').description,/particular historical era/);
 assert.equal(WORLD_DOSSIERS['ring-of-kafrene'],undefined,'No planet dossier invented for an asteroid outpost');
+
+assert.match(WORLD_DOSSIERS['glavis-ringworld'].caveat, /not a planet/);
+assert.equal(WORLD_DOSSIERS['glavis-ringworld'].environmentLabel, 'STRUCTURE & LIGHT');
+assert.equal(WORLD_DOSSIERS.tatooine.highlights.find(place=>place.id==='garsas-sanctuary').sourceUrl, 'https://www.starwars.com/databank/garsa-s-sanctuary');

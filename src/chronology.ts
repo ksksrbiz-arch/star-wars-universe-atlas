@@ -35,6 +35,17 @@ const cloneWarsCodes = `
 
 export const STORY_SEQUENCES: StorySequence[] = [
   {
+    id: 'boba-fett', title: 'The Book of Boba Fett · chapter narrative order',
+    description: 'Follow all seven numbered chapters, keeping Boba’s memories and the Mandalorian interlude in their original presentation.',
+    sourceUrl: 'https://www.starwars.com/series/the-book-of-boba-fett',
+    itemIds: numberedEpisodes('boba-fett', [7]),
+    caveats: [
+      'Whole-episode narrative order, not scene chronology. Flashbacks and visions remain inside their chapters.',
+      'Chapters 5–7 bridge The Mandalorian seasons 2 and 3 while retaining their Book of Boba Fett identity.',
+      'Location coverage is partial. Luke’s school is retained as an unmapped site without an inferred planetary identity.',
+    ],
+  },
+  {
     id: 'rogue-one', title: 'Rogue One · standalone film',
     description: 'The complete film connects Andor with A New Hope in the official viewing guide.',
     sourceUrl: 'https://www.starwars.com/news/star-wars-movies-and-series-guide',
@@ -130,12 +141,9 @@ export const STORY_CONNECTIONS: StoryConnection[] = [
   {
     id: 'mandalorian-boba-fett', sequenceId: 'mandalorian', kind: 'bridge',
     afterItemId: 'mandalorian-s02e08', beforeItemId: 'mandalorian-s03e01',
-    externalTitles: [
-      'The Book of Boba Fett · Chapter 5: Return of the Mandalorian',
-      'The Book of Boba Fett · Chapter 6: From the Desert Comes a Stranger',
-      'The Book of Boba Fett · Chapter 7: In the Name of Honor',
-    ],
-    description: 'These outside-collection episodes provide Din and Grogu’s intervening story before The Mandalorian season 3. They retain their own series identity.',
+    externalTitles: [],
+    includedItemIds: ['boba-fett-s01e05', 'boba-fett-s01e06', 'boba-fett-s01e07'],
+    description: 'These included Book of Boba Fett chapters provide Din and Grogu’s intervening story before The Mandalorian season 3. They retain their own series identity and watched progress; this is not a scene-by-scene chronology.',
     sourceUrl: 'https://www.starwars.com/news/this-is-the-way-the-mandalorian-season-3',
   },
   {

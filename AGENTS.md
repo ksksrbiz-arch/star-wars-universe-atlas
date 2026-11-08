@@ -4,7 +4,7 @@ Read [CLAUDE.md](CLAUDE.md) to select a scoped workflow. Load the relevant contr
 
 ## Non-negotiable rules
 
-- Current bounded scope has 76 map worlds, a 194-item catalog, six whole-work viewing sequences, and partial story/location relationships; it is not the complete movies/shows atlas.
+- Current bounded scope has 76 map worlds, a 201-item catalog, seven whole-work viewing sequences, and partial story/location relationships; it is not the complete movies/shows atlas.
 - Catalog/sequence completeness does not establish appearance completeness. Separate release dates, narrative viewing order and event chronology; preserve runtime, release-type, flashback, mention-only, edition and outside-collection bridge caveats.
 - Unjoined stories have no verified relationship in this atlas; reviewed gaps are recorded separately and do not establish absence of appearances. Broad world labels cannot establish an episode-specific join or character journey.
 - Keep source grid, schematic display coordinates, and illustrative rendering distinct.

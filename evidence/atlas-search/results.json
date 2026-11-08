@@ -1,0 +1,32 @@
+{
+  "browser": "Playwright Chromium software WebGL",
+  "checks": [
+    {
+      "width": 1440,
+      "keyboard": true,
+      "titleAndCollectionSearch": true,
+      "episodeCode": true,
+      "boundedResults": 12,
+      "unmappedIdentity": true,
+      "watchUnchanged": true
+    },
+    {
+      "width": 390,
+      "keyboard": true,
+      "titleAndCollectionSearch": true,
+      "episodeCode": true,
+      "boundedResults": 12,
+      "unmappedIdentity": true,
+      "watchUnchanged": true
+    },
+    {
+      "width": 320,
+      "keyboard": true,
+      "titleAndCollectionSearch": true,
+      "episodeCode": true,
+      "boundedResults": 12,
+      "unmappedIdentity": true,
+      "watchUnchanged": true
+    }
+  ]
+}

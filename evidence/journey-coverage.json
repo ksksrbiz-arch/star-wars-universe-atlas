@@ -1,8 +1,8 @@
 {
   "checkedOn": "2026-11-07",
-  "catalogItems": 194,
-  "relationships": 291,
-  "titlesWithLocationEvidence": 188,
+  "catalogItems": 201,
+  "relationships": 302,
+  "titlesWithLocationEvidence": 195,
   "titlesWithoutLocationEvidence": 6,
   "mapPlacements": 76,
   "referenceTraced": 27,
@@ -31,6 +31,10 @@
     "ahsoka": {
       "catalog": 8,
       "withLocations": 8
+    },
+    "boba-fett": {
+      "catalog": 7,
+      "withLocations": 7
     }
   },
   "unplacedAssociatedWorlds": [
@@ -60,7 +64,9 @@
     "Wobani",
     "Jedha",
     "Eadu",
-    "Scarif"
+    "Scarif",
+    "Glavis Ringworld",
+    "Luke’s Jedi school"
   ],
   "unlinkedTitleIds": [
     "clone-wars-s01e02",

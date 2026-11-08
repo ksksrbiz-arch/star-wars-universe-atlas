@@ -4,6 +4,8 @@ import { CONNECTIONS } from './connections';
 import { CATALOG, SERIES } from './catalog';
 import WorldStories from './WorldStories';
 import ImmersiveDossier from './ImmersiveDossier';
+import LocationDossier from './LocationDossier';
+import { getLocation } from './locations';
 import WorldDirectoryCard, { type DirectoryWorld } from './WorldDirectoryCard';
 import { WORLD_TERRAIN } from './worldDossiers';
 import './world-directory.css';
@@ -52,7 +54,7 @@ export default function WorldDirectory({ watchedIds }: { watchedIds: ReadonlySet
       <button onClick={reset}>Clear directory filters</button>
       <div className="directory-grid">{results.slice(0, limit).map(world => <WorldDirectoryCard key={world.id} world={world} terrain={WORLD_TERRAIN[world.id]} watchedCount={watchedCounts.get(world.id) || 0} selected={selected === world.id} onSelect={() => setSelected(world.id)}/>)}</div>
       {results.length > limit && <button onClick={() => setLimit(limit + 12)}>Show more worlds ({results.length - limit} remaining)</button>}
-      {selection && <div className="directory-stories" aria-live="polite"><h2 ref={storyHeading} tabIndex={-1}>{selection.name}</h2>{!selection.mapped && <p>No supported map position is available. Explore title links below; map travel is unavailable.</p>}<WorldStories key={selection.id} worldId={selection.id} worldName={selection.name} watchedIds={watchedIds}/><ImmersiveDossier worldId={selection.id} worldName={selection.name}/></div>}
+      {selection && <div className="directory-stories" aria-live="polite"><h2 ref={storyHeading} tabIndex={-1}>{selection.name}</h2>{!selection.mapped && <p>No supported map position is available. Explore title links below; map travel is unavailable.</p>}<WorldStories key={selection.id} worldId={selection.id} worldName={selection.name} watchedIds={watchedIds}/>{!selection.mapped && getLocation(selection.id) ? <LocationDossier id={selection.id} reducedMotion={true} showHeading={false}/> : <ImmersiveDossier worldId={selection.id} worldName={selection.name}/>}</div>}
       <p>Thumbnails are original illustrations, not official images or surface maps. Terrain categories cover reviewed worlds only; missing terrain is not inferred.</p>
       <p>Partial appearance coverage. Collection links do not establish complete scene coverage or a character’s route.</p>
     </section>

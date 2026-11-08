@@ -1,3 +1,4 @@
+import AtlasSearch from './AtlasSearch';
 import LocationDossier from './LocationDossier';
 import { getLocation } from './locations';
 import ImmersiveDossier from './ImmersiveDossier';
@@ -97,6 +98,11 @@ export default function App() {
 
   const [previewId, setPreviewId] = useState(readWorld);
 
+  useEffect(() => {
+    if (panelTab !== 'destination') return;
+    for (const panel of document.querySelectorAll<HTMLElement>('.workspace-panel, .workspace-panel-content')) panel.scrollTop = 0;
+  }, [inspectedLocationId, previewId, panelTab]);
+
   const [targetId, setTargetId] = useState<string | null>(null);
 
   const [phase, setPhase] = useState<'idle' | 'warping'>('idle');
@@ -135,7 +141,8 @@ export default function App() {
       const nextView = readView();
       setView(nextView);
       setPanelTab(nextView === 'journey' ? 'story' : 'destination');
-      setInspectedLocationId(null); setSheetExpanded(false);
+      setInspectedLocationId(null);
+      if (view !== 'journey' || nextView !== 'journey') setSheetExpanded(false);
       const id = location.hash.split('/')[1];
       setActiveItemId(CATALOG.some(item => item.id === id) ? id : null);
       if (nextView === 'galaxy') setPreviewId(readWorld());
@@ -291,7 +298,7 @@ export default function App() {
 
       <a className="brand" href="#atlas" aria-label="Galactic Atlas home"><span className="brand-symbol"><Orbit size={25} strokeWidth={1.3}/></span><span>GALACTIC <b>ATLAS</b><small>STAR WARS · AN UNOFFICIAL EXPLORER</small></span></a>
 
-      <div className="header-right"><AtlasAudio phase={phase} currentId={currentId}/><span className="prototype-label"><span/> EXPLORER PREVIEW</span><button className="icon-button info-button" aria-label="About this prototype" aria-expanded={showInfo} onClick={() => setShowInfo(!showInfo)}><Info size={19}/></button></div>
+      <div className="header-right"><AtlasSearch reducedMotion={reducedMotion} onOpen={() => { if (phase === 'warping') cancel(); }} onNavigate={href => { if (phase === 'warping') cancel(); location.hash = href; }}/><AtlasAudio phase={phase} currentId={currentId}/><span className="prototype-label"><span/> EXPLORER PREVIEW</span><button className="icon-button info-button" aria-label="About this prototype" aria-expanded={showInfo} onClick={() => setShowInfo(!showInfo)}><Info size={19}/></button></div>
 
     </motion.header>
 

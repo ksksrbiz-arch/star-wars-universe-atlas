@@ -1,9 +1,9 @@
 {
   "metadata": {
     "auditDate": "2026-11-07",
-    "scope": "Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1; Rogue One.",
-    "coreCount": 194,
-    "regularEpisodeCount": 189,
+    "scope": "Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1; Rogue One. The Book of Boba Fett season 1.",
+    "coreCount": 201,
+    "regularEpisodeCount": 196,
     "originalAuditCohortCount": 185,
     "extensionCollections": [
       {
@@ -18,6 +18,13 @@
         "count": 8,
         "sourceFile": "ahsoka-season-1-source.json",
         "note": "Complete first season only; no season 2 future stubs."
+      },
+      {
+        "seriesId": "boba-fett",
+        "season": 1,
+        "count": 7,
+        "sourceFile": "boba-fett-source.json",
+        "note": "Complete seven-chapter season; narrative order retains flashbacks."
       }
     ],
     "filmCount": 5,
@@ -52,19 +59,23 @@
     "sourceFiles": [
       {
         "name": "episode-coverage.csv",
-        "sha256": "965816b817f19e0fb1293a6fe8dcd8df3cfb6c60afc9a26b6d58df4c0306965c"
+        "sha256": "061bd8b1b777fd149a1f24926c937e710c874406321275d035918e83a5aba6fa"
       },
       {
         "name": "original-trilogy-coverage.csv",
-        "sha256": "eccdf7ab71428e587d69651770ee333100344ea3719c40252bd7e506f9fd361e"
+        "sha256": "cc760fb155d896387337f5beca12e40e53bdba880d7db6d9ac0ca38fa7b3ab19"
       },
       {
         "name": "ahsoka-season-1-source.json",
-        "sha256": "f07393eb7f612cdf64fb013eb0318071a6b45ae629a9855767cd03d8916315e5"
+        "sha256": "d9b74226673ddd3b96c82bb4c9161db67477c4acc930bb17c8934abf8c834dce"
       },
       {
         "name": "rogue-one-source.json",
-        "sha256": "64ab390af48de221a1e95dc2aa106b9648c7187045dfc1afa318031f410bba25"
+        "sha256": "e62250416754d07b032aa237854e0bb150cffde6c2f021ba6cca853b1a02f359"
+      },
+      {
+        "name": "boba-fett-source.json",
+        "sha256": "54bfc3e3f017f1b6e3a35c470b8cf58e707dac143933b424964818b46991e824"
       }
     ],
     "excludedSpecials": [
@@ -1963,6 +1974,90 @@
       "runtimeMinutes": 44,
       "runtimeNote": "Provider runtime; streaming duration and credit treatment not independently verified.",
       "sourceUrl": "https://www.tvmaze.com/episodes/1949636/the-mandalorian-2x08-chapter-16-the-rescue"
+    },
+    {
+      "id": "boba-fett-s01e01",
+      "title": "Chapter 1: Stranger in a Strange Land",
+      "seriesId": "boba-fett",
+      "kind": "episode",
+      "season": 1,
+      "episode": 1,
+      "releaseDate": "2021-12-29",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending independent verification.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2182677/the-book-of-boba-fett-1x01-chapter-1-stranger-in-a-strange-land"
+    },
+    {
+      "id": "boba-fett-s01e02",
+      "title": "Chapter 2: The Tribes of Tatooine",
+      "seriesId": "boba-fett",
+      "kind": "episode",
+      "season": 1,
+      "episode": 2,
+      "releaseDate": "2022-01-05",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending independent verification.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2238551/the-book-of-boba-fett-1x02-chapter-2-the-tribes-of-tatooine"
+    },
+    {
+      "id": "boba-fett-s01e03",
+      "title": "Chapter 3: The Streets of Mos Espa",
+      "seriesId": "boba-fett",
+      "kind": "episode",
+      "season": 1,
+      "episode": 3,
+      "releaseDate": "2022-01-12",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending independent verification.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2238552/the-book-of-boba-fett-1x03-chapter-3-the-streets-of-mos-espa"
+    },
+    {
+      "id": "boba-fett-s01e04",
+      "title": "Chapter 4: The Gathering Storm",
+      "seriesId": "boba-fett",
+      "kind": "episode",
+      "season": 1,
+      "episode": 4,
+      "releaseDate": "2022-01-19",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending independent verification.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2238553/the-book-of-boba-fett-1x04-chapter-4-the-gathering-storm"
+    },
+    {
+      "id": "boba-fett-s01e05",
+      "title": "Chapter 5: Return of the Mandalorian",
+      "seriesId": "boba-fett",
+      "kind": "episode",
+      "season": 1,
+      "episode": 5,
+      "releaseDate": "2022-01-26",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending independent verification.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2238554/the-book-of-boba-fett-1x05-chapter-5-return-of-the-mandalorian"
+    },
+    {
+      "id": "boba-fett-s01e06",
+      "title": "Chapter 6: From the Desert Comes a Stranger",
+      "seriesId": "boba-fett",
+      "kind": "episode",
+      "season": 1,
+      "episode": 6,
+      "releaseDate": "2022-02-02",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending independent verification.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2238555/the-book-of-boba-fett-1x06-chapter-6-from-the-desert-comes-a-stranger"
+    },
+    {
+      "id": "boba-fett-s01e07",
+      "title": "Chapter 7: In the Name of Honor",
+      "seriesId": "boba-fett",
+      "kind": "episode",
+      "season": 1,
+      "episode": 7,
+      "releaseDate": "2022-02-09",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime withheld pending independent verification.",
+      "sourceUrl": "https://www.tvmaze.com/episodes/2238556/the-book-of-boba-fett-1x07-chapter-7-in-the-name-of-honor"
     },
     {
       "id": "andor-s01e01",
