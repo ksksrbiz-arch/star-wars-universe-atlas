@@ -11,3 +11,7 @@ Leader geometry tests pass axes/diagonal/negative offsets/covered-source cases. 
 Publication artifact checks and embedded PostgreSQL fixture/complete-live-baseline transition pass. The separate standalone PostgreSQL integration suite was not run; concurrency and physical-device FPS are not established. Large-chunk build warnings remain. No coordinates are added.
 
 Neon publication succeeded as one transaction; all four public API counts and digests match the reviewed manifest (public-data.json). Final rebuild is identical to the integrated tested build.
+
+## Live deployment verified
+
+Cloudflare build 6e65e595-456a-4e16-b501-30ad30ad81c5 succeeded for application commit 460bcde1cee82be644410c0d26fa7252ca660b42. Live HTML and all five JavaScript/CSS hashes match the integrated tested build (live/assets.json). Live S2 UI and focused guide tests pass at 1440/390/320. Live source-focus/dense-label checks pass all six viewport/font cases (live/source-focus-results.json). All four API digests were rechecked after deployment. Stored sequence readback has 302 items and zero order mismatches. Full 35-guide browser suite passes all three widths.
