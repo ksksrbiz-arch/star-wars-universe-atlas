@@ -16,6 +16,7 @@ export type CatalogItem = {
 };
 
 export const SERIES = [
+  { id: 'pt', title: 'Prequel trilogy', color: '#D8B8F2' },
   { id: 'boba-fett', title: 'The Book of Boba Fett', color: '#D9AE6D' },
   { id: 'rogue-one', title: 'Rogue One', color: '#B9D3B0' },
   { id: 'ot', title: 'Original trilogy', color: '#F2B96B' },

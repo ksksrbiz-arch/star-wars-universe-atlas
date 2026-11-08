@@ -16,3 +16,6 @@
 .world-map-label.is-current{box-shadow:0 2px 12px #0007,inset 0 0 14px #c49a3a12}
 .world-map-label.is-preview:not(.is-current){border-color:#8cddea8a;box-shadow:0 2px 12px #0007,inset 0 0 14px #64cfe818}
 .world-map-label.is-episode:not(.is-current):not(.is-preview){box-shadow:0 2px 12px #0007,inset 0 0 14px #b78be818}
+
+/* Grid badge belongs to the source cell, not a distance or journey estimate. */
+.map-label-grid{font-size:9px;font-weight:500;letter-spacing:.08em;border-left:1px solid currentColor;padding-left:6px;margin-left:2px;opacity:.65}

@@ -1,0 +1,34 @@
+{
+  "browser": "Chromium software WebGL; not physical-device FPS",
+  "results": [
+    {
+      "width": 1440,
+      "quality": "cinematic",
+      "motion": "no-preference",
+      "settledDrawsOver600ms": 0,
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "quality": "balanced",
+      "motion": "reduce",
+      "settledDrawsOver600ms": 0,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "quality": "balanced",
+      "motion": "reduce",
+      "settledDrawsOver600ms": 0,
+      "errors": []
+    },
+    {
+      "width": 320,
+      "quality": "balanced",
+      "motion": "reduce",
+      "settledDrawsOver600ms": 0,
+      "errors": []
+    }
+  ],
+  "warpCancelAndSkip": true
+}

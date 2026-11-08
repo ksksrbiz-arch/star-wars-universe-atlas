@@ -1,12 +1,12 @@
 import assert from 'node:assert/strict';
 import { WORLD_DOSSIERS, WORLD_TERRAIN } from '../src/worldDossiers.ts';
 import { ALL_WORLDS } from '../src/journeyWorlds.ts';
-assert.deepEqual(Object.keys(WORLD_DOSSIERS).sort(), ['bespin','coruscant','dagobah','eadu','endor','glavis-ringworld','hoth','jedha','lahmu','mustafar','naboo','scarif','tatooine','yavin']);
+assert.deepEqual(Object.keys(WORLD_DOSSIERS).sort(), ['bespin','coruscant','dagobah','eadu','endor','glavis-ringworld','hoth','kamino','kashyyyk','jedha','lahmu','mustafar','naboo','scarif','tatooine','utapau','geonosis','yavin'].sort());
 const mapped = new Set(ALL_WORLDS.map(world=>world.id));
 const sources = new Set();
 for (const [id, dossier] of Object.entries(WORLD_DOSSIERS)) {
   assert.equal(dossier.worldId,id);
-  assert(mapped.has(id) || ['scarif','jedha','eadu','lahmu','glavis-ringworld'].includes(id), 'A textual dossier must not imply a map placement');
+  assert(mapped.has(id) || ['scarif','jedha','eadu','lahmu','glavis-ringworld','kamino','kashyyyk','utapau'].includes(id), 'A textual dossier must not imply a map placement');
   assert(dossier.caveat.length > 50);
   assert(dossier.highlights.length >= 2);
   assert.equal(new Set(dossier.highlights.map(item=>item.id)).size,dossier.highlights.length);
@@ -28,7 +28,7 @@ assert.match(WORLD_DOSSIERS.coruscant.caveat,/change across eras/);
 assert.deepEqual(Object.keys(WORLD_TERRAIN).sort(),Object.keys(WORLD_DOSSIERS).sort());
 for(const [id, terrain] of Object.entries(WORLD_TERRAIN)) {
  assert(WORLD_DOSSIERS[id], 'Terrain categories require a reviewed dossier');
- assert(['desert','urban','ice','wetlands','gas-giant','swamp','forest','tropical','cold-desert','rugged','mineral-rich','volcanic'].includes(terrain.category));
+ assert(['desert','urban','ice','wetlands','gas-giant','swamp','forest','tropical','cold-desert','rugged','mineral-rich','volcanic','ocean','sinkholes'].includes(terrain.category));
  assert.equal(new URL(terrain.sourceUrl).hostname,'www.starwars.com');
  assert(terrain.label.length > 2);
 }
@@ -52,3 +52,7 @@ assert.equal(WORLD_DOSSIERS['ring-of-kafrene'],undefined,'No planet dossier inve
 assert.match(WORLD_DOSSIERS['glavis-ringworld'].caveat, /not a planet/);
 assert.equal(WORLD_DOSSIERS['glavis-ringworld'].environmentLabel, 'STRUCTURE & LIGHT');
 assert.equal(WORLD_DOSSIERS.tatooine.highlights.find(place=>place.id==='garsas-sanctuary').sourceUrl, 'https://www.starwars.com/databank/garsa-s-sanctuary');
+
+assert.equal(WORLD_TERRAIN.kamino.category, "ocean");
+assert.equal(WORLD_TERRAIN.utapau.category, "sinkholes");
+assert.match(WORLD_DOSSIERS.geonosis.caveat, /not an orbital model/);

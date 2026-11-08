@@ -35,6 +35,17 @@ const cloneWarsCodes = `
 
 export const STORY_SEQUENCES: StorySequence[] = [
   {
+    id: 'pt', title: 'Prequel trilogy · film narrative order',
+    description: 'Follow Episodes I, II and III as complete films. The Clone Wars television sequence is a separate collection, not interleaved scene by scene.',
+    sourceUrl: 'https://www.starwars.com/news/star-wars-movies-and-series-guide',
+    itemIds: ['pt-phantom-menace', 'pt-attack-of-the-clones', 'pt-revenge-of-the-sith'],
+    caveats: [
+      'Film-level narrative order does not assign exact dates or a continuous character travel route.',
+      'The final Clone Wars arc overlaps Revenge of the Sith. No official scene-interleaving order is asserted.',
+      'Deleted scenes are excluded from appearance evidence for these film records; editions and runtime remain qualified.',
+    ],
+  },
+  {
     id: 'boba-fett', title: 'The Book of Boba Fett · chapter narrative order',
     description: 'Follow all seven numbered chapters, keeping Boba’s memories and the Mandalorian interlude in their original presentation.',
     sourceUrl: 'https://www.starwars.com/series/the-book-of-boba-fett',
@@ -149,7 +160,7 @@ export const STORY_CONNECTIONS: StoryConnection[] = [
   {
     id: 'clone-wars-revenge-of-the-sith', sequenceId: 'clone-wars', kind: 'overlap',
     itemIds: ['clone-wars-s07e09', 'clone-wars-s07e10', 'clone-wars-s07e11', 'clone-wars-s07e12'],
-    externalTitles: ['Star Wars: Revenge of the Sith'],
+    externalTitles: [], includedItemIds: ['pt-revenge-of-the-sith'],
     description: 'The final arc intersects Revenge of the Sith. The official discussion explicitly aligns Shattered with film events; this is an overlap annotation, not an official scene-interleaving watch order.',
     sourceUrl: 'https://www.starwars.com/news/clone-wars-declassified-5-highlights-from-shattered',
   },

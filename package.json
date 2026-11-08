@@ -69,7 +69,12 @@
     "test:atlas-search": "node scripts/test-atlas-search.mjs",
     "test:station-dossier": "node scripts/test-station-dossier.mjs",
     "verify:live-publication": "node scripts/verify-live-publication.mjs",
-    "test:boba-bridge": "node scripts/test-boba-bridge-ui.mjs"
+    "test:boba-bridge": "node scripts/test-boba-bridge-ui.mjs",
+    "test:prequels": "node scripts/test-prequels.mjs",
+    "test:prequel-ui": "node scripts/test-prequel-ui.mjs",
+    "test:prequel-dossiers": "node scripts/test-prequel-dossiers.mjs",
+    "test:prequel-visuals": "node scripts/test-prequel-visuals.mjs",
+    "test:prequel-overlap": "node scripts/test-prequel-overlap.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",

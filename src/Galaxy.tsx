@@ -186,6 +186,25 @@ function LabelDeclutter() {
   return <group name={`map-label-layout-${size.width}-${size.height}`} />
 }
 
+/** Fixed-screen acquisition marks distinguish a committed location from a preview.
+ * Updated only on demanded frames; these are interface marks, not geography. */
+function LocationReticle({ color }: { color: string }) {
+  const group = useRef<THREE.Group>(null)
+  const points = useMemo(() => new Float32Array([
+    -18,-8,0,-18,-18,0, -18,-18,0,-8,-18,0,
+    18,-8,0,18,-18,0, 18,-18,0,8,-18,0,
+    -18,8,0,-18,18,0, -18,18,0,-8,18,0,
+    18,8,0,18,18,0, 18,18,0,8,18,0,
+  ]), [])
+  useFrame(({camera}) => { group.current?.scale.setScalar(1 / (camera as THREE.OrthographicCamera).zoom) })
+  return <group ref={group} position={[0,0,.025]} name="committed-location-reticle">
+    <lineSegments raycast={() => undefined}>
+      <bufferGeometry><bufferAttribute attach="attributes-position" args={[points,3]}/></bufferGeometry>
+      <lineBasicMaterial color={color} transparent opacity={.72} depthWrite={false}/>
+    </lineSegments>
+  </group>
+}
+
 function WorldMarker({ world, highlighted, selected, previewed, disabled, onSelect, sharedOffset }: { sharedOffset?: [number, number]; world: World; highlighted: boolean; selected: boolean; previewed: boolean; disabled: boolean; onSelect: Props['onSelect'] }) {
   const drag = useRef({ x: 0, y: 0, moved: false })
   const { size } = useThree()
@@ -203,6 +222,7 @@ function WorldMarker({ world, highlighted, selected, previewed, disabled, onSele
     <mesh><circleGeometry args={[selected ? .115 : .068, 24]} /><meshBasicMaterial color={color} /></mesh>
     {highlighted && <mesh><ringGeometry args={[.40, .445, 48]} /><meshBasicMaterial color="#c49aff" transparent opacity={.95} depthWrite={false}/></mesh>}
     {selected && <>
+      <LocationReticle color={color}/>
       <mesh><ringGeometry args={[.23, .242, 64]} /><meshBasicMaterial color="#dbad72" transparent opacity={.8} /></mesh>
       <mesh><ringGeometry args={[.33, .338, 64]} /><meshBasicMaterial color="#dbad72" transparent opacity={.24} /></mesh>
     </>}
@@ -214,7 +234,7 @@ function WorldMarker({ world, highlighted, selected, previewed, disabled, onSele
         onPointerCancel={() => { drag.current.moved = true }}
         onClick={(e) => { e.stopPropagation(); if (e.detail === 0 || !drag.current.moved) onSelect(world.id) }} aria-label={`Explore ${world.name}`} aria-pressed={selected}
         style={{ color, cursor: disabled ? 'default' : 'pointer', fontSize: selected || highlighted ? 12 : 11, fontWeight: selected || highlighted ? 600 : 500, padding: '12px 10px', minHeight: 44, transform: `translate(${offset[0]}px, ${offset[1]}px)`, textShadow: '0 2px 8px #000, 0 0 5px #000', letterSpacing: '.035em', whiteSpace: 'nowrap', fontFamily: 'inherit', opacity: disabled ? .35 : 1, transition: 'opacity 180ms' }}>
-        <span className="map-label-symbol" aria-hidden="true">{selected ? '●' : previewed ? '◇' : highlighted ? '◆' : '·'}</span><span>{world.name}</span>
+        <span className="map-label-symbol" aria-hidden="true">{selected ? '●' : previewed ? '◇' : highlighted ? '◆' : '·'}</span><span>{world.name}</span>{(selected || previewed) && <span className="map-label-grid" aria-hidden="true">{world.grid}</span>}
       </button>
     </Html>
   </group>
@@ -382,8 +402,8 @@ function Scene(props: Props) {
     <Background quality={props.quality} reducedMotion={props.reducedMotion} gridVisible={props.gridVisible} />
     <GalacticGeography visible={props.regionsVisible}/>
     <HyperspaceRoutes visible={props.routesVisible}/>
-    {props.routesVisible && HYPERSPACE_ROUTE_LABELS.map(label=><Html key={label.id} position={label.position} style={{pointerEvents:'none'}} zIndexRange={[4,1]}><span className="route-map-label">{label.name}</span></Html>)}
-    {props.regionsVisible && GALACTIC_REGION_LABELS.map(label=><Html key={label.id} position={label.position} style={{pointerEvents:'none'}} zIndexRange={[3,1]}><span className="region-map-label" style={{borderLeft:`2px solid ${label.color}`}}>{label.name}</span></Html>)}
+    {props.routesVisible && HYPERSPACE_ROUTE_LABELS.map(label=><Html key={label.id} position={label.position} minZoom={size.width < 600 ? 24 : 0} style={{pointerEvents:'none'}} zIndexRange={[4,1]}><span className="route-map-label">{label.name}</span></Html>)}
+    {props.regionsVisible && GALACTIC_REGION_LABELS.map(label=><Html key={label.id} position={label.position} minZoom={size.width < 600 && !['core','outer-rim'].includes(label.id) ? 24 : 0} style={{pointerEvents:'none'}} zIndexRange={[3,1]}><span className="region-map-label" style={{borderLeft:`2px solid ${label.color}`}}>{label.name}</span></Html>)}
     {props.gridVisible && <ReferenceGridLabels/>}
     {from && preview && from.id !== preview.id && (from.x !== preview.x || from.y !== preview.y) && <PreviewConnection from={from} to={preview} />}
     {props.worlds.map(w => <WorldMarker key={w.id} sharedOffset={episodeOffsets.get(w.id) ?? (() => {const siblings = props.worlds.filter(other => other.grid === w.grid && (['tatooine','alderaan','yavin','coruscant','hoth','bespin','dagobah','mandalore'].includes(other.id) || other.id === props.selectedId || other.id === props.previewId || props.highlightedIds?.has(other.id))); return siblings.length > 1 && !siblings.every(other => ['hoth','bespin'].includes(other.id)) ? [0, (siblings.findIndex(other => other.id === w.id) - (siblings.length-1)/2)*52] as [number,number] : undefined;})()} world={w} highlighted={props.highlightedIds?.has(w.id) ?? false} selected={w.id === props.selectedId} previewed={w.id === props.previewId} disabled={props.phase === 'warping'} onSelect={props.onSelect} />)}

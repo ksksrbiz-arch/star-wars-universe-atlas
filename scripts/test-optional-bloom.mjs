@@ -8,6 +8,7 @@ try {
   const errors=[];let requests=0;page.on('pageerror',e=>errors.push(e.message));
   await page.route('**/CinematicBloom-*.js',route=>{requests++;return scenario==='failure'?route.abort():route.continue();});
   await page.goto(base+'/#galaxy');await page.getByRole('button',{name:'Explore Hoth',exact:true}).waitFor();await page.waitForTimeout(500);
+  await page.locator('.workspace-settings > summary').click();
   if(['mobile','reduced'].includes(scenario))assert.equal(requests,0,'ineligible scene must not request bloom');
   else {assert.equal(requests,1);await page.getByLabel('Graphics quality').selectOption('balanced');await page.getByLabel('Graphics quality').selectOption('cinematic');await page.waitForTimeout(200);assert.equal(requests,1,'quality switch reuses module');}
   await page.getByLabel('Find a mapped world').selectOption('hoth');assert.equal(await page.locator('canvas').count(),1);assert.deepEqual(errors,[]);await page.close();

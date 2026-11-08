@@ -27,22 +27,28 @@ void main(){
  float disc=exp(-r*2.45)*(1.-smoothstep(.54,1.05,r));
  float lanes=pow(.5+.5*sin(spiral+.42+noise(p*63.)*.6),12.);
  float wisps=fbm(p*48.+vec2(8.,2.));
+ // Fine static filaments thread the broad dust clouds; no time uniform or loop.
+ float filaments=pow(.5+.5*sin(spiral*2.4+wisps*7.),8.);
+ float broken= smoothstep(.22,.73,fbm(p*32.+vec2(21.,4.)));
+ float inner=1.-smoothstep(.12,.48,r);
  float veil=fbm(p*9.+vec2(15.,7.))*exp(-r*r*2.8);
  vec3 c=vec3(.009,.019,.031);
  c+=vec3(.105,.23,.29)*veil*.24;
- c+=vec3(.11,.32,.62)*arms*disc*(.24+grain*.9)*1.08;
+ c+=mix(vec3(.12,.34,.60),vec3(.43,.32,.23),inner*.65)*arms*disc*(.24+grain*.9)*1.12;
+ c+=vec3(.16,.49,.63)*filaments*arms*disc*broken*.48;
  c+=vec3(.12,.52,.65)*rim*disc*(.2+wisps)*.68;
- c*=1.-lanes*disc*.66;
+ c*=1.-lanes*disc*.78;
  // Cool hydrogen clouds and warm star-forming knots: illustrative, not locations.
  float knots=pow(max(0.,wisps-.32)*2.2,3.);
  float clouds=grain*grain;
  c+=vec3(.24,.38,.52)*clouds*arms*disc*.32;
- c+=vec3(.48,.22,.13)*knots*rim*disc*.6;
+ c+=vec3(.58,.20,.22)*knots*rim*disc*.72;
+ c+=vec3(.14,.21,.38)*pow(wisps,3.)*disc*.3;
  float halo=exp(-r*r*5.)*(1.-exp(-r*r*22.));
  c+=vec3(.18,.22,.31)*halo*.08;
  c+=vec3(.18,.26,.32)*exp(-r*r*8.)*.16;
- c+=vec3(.84,.64,.39)*exp(-r*r*95.)*.7;
- c+=vec3(1.45,1.22,.88)*exp(-r*r*650.)*.63;
+ c+=vec3(.88,.58,.29)*exp(-r*r*95.)*.72;
+ c+=vec3(1.2,.94,.61)*exp(-r*r*650.)*.58;
  if(detail>.5) c+=vec3(.32,.43,.47)*pow(noise(p*190.),16.)*disc*.24;
  gl_FragColor=vec4(c,1.);
 }`

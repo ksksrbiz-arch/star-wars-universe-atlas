@@ -6,13 +6,13 @@ const ice = new Set(['hoth','ilum','mygeeto']);
 const city = new Set(['coruscant']);
 const desert = new Set(['tatooine','geonosis','jakku','jedha']);
 const green = new Set(['endor','yavin','naboo','kashyyyk','dagobah','scarif','lahmu']);
-const rocky = new Set(['eadu','mustafar']);
+const rocky = new Set(['eadu','mustafar','utapau']);
 /** Original resolution-independent artwork. Surface motifs are illustrative, not cartography. */
 export default function PlanetPortrait({id,name,color,reducedMotion}: Props) {
  const key=useId().replaceAll(':','');
  const family=ice.has(id)?'ice':city.has(id)?'city':desert.has(id)?'desert':green.has(id)?'verdant':rocky.has(id)?'rocky':'atmosphere';
- const base=family==='ice'?'#c8dce5':family==='city'?'#516478':id==='scarif'?'#5fafa7':id==='eadu'?'#536c80':id==='lahmu'?'#71806a':id==='mustafar'?'#5e3028':color;
- return <figure className={`atlas-portrait surface-${family} ${['tatooine','coruscant','hoth','naboo','scarif','jedha','eadu','lahmu','mustafar','yavin'].includes(id) ? 'portrait-featured' : ''}`} data-motion={reducedMotion?'reduced':'full'}>
+ const base=family==='ice'?'#c8dce5':family==='city'?'#516478':id==='kamino'?'#4d829a':id==='geonosis'?'#b38152':id==='utapau'?'#a69b79':id==='kashyyyk'?'#668970':id==='scarif'?'#5fafa7':id==='eadu'?'#536c80':id==='lahmu'?'#71806a':id==='mustafar'?'#5e3028':color;
+ return <figure className={`atlas-portrait surface-${family} ${['tatooine','coruscant','hoth','naboo','scarif','jedha','eadu','lahmu','mustafar','yavin','kamino','geonosis','utapau','kashyyyk'].includes(id) ? 'portrait-featured' : ''}`} data-motion={reducedMotion?'reduced':'full'}>
   <svg viewBox="0 0 400 320" role="img" aria-label={`Original illustrative portrait of ${name}; not an official surface map`}>
    <defs>
     <radialGradient id={`${key}-base`} cx="30%" cy="25%"><stop stopColor="#fff2d6"/><stop offset=".32" stopColor={base}/><stop offset="1" stopColor="#17232e"/></radialGradient>
@@ -23,6 +23,7 @@ export default function PlanetPortrait({id,name,color,reducedMotion}: Props) {
    </defs>
    <circle cx="200" cy="145" r="146" fill={`url(#${key}-halo)`}/>
    <g fill="none" stroke="#9dbcc5" strokeOpacity=".22"><ellipse cx="200" cy="145" rx="173" ry="52" transform="rotate(-24 200 145)"/><path d="M28 145H68M332 145H372M200 12V30M200 260V278"/></g>
+   {id==='geonosis'&&<g transform="rotate(-22 200 145)" fill="none"><ellipse cx="200" cy="145" rx="160" ry="41" stroke="#bd9975" strokeWidth="11" opacity=".38"/><ellipse cx="200" cy="145" rx="174" ry="46" stroke="#b89066" strokeWidth="2" opacity=".35"/></g>}
    <g className="portrait-disc">
     <circle cx="200" cy="145" r="101" fill={base} opacity=".3"/>
     <circle cx="200" cy="145" r="100" fill={`url(#${key}-base)`}/>
@@ -32,6 +33,10 @@ export default function PlanetPortrait({id,name,color,reducedMotion}: Props) {
       {family==='verdant'&&<path d="M145 52l35 22 8 38-24 16 12 31-31 22-20-38-22-18 9-42zM231 175l38-12 24 28-12 35-33 8-21-27z" fill="#344e35" opacity=".65"/>}
       {family==='ice'&&<path d="M117 170l36-26 22 9 28-42 39 28 40-19M153 144l-10-30 13-19M204 113l-7-34" fill="none" stroke="#769ead" strokeWidth="2" opacity=".55"/>}
      </>}
+     {id==='kamino'&&<g><path d="M94 103q48-33 98-7t111-8M93 150q55-24 102-3t111-16M109 190q56-28 107-9t75-9" fill="none" stroke="#d1e5e8" strokeWidth="15" opacity=".32"/><path d="M103 118q47-23 88-4t106-6M108 164q52-20 105-1" fill="none" stroke="#ecf4f1" strokeWidth="3" opacity=".42"/><path d="M120 85q57-18 117 3M127 206q48-13 99-3" fill="none" stroke="#153c59" strokeWidth="9" opacity=".3"/></g>}
+     {id==='geonosis'&&<g fill="none" stroke="#e6bf8e" opacity=".5"><path d="M113 108l27-28 18 23 16-15 22 31 17-14 30 20 28-14M111 165l29-32 22 26 19-14 19 27 23-20 31 24 31-16" strokeWidth="3"/><path d="M140 80l-8 40m42-32-7 40m56 24 9 36" strokeWidth="1.2"/></g>}
+     {id==='utapau'&&<g>{[[144,97,22],[214,83,13],[190,145,29],[250,168,17],[142,191,19],[221,218,12]].map(([x,y,r],i)=><g key={i}><ellipse cx={x} cy={y} rx={r} ry={r*.6} fill="#37423d" opacity=".72"/><ellipse cx={x} cy={y} rx={r+3} ry={r*.6+3} fill="none" stroke="#e0cba1" strokeWidth="2" opacity=".5"/><path d={`M${x-r*.6} ${y+2}q${r*.6} ${r*.4} ${r*1.2} 0`} fill="none" stroke="#83a5a1" opacity=".4"/></g>)}</g>}
+     {id==='kashyyyk'&&<g>{Array.from({length:28},(_,i)=><ellipse key={i} cx={110+(i*31)%173} cy={62+(i*43)%165} rx={9+i%4*3} ry={7+i%3*4} fill={i%3?'#244c39':'#8ba67a'} opacity={i%3?'.4':'.35'}/>)}<path d="M105 129q28-22 49 0t35 8M224 183q33-18 61-8" fill="none" stroke="#7ca7b3" strokeWidth="5" opacity=".42"/></g>}
      {id==='tatooine'&&<g fill="none" stroke="#f4d5a0" opacity=".3"><path d="M111 115q35-42 83-19t95-13M102 145q30-29 76-8t120-10M111 192q62-35 113-4t61-12" strokeWidth="2"/>{[0,1,2,3,4].map(i=><ellipse key={i} cx={135+i*24} cy={95+(i%3)*38} rx={7+i%2*4} ry="4" strokeWidth="1.5"/>)}</g>}
      {id==='hoth'&&<g><path d="M103 100q29-30 67-21l29-21 39 20 40 1 24 36-46-11-33 16-28-15-35 14-39-4z" fill="#edfaff" opacity=".38"/><path d="M104 180l31-19 26 7 21-22 23 9 19-17 24 17 36-2M126 199l20-20 33 12 19-8 31 19 27-17" fill="none" stroke="#517f99" strokeWidth="1.4" opacity=".55"/><path d="M119 135q46-14 88-5t80 12" fill="none" stroke="#effaff" strokeWidth="8" opacity=".2"/></g>}
      {id==='coruscant'&&<g fill="none" stroke="#f4d39a" opacity=".48"><ellipse cx="174" cy="129" rx="48" ry="24" transform="rotate(-25 174 129)"/><ellipse cx="174" cy="129" rx="72" ry="41" transform="rotate(-25 174 129)"/>{Array.from({length:18},(_,i)=><circle key={i} cx={116+(i*37)%160} cy={68+(i*29)%145} r={i%4===0?1.8:.8} fill="#ffe5ae" stroke="none"/>)}</g>}
@@ -46,6 +51,7 @@ export default function PlanetPortrait({id,name,color,reducedMotion}: Props) {
     </g>
     <circle cx="200" cy="145" r="100" fill="none" stroke="#d9f2fb" strokeOpacity=".22"/>
    </g>
+   {id==='geonosis'&&<g transform="rotate(-22 200 145)" fill="none"><path d="M40 145a160 41 0 0 0 320 0" stroke="#bd9975" strokeWidth="11" opacity=".52"/><path d="M26 145a174 46 0 0 0 348 0" stroke="#dac09b" strokeWidth="2" opacity=".36"/></g>}
    <g fill="#bbdbe5"><circle cx="50" cy="76" r="1.4"/><circle cx="334" cy="210" r="1"/><circle cx="310" cy="42" r="1.2"/></g>
   </svg>
   <figcaption><span>ORIGINAL PLANET STUDY</span><span>Illustrative · not surface geography</span></figcaption>

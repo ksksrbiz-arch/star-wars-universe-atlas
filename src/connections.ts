@@ -1,3 +1,4 @@
+import { PREQUEL_CONNECTIONS } from './connectionsPrequels.ts';
 import { BOBA_FETT_CONNECTIONS } from './connectionsBobaFett.ts';
 import type { LocationKind } from './locations.ts';
 import { ROGUE_ONE_CONNECTIONS } from './connectionsRogueOne.ts';
@@ -138,7 +139,7 @@ const additional: [string, string, string, string, string][] = [
 CONNECTIONS.push(...additional.map(record => connection(...record)));
 CONNECTIONS.push(...CLONE_WARS_CONNECTIONS);
 CONNECTIONS.push(...LIVE_ACTION_EXPANSION, ...CLONE_WARS_EXPANSION, ...NEXT_CONNECTIONS);
-CONNECTIONS.push(...AHSOKA_CONNECTIONS, ...ROGUE_ONE_CONNECTIONS, ...BOBA_FETT_CONNECTIONS);
+CONNECTIONS.push(...AHSOKA_CONNECTIONS, ...ROGUE_ONE_CONNECTIONS, ...BOBA_FETT_CONNECTIONS, ...PREQUEL_CONNECTIONS);
 
 export const CONNECTION_COVERAGE = {
   checkedOn: '2026-11-07',

@@ -13,6 +13,46 @@ export type WorldDossier = {
 
 const databank = 'https://www.starwars.com/databank/';
 export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
+  kamino: {
+    worldId: 'kamino', eyebrow: 'OCEAN WORLD · STORMS AND STILTS',
+    overview: { text: 'Kamino is an ocean-covered world where storm clouds surround isolated cities raised above the water on enormous supports.', sourceUrl: databank + 'kamino' },
+    terrain: { label: 'Open ocean and storm systems', text: 'Oceans dominate the surface. The portrait uses sweeping cloud bands and dark water to suggest the environment; cloud shapes are not measured geography.', sourceUrl: databank + 'kamino' },
+    highlights: [
+      { id: 'tipoca-city', name: 'Tipoca City', description: 'During the Republic era, Tipoca City combines the planetary government with major cloning facilities. Its status changes after the Republic falls.', sourceUrl: databank + 'tipoca-city' },
+      { id: 'stilt-cities', name: 'Cities above the ocean', description: 'Kaminoan settlements stand on massive supports above the sea. No city locations, ocean depths or structural dimensions are inferred here.', sourceUrl: databank + 'kamino' },
+    ],
+    caveat: 'This is a broad environmental file, not a map of the oceans or facilities. The state of the cities changes by era; no galaxy coordinate is inferred from their existence.',
+  },
+  geonosis: {
+    worldId: 'geonosis', eyebrow: 'RINGED WORLD · ROCK AND HIVES',
+    overview: { text: 'Geonosis is a ringed, rocky desert world. Its native Geonosians construct tall hive spires and major industrial facilities.', sourceUrl: databank + 'geonosis' },
+    terrain: { label: 'Rocky desert and hive spires', text: 'Harsh rock and desert surround the Geonosian hives. The ring and eroded surface motifs are original illustrations, not measured orbital or geological features.', sourceUrl: databank + 'geonosis' },
+    highlights: [
+      { id: 'spire-hives', name: 'Spire hives', description: 'The Geonosians inhabit towering hive structures adapted to this severe environment. The portrait does not plot individual hives.', sourceUrl: databank + 'geonosis' },
+      { id: 'droid-factories', name: 'Underground droid factories', description: 'Some caverns beneath the hives were converted into automated factories producing droids, vehicles and weapons for the Separatists.', sourceUrl: databank + 'geonosis-droid-factory' },
+    ],
+    caveat: 'Industrial activity and habitation are era-specific. The illustrated ring is not an orbital model, and this file does not establish a route to another world.',
+  },
+  utapau: {
+    worldId: 'utapau', eyebrow: 'SINKHOLE WORLD · CITIES BELOW',
+    overview: { text: 'Utapau has a dry, windswept surface punctuated by immense sinkholes. Water gathers deep beneath the exposed ground.', sourceUrl: databank + 'utapau' },
+    terrain: { label: 'Dry plains and deep sinkholes', text: 'The porous crust contains caves and crevices, while pools at the bottoms of sinkholes sustain life. Their depths and positions are not mapped here.', sourceUrl: databank + 'utapau' },
+    highlights: [
+      { id: 'sinkhole-cities', name: 'Sinkhole cities', description: 'Intricate settlements line sinkholes and extend into the surrounding rock. The circular portrait motifs suggest this habitat without locating any specific city.', sourceUrl: databank + 'utapau' },
+      { id: 'mineral-workings', name: 'Mineral workings', description: 'Mining operations reach into the planetary crust to obtain valuable minerals, sharing the subterranean environment with settlements.', sourceUrl: databank + 'utapau' },
+    ],
+    caveat: 'This illustration is not a topographic survey: sinkhole counts, city positions, depths, distances and the relative placement of settlements remain unspecified.',
+  },
+  kashyyyk: {
+    worldId: 'kashyyyk', eyebrow: 'FOREST WORLD · CANOPY AND COAST',
+    overview: { text: 'Kashyyyk is the forested Wookiee homeworld. Tree-built settlements incorporate sophisticated technology within the wooded landscape.', sourceUrl: databank + 'kashyyyk' },
+    terrain: { label: 'Forests, oceans and swamps', text: 'Dense forests coexist with ocean and swamp environments. The original canopy patterns are atmospheric motifs rather than mapped forest boundaries.', sourceUrl: databank + 'kashyyyk' },
+    highlights: [
+      { id: 'kachirho', name: 'Kachirho', description: 'Kachirho is a coastal Wookiee city. Its shoreline setting distinguishes it from many other settlements on the planet.', sourceUrl: databank + 'kachirho' },
+      { id: 'arboreal-settlements', name: 'Tree-built settlements', description: 'Wookiee homes occupy the trees, combining their forest setting with advanced construction and technology. No individual settlement is positioned here.', sourceUrl: databank + 'kashyyyk' },
+    ],
+    caveat: 'This dossier describes broad habitats and settlement forms. Wartime and later political conditions vary; neither coastline nor canopy artwork establishes surface coordinates.',
+  },
   tatooine: {
     worldId: 'tatooine',
     eyebrow: 'DESERT WORLD · TWIN SUNS',
@@ -169,8 +209,12 @@ export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
 };
 
 /** Reviewed broad categories for directory discovery; absence means not reviewed, not unknown geology. */
-export type WorldTerrainCategory = 'desert' | 'urban' | 'ice' | 'wetlands' | 'gas-giant' | 'swamp' | 'forest' | 'tropical' | 'cold-desert' | 'rugged' | 'mineral-rich' | 'volcanic';
+export type WorldTerrainCategory = 'desert' | 'urban' | 'ice' | 'wetlands' | 'gas-giant' | 'swamp' | 'forest' | 'tropical' | 'cold-desert' | 'rugged' | 'mineral-rich' | 'volcanic' | 'ocean' | 'sinkholes';
 export const WORLD_TERRAIN: Readonly<Record<string, { category: WorldTerrainCategory; label: string; sourceUrl: string }>> = {
+  kamino: { category: 'ocean', label: 'Ocean and storms', sourceUrl: databank + 'kamino' },
+  geonosis: { category: 'desert', label: 'Rocky desert', sourceUrl: databank + 'geonosis' },
+  utapau: { category: 'sinkholes', label: 'Sinkholes and dry plains', sourceUrl: databank + 'utapau' },
+  kashyyyk: { category: 'forest', label: 'Forest', sourceUrl: databank + 'kashyyyk' },
   'glavis-ringworld': { category: 'urban', label: 'Artificial urban habitat', sourceUrl: databank + 'glavis-ringworld' },
   tatooine: { category: 'desert', label: 'Desert', sourceUrl: databank + 'tatooine' },
   coruscant: { category: 'urban', label: 'Urban', sourceUrl: databank + 'coruscant' },

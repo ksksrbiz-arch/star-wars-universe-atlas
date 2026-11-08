@@ -1,14 +1,18 @@
 {
   "checkedOn": "2026-11-07",
-  "catalogItems": 201,
-  "relationships": 302,
-  "titlesWithLocationEvidence": 195,
+  "catalogItems": 204,
+  "relationships": 322,
+  "titlesWithLocationEvidence": 198,
   "titlesWithoutLocationEvidence": 6,
   "mapPlacements": 76,
   "referenceTraced": 27,
   "cellCentered": 49,
   "bySeries": {
     "ot": {
+      "catalog": 3,
+      "withLocations": 3
+    },
+    "pt": {
       "catalog": 3,
       "withLocations": 3
     },
@@ -24,6 +28,10 @@
       "catalog": 24,
       "withLocations": 22
     },
+    "boba-fett": {
+      "catalog": 7,
+      "withLocations": 7
+    },
     "andor": {
       "catalog": 24,
       "withLocations": 24
@@ -31,10 +39,6 @@
     "ahsoka": {
       "catalog": 8,
       "withLocations": 8
-    },
-    "boba-fett": {
-      "catalog": 7,
-      "withLocations": 7
     }
   },
   "unplacedAssociatedWorlds": [
@@ -66,7 +70,11 @@
     "Eadu",
     "Scarif",
     "Glavis Ringworld",
-    "Luke’s Jedi school"
+    "Luke’s Jedi school",
+    "Kashyyyk",
+    "Utapau",
+    "Mygeeto",
+    "Polis Massa"
   ],
   "unlinkedTitleIds": [
     "clone-wars-s01e02",

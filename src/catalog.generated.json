@@ -1,11 +1,17 @@
 {
   "metadata": {
     "auditDate": "2026-11-07",
-    "scope": "Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1; Rogue One. The Book of Boba Fett season 1.",
-    "coreCount": 201,
+    "scope": "Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1; Rogue One; The Book of Boba Fett season 1; prequel trilogy.",
+    "coreCount": 204,
     "regularEpisodeCount": 196,
     "originalAuditCohortCount": 185,
     "extensionCollections": [
+      {
+        "seriesId": "pt",
+        "count": 3,
+        "sourceFile": "prequel-trilogy-source.json",
+        "note": "Three separately sourced prequel films; no edition-specific runtime claims."
+      },
       {
         "seriesId": "rogue-one",
         "count": 1,
@@ -27,12 +33,15 @@
         "note": "Complete seven-chapter season; narrative order retains flashbacks."
       }
     ],
-    "filmCount": 5,
+    "filmCount": 8,
     "excludedSpecialCount": 9,
     "chronologySupported": false,
     "chronologyNote": "Catalog release dates are not story chronology. Official Clone Wars relative order was audited separately but is not imported here. No storyOrder values are inferred.",
     "episodeReleaseDateNote": "TVmaze airdate field retained as reported; territorial release times are not normalized.",
     "filmReleaseDateNotes": {
+      "pt-phantom-menace": "1999-05-19 from the official film landing page; territory and release type not explicitly specified.",
+      "pt-attack-of-the-clones": "2002-05-16 from the official film landing page; territory and release type not explicitly specified.",
+      "pt-revenge-of-the-sith": "2005-05-19 from the official film landing page; territory and release type not explicitly specified.",
       "rogue-one": "2016-12-16 from the official film landing page; territory and release type not explicitly specified.",
       "ot-a-new-hope": "SWAPI provider release date retained; no territory or release-type field was supplied.",
       "ot-empire-strikes-back": "SWAPI 1980-05-17 retained as provider-reported date. Premiere versus theatrical release and territory remain unresolved; not a definitive worldwide release date.",
@@ -76,6 +85,10 @@
       {
         "name": "boba-fett-source.json",
         "sha256": "54bfc3e3f017f1b6e3a35c470b8cf58e707dac143933b424964818b46991e824"
+      },
+      {
+        "name": "prequel-trilogy-source.json",
+        "sha256": "83cb0fa82c986f08faed33599020cd6331e0fb85d46186b6610ba34b09f717a4"
       }
     ],
     "excludedSpecials": [
@@ -166,6 +179,36 @@
       "runtimeMinutes": null,
       "runtimeNote": "Runtime omitted pending edition-specific verification.",
       "sourceUrl": "https://swapi.dev/api/films/3/"
+    },
+    {
+      "id": "pt-phantom-menace",
+      "title": "Star Wars: The Phantom Menace",
+      "seriesId": "pt",
+      "kind": "film",
+      "releaseDate": "1999-05-19",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime omitted pending edition-specific verification.",
+      "sourceUrl": "https://www.starwars.com/films/star-wars-episode-i-the-phantom-menace"
+    },
+    {
+      "id": "pt-attack-of-the-clones",
+      "title": "Star Wars: Attack of the Clones",
+      "seriesId": "pt",
+      "kind": "film",
+      "releaseDate": "2002-05-16",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime omitted pending edition-specific verification.",
+      "sourceUrl": "https://www.starwars.com/films/star-wars-episode-ii-attack-of-the-clones"
+    },
+    {
+      "id": "pt-revenge-of-the-sith",
+      "title": "Star Wars: Revenge of the Sith",
+      "seriesId": "pt",
+      "kind": "film",
+      "releaseDate": "2005-05-19",
+      "runtimeMinutes": null,
+      "runtimeNote": "Runtime omitted pending edition-specific verification.",
+      "sourceUrl": "https://www.starwars.com/films/star-wars-episode-iii-revenge-of-the-sith"
     },
     {
       "id": "clone-wars-film",
