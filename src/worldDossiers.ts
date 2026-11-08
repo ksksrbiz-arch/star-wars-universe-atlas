@@ -13,6 +13,16 @@ export type WorldDossier = {
 
 const databank = 'https://www.starwars.com/databank/';
 export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
+  mandalore: {
+    worldId: 'mandalore', eyebrow: 'WARRIOR WORLD · DESERT AND DOMED CITY',
+    overview: { text: 'Mandalore is a world of clans and a long warrior tradition. War has reshaped its surface, leaving inhospitable desert around urban settlements.', sourceUrl: databank + 'mandalore' },
+    terrain: { label: 'Desert and urban settlements', text: 'The broad setting combines barren terrain and built environments. The original dome motif suggests this contrast without reproducing a city plan or a particular historical skyline.', sourceUrl: databank + 'mandalore' },
+    highlights: [
+      { id: 'sundari', name: 'Sundari', description: 'The domed capital stands in the desert of a formerly green world. Its occupants and physical condition change across eras; the motif is not a reconstruction of the capital.', sourceUrl: databank + 'sundari' },
+      { id: 'war-shaped-landscape', name: 'A landscape changed by war', description: 'Warfare damaged Mandalore’s surface long before its Imperial occupation. This broad environmental history does not fix every settlement in the same condition.', sourceUrl: databank + 'mandalore' },
+    ],
+    caveat: 'Mandalore is distinct from Krownest and the moons of Concord Dawn. Leadership, occupation and city condition are era-dependent; this guide does not imply that every listed locality appears in a particular episode.',
+  },
   dathomir: {
     worldId: 'dathomir', eyebrow: 'RED-LIT WORLD · FORESTS AND SWAMPS',
     overview: { text: 'Dathomir receives red light from its star. Twisted forests and dense swamps surround stone strongholds associated with the Nightsisters.', sourceUrl: databank + 'dathomir' },
@@ -79,6 +89,8 @@ export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
     terrain: { label: 'Temperate plains and farmland', text: 'Grasslands and agricultural land surround built settlements. The original patchwork illustration suggests these broad contrasts without tracing fields or roads.', sourceUrl: databank + 'lothal' },
     highlights: [
       { id: 'farmland', name: 'Farmland and grasslands', description: 'Imperial mines and factories encroach on Lothal’s agricultural landscape. This describes a period of occupation, not an unchanging condition.', sourceUrl: databank + 'lothal' },
+      { id: 'loth-wolf-tradition', name: 'Loth-wolf cave paintings', description: 'Ancient cave paintings depict giant loth-wolves. The official entry emphasizes how little is known about them; this guide infers no population, range or reliable encounter site.', sourceUrl: databank + 'loth-wolf' },
+      { id: 'jedi-temple', name: 'Lothal Jedi Temple', description: 'An ancient temple lies hidden within the surface amid a landscape described with canyons and mountains. Its condition changes over time; entrances and later events are not mapped here.', sourceUrl: databank + 'lothal-jedi-temple' },
       { id: 'transmitter-tower', name: 'Transmitter tower', description: 'A lookout outside the capital once serves as Ezra Bridger’s home. Its occupants and uses change over time; no distance from the city is assigned here.', sourceUrl: databank + 'lothal-transmitter-tower' },
     ],
     caveat: 'The illustrated field patterns are decorative, not surveyed farmland or travel routes. Industry, ownership and the tower’s occupants vary by era; this dossier establishes no episode appearance.',
@@ -241,7 +253,7 @@ export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
     overview: { text: 'Yavin 4 is a jungle-covered moon orbiting the gas giant Yavin. Its forests and local wildlife surround a setting used by Rebel cells and, later, a larger base.', sourceUrl: databank + 'yavin-4' },
     terrain: { label: 'Jungle and forest', text: 'Steamy jungle and forest cover this moon. Its flora and fauna shape a landscape with relatively little settlement.', sourceUrl: databank + 'yavin-4' },
     highlights: [
-      { id: 'rebel-base', name: 'The Rebel base', description: 'Rebel cells used the moon as a stopover before a larger base developed there. The base is a wartime installation rather than a permanent description of every era.', sourceUrl: databank + 'yavin-4' },
+      { id: 'rebel-base', name: 'Base One', description: 'After leaving Dantooine, Alliance High Command used stone temples on Yavin 4 as hangars, barracks and a command center. This wartime use does not describe the site in every era.', sourceUrl: databank + 'base-one' },
       { id: 'doodar-habitat', name: 'Native wildlife', description: 'The tusked, reptilian doodar is indigenous to Yavin 4. Its territorial behavior and low rumbling call are part of the moon’s living environment.', sourceUrl: databank + 'yavinian-doodar' },
     ],
     caveat: 'Yavin 4 is the moon, not the gas giant Yavin. Its galaxy-map marker uses the parent system’s published grid; this dossier supplies no independent moon or surface coordinates.',
@@ -312,6 +324,7 @@ export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
 /** Reviewed broad categories for directory discovery; absence means not reviewed, not unknown geology. */
 export type WorldTerrainCategory = 'desert' | 'urban' | 'ice' | 'wetlands' | 'gas-giant' | 'swamp' | 'forest' | 'tropical' | 'cold-desert' | 'rugged' | 'mineral-rich' | 'volcanic' | 'ocean' | 'sinkholes' | 'plains' | 'caverns' | 'asteroid';
 export const WORLD_TERRAIN: Readonly<Record<string, { category: WorldTerrainCategory; label: string; sourceUrl: string }>> = {
+  mandalore: { category: 'desert', label: 'Desert and urban settlements', sourceUrl: databank + 'mandalore' },
   dathomir: { category: 'forest', label: 'Forests and swamps', sourceUrl: databank + 'dathomir' },
   ryloth: { category: 'rugged', label: 'Mesas, valleys and jungle', sourceUrl: databank + 'ryloth' },
   krownest: { category: 'ice', label: 'Snow and mountains', sourceUrl: databank + 'krownest' },

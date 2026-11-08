@@ -23,7 +23,9 @@ try {
    await page.waitForFunction(expected=>document.querySelector('.journey-item-meta')?.textContent?.endsWith('EPISODES '+expected),range.replace(/^S03E/,'').replace(/0(?=\d)/g,''));
    assert.equal(await page.locator('.journey-stop').count(),0);
   }
-  assert.equal(await page.getByRole('button',{name:'Next story chapter',exact:true}).isDisabled(),true);
+  assert.equal(await page.getByRole('button',{name:'Next story chapter',exact:true}).isDisabled(),false);
+  await page.getByRole('button',{name:'Next story chapter',exact:true}).click();
+  await page.waitForURL('**/#journey/rebels-s04e01');
   await page.goto(base+'/#journey/rebels-s03e12');await expand();
   await page.getByRole('button',{name:'Reveal locations for this title',exact:true}).click();
   const ghostLinks=CONNECTIONS.filter(row=>row.itemId==='rebels-s03e12');

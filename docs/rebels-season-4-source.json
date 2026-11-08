@@ -1,0 +1,396 @@
+{
+  "checkedOn": "2026-11-07",
+  "api": "https://api.tvmaze.com/shows/117/episodes?specials=1",
+  "provider": "TVmaze",
+  "license": "CC BY-SA",
+  "numberingNote": "13 watch records cover 15 official Disney+ numbered slots. Heroes of Mandalore (1–2) and In the Name of the Rebellion (3–4) share records matching official galleries. Finale remains slot 15, not invented 15–16; numbered slots are not a claim about narrative segments or broadcast length. Both provider URLs retained for combined pairs. Provider dates retained with regional-release caveat; title encoding repaired for finale.",
+  "officialIndex": "https://www.starwars.com/series/star-wars-rebels",
+  "officialNumberingSource": "https://www.disneyplus.com/browse/entity-08249c74-0178-4861-a1e4-dfc7b168dce5",
+  "episodes": [
+    {
+      "id": "rebels-s04e01",
+      "name": "Heroes of Mandalore",
+      "season": 4,
+      "number": 1,
+      "providerNumber": 1,
+      "airdate": "2017-10-15",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1154277/star-wars-rebels-4x01-heroes-of-mandalore-part-1",
+      "note": "Combined official numbered slots 1–2 share one watch record and official gallery. Provider date retained; runtime withheld.",
+      "episodeEnd": 2,
+      "providerUrls": [
+        "https://www.tvmaze.com/episodes/1154277/star-wars-rebels-4x01-heroes-of-mandalore-part-1",
+        "https://www.tvmaze.com/episodes/1315102/star-wars-rebels-4x02-heroes-of-mandalore-part-2"
+      ]
+    },
+    {
+      "id": "rebels-s04e03",
+      "name": "In the Name of the Rebellion",
+      "season": 4,
+      "number": 3,
+      "providerNumber": 3,
+      "airdate": "2017-10-22",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1315103/star-wars-rebels-4x03-in-the-name-of-the-rebellion-part-1",
+      "note": "Combined official numbered slots 3–4 share one watch record and official gallery. Provider date retained; runtime withheld.",
+      "episodeEnd": 4,
+      "providerUrls": [
+        "https://www.tvmaze.com/episodes/1315103/star-wars-rebels-4x03-in-the-name-of-the-rebellion-part-1",
+        "https://www.tvmaze.com/episodes/1315105/star-wars-rebels-4x04-in-the-name-of-the-rebellion-part-2"
+      ]
+    },
+    {
+      "id": "rebels-s04e05",
+      "name": "The Occupation",
+      "season": 4,
+      "number": 5,
+      "providerNumber": 5,
+      "airdate": "2017-10-29",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1315106/star-wars-rebels-4x05-the-occupation",
+      "note": "Provider release date retained; regional release timing may differ. Runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s04e06",
+      "name": "Flight of the Defender",
+      "season": 4,
+      "number": 6,
+      "providerNumber": 6,
+      "airdate": "2017-10-29",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1315107/star-wars-rebels-4x06-flight-of-the-defender",
+      "note": "Provider release date retained; regional release timing may differ. Runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s04e07",
+      "name": "Kindred",
+      "season": 4,
+      "number": 7,
+      "providerNumber": 7,
+      "airdate": "2017-11-06",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1315108/star-wars-rebels-4x07-kindred",
+      "note": "Provider release date retained; regional release timing may differ. Runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s04e08",
+      "name": "Crawler Commandeers",
+      "season": 4,
+      "number": 8,
+      "providerNumber": 8,
+      "airdate": "2017-11-06",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1333669/star-wars-rebels-4x08-crawler-commandeers",
+      "note": "Provider release date retained; regional release timing may differ. Runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s04e09",
+      "name": "Rebel Assault",
+      "season": 4,
+      "number": 9,
+      "providerNumber": 9,
+      "airdate": "2017-11-13",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1333670/star-wars-rebels-4x09-rebel-assault",
+      "note": "Provider release date retained; regional release timing may differ. Runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s04e10",
+      "name": "Jedi Night",
+      "season": 4,
+      "number": 10,
+      "providerNumber": 10,
+      "airdate": "2018-02-19",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1349017/star-wars-rebels-4x10-jedi-night",
+      "note": "Provider release date retained; regional release timing may differ. Runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s04e11",
+      "name": "DUME",
+      "season": 4,
+      "number": 11,
+      "providerNumber": 11,
+      "airdate": "2018-02-19",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1349018/star-wars-rebels-4x11-dume",
+      "note": "Provider release date retained; regional release timing may differ. Runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s04e12",
+      "name": "Wolves and a Door",
+      "season": 4,
+      "number": 12,
+      "providerNumber": 12,
+      "airdate": "2018-02-26",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1351956/star-wars-rebels-4x12-wolves-and-a-door",
+      "note": "Provider release date retained; regional release timing may differ. Runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s04e13",
+      "name": "A World Between Worlds",
+      "season": 4,
+      "number": 13,
+      "providerNumber": 13,
+      "airdate": "2018-02-26",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1392974/star-wars-rebels-4x13-a-world-between-worlds",
+      "note": "Provider release date retained; regional release timing may differ. Runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s04e14",
+      "name": "A Fool's Hope",
+      "season": 4,
+      "number": 14,
+      "providerNumber": 14,
+      "airdate": "2018-03-05",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1392975/star-wars-rebels-4x14-a-fools-hope",
+      "note": "Provider release date retained; regional release timing may differ. Runtime withheld pending edition verification."
+    },
+    {
+      "id": "rebels-s04e15",
+      "name": "Family Reunion - and Farewell",
+      "season": 4,
+      "number": 15,
+      "providerNumber": 15,
+      "airdate": "2018-03-05",
+      "sourceUrl": "https://www.tvmaze.com/episodes/1392976/star-wars-rebels-4x15-family-reunion-and-farewell",
+      "note": "Finale is one official Disney+ numbered slot (S04E15), despite its extended length. Provider title encoding repaired using official guide; no episode 16 is invented. Runtime withheld."
+    }
+  ],
+  "providerSeasonSnapshot": [
+    {
+      "id": 1154277,
+      "name": "Heroes of Mandalore: Part 1",
+      "number": 1,
+      "season": 4,
+      "airdate": "2017-10-15",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1154277/star-wars-rebels-4x01-heroes-of-mandalore-part-1"
+    },
+    {
+      "id": 1315102,
+      "name": "Heroes of Mandalore: Part 2",
+      "number": 2,
+      "season": 4,
+      "airdate": "2017-10-15",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1315102/star-wars-rebels-4x02-heroes-of-mandalore-part-2"
+    },
+    {
+      "id": 1315103,
+      "name": "In the Name of the Rebellion: Part 1",
+      "number": 3,
+      "season": 4,
+      "airdate": "2017-10-22",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1315103/star-wars-rebels-4x03-in-the-name-of-the-rebellion-part-1"
+    },
+    {
+      "id": 1315105,
+      "name": "In the Name of the Rebellion: Part 2",
+      "number": 4,
+      "season": 4,
+      "airdate": "2017-10-22",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1315105/star-wars-rebels-4x04-in-the-name-of-the-rebellion-part-2"
+    },
+    {
+      "id": 1315106,
+      "name": "The Occupation",
+      "number": 5,
+      "season": 4,
+      "airdate": "2017-10-29",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1315106/star-wars-rebels-4x05-the-occupation"
+    },
+    {
+      "id": 1315107,
+      "name": "Flight of the Defender",
+      "number": 6,
+      "season": 4,
+      "airdate": "2017-10-29",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1315107/star-wars-rebels-4x06-flight-of-the-defender"
+    },
+    {
+      "id": 1315108,
+      "name": "Kindred",
+      "number": 7,
+      "season": 4,
+      "airdate": "2017-11-06",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1315108/star-wars-rebels-4x07-kindred"
+    },
+    {
+      "id": 1333669,
+      "name": "Crawler Commandeers",
+      "number": 8,
+      "season": 4,
+      "airdate": "2017-11-06",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1333669/star-wars-rebels-4x08-crawler-commandeers"
+    },
+    {
+      "id": 1333670,
+      "name": "Rebel Assault",
+      "number": 9,
+      "season": 4,
+      "airdate": "2017-11-13",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1333670/star-wars-rebels-4x09-rebel-assault"
+    },
+    {
+      "id": 1349017,
+      "name": "Jedi Night",
+      "number": 10,
+      "season": 4,
+      "airdate": "2018-02-19",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1349017/star-wars-rebels-4x10-jedi-night"
+    },
+    {
+      "id": 1349018,
+      "name": "DUME",
+      "number": 11,
+      "season": 4,
+      "airdate": "2018-02-19",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1349018/star-wars-rebels-4x11-dume"
+    },
+    {
+      "id": 1351956,
+      "name": "Wolves and a Door",
+      "number": 12,
+      "season": 4,
+      "airdate": "2018-02-26",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1351956/star-wars-rebels-4x12-wolves-and-a-door"
+    },
+    {
+      "id": 1392974,
+      "name": "A World Between Worlds",
+      "number": 13,
+      "season": 4,
+      "airdate": "2018-02-26",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1392974/star-wars-rebels-4x13-a-world-between-worlds"
+    },
+    {
+      "id": 1392975,
+      "name": "A Fool's Hope",
+      "number": 14,
+      "season": 4,
+      "airdate": "2018-03-05",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1392975/star-wars-rebels-4x14-a-fools-hope"
+    },
+    {
+      "id": 1392976,
+      "name": "Family Reunion – and Farewell",
+      "number": 15,
+      "season": 4,
+      "airdate": "2018-03-05",
+      "type": "regular",
+      "url": "https://www.tvmaze.com/episodes/1392976/star-wars-rebels-4x15-family-reunion-and-farewell"
+    }
+  ],
+  "episodeEvidence": [
+    {
+      "slug": "heroes-of-mandalore",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/heroes-of-mandalore-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/heroes-of-mandalore-episode-gallery",
+      "officialHeading": "S4E1E2:Heroes of Mandalore",
+      "reviewedCaptionCount": 20
+    },
+    {
+      "slug": "in-the-name-of-the-rebellion",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/in-the-name-of-the-rebellion-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/in-the-name-of-the-rebellion-episode-gallery",
+      "officialHeading": "S4E3E4:In the Name of the Rebellion Episode Guide",
+      "reviewedCaptionCount": 20
+    },
+    {
+      "slug": "the-occupation",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/the-occupation-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/the-occupation-episode-gallery",
+      "officialHeading": "S4E5:The Occupation",
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "flight-of-the-defender",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/flight-of-the-defender-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/flight-of-the-defender-episode-gallery",
+      "officialHeading": "S4E6:Flight of the Defender",
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "kindred",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/kindred-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/kindred-episode-gallery",
+      "officialHeading": "S4E7:Kindred",
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "crawler-commandeers",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/crawler-commandeers-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/crawler-commandeers-episode-gallery",
+      "officialHeading": "S4E9:Crawler Commandeers",
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "rebel-assault",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/rebel-assault-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/rebel-assault-episode-gallery",
+      "officialHeading": "S4E15:Rebel Assault",
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "jedi-night",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/jedi-night-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/jedi-night-episode-gallery",
+      "officialHeading": "S4E10:Jedi Night",
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "dume",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/dume-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/dume-episode-gallery",
+      "officialHeading": "S4E11:Dume",
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "wolves-and-a-door",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/wolves-and-a-door-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/wolves-and-a-door-episode-gallery",
+      "officialHeading": "S4E12:Wolves and a Door",
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "a-world-between-worlds",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/a-world-between-worlds-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/a-world-between-worlds-episode-gallery",
+      "officialHeading": null,
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "a-fools-hope",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/a-fools-hope-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/a-fools-hope-episode-gallery",
+      "officialHeading": "S4E13:A Fool's Hope",
+      "reviewedCaptionCount": 10
+    },
+    {
+      "slug": "family-reunion-and-farewell",
+      "guide": "https://www.starwars.com/series/star-wars-rebels/family-reunion-and-farewell-episode-guide",
+      "gallery": "https://www.starwars.com/series/star-wars-rebels/family-reunion-and-farewell-episode-gallery",
+      "officialHeading": "S4E15:Family Reunion - and Farewell",
+      "reviewedCaptionCount": 33
+    }
+  ],
+  "supplementaryIdentitySources": [
+    "https://www.starwars.com/databank/brom-titus",
+    "https://www.starwars.com/databank/jalindi-station",
+    "https://www.starwars.com/databank/faos-station",
+    "https://www.starwars.com/databank/tie-defender-elite",
+    "https://www.starwars.com/databank/cikatro-vizago",
+    "https://www.starwars.com/databank/joopa-base"
+  ],
+  "sourceCaveats": [
+    "Official Crawler Commandeers guide heading says E9; Disney+ and provider identify E8.",
+    "Official Rebel Assault guide heading says E15; Disney+ and provider identify E9.",
+    "Official A Fool’s Hope guide heading says E13; Disney+ and provider identify E14.",
+    "Official finale and Disney+ label Family Reunion - and Farewell as E15; extended length does not create numbered slot16.",
+    "TVmaze finale title contains a replacement character; normalized from official guide. Early-season provider dates may differ by one day from US broadcast publicity; dates are retained as provider metadata, not certified US premiere dates."
+  ]
+}

@@ -18,7 +18,7 @@ export type CatalogItem = {
 };
 
 export const SERIES = [
-  { id: 'rebels', title: 'Rebels · seasons 1–3', color: '#D6AD6B' },
+  { id: 'rebels', title: 'Rebels · seasons 1–4', color: '#D6AD6B' },
   { id: 'pt', title: 'Prequel trilogy', color: '#D8B8F2' },
   { id: 'boba-fett', title: 'The Book of Boba Fett', color: '#D9AE6D' },
   { id: 'rogue-one', title: 'Rogue One', color: '#B9D3B0' },

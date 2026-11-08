@@ -127,15 +127,16 @@ const labelOffsets: Record<string, [number, number]> = {
   alderaan: [38, 20], coruscant: [-88, -12], mandalore: [-37, 6], yavin: [30, -12],
 }
 
-const leaderLayouts = new WeakMap<HTMLCanvasElement, Map<string, (dx: number, dy: number) => void>>()
+const leaderLayouts = new WeakMap<HTMLCanvasElement, Map<string, (dx: number, dy: number, visible: boolean) => void>>()
 function LabelLeader({ worldId, offset, minZoom = 0, active = false }: { worldId: string; offset: [number, number]; minZoom?: number; active?: boolean }) {
   const { camera, gl } = useThree()
   const hudOffset = useRef<[number, number]>([0,0])
+  const labelVisible = useRef(false)
   const positions = useMemo(() => new Float32Array([0, 0, .01, 0, 0, .01]), [])
   const geometry = useRef<THREE.BufferGeometry>(null)
   const leader = useRef<THREE.LineSegments>(null)
   const update = () => {
-    if (leader.current) leader.current.visible = (camera as THREE.OrthographicCamera).zoom >= minZoom
+    if (leader.current) leader.current.visible = labelVisible.current && (camera as THREE.OrthographicCamera).zoom >= minZoom
     const x = (offset[0] + hudOffset.current[0]) / (camera as THREE.OrthographicCamera).zoom
     const y = -.39 - (offset[1] + hudOffset.current[1]) / (camera as THREE.OrthographicCamera).zoom
     if (positions[3] === Math.fround(x) && positions[4] === Math.fround(y)) return
@@ -145,7 +146,7 @@ function LabelLeader({ worldId, offset, minZoom = 0, active = false }: { worldId
   useEffect(() => {
     let registry = leaderLayouts.get(gl.domElement)
     if (!registry) { registry = new Map(); leaderLayouts.set(gl.domElement, registry) }
-    const apply = (dx: number, dy: number) => { hudOffset.current = [dx,dy]; update() }
+    const apply = (dx: number, dy: number, visible: boolean) => { hudOffset.current = [dx,dy]; labelVisible.current = visible; update() }
     registry.set(worldId, apply)
     return () => { if (registry.get(worldId) === apply) registry.delete(worldId) }
   }, [gl, worldId, offset, camera])
@@ -187,7 +188,10 @@ function LabelDeclutter() {
     const occupied: DOMRect[] = []
     for (const label of labels) {
       const container = label.closest<HTMLElement>('[data-map-html]')
-      if (!container || container.style.visibility !== 'visible') continue
+      if (!container || container.style.visibility !== 'visible') {
+        leaderLayouts.get(gl.domElement)?.get(label.dataset.worldId ?? '')?.(0,0,false)
+        continue
+      }
       label.style.translate = 'none'
       let rect = label.getBoundingClientRect()
       const essential = Number(label.dataset.labelPriority)>0 || label === document.activeElement
@@ -226,12 +230,12 @@ function LabelDeclutter() {
         if (!candidates.length) candidates = clearCandidates(Array.from({length: 32}, (_, row) => Array.from({length: 20}, (_, col) => new DOMRect(bounds.left+6+col*(bounds.width-rect.width-12)/19, bounds.top+6+row*(bounds.height-rect.height-12)/31, rect.width, rect.height))).flat())
         if (candidates[0]) { const next = candidates[0]; dx += next.x-rect.x; dy += next.y-rect.y; rect = next; label.style.translate = `${dx}px ${dy}px` }
       }
-      leaderLayouts.get(gl.domElement)?.get(label.dataset.worldId ?? '')?.(dx,dy)
       label.dataset.labelClamped = String(Boolean(dx || dy))
       const clipped = rect.left < bounds.left+4 || rect.right > bounds.right-4 || rect.top < bounds.top+4 || rect.bottom > bounds.bottom-4
       const overlaps = occupied.some(other => rect.left < other.right+4 && rect.right > other.left-4 && rect.top < other.bottom+4 && rect.bottom > other.top-4)
       const hidden = !essential && (clipped || overlaps || protectedRects.some(other => overlapsRect(rect,other)))
       label.dataset.decluttered = String(hidden)
+      leaderLayouts.get(gl.domElement)?.get(label.dataset.worldId ?? '')?.(dx,dy,!hidden)
       if (!hidden) occupied.push(rect)
     }
   })

@@ -1,6 +1,6 @@
 # Context index
 
-Status: deployed platform preview, November 7, 2026. There are 76 schematic map destinations: eight general worlds, 67 direct journey placements, and Endor's parent-system placement. The catalog exposes 257 watchable items: 249 episode watch records and eight films across the original trilogy, Andor, The Clone Wars (2008), The Mandalorian, Ahsoka season one, Rogue One, The Book of Boba Fett season one, the prequel trilogy, and Rebels seasons 1–3. The original nine specials, four Rebels introductory shorts The Ultimate Guide and Season 2 Recap are excluded. Nine sourced collection viewing sequences cover all 257 items. Story/location relationships are a partial evidence pass; see [review](../evidence/journey-data-review.md).
+Status: deployed platform preview, November 7, 2026. There are 76 schematic map destinations: eight general worlds, 67 direct journey placements, and Endor's parent-system placement. The catalog exposes 270 watchable items: 262 episode watch records and eight films across the original trilogy, Andor, The Clone Wars (2008), The Mandalorian, Ahsoka season one, Rogue One, The Book of Boba Fett season one, the prequel trilogy, and Rebels seasons 1–4. The original nine specials, four Rebels introductory shorts The Ultimate Guide and Season 2 Recap are excluded. Nine sourced collection viewing sequences cover all 270 items. Story/location relationships are a partial evidence pass; see [review](../evidence/journey-data-review.md).
 
 ## Workflows
 
@@ -20,7 +20,7 @@ Status: deployed platform preview, November 7, 2026. There are 76 schematic map 
 
 ## Current evidence
 
-Integrated relationships: 390 links, 249 covered titles, 136 distinct locations, and 8 titles without current links. Coverage is partial even for covered titles. The 76 mapped destinations and 136 relationship-location names measure different things; unsupported placements remain textual.
+Integrated relationships: 411 links, 262 covered titles, 140 distinct locations, and 8 titles without current links. Coverage is partial even for covered titles. The 76 mapped destinations and 140 relationship-location names measure different things; unsupported placements remain textual.
 
 Geographic source and schematic projection are documented in the data module. Eight world names/grids were checked against the earlier official-appendix audit; all current entries match. Official Databank pages support the broad setting descriptions, with era/edition limits retained. Hoth and Bespin share cell K-18; Yavin 4 uses the parent-system cell.
 
@@ -44,3 +44,5 @@ Rebels season two adds 20 watch records covering 22 official parts, extending th
 See [Rebels season-two source review](../evidence/rebels-season-2-source-review.md) for normalized numbering, exact gallery evidence, exclusions and the reviewed sequence extension.
 
 Rebels season three adds 19 watch records covering 22 official parts: Steps Into Shadow (1–2), Ghosts of Geonosis (12–13) and Zero Hour (21–22) share combined progress records. Its 24 reviewed associations cover all 19 records at least once, with partial scene coverage and documented source conflicts. The existing Rebels sequence preserves its 34-ID prefix and extends to 53 records. No map coordinates are added; Season 2 Recap is excluded.
+
+Rebels season four adds 13 watch records covering its 15 Disney+ numbered slots. Heroes of Mandalore (1–2) and In the Name of the Rebellion (3–4) share progress records; the extended finale remains E15 with no invented E16. Twenty-one sourced associations cover all 13 records at least once, with partial scene coverage and an explicitly later Lira San epilogue. World Between Worlds is a non-geographic realm, not a planet. The Rebels sequence preserves its 53-ID prefix and now contains 66 records across all four seasons. No map coordinates are added.

@@ -2,9 +2,9 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 const { metadata, items } = JSON.parse(readFileSync(new URL('../src/catalog.generated.json', import.meta.url), 'utf8'));
-assert.equal(items.length, 257);
-assert.equal(new Set(items.map(item => item.id)).size, 257, 'Catalog IDs must be unique');
-assert.equal(items.filter(item => item.kind === 'episode').length, 249);
+assert.equal(items.length, 270);
+assert.equal(new Set(items.map(item => item.id)).size, 270, 'Catalog IDs must be unique');
+assert.equal(items.filter(item => item.kind === 'episode').length, 262);
 assert.equal(items.filter(item => item.kind === 'film').length, 8);
 assert.equal(metadata.excludedSpecials.length, 9);
 assert.equal(metadata.chronologySupported, false);
@@ -47,7 +47,7 @@ for (const [series, seasons] of Object.entries(expectedSeasons)) {
 assert.equal(items.filter(item => item.seriesId === 'ot').length, 3);
 assert.equal(items.filter(item => item.seriesId === 'clone-wars').length, 134);
 assert.ok(items.some(item => item.id === 'clone-wars-film' && item.kind === 'film' && item.runtimeMinutes === null));
-console.log('Catalog checks passed: 257 items, 249 episode watch records, eight separate films, nine specials excluded, sources and uncertainty retained.');
+console.log('Catalog checks passed: 270 items, 262 episode watch records, eight separate films, nine specials excluded, sources and uncertainty retained.');
 
 assert.equal(metadata.originalAuditCohortCount, 185);
 assert.equal(items.filter(item => !['rebels', 'ahsoka', 'rogue-one', 'boba-fett', 'pt'].includes(item.seriesId)).length, 185);

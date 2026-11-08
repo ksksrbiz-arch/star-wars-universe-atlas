@@ -1,12 +1,12 @@
 {
-  "id": "catalog-sha256-3cc67183021e7e8391b86cdbe2e1cea8b523f7ce7925a79d7d6f6fd20e198ee2",
-  "sha256": "4c382e9c447ec47401e67837324a2db5b43c7a53a496a90c50801e8d48dc376f",
-  "works": 257,
+  "id": "catalog-sha256-743e07105be29273badbc3917a1f2d7d223f23a5ecab3160306cfef7c3bf0cd4",
+  "sha256": "5ece959cd7763e56ad86b56a398d8632432b83e1129e91684371f0326f1e01b3",
+  "works": 270,
   "worlds": 76,
-  "appearances": 390,
-  "coveredTitles": 249,
+  "appearances": 411,
+  "coveredTitles": 262,
   "worldsSha256": "ee7e18f1b2794b5ca8839f6070bdd0645d4bf5d9363a98df0da972fcce35eb0e",
-  "catalogSha256": "8de44e24fd17486f630692cee8d26d066e1df744141e65c4277f642bf8243ef7",
-  "sequencesSha256": "d837f33c641bcf63b80e6ee072258d3814a51fe0cb7681c368db0f45f3e80873",
+  "catalogSha256": "49d9cdabb327be7b0ab4f0fc33a8b4fc0c09a97ef6b16caaf5104d8ff0bf79c9",
+  "sequencesSha256": "c9652656092283b8b171b621854b07d0674765c6de6110ead1fea42a92d9ed3a",
   "sequences": 9
 }

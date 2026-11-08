@@ -35,13 +35,13 @@ const cloneWarsCodes = `
 
 export const STORY_SEQUENCES: StorySequence[] = [
   {
-    id: 'rebels', title: 'Rebels · seasons 1–3 narrative order',
-    description: 'Follow the first three seasons as 53 watch records covering 59 official parts. Combined premieres, finales and Ghosts of Geonosis retain one progress record per shared story gallery.',
+    id: 'rebels', title: 'Rebels · seasons 1–4 narrative order',
+    description: 'Follow all four seasons as 66 watch records covering 74 official numbered slots. Shared two-part guides retain combined progress records; the extended finale is numbered S04E15.',
     sourceUrl: 'https://www.starwars.com/series/star-wars-rebels',
-    itemIds: ['rebels-s01e01', ...Array.from({length:13}, (_,i) => episodeId('rebels',1,i+3)), 'rebels-s02e01', ...Array.from({length:19}, (_,i) => episodeId('rebels',2,i+3)), ...[1,3,4,5,6,7,8,9,10,11,12,14,15,16,17,18,19,20,21].map(n => episodeId('rebels',3,n))],
+    itemIds: ['rebels-s01e01', ...Array.from({length:13}, (_,i) => episodeId('rebels',1,i+3)), 'rebels-s02e01', ...Array.from({length:19}, (_,i) => episodeId('rebels',2,i+3)), ...[1,3,4,5,6,7,8,9,10,11,12,14,15,16,17,18,19,20,21].map(n => episodeId('rebels',3,n)), ...[1,3,5,6,7,8,9,10,11,12,13,14,15].map(n => episodeId('rebels',4,n))],
     caveats: [
       'Spark of Rebellion covers official parts 1–2 in one watch record. There is intentionally no separate episode 2 progress item; subsequent official numbering is retained.',
-      'Season two combines The Siege of Lothal (parts 1–2) and Twilight of the Apprentice (parts 21–22). Season three combines Steps Into Shadow (1–2), Ghosts of Geonosis (12–13) and Zero Hour (21–22). Promotional specials and season four remain outside this collection; provider numbering is normalized.',
+      'Season two combines The Siege of Lothal (parts 1–2) and Twilight of the Apprentice (parts 21–22). Season three combines Steps Into Shadow (1–2), Ghosts of Geonosis (12–13) and Zero Hour (21–22). Season four combines Heroes of Mandalore (1–2) and In the Name of the Rebellion (3–4); Disney+ numbers the extended finale as 15, with no separate 16. Promotional specials remain excluded.',
       'Whole-work narrative order is not scene chronology or a continuous travel route. Andor and Rebels overlap broadly; no exact episode interleaving is inferred.',
     ],
   },
