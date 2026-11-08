@@ -10,6 +10,14 @@ const publicQueries = {
 };
 const json = (body, status=200, cache='no-store') => Response.json(body,{status,headers:{'Cache-Control':cache,'X-Content-Type-Options':'nosniff'}});
 
+const nosniff = {'X-Content-Type-Options':'nosniff'};
+const plain = (body, status, extra={}) => new Response(body,{status,headers:{...nosniff,...extra}});
+// Media is user-controllable content served from the app origin: never let it run script.
+const mediaSecurity = {...nosniff,'Content-Security-Policy':"default-src 'none'; sandbox"};
+const mediaError = (body, status, extra={}) => new Response(body,{status,headers:{...mediaSecurity,...extra}});
+// Reject only real traversal: a '..' path segment (either separator style) in the decoded key.
+const hasTraversal = key => key.split(/[\\/]/).includes('..');
+
 function failedPrecondition(headers, object) {
   const match = headers.get('If-Match');
   if (match !== null) return match.trim() !== '*' && !match.split(',').some(tag => tag.trim() === object.httpEtag);
@@ -27,7 +35,7 @@ export default {
 
 async function handleRequest(request, env, ctx) {
     const path = new URL(request.url).pathname;
-    if (!['GET','HEAD'].includes(request.method)) return new Response('Method not allowed',{status:405,headers:{Allow:'GET, HEAD'}});
+    if (!['GET','HEAD'].includes(request.method)) return plain('Method not allowed',405,{Allow:'GET, HEAD'});
     if (path.startsWith('/api/')) {
       if (path !== '/api/health' && !publicQueries[path]) return json({error:'Not found'},404);
       let client;
@@ -48,23 +56,28 @@ async function handleRequest(request, env, ctx) {
     if (path.startsWith('/media/')) {
       let key;
       try { key=decodeURIComponent(path.slice('/media/'.length)); }
-      catch { return new Response('Not found',{status:404}); }
-      if (!key || key.includes('..')) return new Response('Not found',{status:404});
+      catch { return mediaError('Not found',404); }
+      if (!key || hasTraversal(key)) return mediaError('Not found',404);
       // R2 does not implement If-Range. A full response is safe when it is supplied;
       // HEAD must ignore Range as well (RFC 9110 section 14.2).
       const range = request.method === 'GET' && !request.headers.has('If-Range') ? request.headers : undefined;
       let object;
       try { object=await env.PUBLISHED_ASSETS.get(key,{range,onlyIf:request.headers}); }
       catch (error) {
-        // R2 reports unsatisfiable reads as InvalidRange (10039), not an object.
-        if (range && /(?:\b10039\b|\bInvalidRange\b)/.test(String(error?.message))) {
-          const metadata=await env.PUBLISHED_ASSETS.head(key);
-          return new Response(null,{status:416,headers:metadata?{'Content-Range':`bytes */${metadata.size}`}:{}});
-        }
-        throw error;
+        try {
+          // R2 reports unsatisfiable reads as InvalidRange (10039), not an object.
+          if (range && /(?:\b10039\b|\bInvalidRange\b)/.test(String(error?.message))) {
+            const metadata=await env.PUBLISHED_ASSETS.head(key);
+            if (!metadata) return mediaError('Not found',404);
+            return mediaError(null,416,{'Content-Range':`bytes */${metadata.size}`});
+          }
+        } catch {}
+        // Constant message: never log error details (may contain credentials).
+        console.error('Atlas media request failed');
+        return mediaError('Media service temporarily unavailable',503,{'Cache-Control':'no-store'});
       }
-      if (!object) return new Response('Not found',{status:404});
-      const headers=new Headers({'X-Content-Type-Options':'nosniff','Cache-Control':'public, max-age=3600'});
+      if (!object) return mediaError('Not found',404);
+      const headers=new Headers({...mediaSecurity,'Cache-Control':'public, max-age=3600'});
       object.writeHttpMetadata(headers);headers.set('ETag',object.httpEtag);
       headers.set('Accept-Ranges','bytes');
       if (!('body' in object)) return new Response(null,{status:failedPrecondition(request.headers,object)?412:304,headers});
