@@ -21,3 +21,7 @@ Neon publication succeeded as one transaction. All four public API digests/count
 ## Limits
 
 Chromium/software-WebGL and viewport emulation are not physical-device FPS measurements. Dense-label placement remains bounded best-effort. Production builds retain large-chunk warnings. Source-informed portraits are original illustrations, not official stills or measured surface maps.
+
+## Live release verified
+
+Cloudflare build 19468b4e-b89f-40ac-abce-8dac702d99ec succeeded for application commit bd456172364e2c3406cc94d0fcc100b9f5d34b85. Live HTML and all five JavaScript/CSS asset hashes match the tested final build (live/assets.json). Live season-three UI and three new dossier tests pass at 1440/390/320. Live source-focus tests pass all six viewport/font cases, including blocked external fonts. See live/source-focus-results.json. All four public API hashes were verified again after deployment.

@@ -82,13 +82,13 @@ The hero imports NASA SVS’s public-domain randomized starfield as decorative a
 
 ## First journeys and world field guides
 
-The optional guided start in the hero introduces all six collections, with the Original Trilogy selected initially. Choose the first chapter or explicitly resume at the first unwatched chapter in that collection’s sourced viewing order. Opening the guide changes neither watched progress nor location visibility.
+The optional guided start in the hero introduces the included collections, with the Original Trilogy selected initially. Choose the first chapter or explicitly resume at the first unwatched chapter in that collection’s sourced viewing order. Opening the guide changes neither watched progress nor location visibility.
 
 Tatooine, Coruscant, Hoth, Naboo, Bespin, Dagobah, Yavin 4 and Endor’s forest moon include expanded field guides beneath the map, with sourced terrain descriptions and 17 expandable local settings and habitat references. Original portraits remain illustrative. These setting details do not establish episode appearances or surface coordinates; linked stories retain their own evidence and reveal controls. See [source review](evidence/world-dossiers-source-review.md).
 
 ## Visual world exploration
 
-Browse worlds from the hero to open a 103-location directory with original illustrations, sourced regions, reviewed terrain categories, and watch-progress filters. Unmapped worlds retain neutral symbols and no map action. Counts use watched titles; including unwatched collection links requires an explicit reveal.
+Browse worlds from the hero to open the location directory with original illustrations, sourced regions, reviewed terrain categories, and watch-progress filters. Unmapped worlds retain neutral symbols and no map action. Counts use watched titles; including unwatched collection links requires an explicit reveal.
 
 Revealed story cards offer a separate “Explore linked worlds” disclosure with per-location evidence and map previews where supported. Revealing a title does not automatically reveal its other settings. The current frontend reconciles 14 sourced placements and 13 associations already present in the live database; see [geography review](evidence/reconciled-world-geography.md) and [association review](evidence/live-associations-reconciliation.md).
 
