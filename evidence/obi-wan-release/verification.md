@@ -9,3 +9,7 @@ The shipped map change fixes invisible displaced-label wrappers intercepting vis
 Publication artifact tests and embedded PostgreSQL fixture/full-live-baseline transition pass. The separate standalone PostgreSQL integration suite was not run; concurrency and physical-device FPS are not established. Build retains large-chunk warnings. No new coordinates or external image imports are added.
 
 Neon publication succeeded as one transaction; all four public API digests match the reviewed manifest (public-data.json). Final rebuild is identical to the integrated tested build.
+
+## Live deployment verified
+
+Cloudflare build c32384e0-d4ec-4e0f-ab68-5f2d8505196a succeeded for application commit 6880fee31bce42f1fbe681ac6220b9f12980cb52. Live HTML and all five JavaScript/CSS hashes match the integrated tested build (live/assets.json). Live Kenobi UI and three-guide tests pass at 1440/390/320. Live label-hit tests pass six viewport/font cases; emulated touch taps and canvas panning pass at 390/320 (live/hit-target-results.json and live/touch-results.json). All four public API digests were rechecked after deployment. Stored sequence readback has 323 items and zero order mismatches. Full 40-guide browser suite passes all three widths.
