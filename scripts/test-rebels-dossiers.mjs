@@ -2,7 +2,7 @@ import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 import {mkdir} from 'node:fs/promises';
 import {ALL_WORLDS} from '../src/journeyWorlds.ts';
-const base=process.env.ATLAS_URL||'http://localhost:4174';
+const base=process.env.ATLAS_URL||'http://localhost:4173';
 const dir=process.env.ATLAS_EVIDENCE_DIR||'work/rebels-dossiers';
 await mkdir(dir,{recursive:true});
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});

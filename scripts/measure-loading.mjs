@@ -2,7 +2,7 @@ import {chromium} from 'playwright';
 import {writeFile,readFile} from 'node:fs/promises';
 import {gzipSync} from 'node:zlib';
 import {resolve} from 'node:path';
-const base=process.env.ATLAS_URL || 'http://localhost:4174';
+const base=process.env.ATLAS_URL || 'http://localhost:4173';
 const dist=process.env.ATLAS_DIST || '/workspace/perf-baseline-dist';
 const output=process.env.ATLAS_PERF_OUTPUT || '/workspace/perf-baseline.json';
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});

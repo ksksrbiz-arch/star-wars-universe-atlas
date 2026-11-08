@@ -7,7 +7,7 @@ try { for(const [width,fontCase] of [[1440,'normal'],[390,'normal'],[320,'normal
  const page=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
  if(fontCase==='unavailable')await page.route(/fonts\.(googleapis|gstatic)\.com/,route=>route.abort());
  await page.addInitScript(()=>{window.__draws=0;for(const C of [window.WebGLRenderingContext,window.WebGL2RenderingContext])if(C)for(const key of ['drawArrays','drawElements','drawArraysInstanced','drawElementsInstanced'])if(Object.hasOwn(C.prototype,key)){const fn=C.prototype[key];C.prototype[key]=function(...args){window.__draws++;return fn.apply(this,args)};}});
- await page.goto((process.env.ATLAS_URL||'http://localhost:4174')+'/#journey/pt-revenge-of-the-sith');
+ await page.goto((process.env.ATLAS_URL||'http://localhost:4173')+'/#journey/pt-revenge-of-the-sith');
  await page.evaluate(()=>document.fonts.ready);
  if(width<721)await page.locator('.sheet-toggle').click();
  await page.getByRole('button',{name:'Reveal locations for this title'}).click();await page.getByRole('button',{name:'Fit episode locations'}).click();await page.waitForTimeout(2000);

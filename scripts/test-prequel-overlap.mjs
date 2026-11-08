@@ -1,6 +1,6 @@
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
-const base=process.env.ATLAS_URL||'http://localhost:4174';
+const base=process.env.ATLAS_URL||'http://localhost:4173';
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
 try{
  for(const width of[1440,390,320]){

@@ -1,7 +1,7 @@
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
-const base=process.env.ATLAS_URL||'http://localhost:4175';
+const base=process.env.ATLAS_URL||'http://localhost:4173';
 try {
  for(const scenario of ['mobile','reduced','switch','failure']) {
   const page=await browser.newPage({viewport:{width:scenario==='mobile'?390:1440,height:1050},reducedMotion:scenario==='reduced'?'reduce':'no-preference'});
