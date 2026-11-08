@@ -11,7 +11,7 @@ try {
    const mapped=ALL_WORLDS.some(world=>world.id===id);
    await page.goto(base+'/#galaxy/'+(mapped?id:''));await page.reload();
    if(mapped && width<721)await page.locator('.sheet-toggle').click();
-   if(!mapped){await page.locator('#world-directory>summary').click();const directory=page.getByRole('region',{name:'World directory',exact:true});await directory.getByLabel('Find a world').fill(id==='lahmu'?'Lah':id==='glavis-ringworld'?'Glavis':id.replaceAll('-',' '));await directory.locator('.directory-grid button').first().click();}
+   if(!mapped){await page.locator('#world-directory>summary').click();const directory=page.getByRole('region',{name:'World directory',exact:true});await directory.getByLabel('Find a world').fill(id==='ahch-to'?'Ahch':id==='lahmu'?'Lah':id==='glavis-ringworld'?'Glavis':id.replaceAll('-',' '));await directory.locator('.directory-grid button').first().click();}
    const guide=page.locator(mapped?'.workspace-panel .immersive-dossier':'.directory-stories .immersive-dossier');await guide.waitFor();
    assert.equal(await guide.count(),1);assert.ok((await guide.getAttribute('aria-label')).toLowerCase().replace(/[^a-z0-9]/g,'').includes(id.replace(/[^a-z0-9]/g,'')));
    assert.equal(await guide.getByRole('link',{name:'World overview source'}).getAttribute('href'),dossier.overview.sourceUrl);

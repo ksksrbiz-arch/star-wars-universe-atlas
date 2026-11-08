@@ -35,6 +35,12 @@ const cloneWarsCodes = `
 
 export const STORY_SEQUENCES: StorySequence[] = [
   {
+    id: 'st', title: 'Sequel trilogy · VII–VIII–IX',
+    description: 'Follow The Force Awakens, The Last Jedi and The Rise of Skywalker as three whole films.',
+    sourceUrl: 'https://www.starwars.com/films', itemIds: ['st-force-awakens','st-last-jedi','st-rise-of-skywalker'],
+    caveats: ['Whole-film narrative order retains visions, remembered events and training flashbacks inside their films; no exact scene interleaving or event dates are asserted.', 'Release dates retain explicit provenance: TFA uses its qualified landing-page date; TLJ and TROS use sourced North American/domestic openings distinct from international rollout. Edition-specific runtimes remain withheld.', 'Location associations are partial evidence, not character travel routes. Force projections and remote connections do not establish physical arrivals.'],
+  },
+  {
     id: 'solo', title: 'Solo: A Star Wars Story',
     description: 'A standalone film following Han’s early life, meeting with Chewbacca and first adventures aboard the Falcon.',
     sourceUrl: 'https://www.starwars.com/films/solo', itemIds: ['solo'],

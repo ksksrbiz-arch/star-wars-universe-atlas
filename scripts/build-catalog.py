@@ -124,8 +124,12 @@ for episode in obi_wan['episodes']:
 solo_path = ROOT / 'docs/solo-source.json'
 solo = json.loads(solo_path.read_text(encoding='utf-8'))
 items.append({'id': solo['id'], 'title': solo['title'], 'seriesId': 'solo', 'kind': 'film', 'releaseDate': solo['releaseDate'], 'runtimeMinutes': None, 'runtimeNote': solo['runtimeNote'], 'sourceUrl': solo['sourceUrl']})
+sequel_path = ROOT / 'docs/sequel-source.json'
+sequel = json.loads(sequel_path.read_text(encoding='utf-8'))
+for film in sequel['films']:
+    items.append({'id': film['id'], 'title': film['title'], 'seriesId': 'st', 'kind': 'film', 'releaseDate': film['releaseDate'], 'runtimeMinutes': None, 'runtimeNote': film['runtimeNote'], 'sourceUrl': film['sourceUrl']})
 items.sort(key=lambda item: (item['releaseDate'], item['seriesId'], item.get('season', 0), item.get('episode', 0), item['id']))
-assert len(items) == 324, f'Expected 324 catalog items, got {len(items)}'
+assert len(items) == 327, f'Expected 327 catalog items, got {len(items)}'
 assert len(excluded) == 9, f'Expected 9 specials, got {len(excluded)}'
 assert len({item['id'] for item in items}) == len(items), 'Duplicate catalog IDs'
 
@@ -134,21 +138,21 @@ def count_items(series, season=None):
 
 rebels_records = count_items('rebels')
 rebels_official_slots = 15 + 22 + 22 + 15  # official numbered slots per season (see extensionCollections)
-assert sum(1 for i in items if i['kind'] == 'episode') == 315 and sum(1 for i in items if i['kind'] == 'film') == 9, 'Unexpected episode/film split'
+assert sum(1 for i in items if i['kind'] == 'episode') == 315 and sum(1 for i in items if i['kind'] == 'film') == 12, 'Unexpected episode/film split'
 assert rebels_records == 66, f'Expected 66 Rebels records, got {rebels_records}'
 metadata = {
     'auditDate': '2026-11-07',
-    'scope': f'Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1; Rogue One; The Book of Boba Fett season 1; prequel trilogy; Rebels seasons 1–4 ({rebels_records} watch records covering {rebels_official_slots} official numbered slots); The Bad Batch seasons 1–3; Obi-Wan Kenobi six-part series; Solo: A Star Wars Story.',
+    'scope': f'Original trilogy; Andor seasons 1–2; The Clone Wars (2008) seasons 1–7 and film; The Mandalorian seasons 1–3; Ahsoka season 1; Rogue One; The Book of Boba Fett season 1; prequel trilogy; Rebels seasons 1–4 ({rebels_records} watch records covering {rebels_official_slots} official numbered slots); The Bad Batch seasons 1–3; Obi-Wan Kenobi six-part series; Solo: A Star Wars Story; sequel trilogy.',
     'coreCount': len(items),
     'regularEpisodeCount': sum(1 for item in items if item['kind'] == 'episode'),
     'originalAuditCohortCount': original_cohort_count,
-    'extensionCollections': [{'seriesId': 'solo', 'count': count_items('solo'), 'sourceFile': solo_path.name, 'note': 'Standalone film; U.S. theatrical release date separately sourced.'}, {'seriesId': 'obi-wan', 'count': count_items('obi-wan'), 'sourceFile': obi_wan_path.name, 'note': obi_wan['numberingNote']}, {'seriesId': 'bad-batch', 'season': 3, 'count': count_items('bad-batch', 3), 'sourceFile': bad_batch3_path.name, 'note': bad_batch3['numberingNote']}, {'seriesId': 'bad-batch', 'season': 2, 'count': count_items('bad-batch', 2), 'sourceFile': bad_batch2_path.name, 'note': bad_batch2['numberingNote']}, {'seriesId': 'bad-batch', 'season': 1, 'count': count_items('bad-batch', 1), 'sourceFile': bad_batch_path.name, 'note': bad_batch['numberingNote']}, {'seriesId': 'rebels', 'season': 4, 'count': count_items('rebels', 4), 'officialNumberedSlots': 15, 'sourceFile': rebels4_path.name, 'note': rebels4['numberingNote']}, {'seriesId': 'rebels', 'season': 3, 'count': count_items('rebels', 3), 'officialParts': 22, 'sourceFile': rebels3_path.name, 'note': rebels3['numberingNote']}, {'seriesId': 'rebels', 'season': 2, 'count': count_items('rebels', 2), 'officialParts': 22, 'sourceFile': rebels2_path.name, 'note': rebels2['numberingNote']}, {'seriesId': 'rebels', 'season': 1, 'count': count_items('rebels', 1), 'officialParts': 15, 'sourceFile': rebels_path.name, 'note': rebels['numberingNote']}, {'seriesId': 'pt', 'count': count_items('pt'), 'sourceFile': prequel_path.name, 'note': 'Three separately sourced prequel films; no edition-specific runtime claims.'}, {'seriesId': 'rogue-one', 'count': count_items('rogue-one'), 'sourceFile': rogue_path.name, 'note': 'Standalone film, separate from the original audit cohort.'}, {'seriesId': 'ahsoka', 'season': 1, 'count': count_items('ahsoka', 1), 'sourceFile': extension_path.name, 'note': 'Complete first season only; no season 2 future stubs.'}, {'seriesId': 'boba-fett', 'season': 1, 'count': count_items('boba-fett', 1), 'sourceFile': boba_path.name, 'note': 'Complete seven-chapter season; narrative order retains flashbacks.'}],
+    'extensionCollections': [{'seriesId': 'st', 'count': count_items('st'), 'sourceFile': sequel_path.name, 'note': 'Three separately sourced sequel films; release-type and runtime caveats retained.'}, {'seriesId': 'solo', 'count': count_items('solo'), 'sourceFile': solo_path.name, 'note': 'Standalone film; U.S. theatrical release date separately sourced.'}, {'seriesId': 'obi-wan', 'count': count_items('obi-wan'), 'sourceFile': obi_wan_path.name, 'note': obi_wan['numberingNote']}, {'seriesId': 'bad-batch', 'season': 3, 'count': count_items('bad-batch', 3), 'sourceFile': bad_batch3_path.name, 'note': bad_batch3['numberingNote']}, {'seriesId': 'bad-batch', 'season': 2, 'count': count_items('bad-batch', 2), 'sourceFile': bad_batch2_path.name, 'note': bad_batch2['numberingNote']}, {'seriesId': 'bad-batch', 'season': 1, 'count': count_items('bad-batch', 1), 'sourceFile': bad_batch_path.name, 'note': bad_batch['numberingNote']}, {'seriesId': 'rebels', 'season': 4, 'count': count_items('rebels', 4), 'officialNumberedSlots': 15, 'sourceFile': rebels4_path.name, 'note': rebels4['numberingNote']}, {'seriesId': 'rebels', 'season': 3, 'count': count_items('rebels', 3), 'officialParts': 22, 'sourceFile': rebels3_path.name, 'note': rebels3['numberingNote']}, {'seriesId': 'rebels', 'season': 2, 'count': count_items('rebels', 2), 'officialParts': 22, 'sourceFile': rebels2_path.name, 'note': rebels2['numberingNote']}, {'seriesId': 'rebels', 'season': 1, 'count': count_items('rebels', 1), 'officialParts': 15, 'sourceFile': rebels_path.name, 'note': rebels['numberingNote']}, {'seriesId': 'pt', 'count': count_items('pt'), 'sourceFile': prequel_path.name, 'note': 'Three separately sourced prequel films; no edition-specific runtime claims.'}, {'seriesId': 'rogue-one', 'count': count_items('rogue-one'), 'sourceFile': rogue_path.name, 'note': 'Standalone film, separate from the original audit cohort.'}, {'seriesId': 'ahsoka', 'season': 1, 'count': count_items('ahsoka', 1), 'sourceFile': extension_path.name, 'note': 'Complete first season only; no season 2 future stubs.'}, {'seriesId': 'boba-fett', 'season': 1, 'count': count_items('boba-fett', 1), 'sourceFile': boba_path.name, 'note': 'Complete seven-chapter season; narrative order retains flashbacks.'}],
     'filmCount': sum(1 for item in items if item['kind'] == 'film'),
     'excludedSpecialCount': len(excluded),
     'chronologySupported': False,
     'chronologyNote': 'Catalog release dates are not story chronology. This catalog carries no story-order data: items have no storyOrder values and none are inferred. Viewing-sequence orders are supplied separately from this catalog metadata.',
     'episodeReleaseDateNote': 'TVmaze airdate field retained as reported; territorial release times are not normalized.',
-    'filmReleaseDateNotes': {'solo': solo['releaseDateNote'],
+    'filmReleaseDateNotes': {**{film['id']: film['releaseDateNote'] for film in sequel['films']}, 'solo': solo['releaseDateNote'],
         **{film['id']: film['releaseDate'] + ' from the official film landing page; territory and release type not explicitly specified.' for film in prequel['films']},
         'rogue-one': '2016-12-16 from the official film landing page; territory and release type not explicitly specified.',
         'ot-a-new-hope': 'SWAPI provider release date retained; no territory or release-type field was supplied.',
@@ -158,7 +162,7 @@ metadata = {
     },
     'filmDateSupportingSources': {'ot-return-of-the-jedi': 'https://www.starwars.com/news/jedi-at-40-deleted-scenes', 'clone-wars-film': 'https://www.starwars.com/films/star-wars-the-clone-wars'},
     'attribution': [{'provider': 'TVmaze', 'url': 'https://www.tvmaze.com/api', 'license': 'CC BY-SA', 'use': 'Episode titles, dates, numbering, runtime fields and source links; derived catalog fields preserve source attribution.'}, {'provider': 'SWAPI', 'url': 'https://swapi.dev/documentation', 'use': 'Three original-trilogy film titles and provider release dates from audited responses.'}],
-    'sourceFiles': [{'name': p.name, 'sha256': hashlib.sha256(p.read_bytes().replace(b'\r\n', b'\n')).hexdigest()} for p in [episode_path, film_path, extension_path, rogue_path, boba_path, prequel_path, rebels_path, rebels2_path, rebels3_path, rebels4_path, bad_batch_path, bad_batch2_path, bad_batch3_path, obi_wan_path, solo_path]],
+    'sourceFiles': [{'name': p.name, 'sha256': hashlib.sha256(p.read_bytes().replace(b'\r\n', b'\n')).hexdigest()} for p in [episode_path, film_path, extension_path, rogue_path, boba_path, prequel_path, rebels_path, rebels2_path, rebels3_path, rebels4_path, bad_batch_path, bad_batch2_path, bad_batch3_path, obi_wan_path, solo_path, sequel_path]],
     'excludedSpecials': excluded,
     'mediaNote': 'No summaries, poster URLs, episode images, or provider artwork included.'
 }

@@ -1,0 +1,53 @@
+{
+  "reviewedDate": "2026-11-08",
+  "films": [
+    {
+      "id": "st-force-awakens",
+      "title": "Star Wars: The Force Awakens",
+      "releaseDate": "2015-12-18",
+      "sourceUrl": "https://www.starwars.com/films/star-wars-episode-vii-the-force-awakens",
+      "runtimeNote": "Official page reports 2h 16min; edition-specific runtime withheld. Page release date has no explicit territory or release-type qualifier.",
+      "releaseDateNote": "2015-12-18 from official landing page; territory and release type unspecified."
+    },
+    {
+      "id": "st-last-jedi",
+      "title": "Star Wars: The Last Jedi",
+      "releaseDate": "2017-12-15",
+      "sourceUrl": "https://www.starwars.com/films/star-wars-episode-viii-the-last-jedi",
+      "runtimeNote": "Official page reports 2h 32min; edition-specific runtime withheld. 2017-12-15 North American theatrical debut per Disney corporate release report; December 14 previews and December 13 international rollout are distinct.",
+      "releaseDateNote": "2017-12-15 North American theatrical debut per Disney corporate release report; December 14 previews and December 13 international rollout are distinct.",
+      "releaseSourceUrl": "https://thewaltdisneycompany.com/news/star-wars-last-jedi-posts-second-highest-domestic-preview-time/"
+    },
+    {
+      "id": "st-rise-of-skywalker",
+      "title": "Star Wars: The Rise of Skywalker",
+      "releaseDate": "2019-12-20",
+      "sourceUrl": "https://www.starwars.com/films/star-wars-episode-ix-the-rise-of-skywalker",
+      "runtimeNote": "Official page reports 2h 22min; edition-specific runtime withheld. 2019-12-20 domestic theatrical opening per Disney corporate report; December 18 international opening explains the film landing-page date.",
+      "releaseDateNote": "2019-12-20 domestic theatrical opening per Disney corporate report; December 18 international opening explains the film landing-page date.",
+      "releaseSourceUrl": "https://thewaltdisneycompany.com/news/star-wars-the-rise-of-skywalker-crosses-1-billion-worldwide/"
+    }
+  ],
+  "releaseNote": "TFA retains qualified landing-page date. TLJ and TROS use directly supported North American/domestic openings, distinguishing previews and international rollout.",
+  "appearanceSources": [
+    "https://www.starwars.com/databank/finn",
+    "https://www.starwars.com/databank/d-qar",
+    "https://www.starwars.com/databank/millennium-falcon",
+    "https://www.starwars.com/databank/starkiller-base",
+    "https://www.starwars.com/films/star-wars-episode-viii-the-last-jedi",
+    "https://www.starwars.com/databank/rose-tico",
+    "https://www.starwars.com/films/star-wars-episode-ix-the-rise-of-skywalker",
+    "https://www.starwars.com/databank/rey",
+    "https://www.starwars.com/news/from-a-certain-point-of-view-star-wars-the-rise-of-skywalker-best-scene"
+  ],
+  "identitySources": [
+    "https://www.starwars.com/databank/canto-bight",
+    "https://www.starwars.com/databank/kef-bir",
+    "https://www.starwars.com/databank/starkiller-base"
+  ],
+  "reviewCaveats": [
+    "Partial appearance pass; visions, training flashbacks, victory-montage settings and incidental spacecraft remain incomplete.",
+    "Ajan Kloss is represented as a surface base locality pending primary-source review of the parent-body classification.",
+    "No precise routes, travel times, Ilum coordinate substitution or physical arrival from Force projections are inferred."
+  ]
+}

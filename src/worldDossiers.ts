@@ -13,6 +13,36 @@ export type WorldDossier = {
 
 const databank = 'https://www.starwars.com/databank/';
 export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
+  jakku: {
+    worldId: 'jakku', eyebrow: 'DESERT WORLD · SAND AND SALVAGE',
+    overview: { text: 'Jakku is a harsh desert world where old warship wrecks lie scattered across sandy wastes. Scavengers recover components for sale among its frontier settlements.', sourceUrl: databank + 'jakku' },
+    terrain: { label: 'Sandy wastes and wreckage', text: 'Desert ground surrounds the remains of earlier conflict. The original dune and hull-fragment motif does not identify a particular ship or trace the distribution of wrecks.', sourceUrl: databank + 'jakku' },
+    highlights: [
+      { id: 'graveyard', name: 'Graveyard of Ships', description: 'Scavengers search old wrecks for reusable parts. The grounded vessels remain distinct from the planet; their presence does not define a navigable surface route.', sourceUrl: databank + 'jakku' },
+      { id: 'niima-outpost', name: 'Niima Outpost', description: 'A small settlement combines a bazaar, a rough spaceport and a salvage dealer’s compound. Local control changes by era; no street or market layout is inferred.', sourceUrl: databank + 'niima-outpost' },
+    ],
+    caveat: 'Wreckage and settlement references provide broad setting context, not complete battle history or film-specific scene joins. Original dunes and hull forms supply no surface coordinates, travel distances or galaxy placement.',
+  },
+  'ahch-to': {
+    worldId: 'ahch-to', eyebrow: 'OCEAN WORLD · SACRED ISLAND',
+    overview: { text: 'Ahch-To is a remote world of oceans and caverns associated with the origins of the Jedi Order. A sacred island holds its ancient temple.', sourceUrl: databank + 'ahch-to' },
+    terrain: { label: 'Oceans, island cliffs and caverns', text: 'The official description identifies oceans and caverns, while the island rises above the sea. A green rocky island motif suggests the setting without tracing a coastline or cave system.', sourceUrl: databank + 'ahch-to' },
+    highlights: [
+      { id: 'jedi-temple', name: 'Ahch-To Jedi Temple', description: 'An ancient temple stands high on the sacred island, with weathered mosaics and a meditation ledge. These local features do not establish the entire world’s geography.', sourceUrl: databank + 'ahch-to-jedi-temple' },
+      { id: 'island-habitat', name: 'Island habitat', description: 'Porgs flock around the rocks and nest in island cliffs. The broad habitat description supplies neither a population estimate nor a mapped nesting range.', sourceUrl: databank + 'ahch-to' },
+    ],
+    caveat: 'Ahch-To is the world; its temple island is a locality. The original sea-and-cliff study is not an archaeological plan, measured coastline, canonical navigation route or film-specific appearance claim.',
+  },
+  exegol: {
+    worldId: 'exegol', eyebrow: 'ANCIENT SITH WORLD · PLAINS AND CITADEL',
+    overview: { text: 'Exegol is an ancient Sith world in the Unknown Regions. A massive citadel contains worn statuary and a long-established cult sanctuary.', sourceUrl: databank + 'exegol' },
+    terrain: { label: 'Barren plains and deep fissures', text: 'The citadel stands above fissures in the crust amid barren plains and lightning. The original dark-landscape motif uses static strokes rather than flashing effects.', sourceUrl: databank + 'sith-citadel' },
+    highlights: [
+      { id: 'sith-citadel', name: 'Sith Citadel', description: 'The centuries-old structure forms the center of a sanctuary district. Its silhouette is an illustrative landmark motif, not an architectural reconstruction or military layout.', sourceUrl: databank + 'sith-citadel' },
+      { id: 'fissure-landscape', name: 'Fissure landscape', description: 'Deep breaks in the crust lie beneath the citadel. The guide assigns no depths, passageways or distances and does not disclose later battle outcomes.', sourceUrl: databank + 'sith-citadel' },
+    ],
+    caveat: 'The world, its surface citadel and vessels above it are separate identities. Static lightning and geometric forms are original atmosphere studies; they supply no wayfinder route, galaxy coordinate or film-specific join.',
+  },
   corellia: {
     worldId: 'corellia', eyebrow: 'INDUSTRIAL WORLD · SHIPYARDS AND COAST',
     overview: { text: 'Corellia is an ancient industrial world known for large shipyards. Under Imperial rule, its manufacturing and dockyards serve the Empire’s military priorities.', sourceUrl: databank + 'corellia' },
@@ -464,6 +494,9 @@ export const WORLD_DOSSIERS: Readonly<Record<string, WorldDossier>> = {
 /** Reviewed broad categories for directory discovery; absence means not reviewed, not unknown geology. */
 export type WorldTerrainCategory = 'desert' | 'urban' | 'ice' | 'wetlands' | 'gas-giant' | 'swamp' | 'forest' | 'tropical' | 'cold-desert' | 'rugged' | 'mineral-rich' | 'volcanic' | 'ocean' | 'sinkholes' | 'plains' | 'caverns' | 'asteroid' | 'salvage';
 export const WORLD_TERRAIN: Readonly<Record<string, { category: WorldTerrainCategory; label: string; sourceUrl: string }>> = {
+  jakku: { category: 'desert', label: 'Desert and salvage', sourceUrl: databank + 'jakku' },
+  'ahch-to': { category: 'ocean', label: 'Ocean and sacred island', sourceUrl: databank + 'ahch-to' },
+  exegol: { category: 'plains', label: 'Barren plains and fissures', sourceUrl: databank + 'sith-citadel' },
   corellia: { category: 'urban', label: 'Industrial coast and shipyards', sourceUrl: databank + 'corellia' },
   vandor: { category: 'rugged', label: 'Cold mountains and plains', sourceUrl: databank + 'vandor' },
   savareen: { category: 'desert', label: 'Desert land and oceans', sourceUrl: databank + 'savareen' },

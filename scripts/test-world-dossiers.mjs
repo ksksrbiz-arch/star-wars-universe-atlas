@@ -1,12 +1,12 @@
 import assert from 'node:assert/strict';
 import { WORLD_DOSSIERS, WORLD_TERRAIN } from '../src/worldDossiers.ts';
 import { ALL_WORLDS } from '../src/journeyWorlds.ts';
-assert.deepEqual(Object.keys(WORLD_DOSSIERS).sort(), ['corellia','vandor','savareen','daiyu','mapuzo','jabiim','wayland','lau','pabu','serenno','ipsidon','bracca','ord-mantell','pantora','mandalore','dathomir','ryloth','krownest','atollon','malachor','seelos','lothal','kessel','stygeon-prime','fort-anaxes','bespin','coruscant','dagobah','eadu','endor','glavis-ringworld','hoth','kamino','kashyyyk','jedha','lahmu','mustafar','naboo','scarif','tatooine','utapau','geonosis','yavin'].sort());
+assert.deepEqual(Object.keys(WORLD_DOSSIERS).sort(), ['jakku','ahch-to','exegol','corellia','vandor','savareen','daiyu','mapuzo','jabiim','wayland','lau','pabu','serenno','ipsidon','bracca','ord-mantell','pantora','mandalore','dathomir','ryloth','krownest','atollon','malachor','seelos','lothal','kessel','stygeon-prime','fort-anaxes','bespin','coruscant','dagobah','eadu','endor','glavis-ringworld','hoth','kamino','kashyyyk','jedha','lahmu','mustafar','naboo','scarif','tatooine','utapau','geonosis','yavin'].sort());
 const mapped = new Set(ALL_WORLDS.map(world=>world.id));
 const sources = new Set();
 for (const [id, dossier] of Object.entries(WORLD_DOSSIERS)) {
   assert.equal(dossier.worldId,id);
-  assert(mapped.has(id) || ['corellia','vandor','savareen','daiyu','mapuzo','jabiim','wayland','lau','pabu','serenno','ipsidon','bracca','ord-mantell','pantora','mandalore','dathomir','ryloth','krownest','atollon','malachor','seelos','kessel','stygeon-prime','fort-anaxes','scarif','jedha','eadu','lahmu','glavis-ringworld','kamino','kashyyyk','utapau'].includes(id), 'A textual dossier must not imply a map placement');
+  assert(mapped.has(id) || ['jakku','ahch-to','exegol','corellia','vandor','savareen','daiyu','mapuzo','jabiim','wayland','lau','pabu','serenno','ipsidon','bracca','ord-mantell','pantora','mandalore','dathomir','ryloth','krownest','atollon','malachor','seelos','kessel','stygeon-prime','fort-anaxes','scarif','jedha','eadu','lahmu','glavis-ringworld','kamino','kashyyyk','utapau'].includes(id), 'A textual dossier must not imply a map placement');
   assert(dossier.caveat.length > 50);
   assert(dossier.highlights.length >= 2);
   assert.equal(new Set(dossier.highlights.map(item=>item.id)).size,dossier.highlights.length);

@@ -1,6 +1,6 @@
 # Context index
 
-Status: deployed platform preview, November 8, 2026. There are 76 schematic map destinations: eight general worlds, 67 direct journey placements, and Endor's parent-system placement. The catalog exposes 324 watchable items: 315 episode watch records and nine films across the original trilogy, Andor, The Clone Wars (2008), The Mandalorian, Ahsoka season one, Rogue One, The Book of Boba Fett season one, the prequel trilogy, Rebels seasons 1–4, and The Bad Batch seasons one through three, Obi-Wan Kenobi, and Solo: A Star Wars Story. The original nine specials, four Rebels introductory shorts, The Ultimate Guide and Season 2 Recap are excluded. Twelve sourced collection viewing sequences cover all 324 items. Story/location relationships are a partial evidence pass; see the [journey data review](../evidence/journey-data-review.md) and the generated [coverage JSON](../evidence/journey-coverage.json) (refresh with `node scripts/test-journey-data.mjs --write`).
+Status: deployed platform preview, November 8, 2026. There are 76 schematic map destinations: eight general worlds, 67 direct journey placements, and Endor's parent-system placement. The catalog exposes 327 watchable items: 315 episode watch records and twelve films across the original trilogy, Andor, The Clone Wars (2008), The Mandalorian, Ahsoka season one, Rogue One, The Book of Boba Fett season one, the prequel trilogy, Rebels seasons 1–4, and The Bad Batch seasons one through three, Obi-Wan Kenobi, Solo: A Star Wars Story, and the three sequel-trilogy films. The original nine specials, four Rebels introductory shorts, The Ultimate Guide and Season 2 Recap are excluded. Thirteen sourced collection viewing sequences cover all 327 items. Story/location relationships are a partial evidence pass; see the [journey data review](../evidence/journey-data-review.md) and the generated [coverage JSON](../evidence/journey-coverage.json) (refresh with `node scripts/test-journey-data.mjs --write`).
 
 ## Workflows
 
@@ -22,7 +22,7 @@ Status: deployed platform preview, November 8, 2026. There are 76 schematic map 
 
 Per-batch scope, counts and caveats (Ahsoka, Boba Fett, prequels, Rebels seasons 1–4, Bad Batch seasons 1–3, Obi-Wan Kenobi and Solo) are in [release history](../evidence/release-history.md); sourcing detail is in each batch's review under `evidence/`.
 
-Integrated relationships: 502 links, 316 covered titles, 169 distinct locations, and 8 titles without current links. Coverage is partial even for covered titles. The 76 mapped destinations and 169 relationship-location names measure different things; unsupported placements remain textual.
+Integrated relationships: 521 links, 319 covered titles, 182 distinct locations, and 8 titles without current links. Coverage is partial even for covered titles. The 76 mapped destinations and 182 relationship-location names measure different things; unsupported placements remain textual.
 
 Geographic source and schematic projection are documented in the data module. Eight world names/grids were checked against the earlier official-appendix audit; all current entries match. Official Databank pages support the broad setting descriptions, with era/edition limits retained. Hoth and Bespin share cell K-18; Yavin 4 uses the parent-system cell.
 

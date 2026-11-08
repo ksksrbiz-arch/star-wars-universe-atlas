@@ -1,8 +1,8 @@
 {
   "checkedOn": "2026-11-07",
-  "catalogItems": 324,
-  "relationships": 502,
-  "titlesWithLocationEvidence": 316,
+  "catalogItems": 327,
+  "relationships": 521,
+  "titlesWithLocationEvidence": 319,
   "titlesWithoutLocationEvidence": 8,
   "mapPlacements": 76,
   "referenceTraced": 27,
@@ -23,6 +23,10 @@
     "rebels": {
       "catalog": 66,
       "withLocations": 64
+    },
+    "st": {
+      "catalog": 3,
+      "withLocations": 3
     },
     "rogue-one": {
       "catalog": 1,
@@ -58,6 +62,20 @@
     }
   },
   "unplacedAssociatedWorlds": [
+    "Jakku",
+    "Takodana",
+    "Starkiller Base",
+    "D’Qar",
+    "Ahch-To",
+    "Hosnian Prime",
+    "Crait",
+    "Cantonica",
+    "Supremacy",
+    "Exegol",
+    "Ajan Kloss Resistance base",
+    "Pasaana",
+    "Kijimi",
+    "Kef Bir",
     "Mimban",
     "Vandor",
     "Savareen",
@@ -126,7 +144,6 @@
     "Narkina 5",
     "Kalevala",
     "Arvala-7",
-    "D’Qar",
     "Trask",
     "Plazir-15",
     "Skako Minor",
