@@ -14,3 +14,13 @@
 
 .map-pan-controls[hidden]{display:none}
 @media(max-width:720px){.map-pan-controls{top:110px}.map-workspace .map-tools{gap:4px;right:10px}.map-stage:has(.map-pan-controls:not([hidden])) .galaxy-symbol-key{top:160px}}
+
+/* The flight takes the central stage; the geographic inset stays readable. */
+.map-stage.is-warping .map-bottom,.map-stage.is-warping .galaxy-symbol-key{opacity:0;pointer-events:none}
+.is-warping .map-tools,.is-warping .map-pan-controls{opacity:.12}
+.map-stage[data-flight-phase="charge"] [data-map-html]{opacity:.35}
+.map-stage[data-flight-phase="hyperspace"] [data-map-html]{opacity:0}
+.map-stage[data-flight-phase="arrival"] [data-map-html]{opacity:.8}
+.is-warping .mini-map{width:162px;height:116px;bottom:16px;right:16px;z-index:42;background:#04101aee;border-color:#8bcadf88;box-shadow:0 0 24px #0009}
+.mini-transit line{stroke:#c4efff;stroke-width:.8;stroke-dasharray:3 2}.mini-transit circle{fill:none;stroke:#d7f8ff;stroke-width:1}
+@media(max-width:720px){.map-workspace .is-warping .mini-map{width:100px;height:84px;bottom:190px;right:10px}.is-warping .map-tools,.is-warping .map-pan-controls{opacity:0}}

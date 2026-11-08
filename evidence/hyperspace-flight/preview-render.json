@@ -1,0 +1,10 @@
+{
+  "source": "Local production build",
+  "sampling": "24fps frame-stepped preview; not real-time hardware measurement",
+  "frames": 132,
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "errors": []
+}

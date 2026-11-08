@@ -8,7 +8,7 @@ import PlanetPortrait from './PlanetPortrait';
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { motion, MotionConfig } from 'motion/react';
 
-import { ArrowLeft, ArrowRight, ArrowUp, ArrowDown, Plus, Minus, ChevronDown, Check, ChevronRight, Compass, ExternalLink, Focus, Globe2, Info, Orbit, Radar, Rocket, Sparkles, X, BookOpen, Route, Clock3, BookmarkCheck } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUp, ArrowDown, Plus, Minus, ChevronDown, Check, Compass, ExternalLink, Focus, Globe2, Info, Orbit, Radar, Rocket, X, BookOpen, Route, Clock3, BookmarkCheck } from 'lucide-react';
 
 const Galaxy = lazy(() => import('./Galaxy'));
 
@@ -38,6 +38,7 @@ import { STORY_SEQUENCES } from './chronology';
 import './episode-highlights.css';
 import './workspace.css';
 import './galaxy-immersion.css';
+import TransitStatus from './TransitStatus';
 import type { MapCommand } from './Galaxy';
 import EpisodeLocationControls from './EpisodeLocationControls';
 
@@ -118,6 +119,7 @@ export default function App() {
   const [targetId, setTargetId] = useState<string | null>(null);
 
   const [phase, setPhase] = useState<'idle' | 'warping'>('idle');
+  const [warpStartedAt, setWarpStartedAt] = useState(0);
 
   const [history, setHistory] = useState<string[]>([]);
 
@@ -260,7 +262,7 @@ export default function App() {
     } else {
 
       setTargetId(previewId);
-
+      setWarpStartedAt(performance.now());
       setPhase('warping');
 
       setAnnouncement(`Jumping to ${preview.name}. You can skip or cancel the transition.`);
@@ -384,7 +386,7 @@ export default function App() {
 
         <div id="galaxy-map" tabIndex={-1} aria-label="Interactive galaxy map" className={`map-stage ${phase === 'warping' ? 'is-warping' : 'is-navigating'}`} data-quality={quality} data-presentation={presentation}>
 
-          <div className="galaxy-canvas">{galaxyMounted && <MapBoundary onUnavailable={handleMapUnavailable}><Suspense fallback={<div className="galaxy-loading" role="status"><Orbit size={32} aria-hidden="true"/><strong>Charting the galaxy…</strong><span>Preparing your navigation view</span></div>}><Galaxy presentation={presentation} command={mapCommand} fitKey={episodeFitKey} highlightedIds={episodeWorldIds} worlds={mapWorlds} selectedId={currentId} previewId={previewId} targetId={targetId} phase={phase} reducedMotion={reducedMotion} quality={quality} regionsVisible={regionsVisible} routesVisible={routesVisible} gridVisible={gridVisible} onSelect={selectWorld} onArrive={arrive} resetKey={resetKey} onUnavailable={handleMapUnavailable} onRecovered={() => setMapUnavailable(false)}/></Suspense></MapBoundary>}</div>
+          <div className="galaxy-canvas">{galaxyMounted && <MapBoundary onUnavailable={handleMapUnavailable}><Suspense fallback={<div className="galaxy-loading" role="status"><Orbit size={32} aria-hidden="true"/><strong>Charting the galaxy…</strong><span>Preparing your navigation view</span></div>}><Galaxy presentation={presentation} command={mapCommand} fitKey={episodeFitKey} highlightedIds={episodeWorldIds} worlds={mapWorlds} selectedId={currentId} previewId={previewId} targetId={targetId} warpStartedAt={warpStartedAt} phase={phase} reducedMotion={reducedMotion} quality={quality} regionsVisible={regionsVisible} routesVisible={routesVisible} gridVisible={gridVisible} onSelect={selectWorld} onArrive={arrive} resetKey={resetKey} onUnavailable={handleMapUnavailable} onRecovered={() => setMapUnavailable(false)}/></Suspense></MapBoundary>}</div>
 
           <div className="map-heading"><span className="eyebrow">{presentation === 'immersive' ? 'THE GALAXY AWAITS' : 'REFERENCE CHART'}</span><span className="map-coordinate"><span className="live-dot"/> {phase === 'warping' ? 'HYPERSPACE TRANSIT' : 'NAVIGATION ONLINE'}</span></div>
 
@@ -393,11 +395,11 @@ export default function App() {
           <div id="galaxy-pan-controls" className="map-pan-controls" hidden={!panControlsVisible} role="group" aria-label="Pan galaxy"><button aria-label="Pan up" disabled={phase === 'warping' || mapUnavailable} onClick={() => commandMap('panUp')}><ArrowUp size={16}/></button><button aria-label="Pan left" disabled={phase === 'warping' || mapUnavailable} onClick={() => commandMap('panLeft')}><ArrowLeft size={16}/></button><button aria-label="Pan down" disabled={phase === 'warping' || mapUnavailable} onClick={() => commandMap('panDown')}><ArrowDown size={16}/></button><button aria-label="Pan right" disabled={phase === 'warping' || mapUnavailable} onClick={() => commandMap('panRight')}><ArrowRight size={16}/></button></div>
           <div className="map-bottom"><div className="current-location"><span className="location-icon"><Radar size={18}/></span><div><span>YOUR LOCATION</span><strong>{current.name}</strong>{presentation === 'immersive' && <button className="inspect-world" disabled={phase === 'warping' || mapUnavailable} onClick={() => {commandMap('inspect');setAnnouncement(`Close view of ${preview.name}. Illustrative globe; current location unchanged.`);}}>Inspect {preview.name} <Focus size={13}/></button>}</div></div><div className="map-legend"><i/> Reference atlas · schematic placement</div></div>
 
-          <div className="mini-map" aria-label="Galaxy overview"><svg viewBox="0 0 120 80" role="img" aria-label={`Overview: currently at ${current.name}`}><ReferenceOverview regions={regionsVisible} routes={routesVisible}/>{mapWorlds.map(w => <g key={w.id}><circle className={w.id === currentId ? 'mini-current' : 'mini-world'} cx={60+w.x*43} cy={40-w.y*28} r={w.id === currentId ? 3.5 : 2}/>{w.id === currentId && <circle className="mini-ring" cx={60+w.x*43} cy={40-w.y*28} r="7"/>}</g>)}</svg><span>OVERVIEW</span></div>
+          <div className="mini-map" aria-label="Galaxy overview"><svg viewBox="0 0 120 80" role="img" aria-label={`Overview: currently at ${current.name}`}><ReferenceOverview regions={regionsVisible} routes={routesVisible}/>{phase === 'warping' && destination && <g className="mini-transit"><line x1={60+current.x*43} y1={40-current.y*28} x2={60+destination.x*43} y2={40-destination.y*28}/><circle cx={60+destination.x*43} cy={40-destination.y*28} r="5"/></g>}{mapWorlds.map(w => <g key={w.id}><circle className={w.id === currentId ? 'mini-current' : 'mini-world'} cx={60+w.x*43} cy={40-w.y*28} r={w.id === currentId ? 3.5 : 2}/>{w.id === currentId && <circle className="mini-ring" cx={60+w.x*43} cy={40-w.y*28} r="7"/>}</g>)}</svg><span>{phase === 'warping' ? 'GALAXY POSITION' : 'OVERVIEW'}</span></div>
 
           {phase === 'idle' && previewId !== currentId && <div className="map-jump-bar"><div><span>DESTINATION SELECTED</span><strong>{preview.name}</strong></div><button aria-label={`Jump to ${preview.name}`} onClick={jump}><Rocket size={14}/> Jump <ArrowRight size={14}/></button></div>}
 
-          {phase === 'warping' && <motion.div initial={false} className="transit-panel" role="status"><span className="eyebrow"><Sparkles size={13}/> JUMP IN PROGRESS</span><strong>{current.name}<ArrowRight size={17}/>{destination?.name}</strong><div><button className="quiet-button" onClick={() => cancel()}><X size={14}/> Cancel</button><button className="quiet-button" onClick={arrive}>Skip animation <ChevronRight size={14}/></button></div><div className="warp-progress" aria-hidden="true"><span/></div></motion.div>}
+          {phase === 'warping' && <TransitStatus origin={current.name} destination={destination?.name ?? preview.name} startedAt={warpStartedAt} onCancel={() => cancel()} onSkip={arrive} reducedMotion={reducedMotion}/>}
 
         </div>
 

@@ -8,6 +8,7 @@ import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 import { gridToDisplay, type World } from './data'
 import WarpEffect from './WarpEffect'
+import { sampleWarpFlight, WARP_DURATION_MS } from './warpFlight'
 import GalaxyAtmosphere, { type GalaxyQuality } from './GalaxyAtmosphere'
 import GalacticGeography from './GalacticGeography'
 import PlanetaryBody from './PlanetaryBody'
@@ -82,6 +83,7 @@ type Props = {
   selectedId: string
   targetId: string | null
   phase: 'idle' | 'warping'
+  warpStartedAt?: number
   reducedMotion: boolean
   onSelect: (id: string) => void
   onArrive: () => void
@@ -451,12 +453,12 @@ function PreviewConnection({ from, to }: { from: World; to: World }) {
 }
 
 function Scene(props: Props) {
-  const { camera, size, invalidate } = useThree()
+  const { camera, size, invalidate, gl } = useThree()
   const controls = useRef<OrbitControlsImpl>(null)
   const cameraO = camera as THREE.OrthographicCamera
   const baseZoom = Math.max(12, Math.min(size.width / (size.width < 600 ? 25 : 29), size.height / 23))
   const [limits, setLimits] = useState([baseZoom * .65, baseZoom * 4])
-  const animation = useRef<{ started: number; from: THREE.Vector3; to: THREE.Vector3; zoom: number; targetId: string; done: boolean } | null>(null)
+  const animation = useRef<{ started: number; from: THREE.Vector3; origin: THREE.Vector3; to: THREE.Vector3; zoom: number; targetId: string; done: boolean } | null>(null)
   const fitted = useRef({ key: props.fitKey ?? 0, ids: '', active: false });
   const highlightedKey = [...(props.highlightedIds ?? [])].sort().join('|');
   const previousSelected = useRef(props.selectedId)
@@ -546,7 +548,7 @@ function Scene(props: Props) {
         const { selectedId, baseZoom: base, limits: zoomLimits } = latest.current
         const skipped = selectedId === a.targetId
         camera.position.copy(skipped ? a.to : a.from)
-        cameraO.zoom = skipped ? Math.min(base * 1.48, zoomLimits[1]) : a.zoom
+        cameraO.zoom = skipped ? Math.min(base * 4, zoomLimits[1]) : a.zoom
         controls.current?.target.set(camera.position.x, camera.position.y, 0)
         cameraO.updateProjectionMatrix()
         controls.current?.update()
@@ -554,12 +556,15 @@ function Scene(props: Props) {
       }
       animation.current = null
       warpProgress.current = 0
+      const stage = gl.domElement.closest<HTMLElement>('.map-stage')
+      if (stage) delete stage.dataset.flightPhase
       return
     }
     warpProgress.current = 0
-    animation.current = { started: performance.now(), from: camera.position.clone(), to: new THREE.Vector3(world.x * 10, world.y * 10, 22), zoom: cameraO.zoom, targetId: world.id, done: false }
+    const origin = props.worlds.find(world => world.id === props.selectedId)
+    animation.current = { started: props.warpStartedAt ?? performance.now(), from: camera.position.clone(), origin: new THREE.Vector3((origin?.x ?? 0) * 10, (origin?.y ?? 0) * 10, 22), to: new THREE.Vector3(world.x * 10, world.y * 10, 22), zoom: cameraO.zoom, targetId: world.id, done: false }
     invalidate()
-  }, [props.phase, props.targetId, props.worlds, camera, cameraO, invalidate])
+  }, [props.phase, props.targetId, props.warpStartedAt, props.worlds, camera, cameraO, invalidate, gl])
 
   useEffect(() => {
     if (props.phase !== 'idle' || previousSelected.current === props.selectedId) return
@@ -575,19 +580,21 @@ function Scene(props: Props) {
   useFrame(() => {
     const a = animation.current
     if (!a || a.done) return
-    const duration = props.reducedMotion ? 180 : 2000
+    const duration = props.reducedMotion ? 180 : WARP_DURATION_MS
     const t = Math.min(1, (performance.now() - a.started) / duration)
     warpProgress.current = t
-    const eased = t * t * (3 - 2 * t)
-    camera.position.lerpVectors(a.from, a.to, eased)
+    const flight = sampleWarpFlight(t, { from: a.from, origin: a.origin, to: a.to, initialZoom: a.zoom, baseZoom, arrivalZoom: Math.min(baseZoom * 4, limits[1]) })
+    camera.position.set(flight.x, flight.y, 22)
+    const stage = gl.domElement.closest<HTMLElement>('.map-stage')
+    if (stage) stage.dataset.flightPhase = flight.stage
     const target = controls.current?.target
     if (target) { target.x = camera.position.x; target.y = camera.position.y; target.z = 0 }
-    cameraO.zoom = THREE.MathUtils.lerp(a.zoom, Math.min(baseZoom * 1.48, limits[1]), eased)
+    cameraO.zoom = flight.zoom
     cameraO.updateProjectionMatrix()
     controls.current?.update()
     if (t === 1) { a.done = true; onArrive.current() }
     else invalidate()
-  })
+  }, -1)
 
   const { worlds, highlightedIds, selectedId, previewId } = props
   const markerOffsets = useMemo(() => {
@@ -637,7 +644,7 @@ function Scene(props: Props) {
     <LabelDeclutter />
     <ContextGuard onUnavailable={props.onUnavailable} onRecovered={props.onRecovered} />
     <WarpEffect progressRef={warpProgress} active={props.phase === 'warping'} reducedMotion={props.reducedMotion} quality={props.quality} />
-    <OrbitControls onStart={() => {fitted.current.active = false}} ref={controls} makeDefault enableRotate={false} enableDamping dampingFactor={.12} enablePan={props.phase === 'idle'} enableZoom={props.phase === 'idle'} minZoom={limits[0]} maxZoom={limits[1]} zoomSpeed={.7} panSpeed={.8} screenSpacePanning mouseButtons={{ LEFT: THREE.MOUSE.PAN, MIDDLE: THREE.MOUSE.DOLLY, RIGHT: THREE.MOUSE.PAN }} touches={{ ONE: THREE.TOUCH.PAN, TWO: THREE.TOUCH.DOLLY_PAN }} />
+    <OrbitControls onStart={() => {fitted.current.active = false}} ref={controls} makeDefault enableRotate={false} enableDamping dampingFactor={.12} enablePan={props.phase === 'idle'} enableZoom={props.phase === 'idle'} minZoom={props.phase === 'warping' ? Math.min(limits[0], baseZoom * .45) : limits[0]} maxZoom={limits[1]} zoomSpeed={.7} panSpeed={.8} screenSpacePanning mouseButtons={{ LEFT: THREE.MOUSE.PAN, MIDDLE: THREE.MOUSE.DOLLY, RIGHT: THREE.MOUSE.PAN }} touches={{ ONE: THREE.TOUCH.PAN, TWO: THREE.TOUCH.DOLLY_PAN }} />
   </>
 }
 
@@ -645,7 +652,7 @@ export default function Galaxy(props: Props) {
   const storyCount = props.worlds.filter(world => props.highlightedIds?.has(world.id)).length
   const hasPreview = Boolean(props.previewId && props.previewId !== props.selectedId)
   return <div style={{ position: 'absolute', inset: 0, background: '#050c12', isolation: 'isolate' }} aria-label="Interactive schematic galaxy map">
-    <Canvas orthographic camera={{ position: [0, 0, 22], zoom: 32, near: .1, far: 100 }} dpr={props.quality === 'cinematic' && !props.reducedMotion ? [1, 2] : [1, 1.5]} frameloop="demand" gl={{ antialias: true, alpha: false, powerPreference: 'default' }} fallback={<div style={{ padding: 32, color: '#d7e4e8' }}>The galaxy view needs WebGL. Choose a world using the destination list.</div>}>
+    <Canvas orthographic camera={{ position: [0, 0, 22], zoom: 32, near: .1, far: 100 }} dpr={props.phase === 'warping' ? 1 : props.quality === 'cinematic' && !props.reducedMotion ? [1, 2] : [1, 1.5]} frameloop="demand" gl={{ antialias: true, alpha: false, powerPreference: 'default' }} fallback={<div style={{ padding: 32, color: '#d7e4e8' }}>The galaxy view needs WebGL. Choose a world using the destination list.</div>}>
       <Scene {...props} />
     </Canvas>
     <aside className="galaxy-symbol-key" aria-label="Map symbols" data-story-count={storyCount} data-travelling={props.phase === 'warping'}>

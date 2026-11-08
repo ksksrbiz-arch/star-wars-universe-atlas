@@ -1,0 +1,26 @@
+.transit-hud{position:absolute;inset:0;z-index:40;pointer-events:none;color:#eef8ff}
+.transit-hud-destination{position:absolute;top:78px;left:50%;transform:translateX(-50%);width:min(55%,380px);text-align:center;text-shadow:0 2px 12px #000,0 0 25px #000}
+.transit-hud-destination>span{display:block;color:#a1d7e6;font-size:11px;font-weight:600;letter-spacing:2.4px;text-transform:uppercase}
+.transit-hud-destination>strong{display:block;margin-top:5px;font-family:'Barlow Condensed',sans-serif;font-size:clamp(22px,3vw,34px);font-weight:500;letter-spacing:1.8px;overflow-wrap:anywhere}
+.transit-hud-console{position:absolute;bottom:116px;left:50%;transform:translateX(-50%);width:min(390px,calc(100% - 32px));padding:14px 18px 10px;border:1px solid #a7d8ed45;border-top-color:#c7efff8c;border-radius:4px;background:linear-gradient(115deg,#07111fee,#102538ed);box-shadow:0 10px 34px #0008,0 0 30px #78c8ff0a;pointer-events:auto}
+.transit-hud-route{display:flex;align-items:center;justify-content:center;gap:10px;min-width:0;font-size:12px;line-height:1.4}
+.transit-hud-route>span:first-child,.transit-hud-route>strong{overflow-wrap:anywhere;min-width:0}
+.transit-hud-route>span{color:#a6bdce}.transit-hud-route>strong{font-weight:600}
+.transit-hud-announcement{margin:10px 0 8px;color:#bcf0ff;text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase}
+.transit-hud-track{height:2px;background:#96c6dd26;overflow:hidden}.transit-hud-track>span{display:block;width:100%;height:100%;transform-origin:left;background:linear-gradient(90deg,#4599b8,#d8f7ff);box-shadow:0 0 10px #89d9ff}
+.transit-hud-phases{display:flex;justify-content:space-between;gap:8px;margin-top:7px;font-size:11px;letter-spacing:.5px;color:#93a7b8}.transit-hud-phases>[data-active=true]{color:#def5ff}
+.transit-hud-actions{display:flex;justify-content:center;gap:10px;margin-top:8px}
+.transit-hud-actions>button{min-height:44px;min-width:88px;border:1px solid #a9d4e72e;border-radius:3px;padding:8px 14px;background:#0b1928;color:#cee5f4;font-size:12px;cursor:pointer}
+.transit-hud-actions>button:first-child{border-color:#a9d4e75c;background:#1c3548;color:#f0fbff}.transit-hud-actions>button>span{margin-left:8px;color:#a5dfef}
+.transit-hud-actions>button:hover{background:#29495d;border-color:#c0eaff}.transit-hud-actions>button:focus-visible{outline:2px solid #e4f8ff;outline-offset:3px}
+@media(max-width:600px){.transit-hud-destination{top:92px;width:62%}.transit-hud-console{bottom:110px;padding:11px 12px 8px;width:calc(100% - 24px)}.transit-hud-phases{font-size:11px;letter-spacing:0}.transit-hud-route{font-size:12px}.transit-hud-actions{margin-top:6px}}
+@media(prefers-reduced-motion:reduce){.transit-hud *{animation:none!important;transition:none!important}}
+
+/* Override the legacy transit-panel shell while retaining its navigation-test hook. */
+.transit-panel.transit-status{inset:0;left:0;bottom:0;transform:none;width:100%;max-width:none;padding:0;border:0;border-radius:0;background:none;box-shadow:none;text-align:initial;backdrop-filter:none;overflow:visible;pointer-events:none;z-index:40}
+.transit-panel.transit-status>.transit-hud-destination{display:block}
+.transit-panel.transit-status .transit-hud-console{bottom:14px;width:min(470px,calc(100% - 28px))}
+@media(max-width:600px){.transit-panel.transit-status .transit-hud-console{bottom:14px;width:calc(100% - 24px)}}
+
+
+.transit-hud-console{backdrop-filter:blur(10px)}
