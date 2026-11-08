@@ -11,3 +11,7 @@ The preview diamond is fixed-screen sized and distinct from the current-location
 Chromium/software-WebGL viewport emulation does not establish physical-device FPS. Build retains large-chunk warnings. No new map coordinates are asserted; original illustrations do not establish surface maps.
 
 Neon publication succeeded as one transaction. All four public API counts and digests match the reviewed manifest (public-data.json). Final rebuild is identical to the integrated tested build.
+
+## Live deployment verified
+
+Cloudflare build 2f499ea3-87c7-4fe4-a578-56c9c6422bf4 succeeded for application commit 5e8c0ab626b3495d0cf6b76c8ad67a648efc0935. Live HTML and all five JavaScript/CSS hashes match the integrated tested production build (live/assets.json). Live Bad Batch journey and three-guide tests pass at 1440/390/320. Live preview tests pass all six viewport/font cases (live/preview-results.json). All four public API hashes were rechecked after deployment. Stored sequence readback has 286 items and zero order mismatches. Agent full 32-guide suite passes all three widths.

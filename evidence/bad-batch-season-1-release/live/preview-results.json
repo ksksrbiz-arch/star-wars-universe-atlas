@@ -1,0 +1,41 @@
+{
+  "browser": "Chromium software WebGL; not physical-device FPS",
+  "results": [
+    {
+      "width": 1440,
+      "fontCase": "normal",
+      "previewDistinctFromArrival": true,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 1440,
+      "fontCase": "unavailable",
+      "previewDistinctFromArrival": true,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 390,
+      "fontCase": "normal",
+      "previewDistinctFromArrival": true,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 390,
+      "fontCase": "unavailable",
+      "previewDistinctFromArrival": true,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 320,
+      "fontCase": "normal",
+      "previewDistinctFromArrival": true,
+      "idleDrawsOver600ms": 0
+    },
+    {
+      "width": 320,
+      "fontCase": "unavailable",
+      "previewDistinctFromArrival": true,
+      "idleDrawsOver600ms": 0
+    }
+  ]
+}
