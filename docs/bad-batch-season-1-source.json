@@ -3,7 +3,7 @@
   "api": "https://api.tvmaze.com/shows/49190/episodes?specials=1",
   "provider": "TVmaze",
   "license": "CC BY-SA",
-  "numberingNote": "16 consecutive season-one records, matching official episode-guide numbers. Extended premiere remains episode1, not a split record. Provider dates retained; runtimes withheld pending edition verification. Seasons2–3 are outside this batch.",
+  "numberingNote": "16 consecutive season-one records, matching official episode-guide numbers. Extended premiere remains episode1, not a split record. Provider dates retained; runtimes withheld pending edition verification. Seasons 2 and 3 are catalogued in their own source files.",
   "officialIndex": "https://www.starwars.com/series/star-wars-the-bad-batch",
   "episodes": [
     {
