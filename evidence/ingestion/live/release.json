@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-11-09T21:33:57.267Z",
+  "sourceCommit": "fa5580b73b990fa09339aa5898f875ca938cf1e4",
+  "publicBuild": {
+    "id": "16c87d69-89e5-478b-bf49-24ba8b101c6f",
+    "outcome": "success"
+  },
+  "privateBuild": {
+    "id": "cbb5e89c-a152-420a-b95f-fbedeb283040",
+    "outcome": "success"
+  },
+  "canonicalHealth": {
+    "status": "ok",
+    "database": "connected",
+    "works": 327,
+    "worlds": 76,
+    "appearances": 521
+  },
+  "privateMediaSmoke": {
+    "httpStatus": 200,
+    "status": "complete",
+    "trigger": "manual",
+    "items": 0,
+    "errors": 0
+  },
+  "cron": "*/15 * * * *",
+  "firstScheduledInvocationObserved": false,
+  "note": "Cloudflare accepted the schedule after the approved paid upgrade. Provider/manual jobs were exercised live; the first natural scheduled invocation had not appeared at release verification."
+}
