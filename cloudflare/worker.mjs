@@ -81,7 +81,7 @@ async function handleRequest(request, env, ctx) {
       if (!key || hasTraversal(key)) return mediaError('Not found',404);
       // R2 does not implement If-Range. A full response is safe when it is supplied;
       // HEAD must ignore Range as well (RFC 9110 section 14.2).
-      const range = request.method === 'GET' && !request.headers.has('If-Range') ? request.headers : undefined;
+      const range = request.method === 'GET' && request.headers.has('Range') && !request.headers.has('If-Range') ? request.headers : undefined;
       let object;
       try { object=await env.PUBLISHED_ASSETS.get(key,{range,onlyIf:request.headers}); }
       catch (error) {
@@ -103,7 +103,9 @@ async function handleRequest(request, env, ctx) {
       headers.set('Accept-Ranges','bytes');
       if (!('body' in object)) return new Response(null,{status:failedPrecondition(request.headers,object)?412:304,headers});
       let status=200;
-      if (object.range) {
+      // R2 may report a full object's range metadata even for an unrestricted read.
+      // Only a client-requested byte range produces a 206 response.
+      if (range && object.range) {
         const length = 'suffix' in object.range ? Math.min(object.range.suffix,object.size) : Math.min(object.range.length ?? object.size-(object.range.offset ?? 0),object.size-(object.range.offset ?? 0));
         const offset = 'suffix' in object.range ? object.size-length : object.range.offset ?? 0;
         status=206;headers.set('Content-Range',`bytes ${offset}-${offset+length-1}/${object.size}`);

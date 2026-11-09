@@ -29,7 +29,7 @@ try{
   assert.equal(await page.locator('.galaxy-canvas canvas').count(),1);assert.equal(await page.getByLabel('Find a mapped world').locator('option').count(),expected.worlds);
   await page.waitForTimeout(500);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   await page.locator('.map-stage').screenshot({path:`evidence/deployment/live-${mobile?'mobile':'desktop'}-map.png`});
-  await page.getByLabel('Find a mapped world').selectOption('hoth');
+  await page.getByRole('button',{name:'Explore Hoth',exact:true}).click();
   await page.clock.pauseAt(await page.evaluate(()=>Date.now()+1000));
   await page.getByRole('button',{name:'Jump to Hoth',exact:true}).first().click();await page.clock.runFor(800);
   assert.equal(await page.locator('.current-location strong').innerText(),'Tatooine');

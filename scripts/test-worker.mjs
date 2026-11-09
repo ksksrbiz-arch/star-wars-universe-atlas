@@ -41,6 +41,16 @@ assert.equal(lastRead.options.range, undefined);
 assert.equal(head.status, 200);
 assert.equal(head.headers.get('Content-Length'), '10');
 assert.equal(await head.text(), '');
+// R2 can attach full-range metadata to reads that did not request partial content.
+object = {...metadata, range:{offset:0,length:10}, body:'0123456789'};
+for (const [method,headers] of [['GET',{}],['HEAD',{}],['HEAD',{Range:'bytes=2-4'}],['GET',{Range:'bytes=2-4','If-Range':'"old"'}]]) {
+  const unrestricted = await request('/media/test',{method,headers});
+  assert.equal(lastRead.options.range,undefined,'Unrestricted and HEAD reads must not pass Range to R2');
+  assert.equal(unrestricted.status,200,`${method} must not inherit unsolicited R2 range metadata`);
+  assert.equal(unrestricted.headers.get('Content-Range'),null);
+  assert.equal(unrestricted.headers.get('Content-Length'),'10');
+  assert.equal(await unrestricted.text(),method==='HEAD'?'':'0123456789');
+}
 await request('/media/world%20art.svg');
 assert.equal(lastRead.key, 'world art.svg');
 assert.equal((await request('/media/%ZZ')).status, 404);
