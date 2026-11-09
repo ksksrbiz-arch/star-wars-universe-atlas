@@ -1,0 +1,13 @@
+{
+  "base": "http://127.0.0.1:4193",
+  "checkedAt": "2026-11-09T22:15:37.552Z",
+  "checks": [
+    "1440px sidebar/curated/directory profile consistency, static reduced motion, typed nonplanet fallback, source link and no overflow/watch mutation",
+    "390px sidebar/curated/directory profile consistency, static reduced motion, typed nonplanet fallback, source link and no overflow/watch mutation",
+    "320px sidebar/curated/directory profile consistency, static reduced motion, typed nonplanet fallback, source link and no overflow/watch mutation",
+    "Rapid world replacement keeps the latest profile and stable completed pixels",
+    "Unavailable 2D globe context produces an accessible placeholder",
+    "Blocked worker preserves a 512px synchronous globe fallback"
+  ],
+  "limitation": "Desktop Chromium/software WebGL with emulated viewports; original artwork is not surveyed surface geography."
+}

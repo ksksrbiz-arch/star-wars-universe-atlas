@@ -1,0 +1,37 @@
+{
+  "base": "http://127.0.0.1:4193",
+  "checkedAt": "2026-11-09T22:18:18.323Z",
+  "results": [
+    {
+      "width": 1440,
+      "keyboardRevealHide": true,
+      "sourceLinks": true,
+      "noWatchMutation": true,
+      "noMediaRequestsRequired": true,
+      "directoryAccess": true,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "keyboardRevealHide": true,
+      "sourceLinks": true,
+      "noWatchMutation": true,
+      "noMediaRequestsRequired": true,
+      "directoryAccess": true,
+      "noOverflow": true,
+      "errors": []
+    },
+    {
+      "width": 320,
+      "keyboardRevealHide": true,
+      "sourceLinks": true,
+      "noWatchMutation": true,
+      "noMediaRequestsRequired": true,
+      "directoryAccess": true,
+      "noOverflow": true,
+      "errors": []
+    }
+  ],
+  "limitation": "Desktop Chromium with emulated phone widths; external player playback and physical devices not tested."
+}

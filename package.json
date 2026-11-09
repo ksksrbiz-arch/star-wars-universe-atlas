@@ -109,7 +109,7 @@
     "test:bad-batch-season-3": "node scripts/test-bad-batch-season-3.mjs",
     "test:bad-batch-season-three-dossiers": "node scripts/test-bad-batch-season-three-dossiers.mjs",
     "test:map-edge-labels": "node scripts/test-map-edge-labels.mjs",
-    "test:data": "npm run test:catalog && npm run test:connections && npm run test:chronology && npm run test:journey-data && npm run test:reference-data && npm run test:worker && npm run test:publication && npm run test:sequence-publication && npm run test:media && npm run test:dossiers && npm run test:rogue-one && npm run test:reconciled-worlds && npm run test:boba-fett && npm run test:prequels && npm run test:rebels && npm run test:rebels-season-2 && npm run test:rebels-season-3 && npm run test:rebels-season-4 && npm run test:bad-batch-season-1 && npm run test:bad-batch-season-2 && npm run test:bad-batch-season-3 && npm run test:label-leader-geometry && npm run test:obi-wan && npm run test:solo && npm run test:sequel",
+    "test:data": "npm run test:catalog && npm run test:connections && npm run test:chronology && npm run test:journey-data && npm run test:reference-data && npm run test:worker && npm run test:publication && npm run test:sequence-publication && npm run test:media && npm run test:dossiers && npm run test:rogue-one && npm run test:reconciled-worlds && npm run test:boba-fett && npm run test:prequels && npm run test:rebels && npm run test:rebels-season-2 && npm run test:rebels-season-3 && npm run test:rebels-season-4 && npm run test:bad-batch-season-1 && npm run test:bad-batch-season-2 && npm run test:bad-batch-season-3 && npm run test:label-leader-geometry && npm run test:obi-wan && npm run test:solo && npm run test:sequel && npm run test:databank-guides",
     "test:deployment": "node scripts/test-deployment.mjs",
     "test:journey-worlds-visual-audit": "node scripts/test-journey-worlds-visual-audit.mjs",
     "test:library-visual-audit": "node scripts/test-library-visual-audit.mjs",
@@ -152,7 +152,9 @@
     "ingest:deliver-media": "node scripts/deliver-source-media.mjs",
     "deploy:ingestion": "node scripts/build-ingestion-worker.mjs && node scripts/deploy-ingestion-cloudflare.mjs",
     "test:character-cards": "node scripts/test-character-cards.mjs",
-    "ingest:character-art": "node scripts/ingest-character-art.mjs"
+    "ingest:character-art": "node scripts/ingest-character-art.mjs",
+    "test:databank-guides": "node scripts/test-databank-guides.mjs",
+    "test:databank-guide-ui": "node scripts/test-databank-guide-ui.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",

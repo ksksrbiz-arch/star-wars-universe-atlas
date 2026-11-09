@@ -1,0 +1,8 @@
+{
+  "base": "http://127.0.0.1:4193",
+  "checks": [
+    "Desktop1440 destination deep link, reload, reduced-motion jump, share/copy fallback, invalid route and section navigation",
+    "Mobile390 destination deep link, reload, reduced-motion jump, share/copy fallback, invalid route and section navigation"
+  ],
+  "errors": []
+}
