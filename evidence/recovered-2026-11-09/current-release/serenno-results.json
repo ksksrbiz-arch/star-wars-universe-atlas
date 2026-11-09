@@ -1,0 +1,18 @@
+{
+  "base": "https://star-wars-universe-atlas.skdev-371.workers.dev",
+  "checkedAt": "2026-11-09T20:24:36.280Z",
+  "results": [
+    {
+      "width": 1440,
+      "texturePixels": 1024,
+      "terrain": "Forests, mountains and plains",
+      "errors": []
+    },
+    {
+      "width": 390,
+      "texturePixels": 1024,
+      "terrain": "Forests, mountains and plains",
+      "errors": []
+    }
+  ]
+}

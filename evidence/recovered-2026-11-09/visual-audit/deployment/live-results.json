@@ -1,0 +1,27 @@
+{
+  "url": "https://star-wars-universe-atlas.skdev-371.workers.dev",
+  "checkedAt": "2026-11-07T22:51:01.232Z",
+  "databaseExpectation": {
+    "id": "initial-2026-11-07",
+    "works": 185,
+    "worlds": 62,
+    "appearances": 171,
+    "sequences": 4,
+    "regions": 8,
+    "routes": 5,
+    "note": "Last verified database snapshot. This is independent of the frontend bundled connection count. Update only after successful database publication and live verification.",
+    "sha256": "bf2db16cab2d529867ba1b25c77537c2341bf093e12d8d7c03c070788bef4414",
+    "coveredTitles": 127
+  },
+  "appearanceContentVerified": true,
+  "publicationRowIdentityVerified": false,
+  "checks": [
+    "Live database counts match explicit expectation initial-2026-11-07; independent of bundled frontend data",
+    "All six public catalog endpoints return expected records; full appearance payload digest matches reviewed expectation",
+    "Unknown API/media objects return404 and public writes return405",
+    "Live 1440px desktop map,62worlds,warp/skip,Journey navigation and nooverflow",
+    "Live 390px mobile map,62worlds,warp/skip,Journey navigation and nooverflow"
+  ],
+  "errors": [],
+  "limitation": "Appearance content digest verified; publication-row identity is not exposed by the API. Software WebGL and emulated mobile; not physical-device performance measurements"
+}
