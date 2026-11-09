@@ -7,6 +7,8 @@
   },
   "type": "module",
   "scripts": {
+    "ingest:sources": "node scripts/ingest-sources.mjs",
+    "test:ingestion": "node --test scripts/ingestion/http.test.mjs scripts/ingestion/collectors.test.mjs scripts/ingestion/wiki-appearances.test.mjs",
     "dev": "vite --host 0.0.0.0",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 0.0.0.0",

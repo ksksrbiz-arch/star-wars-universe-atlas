@@ -1,0 +1,48 @@
+{
+  "checkedAt": "2026-11-09T20:47:47.027Z",
+  "scope": "Six representative HEAD requests, not an exhaustive image-delivery or rights audit; no media bytes downloaded",
+  "results": [
+    {
+      "provider": "databank",
+      "url": "https://lumiere-a.akamaihd.net/v1/images/image_7f322dba.jpeg",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "bytes": "169178"
+    },
+    {
+      "provider": "databank",
+      "url": "https://lumiere-a.akamaihd.net/v1/images/databank_abafar_01_169_475b5d42.jpeg",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "bytes": "168553"
+    },
+    {
+      "provider": "tvmaze",
+      "url": "https://static.tvmaze.com/uploads/images/original_untouched/237/593387.jpg",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "bytes": "662200"
+    },
+    {
+      "provider": "tvmaze",
+      "url": "https://static.tvmaze.com/uploads/images/original_untouched/4/11712.jpg",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "bytes": "170531"
+    },
+    {
+      "provider": "wookieepedia",
+      "url": "https://static.wikia.nocookie.net/starwars/images/5/54/Ilum_FDNP.png/revision/latest?cb=20180501025709",
+      "status": 200,
+      "contentType": "image/webp",
+      "bytes": "77210"
+    },
+    {
+      "provider": "wookieepedia",
+      "url": "https://static.wikia.nocookie.net/starwars/images/3/34/Mandalore-2025ToppsSWHyperspace.png/revision/latest?cb=20260219064951",
+      "status": 200,
+      "contentType": "image/webp",
+      "bytes": "93058"
+    }
+  ]
+}
