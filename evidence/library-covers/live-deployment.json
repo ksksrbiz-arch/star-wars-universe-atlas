@@ -1,0 +1,19 @@
+{
+  "base": "https://star-wars-universe-atlas.skdev-371.workers.dev",
+  "commit": "82d9e1076d0a5e9bd7172d2ae22f14fdedad1972",
+  "build": "1c25de50-7a6e-40a9-af6c-f136e286fab6",
+  "version": "3f2c51d5-0fc7-46f9-8234-7ea100045a2c",
+  "checkedAt": "2026-11-09T22:43:34.584Z",
+  "files": [
+    {
+      "path": "/assets/index-CbbVr5Sh.js",
+      "sha256": "599109eb2f22bf19bf428ba3d023e50ecc13c4dd54f42e60e0b8d56f2368ec67",
+      "bytes": 986406
+    },
+    {
+      "path": "/assets/index-CqivLdBU.css",
+      "sha256": "910c197e8f1bc2e4b00f5eebf13179cac041a483c9c74c69c8656edf2880ba06",
+      "bytes": 163224
+    }
+  ]
+}
