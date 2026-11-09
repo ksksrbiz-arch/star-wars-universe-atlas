@@ -1,0 +1,40 @@
+{
+  "checkedAt": "2026-11-09T21:56:47.087Z",
+  "url": "https://star-wars-universe-atlas.skdev-371.workers.dev",
+  "sourceCommit": "5f26c31d0bc38bbd56134e372852fa6de94ce13a",
+  "results": [
+    {
+      "width": 1440,
+      "cutouts": 8,
+      "allCharacters": 964,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "cutouts": 8,
+      "allCharacters": 964,
+      "errors": []
+    }
+  ],
+  "checks": [
+    "Actual database-filtered artwork",
+    "Same-origin original-resolution cutouts and responsive images",
+    "Spoiler consent, native dialog, Escape and readable art",
+    "964-character fallback archive"
+  ],
+  "limitations": [
+    "Only eight reviewed transparent artworks; remaining character entries use source portraits",
+    "Browser mobile emulation, not a physical-device performance test"
+  ],
+  "deployments": {
+    "publicBuild": "f2536cb1-0997-49af-887f-8511a98cac2c",
+    "privateBuild": "9b9f97d2-3b5c-4c3b-bf31-d6c42a2716da",
+    "bothSucceeded": true
+  },
+  "sourceAutomation": {
+    "firstObservedScheduledTask": "media",
+    "startedAt": "2026-11-09T21:45:36.311Z",
+    "completedAt": "2026-11-09T21:45:38.835Z",
+    "status": "complete"
+  }
+}
