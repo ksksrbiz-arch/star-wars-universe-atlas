@@ -1,7 +1,7 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
-const base = process.env.ATLAS_URL || 'http://localhost:4175';
+const base = process.env.ATLAS_URL || 'http://localhost:4173';
 const out = process.env.ATLAS_EVIDENCE_DIR || 'evidence/galaxy-immersion';
 await mkdir(out, { recursive: true });
 const browser = await chromium.launch({ args: ['--enable-unsafe-swiftshader'] });
