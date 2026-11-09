@@ -1,0 +1,13 @@
+{
+  "url": "https://star-wars-universe-atlas.skdev-371.workers.dev",
+  "checkedAt": "2026-11-07T22:06:17.350Z",
+  "checks": [
+    "Live Hyperdrive/Postgres health and catalog counts",
+    "All six public catalog endpoints return expected records",
+    "Unknown API/media objects return404 and public writes return405",
+    "Live 1440px desktop map,62worlds,warp/skip,Journey navigation and nooverflow",
+    "Live 390px mobile map,62worlds,warp/skip,Journey navigation and nooverflow"
+  ],
+  "errors": [],
+  "limitation": "Software WebGL and emulated mobile; not physical-device performance measurements"
+}

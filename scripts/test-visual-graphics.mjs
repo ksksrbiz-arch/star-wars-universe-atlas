@@ -27,7 +27,7 @@ try {
     if (mode !== 'reduced') await page.clock.install();
     await page.goto(process.env.ATLAS_URL || 'http://localhost:4173');
     await page.getByRole('button',{name:'Explore Hoth',exact:true}).waitFor();
-    assert.equal(await page.locator('canvas').count(),1);
+    assert.equal(await page.locator('.galaxy-canvas canvas').count(),1);
     await openMapSettings(page);
     const quality = page.getByLabel('Graphics quality');
     assert.equal(await quality.inputValue(),mobile ? 'balanced' : 'cinematic');
@@ -66,7 +66,7 @@ try {
       const panel = await page.locator('.transit-panel').boundingBox();
       const stage = await page.locator('.map-stage').boundingBox();
       assert.ok(panel.x >= stage.x && panel.x + panel.width <= stage.x + stage.width + 1, 'Transit panel stays inside map horizontally');
-      assert.equal(await page.locator('canvas').count(),1);
+      assert.equal(await page.locator('.galaxy-canvas canvas').count(),1);
       await page.screenshot({path:`evidence/visual-graphics-${mode}-warp.png`});
       await page.clock.resume();
       // The cinematic flight runs 4.2s, longer than the old fixed 800+2200ms; wait for the actual arrival.
@@ -92,7 +92,7 @@ try {
     }
     await page.waitForTimeout(300);
     assert.deepEqual(errors,[]);
-    results.push({mode,idleDrawCallsOver600ms:idle,canvasCount:await page.locator('canvas').count(),errors});
+    results.push({mode,idleDrawCallsOver600ms:idle,canvasCount:await page.locator('.galaxy-canvas canvas').count(),errors});
     await page.close();
   }
 } finally {

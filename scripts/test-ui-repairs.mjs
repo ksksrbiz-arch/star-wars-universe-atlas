@@ -1,5 +1,6 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
+import { expandPanel } from './lib-journey-ui.mjs';
 const base = process.env.ATLAS_URL || 'http://localhost:4173';
 const browser = await chromium.launch({args:['--enable-unsafe-swiftshader']});
 const context = await browser.newContext({viewport:{width:390,height:844}});
@@ -35,6 +36,7 @@ try {
   await page.waitForFunction(() => document.querySelector('.library-footer')?.textContent.includes('0 watched'));
   console.log('PASS: cross-tab progress synchronizes, retains both edits on reload, and handles clear');
   await page.goto(`${base}/#galaxy`);
+  await expandPanel(page);
   await page.getByRole('button',{name:'Reveal linked unwatched titles'}).click();
   assert.equal(await page.locator('.world-stories .world-story-grid a').count(),6);
   const total = Number(await page.locator('.world-stories h3 span').innerText());
@@ -44,6 +46,7 @@ try {
   const lastLink = page.locator('.world-stories .world-story-grid a').last();
   const href = await lastLink.getAttribute('href');
   await lastLink.click();
+  await expandPanel(page);
   await page.locator('.journey-current h2').waitFor();
   assert.equal(new URL(page.url()).hash,href);
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),true);

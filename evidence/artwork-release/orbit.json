@@ -1,0 +1,37 @@
+{
+  "checkedAt": "2026-11-09T20:12:36.397Z",
+  "base": "http://127.0.0.1:4181",
+  "results": [
+    {
+      "width": 1440,
+      "viewerPixels": 4096,
+      "workerElapsedMs": 26715.09999999404,
+      "mainThreadTimerTicks": 2670
+    },
+    {
+      "width": 1440,
+      "sidebarPixels": 1024,
+      "viewerPixels": 2048,
+      "workerElapsedMs": 8065.89999999851,
+      "mainThreadTimerTicks": 807,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "sidebarPixels": 1024,
+      "viewerPixels": 2048,
+      "workerElapsedMs": 5227.39999999851,
+      "mainThreadTimerTicks": 523,
+      "errors": []
+    },
+    {
+      "width": 320,
+      "sidebarPixels": 1024,
+      "viewerPixels": 2048,
+      "workerElapsedMs": 9679,
+      "mainThreadTimerTicks": 763,
+      "errors": []
+    }
+  ],
+  "limitation": "Software Chromium/emulated viewports; timer responsiveness is not physical-device FPS."
+}

@@ -8,7 +8,7 @@ try {
  const tatooine=page.getByRole('button',{name:'Explore Tatooine',exact:true});await tatooine.waitFor();
  assert.match(await tatooine.getAttribute('title'),/Tatooine · source grid R-16/);
  await tatooine.focus();assert.equal(await tatooine.evaluate(e=>getComputedStyle(e).outlineStyle),'solid');
- async function ratio(){return page.locator('canvas').evaluate(e=>e.width/e.getBoundingClientRect().width);}
+ async function ratio(){return page.locator('.galaxy-canvas canvas').evaluate(e=>e.width/e.getBoundingClientRect().width);}
  assert.ok(Math.abs(await ratio()-2)<.02,'cinematic DPR capped at2');
  await openMapSettings(page);await page.getByLabel('Graphics quality').selectOption('balanced');await page.waitForTimeout(200);
  assert.ok(Math.abs(await ratio()-1.5)<.02,'balanced DPR capped at1.5');

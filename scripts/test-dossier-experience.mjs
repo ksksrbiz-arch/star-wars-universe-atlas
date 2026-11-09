@@ -18,7 +18,7 @@ try {
    assert.equal(await guide.getByRole('link',{name:dossier.environmentLabel?'Structure source':'Landscape source'}).getAttribute('href'),dossier.terrain.sourceUrl);
    assert.equal(await guide.locator('.field-caveat').innerText(),dossier.caveat);
    for(const place of dossier.highlights){const disclosure=guide.locator('details').filter({has:page.locator('summary',{hasText:place.name})});assert.equal(await disclosure.getAttribute('open'),null);await disclosure.locator('summary').focus();await page.keyboard.press('Enter');assert.equal(await disclosure.getByRole('link',{name:`Read ${place.name} source`}).getAttribute('href'),place.sourceUrl);await page.keyboard.press('Enter');}
-   if(mapped)assert.equal(await page.locator('.atlas-portrait svg').count(),1);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+   if(mapped)assert.equal(await page.locator('.atlas-portrait .planet-globe [role="img"]').count(),1);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
    assert.equal(await page.evaluate(()=>localStorage.getItem('galactic-atlas.watch.v1')),null);
    assert.equal(await page.locator('.world-story-grid a').count(),0,'Broad dossier must not reveal episode links');
    const explorerHeight=await page.locator('.explorer').evaluate(e=>e.getBoundingClientRect().height);

@@ -1,0 +1,46 @@
+{
+  "checkedAt": "2026-11-09T20:24:40.172Z",
+  "base": "https://star-wars-universe-atlas.skdev-371.workers.dev",
+  "results": [
+    {
+      "name": "CinematicBloom-Z4POueiY.js",
+      "bytes": 83039,
+      "sha256": "9e0a615d95736d9969f0f9afe8a854bd34c132b1dc6b319e6c59ac006fcce782"
+    },
+    {
+      "name": "Galaxy-CIBUx9QM.css",
+      "bytes": 2895,
+      "sha256": "ad30a6050b5f75511125a03704a6eaa90bfcb36ac51bdd9a49eff08f0d6265d7"
+    },
+    {
+      "name": "Galaxy-DdIUWqah.js",
+      "bytes": 979357,
+      "sha256": "73fe77fbfd24b3b1b026085cca0820d0034fbc24239c092a91bfe88700eb0b13"
+    },
+    {
+      "name": "index-AecDT_hA.css",
+      "bytes": 133414,
+      "sha256": "881140cf9aa0d7881212f72e4c035d3b6a70fcd732bfdbee6f5f6aeb1644780a"
+    },
+    {
+      "name": "index-B1G5ldZt.js",
+      "bytes": 945029,
+      "sha256": "3778cebb2172e1665dce1bb2f6137b24cd3a90dbcc926b9d4b1b989390b44c22"
+    },
+    {
+      "name": "OrbitViewer-BkiRYKwj.css",
+      "bytes": 3321,
+      "sha256": "27d044fa8151751e6c0f993eea710e080725f87e4d28e321f96d6f7b7aa260b4"
+    },
+    {
+      "name": "OrbitViewer-BkLgMr6Y.js",
+      "bytes": 3685,
+      "sha256": "0cee9e678c810bedd285efd478929ba19302f714af617649557a9f98f7ecaf36"
+    },
+    {
+      "name": "planetGlobe.worker-Bz4gYnxR.js",
+      "bytes": 5073,
+      "sha256": "a6fe3c794d7d6d8d2060864c3a60995b7c3133ed6fbf96b5844efaadab39bf1a"
+    }
+  ]
+}

@@ -1,9 +1,10 @@
 import { useMemo } from 'react';
 import { AdditiveBlending, BackSide, Color, Vector3 } from 'three';
 import type { World } from './data';
+import { PLANET_APPEARANCES } from './planetAppearance';
 
 type Props = { world: World; preview?: boolean };
-type SurfaceFamily = 'desert' | 'ice' | 'ocean' | 'city' | 'lava' | 'gas' | 'forest' | 'rock';
+type SurfaceFamily = 'desert' | 'ice' | 'ocean' | 'city' | 'lava' | 'gas' | 'forest' | 'rock' | 'clouded';
 
 // Art direction only: these families do not add terrain facts, coordinates or scale.
 const families: Record<string, SurfaceFamily> = {
@@ -16,8 +17,9 @@ const families: Record<string, SurfaceFamily> = {
   naboo: 'forest', kashyyyk: 'forest', dagobah: 'forest', lothal: 'forest',
   dathomir: 'forest', lahmu: 'forest', serenno: 'forest', pantora: 'forest',
   wayland: 'forest', 'ajan-kloss': 'forest', takodana: 'forest',
+  bothawui: 'gas', quarzite: 'clouded', quell: 'clouded', teth: 'forest',
 };
-const familyIndex: Record<SurfaceFamily, number> = { desert: 0, ice: 1, ocean: 2, city: 3, lava: 4, gas: 5, forest: 6, rock: 7 };
+const familyIndex: Record<SurfaceFamily, number> = { desert: 0, ice: 1, ocean: 2, city: 3, lava: 4, gas: 5, forest: 6, rock: 7, clouded: 8 };
 const palettes: Record<SurfaceFamily, [string, string, string]> = {
   desert: ['#6c3b20', '#edc083', '#d9a766'],
   ice: ['#235168', '#eef7f6', '#82d1ec'],
@@ -27,6 +29,7 @@ const palettes: Record<SurfaceFamily, [string, string, string]> = {
   gas: ['#87533b', '#f1d6ae', '#d5b184'],
   forest: ['#092c35', '#56824d', '#67a9bf'],
   rock: ['#313640', '#b7a797', '#8eaccb'],
+  clouded: ['#676975', '#c6c6cd', '#a5a5ad'],
 };
 
 function seedFromId(id: string) {
@@ -127,6 +130,11 @@ const surfaceShader = /* glsl */`
       float bands = sin(latitude)*0.5+0.5;
       float storm = fbm(vec3(p.x*12.0,p.y*22.0,p.z*12.0)+uOffset);
       albedo = mix(uDark,uLight,0.22+bands*0.52+storm*0.23);
+    } else if(uFamily > 7.5) {
+      // Opaque atmospheric variation, with no continents or terrain relief.
+      float cover = fbm(p*8.0+uOffset+vec3(terrain*2.0));
+      albedo = mix(uDark,uLight,smoothstep(0.2,0.8,cover));
+      albedo = mix(albedo,uAir,smoothstep(0.62,0.82,detail)*0.18);
     } else if(uFamily > 6.5) {
       albedo *= 0.68+detail*0.5;
     }
@@ -170,8 +178,13 @@ const atmosphereShader = /* glsl */`
 export default function PlanetaryBody({ world, preview = false }: Props) {
   const seed = seedFromId(world.id);
   const family = families[world.id] ?? 'rock';
+  const profile = PLANET_APPEARANCES[world.id];
   const uniforms = useMemo(() => {
-    const [dark, light, air] = palettes[family];
+    const [dark, light, air] = family === 'clouded' && profile
+      ? [profile.land, profile.cloud, profile.cloudAccent ?? profile.cloud]
+      : family === 'gas' && profile
+        ? [profile.land, profile.highland, profile.cloud]
+        : [palettes[family][0], palettes[family][1], profile?.atmosphere ?? palettes[family][2]];
     return {
       uFamily: { value: familyIndex[family] },
       uOffset: { value: new Vector3(seed*31.7,seed*11.3,seed*47.1) },
@@ -179,7 +192,7 @@ export default function PlanetaryBody({ world, preview = false }: Props) {
       uLight: { value: new Color(light) },
       uAir: { value: new Color(air) },
     };
-  }, [family, seed]);
+  }, [family, seed, profile]);
   const atmosphere = useMemo(() => ({ uAir: uniforms.uAir, uStrength: { value: preview ? 0.72 : 1.0 } }), [uniforms, preview]);
 
   return <group name={`illustrative-planet-${world.id}`} rotation={[0,0,seed*0.6-0.3]}>

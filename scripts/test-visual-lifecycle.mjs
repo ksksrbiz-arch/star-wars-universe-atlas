@@ -24,7 +24,7 @@ async function start(name) {
 try {
   await page.clock.install();
   await page.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#galaxy");
-  await page.locator('canvas').waitFor();
+  await page.locator('.galaxy-canvas canvas').waitFor();
   await openMapSettings(page);
   await page.getByRole('combobox', { name: 'Graphics quality' }).selectOption('balanced');
   await closeMapSettings(page); // the open settings panel overlays map controls
@@ -55,7 +55,7 @@ try {
     await start('Alderaan');
     await page.getByRole('link', { name: target, exact: true }).click();
     await page.getByRole('link', { name: 'Galaxy', exact: true }).click();
-    await page.locator('canvas').waitFor();
+    await page.locator('.galaxy-canvas canvas').waitFor();
     await settled();
     assert.equal(await current(), initial);
   }

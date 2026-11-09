@@ -7,7 +7,7 @@ try{
  for(const width of[1440,390,320]){
   const page=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
   for(const route of['galaxy','journey/andor-s01e01']){
-   await page.goto(base+'/#'+route);await page.locator('canvas').waitFor();const map=page.locator('.map-stage');const top=(await map.boundingBox()).y;assert(top<250,`${route} ${width}px map top ${top}`);assert.equal(await page.locator('canvas').count(),1);
+   await page.goto(base+'/#'+route);await page.locator('.galaxy-canvas canvas').waitFor();const map=page.locator('.map-stage');const top=(await map.boundingBox()).y;assert(top<250,`${route} ${width}px map top ${top}`);assert.equal(await page.locator('.galaxy-canvas canvas').count(),1);
    assert.equal(await page.locator('.workspace-settings').getAttribute('open'),null);
    if(width<721){assert.equal(await page.locator('.sheet-toggle').getAttribute('aria-expanded'),'false');assert.equal(await page.locator('.workspace-panel-content').isVisible(),false);await page.locator('.sheet-toggle').focus();await page.keyboard.press('Enter');assert.equal(await page.locator('.workspace-panel-content').isVisible(),true);await page.locator('.sheet-toggle').click();assert.equal(await page.locator('.workspace-panel-content').isVisible(),false);}
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);await page.screenshot({path:`${evidenceDir}/${route.startsWith('journey')?'journey':'galaxy'}-${width}.png`});results.push({width,route,mapTop:top});

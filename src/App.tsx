@@ -1,3 +1,4 @@
+import PlanetGlobe from './PlanetGlobe';
 import AtlasSearch from './AtlasSearch';
 import LocationDossier from './LocationDossier';
 import { getLocation } from './locations';
@@ -5,6 +6,7 @@ import ImmersiveDossier from './ImmersiveDossier';
 import AtlasHero from './AtlasHero';
 import AtlasAudio from './AtlasAudio';
 import PlanetPortrait from './PlanetPortrait';
+import { WORLD_TERRAIN } from './worldDossiers';
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { motion, MotionConfig } from 'motion/react';
 
@@ -38,6 +40,7 @@ import { STORY_SEQUENCES } from './chronology';
 import './episode-highlights.css';
 import './workspace.css';
 import './galaxy-immersion.css';
+import './flight-console.css';
 import TransitStatus from './TransitStatus';
 import type { MapCommand } from './Galaxy';
 import EpisodeLocationControls from './EpisodeLocationControls';
@@ -154,7 +157,8 @@ export default function App() {
 
   const destination = ALL_WORLDS.find(w => w.id === targetId);
 
-  const detail = DETAILS[preview.id] || {subtitle: 'A stop on your story journey',terrain: 'Not cataloged',kind: 'System grid'};
+  const terrain = WORLD_TERRAIN[preview.id];
+  const detail = DETAILS[preview.id] || {subtitle: 'A stop on your story journey',terrain: terrain?.label ?? 'Not cataloged',kind: terrain ? 'Reviewed setting' : 'System grid'};
   const displayedJourneyId = activeItemId ?? STORY_SEQUENCES[0]?.itemIds[0];
   const locationsDisclosed = view === 'journey' && journeyDisclosure?.itemId === displayedJourneyId && (journeyDisclosure.revealed || watchedIds.has(displayedJourneyId));
   const episodeWorldIds = useMemo(() => new Set(locationsDisclosed ? CONNECTIONS.filter(link => link.itemId === displayedJourneyId).map(link => link.worldId) : []), [locationsDisclosed, displayedJourneyId]);
@@ -451,7 +455,7 @@ export default function App() {
 
       {view === 'galaxy' && <AtlasHero reducedMotion={reducedMotion} watchedIds={watchedIds}/>}
       {view === 'galaxy' && <WorldDirectory watchedIds={watchedIds}/>}
-      <section hidden={view === 'journey'} className="destinations" aria-label="Choose a destination"><div className="destinations-heading"><span className="eyebrow">CHART YOUR COURSE</span><span>01—{String(WORLDS.length).padStart(2,'0')} <span className="slash">/</span> CURATED WORLDS</span></div><div className="destination-grid">{WORLDS.map((world:World,index:number) => <button key={world.id} className={`destination-card ${previewId === world.id ? 'is-selected' : ''}`} onClick={() => selectWorld(world.id)} disabled={phase === 'warping'} aria-pressed={previewId === world.id}><span className={`destination-thumb thumb-${world.id}`} style={{'--planet-color':world.color} as React.CSSProperties}/><span className="destination-copy"><span>{String(index+1).padStart(2,'0')} <i/> {world.region}</span><strong>{world.name}</strong></span><span className="destination-indicator">{world.id === currentId ? <span className="here-dot"/> : <ArrowRight size={18}/>}</span></button>)}</div></section>
+      <section hidden={view === 'journey'} className="destinations" aria-label="Choose a destination"><div className="destinations-heading"><span className="eyebrow">CHART YOUR COURSE</span><span>01—{String(WORLDS.length).padStart(2,'0')} <span className="slash">/</span> CURATED WORLDS</span></div><div className="destination-grid">{WORLDS.map((world:World,index:number) => <button key={world.id} className={`destination-card ${previewId === world.id ? 'is-selected' : ''}`} onClick={() => selectWorld(world.id)} disabled={phase === 'warping'} aria-pressed={previewId === world.id}><span className="destination-thumb"><PlanetGlobe id={world.id} name={world.name} thumbnail/></span><span className="destination-copy"><span>{String(index+1).padStart(2,'0')} <i/> {world.region}</span><strong>{world.name}</strong></span><span className="destination-indicator">{world.id === currentId ? <span className="here-dot"/> : <ArrowRight size={18}/>}</span></button>)}</div></section>
 
 
 

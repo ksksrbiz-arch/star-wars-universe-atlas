@@ -62,6 +62,6 @@
 .map-workspace .map-jump-bar {top:auto}
 @media(max-width:720px) {
  .atlas-app .app-header {height:68px;min-height:0;padding:0;flex-wrap:nowrap;gap:5px}.atlas-app .header-right {position:static;flex-shrink:0;gap:4px}.atlas-app .brand {font-size:11px;letter-spacing:1px;gap:6px}.atlas-app .brand small {font-size:11px;letter-spacing:.3px}.atlas-app .brand-symbol {width:28px;height:28px}.atlas-app .brand-symbol svg {width:20px}
- .atlas-app .platform-nav {display:flex;flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;white-space:nowrap;margin-bottom:0;padding:4px 0;gap:3px}.atlas-app .platform-nav a {flex:none;font-size:11px}
+ .atlas-app .platform-nav {display:grid;grid-template-columns:repeat(6,minmax(0,1fr));overflow:visible;white-space:normal;margin-bottom:0;padding:4px 0;gap:3px}.atlas-app .platform-nav a {grid-column:span 2;min-width:0;justify-content:center;padding:8px 4px;font-size:11px}.atlas-app .platform-nav a:nth-of-type(n+4) {grid-column:span 3}
  .map-workspace .map-stage {height:50svh;min-height:320px}
 }

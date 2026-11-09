@@ -1,0 +1,80 @@
+{
+  "base": "http://127.0.0.1:4181",
+  "browser": "Chromium software WebGL, emulated viewports; not hardware FPS",
+  "durationMs": 4200,
+  "reducedMotionInstantArrival": true,
+  "results": [
+    {
+      "width": 1440,
+      "samples": [
+        {
+          "time": 420,
+          "phase": "charge",
+          "projectedScale": 1.0484654849649742
+        },
+        {
+          "time": 1850,
+          "phase": "hyperspace",
+          "projectedScale": 0.500000492017787
+        },
+        {
+          "time": 3600,
+          "phase": "arrival",
+          "projectedScale": 3.353730634433938
+        }
+      ],
+      "naturalArrival": true,
+      "cancelMidflight": true,
+      "skip": true,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "samples": [
+        {
+          "time": 420,
+          "phase": "charge",
+          "projectedScale": 1.041443165684588
+        },
+        {
+          "time": 1850,
+          "phase": "hyperspace",
+          "projectedScale": 0.5000043586112278
+        },
+        {
+          "time": 3600,
+          "phase": "arrival",
+          "projectedScale": 3.3637979112179113
+        }
+      ],
+      "naturalArrival": true,
+      "cancelMidflight": true,
+      "skip": true,
+      "errors": []
+    },
+    {
+      "width": 320,
+      "samples": [
+        {
+          "time": 420,
+          "phase": "charge",
+          "projectedScale": 1.0273064294588825
+        },
+        {
+          "time": 1850,
+          "phase": "hyperspace",
+          "projectedScale": 0.5000013329993456
+        },
+        {
+          "time": 3600,
+          "phase": "arrival",
+          "projectedScale": 3.3297746982047194
+        }
+      ],
+      "naturalArrival": true,
+      "cancelMidflight": true,
+      "skip": true,
+      "errors": []
+    }
+  ]
+}

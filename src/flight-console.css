@@ -1,0 +1,240 @@
+/* Existing UI, styled as an in-universe display. Galaxy rendering, controls,
+   navigation structure and application behavior are deliberately untouched. */
+:root {
+  --console-ink: #090f13;
+  --console-panel: #131e23;
+  --console-line: #526b70;
+  --console-paper: #e8e7d7;
+  --console-amber: #f1bd70;
+  --console-blue: #a9dce2;
+  --console-mono: Consolas, 'Lucida Console', monospace;
+}
+body {
+  background: radial-gradient(ellipse at 45% 0, #273137 0, #10191e 38%, #080e12 85%);
+}
+.atlas-app .app-header {
+  border-bottom: 2px solid #6b7777;
+  background: linear-gradient(180deg, #ffffff03, transparent);
+}
+.atlas-app .brand {color: var(--console-paper);font-weight:600;letter-spacing:3px}
+.atlas-app .brand small {color:#b5c0bd}
+.atlas-app .brand-symbol {
+  border-radius:3px;border-color:#89918a;color:var(--console-paper);
+  background:linear-gradient(135deg,#465156,#1b272d);
+  box-shadow:inset 0 0 0 3px #101a20,0 2px 0 #030709;
+}
+.atlas-app .platform-nav {gap:6px;border-bottom:1px solid #526267;padding-bottom:12px;padding-top:12px}
+.atlas-app .platform-nav a {
+  position:relative;border:1px solid #526267;border-radius:2px;
+  background:linear-gradient(#263238,#192329);color:#cbd6d5;
+  box-shadow:inset 0 1px #ffffff12,0 2px #050a0e;
+  min-height:48px;padding:12px 16px;transition:background .15s,color .15s;
+}
+.atlas-app .platform-nav a::after {
+  content:'';position:absolute;left:12px;right:12px;bottom:4px;height:2px;background:#687677;
+}
+.atlas-app .platform-nav a[aria-current=page] {
+  color:#131a1e;background:var(--console-paper);border-color:#f1f0de;
+  box-shadow:0 0 14px #f6d79b16,inset 0 -3px #b4b9a9;
+}
+.atlas-app .platform-nav a[aria-current=page]::after {background:#8b4c1e}
+.atlas-app .platform-nav a:hover:not([aria-current=page]) {background:#34464e;color:#fff}
+.atlas-app .catalog-count {font-family:var(--console-mono);color:#aec3c5;letter-spacing:1px}
+.workspace-heading {padding:6px 0 10px;border-bottom:1px solid #526267}
+.workspace-heading .eyebrow {font-family:var(--console-mono);color:var(--console-amber);letter-spacing:2px}
+.workspace-heading h1 {color:var(--console-paper);letter-spacing:.3px}
+.map-workspace {
+  padding:7px;gap:7px;border:1px solid #697777;border-radius:4px;
+  background:linear-gradient(120deg,#303c40,#151f25 50%,#3a4547);
+  box-shadow:0 12px 38px #0007,inset 0 0 0 2px #090f14;
+}
+.map-workspace .map-stage {
+  border:1px solid #6e8489;border-radius:3px;
+  box-shadow:inset 0 0 50px #0008;
+}
+.workspace-panel {
+  border:1px solid #526b70;border-radius:3px;background:#0c171d;
+}
+.workspace-tabs {background:#18262b;border-bottom:1px solid #6c8082;padding:10px;gap:6px}
+.workspace-tabs button,.workspace-tabs a,.galaxy-presentation button,
+.workspace-settings>summary,.map-pan-controls button,.map-tools .icon-button,
+.atlas-search-trigger,.atlas-audio button {
+  border-radius:2px;border-color:#607b82;background:#17272e;color:#d2e4e4;
+  box-shadow:inset 0 1px #ffffff12,0 2px #050b10;
+}
+.workspace-tabs [aria-pressed=true],.galaxy-presentation button[aria-pressed=true] {
+  color:#09191f;background:var(--console-blue);border-color:#caedf0;
+}
+.galaxy-presentation {border-radius:3px;border-color:#647e84;background:#080f13}
+.workspace-settings>summary {color:var(--console-amber);border-color:#8d775a}
+.workspace-settings[open]>summary {background:#3b3023;color:#ffe2ac}
+.workspace-settings-content {border-radius:3px;border-color:#7b9394;background:#111e24}
+.map-workspace .map-heading {
+  border-left:3px solid var(--console-amber);border-radius:0;background:#0b1824e8;
+  font-family:var(--console-mono);letter-spacing:2px;
+}
+.map-workspace .current-location,.map-workspace .mini-map {
+  border:1px solid #7d9699;border-radius:2px;background:#0b1922ed;
+}
+.map-workspace .current-location strong {color:var(--console-paper)}
+.map-workspace .map-jump-bar,.map-workspace .transit-panel {
+  border-radius:3px;border-color:#b49565;background:#101b24f5;
+}
+.workspace-panel .world-dossier,.workspace-panel .location-dossier {
+  background:linear-gradient(180deg,#14242a,#0b171e 70%);
+}
+.workspace-panel .world-title h2,.location-dossier h2 {color:var(--console-paper);letter-spacing:2px}
+.workspace-panel .eyebrow,.dossier-heading,.world-facts dt {
+  font-family:var(--console-mono);letter-spacing:1.5px;color:#b5ced0;
+}
+.world-facts {border-color:#536c72}
+.story-collection-picker,.story-chapter-picker {border-radius:2px;border-color:#50696f}
+.catalog-item,.journey-collection,.world-directory-card {
+  border-radius:3px;border-color:#3d555d;background:linear-gradient(120deg,#19282e,#101c24);
+}
+.catalog-art {border-radius:0;background-color:#0c171c}
+.catalog-kicker,.catalog-art-small,.catalog-art-bottom,.library-results-heading,.timeline-year {
+  font-family:var(--console-mono);
+}
+.catalog-item:hover,.journey-collection:hover {border-color:#abcbd0}
+.library-intro,.watch-progress-card,.watch-next-card {
+  border-radius:3px;border:1px solid #647b7e;background:linear-gradient(115deg,#23353b,#101d24);
+  box-shadow:inset 4px 0 var(--console-amber);
+}
+.library-intro .eyebrow,.library-total {color:var(--console-amber)}
+.collection-tabs button,.library-search,.library-toolbar select,.watched-button,
+.next-watch-button {border-radius:2px;border-color:#617a80}
+.collection-tabs button[aria-selected=true] {border-bottom:3px solid var(--console-amber)}
+.library-search {background:#0c1a21}
+.atlas-search-dialog {border-radius:4px;border-color:#8babad;background:#0e1b22}
+.atlas-search-heading {border-bottom:1px solid #526b70}
+.atlas-app :is(button,a,summary,input,select):focus-visible {
+  outline:3px solid #ffe0a4;outline-offset:3px;
+}
+.atlas-app :is(button,a):disabled {box-shadow:none}
+@media(min-width:721px) {
+  .atlas-app .platform-nav a {flex-shrink:0}
+}
+@media(max-width:1000px) {.atlas-app .catalog-count {display:none}}
+@media(max-width:720px) {
+  .atlas-app .platform-nav {padding:8px 0;gap:5px}
+  .atlas-app .platform-nav a {min-height:46px;padding:9px 4px;font-size:11px}
+  .atlas-app .brand {letter-spacing:1px}
+  .workspace-heading {padding:4px 0 8px;gap:8px}
+  .map-workspace {padding:4px;gap:4px}
+  .map-workspace .map-stage {border-radius:2px;min-height:320px}
+  .workspace-panel {border:1px solid #607b82;border-radius:2px}
+  .sheet-toggle {min-height:70px;background:#24353b;border-top:2px solid var(--console-amber)}
+  .sheet-toggle small {font-family:var(--console-mono);color:#ccdedc}
+  .sheet-toggle strong {color:var(--console-paper)}
+}
+@media(prefers-reduced-motion:reduce) {.atlas-app .platform-nav a {transition:none}}
+@media(max-width:480px) {
+  .atlas-app .brand small {display:none}
+  .atlas-app .brand {line-height:1.5;max-width:120px}
+  .atlas-app .app-header {height:64px}
+}
+.atlas-app[data-reduced-motion=true] .platform-nav a {transition:none}
+@media(forced-colors:active) {
+  .atlas-app .platform-nav a[aria-current=page],.workspace-tabs [aria-pressed=true] {border:3px solid Highlight}
+}
+
+/* Screen graphics: luminous linework on black, not simulated cockpit hardware.
+   Reference: HUDS+GUIS Star Wars UI, March 2016. Original CSS, no reused assets. */
+:root {
+  --console-paper:#f0e6c8;
+  --console-amber:#f5c45e;
+  --console-blue:#a8e4eb;
+  --console-line:#7b652d;
+}
+body {background:#050708}
+.atlas-app {background:transparent}
+.atlas-app .app-header {background:none;border-bottom:1px solid #80682f}
+.atlas-app .brand {color:#f5d27f;letter-spacing:4px;font-weight:400}
+.atlas-app .brand small {font-family:var(--console-mono);color:#b8ae8d;font-size:10px;letter-spacing:1.5px}
+.atlas-app .brand-symbol {border:0;background:none;box-shadow:none;color:#f5c45e}
+.atlas-app .header-right button {background:#080d10;border:1px solid #625733;border-radius:0;box-shadow:none;color:#dfd6b9}
+.atlas-app .prototype-label {color:#bcb399;font-family:var(--console-mono);letter-spacing:1px}
+.atlas-app .platform-nav {border-bottom:1px solid #80682f;gap:2px;background:none}
+.atlas-app .platform-nav a {
+  background:none;box-shadow:none;border:0;border-radius:0;color:#b9c4c4;
+  font-family:var(--console-mono);text-transform:uppercase;letter-spacing:1px;
+}
+.atlas-app .platform-nav a::after {background:#334345;left:0;right:0;bottom:0;height:1px}
+.atlas-app .platform-nav a[aria-current=page] {
+  color:#f9d57d;background:#e5b8570c;border:0;box-shadow:none;text-shadow:0 0 12px #f5c45e30;
+}
+.atlas-app .platform-nav a[aria-current=page]::after {height:3px;background:#f5c45e}
+.atlas-app .platform-nav a:hover:not([aria-current=page]) {color:#e7f8f7;background:#a8e4eb09}
+.atlas-app .catalog-count {color:#f5c45e;font-size:11px}
+.workspace-heading {border:0;padding:6px 0}
+.workspace-heading .eyebrow {color:#b4a379;font-size:10px;letter-spacing:3px}
+.workspace-heading h1 {font-family:var(--console-mono);font-size:22px;text-transform:uppercase;letter-spacing:2px;color:#eadcba}
+.galaxy-presentation {border:1px solid #6d633f;background:#050a0c;border-radius:0;padding:2px;gap:2px}
+.galaxy-presentation button {box-shadow:none;border-radius:0;color:#a9c5c8;background:none;font-family:var(--console-mono)}
+.galaxy-presentation button[aria-pressed=true] {background:#b3dde0;color:#071215;border:0;box-shadow:none}
+.workspace-settings>summary {background:none;border-color:#80682f;border-radius:0;box-shadow:none;color:#efd49b;font-family:var(--console-mono)}
+.workspace-settings-content {border-radius:0;background:#070d10;border-color:#b2914b;box-shadow:0 12px 32px #000c}
+.map-workspace {padding:0;gap:0;border:0;border-radius:0;background:none;box-shadow:none}
+.map-workspace .map-stage {border:1px solid #526768;border-radius:0;box-shadow:none}
+.workspace-panel {border:1px solid #80682f;border-left:0;border-radius:0;background:#070b0d}
+.workspace-panel-content {background:#070b0d;scrollbar-color:#776338 #070b0d}
+.workspace-tabs {background:#070b0d;border-bottom:1px solid #80682f;padding:10px 14px}
+.workspace-tabs button,.workspace-tabs a {background:none;border:1px solid #4c6265;box-shadow:none;color:#a8e4eb;border-radius:0;font-family:var(--console-mono)}
+.workspace-tabs [aria-pressed=true] {background:#f5c45e;color:#100e08;border-color:#f5c45e}
+.workspace-panel .world-dossier,.workspace-panel .location-dossier,.workspace-panel .immersive-dossier {background:#070b0d}
+.workspace-panel .dossier-top {padding-bottom:10px;border-bottom:1px solid #534824}
+.workspace-panel .eyebrow,.workspace-panel .file-number {color:#edc56b;font-family:var(--console-mono);letter-spacing:2px;font-size:10px}
+.workspace-panel .world-title h2,.location-dossier h2 {font-family:var(--console-mono);font-size:30px;letter-spacing:3px;color:#f7d889;line-height:1.15;text-shadow:0 0 18px #e5b95c20}
+.workspace-panel .world-region {color:#b9bba8;font-family:var(--console-mono);font-size:10px;letter-spacing:1.4px}
+.workspace-panel .world-title p {color:#acc9cc}
+.workspace-panel .world-description {color:#b9c8c8}
+.workspace-panel .world-facts {border-top:1px solid #776338;border-bottom:1px solid #776338;padding:14px 0}
+.workspace-panel .world-facts dt {color:#e6bd61;font-size:10px;letter-spacing:1px}
+.workspace-panel .world-facts dd {font-family:var(--console-mono);color:#e9e4cf}
+.workspace-panel .world-facts dd span {color:#9eafb1}
+.workspace-panel .planet-study-image {position:relative}
+.workspace-panel .planet-study-image::after {
+  content:'';position:absolute;inset:5%;pointer-events:none;
+  border:1px solid #e5bb623d;border-radius:50%;
+  background:linear-gradient(#e5bb62,#e5bb62) center top/1px 12px no-repeat,
+    linear-gradient(#e5bb62,#e5bb62) center bottom/1px 12px no-repeat,
+    linear-gradient(#e5bb62,#e5bb62) left center/12px 1px no-repeat,
+    linear-gradient(#e5bb62,#e5bb62) right center/12px 1px no-repeat;
+}
+.workspace-panel .open-orbit-view {border-radius:0;background:none;border:1px solid #9dcfd4;color:#b5e7ed;font-family:var(--console-mono);text-transform:uppercase;letter-spacing:1px}
+.workspace-panel .story-connection {border-radius:0;background:#bde6e906;border-color:#3b5659}
+.workspace-panel .jump-button {border-radius:0;background:#f5c45e;color:#171309;box-shadow:none;font-family:var(--console-mono);text-transform:uppercase}
+.workspace-panel .source-link {color:#a8d8df}
+.story-collection-picker,.story-chapter-picker {border-color:#645830;background:#080d10;border-radius:0}
+.workspace-panel .journey-collection {border-radius:0;background:#0a1216;border-color:#3c565d}
+.workspace-panel .journey-current h2 {color:#edce85}
+.library-intro,.watch-progress-card,.watch-next-card {background:#070c0f;border:0;border-top:1px solid #8d7540;border-bottom:1px solid #8d7540;border-radius:0;box-shadow:none}
+.library-intro h1 {font-family:var(--console-mono);text-transform:uppercase;font-size:clamp(25px,3vw,40px);letter-spacing:1px;color:#edce85}
+.library-intro-orbit {opacity:.2}
+.library-total {font-family:var(--console-mono);color:#f5c45e}
+.collection-tabs button {border-radius:0;background:#080e11;border-color:#3c565d;font-family:var(--console-mono)}
+.collection-tabs button[aria-pressed=true],.collection-tabs button.active {background:#e9bd5b10;color:#f5d48b;border-color:#c29c4f;box-shadow:none}
+.library-search,.library-toolbar select {border-radius:0;background:#060b0e;border-color:#526f73;color:#c2e2e5}
+.catalog-item {background:#070d10;border:0;border-top:1px solid #3d555a;border-radius:0;box-shadow:none}
+.catalog-item:hover {background:#0c171a;border-color:#a4cbd0}
+.catalog-art {background:#050a0d;border:1px solid #756231;border-radius:0;color:#edc56b}
+.catalog-kicker {color:#d5b369}
+.catalog-item h2 {font-family:var(--console-mono);color:#dbe9e5;font-size:19px}
+.watched-button {border-radius:0;background:none;border:1px solid #4b6469;min-width:44px;min-height:44px;flex-shrink:0}
+.catalog-details summary,.catalog-meta {color:#a9c5ca}
+.atlas-search-dialog {border:1px solid #b59a56;border-radius:0;background:#060b0e;box-shadow:0 0 0 1px #161b19,0 20px 80px #000d}
+.atlas-search-heading h2 {color:#edce85;font-family:var(--console-mono);text-transform:uppercase;letter-spacing:2px}
+.atlas-search-heading {border-color:#776338}
+.atlas-search-field {border-radius:0;background:#070e11}
+.atlas-app .app-footer {border-color:#554a2f;color:#aaae9f;font-family:var(--console-mono);font-size:10px}
+@media(max-width:720px) {
+  .atlas-app .brand {letter-spacing:1px}
+  .atlas-app .platform-nav a {letter-spacing:0;font-size:11px}
+  .workspace-heading h1 {font-size:19px;letter-spacing:1px}
+  .workspace-panel {border:1px solid #80682f}
+  .sheet-toggle {background:#0b1215;border-top:1px solid #c5a65b;color:#edce85}
+  .sheet-toggle strong {color:#f0d498;font-family:var(--console-mono)}
+  .sheet-toggle small {color:#a8c4c8}
+  .workspace-panel .world-title h2 {font-size:28px}
+}

@@ -13,7 +13,7 @@ try {
   const credit=page.locator('.atlas-hero-credit summary');await credit.focus();await page.keyboard.press('Enter');
   assert.match(await page.locator('.atlas-hero-credit').innerText(),/not Star Wars geography/);
   assert.equal(await page.locator('.atlas-hero-credit a[href$="-4k.webp"]').count(),1);
-  assert.match(await page.locator('.atlas-portrait svg').getAttribute('aria-label'),/Original illustrative portrait of Tatooine/);
+  assert.match(await page.locator('.atlas-portrait .planet-globe [role="img"]').getAttribute('aria-label'),/Original illustrative globe of Tatooine/);
   assert.match(await page.locator('.atlas-portrait').innerText(),/not surface geography/);
   assert.equal(await page.locator('.portrait-disc').evaluate(e=>getComputedStyle(e).animationName),'none');
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
@@ -27,6 +27,6 @@ try {
  const fallback=await browser.newPage({reducedMotion:'reduce'});await fallback.route('**/visuals/**',route=>route.abort());
  await fallback.goto((process.env.ATLAS_URL||'http://localhost:4173')+'/#galaxy');
  await fallback.locator('.atlas-hero-media').waitFor({state:'detached'});assert(await fallback.getByRole('heading',{name:'Your next story is out there.'}).isVisible());
- assert(await fallback.locator('.atlas-portrait svg').isVisible());
+ assert(await fallback.locator('.atlas-portrait .planet-globe [role="img"]').isVisible());
  console.log('PASS responsive local starfield selection/no eager4K, keyboard credits, decorative meaning, original accessible portrait/reduced motion,1440/390/320 nooverflow, failed-image fallback');
 }finally{await browser.close();}

@@ -15,6 +15,10 @@ Read [canon and sources](../../references/canon-and-sources.md) and [map and mot
 | Published database content: [001_atlas.sql](../../../db/001_atlas.sql) and `db/publications/` (changes need a reviewed migration and new publication version) | Cloudflare deploy scripts unless releasing |
 | The batch's source review under `evidence/` and its `docs/*-source.json` | All other historical research |
 
+## Bulk sources
+
+`npm run ingest:sources` stages Databank, TVmaze and revision-pinned Wookieepedia records, media references and typed appearance candidates. See [ingestion operations](../../../docs/INGESTION.md). This is separate from canonical publication; raw/provider counts are not atlas coverage counts.
+
 ## Tests
 
 Deterministic, non-browser checks (run those matching the touched module): `npm run test:catalog`, `npm run test:connections`, `npm run test:chronology`, `npm run test:journey-data`, `npm run test:reference-data`, `npm run test:world-stories`, `npm run test:destination-links`, `npm run test:reconciled-worlds`, `npm run test:publication`, plus the batch's own script such as `npm run test:bad-batch-season-3` or `npm run test:rebels-season-4`. When a count changes, update the pinned counts in these tests and in [context/CONTEXT.md](../../CONTEXT.md).

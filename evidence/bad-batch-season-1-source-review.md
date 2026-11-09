@@ -4,7 +4,7 @@ Reviewed November 7, 2026. Adds 16 watch records, one new collection sequence an
 
 ## Catalog and chronology
 
-TVmaze show 49190 provides 16 consecutive season-one episode records, matching the official episode-guide sequence from Aftermath to Kamino Lost. The extended premiere remains E1; no split record or guessed runtime is introduced. Titles, dates and provider URLs are retained, with all runtimes withheld pending edition verification. Seasons two and three remain outside this batch.
+TVmaze show 49190 provides 16 consecutive season-one episode records, matching the official episode-guide sequence from Aftermath to Kamino Lost. The extended premiere remains E1; no split record or guessed runtime is introduced. Titles, dates and provider URLs are retained, with all runtimes withheld pending edition verification. Seasons two and three remain outside this batch; they were added later (see the [season two](bad-batch-season-2-source-review.md) and [season three](bad-batch-season-3-source-review.md) source reviews).
 
 A new bad-batch sequence follows numbered narrative order. Existing 270 catalog records, 411 relationships and all nine earlier sequence payloads remain unchanged. Aftermath overlaps Order 66 and the end of The Clone Wars / Revenge of the Sith, but no exact scene-interleaving or BBY/ABY event calendar is asserted.
 

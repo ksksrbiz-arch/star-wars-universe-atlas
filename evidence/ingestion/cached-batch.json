@@ -1,0 +1,484 @@
+{
+  "startedAt": "2026-11-09T20:46:41.556Z",
+  "completedAt": "2026-11-09T20:46:42.853Z",
+  "elapsedSeconds": 1.29,
+  "mode": "local-staging-only",
+  "canonicalWrites": 0,
+  "mediaDownloads": 0,
+  "records": 1721,
+  "recordsByProvider": {
+    "databank": 1290,
+    "tvmaze": 427,
+    "wookieepedia": 4
+  },
+  "recordsByType": {
+    "location": 326,
+    "character": 964,
+    "series": 8,
+    "episode": 337,
+    "person": 82,
+    "wiki-page": 4
+  },
+  "uniqueMediaReferences": 1851,
+  "reconciliation": {
+    "unmatched": 1347,
+    "review": 114,
+    "candidate-exact": 260
+  },
+  "appearanceCandidates": {
+    "pagesConsidered": 4,
+    "pagesWithAppearances": 4,
+    "candidates": 67,
+    "matchedCandidates": 43,
+    "unmatchedCandidates": 24,
+    "ambiguousCatalogMatches": 0,
+    "byContinuity": {
+      "legends": 5,
+      "canon": 62
+    },
+    "byContext": {
+      "unknown": 20,
+      "appearance": 17,
+      "flashback": 7,
+      "mention": 23
+    },
+    "bySeries": {
+      "unknown": 22,
+      "clone-wars": 19,
+      "rebels": 8,
+      "mandalorian": 13,
+      "boba-fett": 1,
+      "ahsoka": 4
+    }
+  },
+  "canonicalBaseline": {
+    "mappedWorlds": 76,
+    "catalogItems": 327
+  },
+  "http": {
+    "requests": 0,
+    "cacheHits": 32,
+    "retries": 0,
+    "snapshots": [
+      {
+        "id": "8160b6e01336415b11f1d1ed5355588a9ccbc284e118b4a643953142f875b444",
+        "url": "https://starwars-databank-server.onrender.com/api/v1/locations?page=1&limit=100",
+        "retrievedAt": "2026-11-09T20:36:12.416Z",
+        "sha256": "bc3782095afd6e15ec9a0bd30a04f955c7fced91296a2a167f88887e54474cd0",
+        "cached": true
+      },
+      {
+        "id": "827de037811847efd84ecb12a59a910266e099bff745c8e07182c56a9f750fc1",
+        "url": "https://api.tvmaze.com/shows/563/images",
+        "retrievedAt": "2026-11-09T20:36:13.291Z",
+        "sha256": "718c713dfd4aa08ba004105e0c319e924e2a31ca6cc2c80a7c8d32fafc12a8a8",
+        "cached": true
+      },
+      {
+        "id": "996ad867557bdcfbbc51e00474bde8cc78c7e46ab482b349e9c9713c53a57ea2",
+        "url": "https://api.tvmaze.com/shows/563?embed[]=episodeswithspecials&embed[]=cast",
+        "retrievedAt": "2026-11-09T20:36:12.783Z",
+        "sha256": "136a784ef5ec61f8da3bf69101af427f17417c05824ab6f5e447e7879f01abbb",
+        "cached": true
+      },
+      {
+        "id": "06395d5ca1c08bf3d01f1b84e2b29391d62970161a3e05e92866a208d575c3e4",
+        "url": "https://starwars.fandom.com/api.php?action=query&format=json&titles=Ilum%7CIlum%2FLegends%7CMandalore%7CBespin&redirects=1&prop=info%7Crevisions%7Ccategories%7Cimages&inprop=url&rvprop=ids%7Ctimestamp%7Ccontent&rvslots=main&cllimit=max&imlimit=max",
+        "retrievedAt": "2026-11-09T20:36:12.403Z",
+        "sha256": "7abcc157c2dec4c9fbcda2c4089e8e0b368732f663b3e369494f7b3da3b1b2ee",
+        "cached": true
+      },
+      {
+        "id": "9fb3ebb3f57bc8cb48f74e04dead93889e30366e3f05c908fb3211120699ac0f",
+        "url": "https://starwars-databank-server.onrender.com/api/v1/locations?page=2&limit=100",
+        "retrievedAt": "2026-11-09T20:36:13.052Z",
+        "sha256": "7003b02b1d73f2f26504af49d8a3ae35ff55294ffecc19b65246735afdd34c1a",
+        "cached": true
+      },
+      {
+        "id": "9ac8e5ae2f219d4f1f9ec695998d51c1cac54fadced7fac71fca5728b073ef8f",
+        "url": "https://api.tvmaze.com/shows/117/images",
+        "retrievedAt": "2026-11-09T20:36:14.310Z",
+        "sha256": "b2448a778dee1e8e5d8d485c8a1bda8a0d06c88fa33fd307a075a99e3b3414cf",
+        "cached": true
+      },
+      {
+        "id": "5b2941620581e6032579786b7efb5d8f3d1f2d8fb548afc4fcd8c66a422522cb",
+        "url": "https://starwars.fandom.com/api.php?action=query&format=json&titles=File%3AIlum+FDNP.png%7CFile%3AMandalore-2025ToppsSWHyperspace.png%7CFile%3AMandalore+SWCT.png%7CFile%3ABespin-SWCT.png%7CFile%3AStarkillerBase-FH.png&prop=imageinfo&iiprop=url%7Csize%7Cmime%7Csha1%7Ctimestamp%7Cextmetadata&iiurlwidth=1600",
+        "retrievedAt": "2026-11-09T20:36:12.858Z",
+        "sha256": "b50d4b89c2900db9c93e2972ae57dc2d63b4c1b0a503fdad02d3e4c5f4e7d19a",
+        "cached": true
+      },
+      {
+        "id": "a7fb8ea4e4a654d3fb99dc1fdc83cd1aeea510ac801ab204b07f4f26823da354",
+        "url": "https://api.tvmaze.com/shows/117?embed[]=episodeswithspecials&embed[]=cast",
+        "retrievedAt": "2026-11-09T20:36:13.818Z",
+        "sha256": "9313f209dec017e7b061056f765da01303c322dc5b1eb13cf5cef8dc0851f877",
+        "cached": true
+      },
+      {
+        "id": "e11854ebf75d782635dd6d27e50b258ed2413828a74a3f1c1013f21d98b77969",
+        "url": "https://starwars-databank-server.onrender.com/api/v1/locations?page=3&limit=100",
+        "retrievedAt": "2026-11-09T20:36:13.663Z",
+        "sha256": "bbe90d3deb8d31f8e52207cc29f93e28b3bf4660397ecaaf5b3fc49ef4e3816d",
+        "cached": true
+      },
+      {
+        "id": "ec8783971fdb88c966e984349f194ad5d851d0478f35f4a31574d43143655f1f",
+        "url": "https://api.tvmaze.com/shows/49190/images",
+        "retrievedAt": "2026-11-09T20:36:15.353Z",
+        "sha256": "6a84eebc0a304d24dc6eeb90cf31f331315d52f98001bcc7b01fe34eef562eba",
+        "cached": true
+      },
+      {
+        "id": "1dc43143d19f9eb10781fef906b06a946a7df10d1b7eb6dee6a4649488fb786a",
+        "url": "https://api.tvmaze.com/shows/49190?embed[]=episodeswithspecials&embed[]=cast",
+        "retrievedAt": "2026-11-09T20:36:14.849Z",
+        "sha256": "da35c9ab66e5b47439970e0a070f6516b74e83fc31a79756f3fd1a5ecc78bd44",
+        "cached": true
+      },
+      {
+        "id": "3c191182eb5d867afa767baeb88a82bb3967d13045572c35b57c63ce0e4a2a64",
+        "url": "https://starwars-databank-server.onrender.com/api/v1/locations?page=4&limit=100",
+        "retrievedAt": "2026-11-09T20:36:14.227Z",
+        "sha256": "c49bc2825266a4031394b364a12f1399ead447db2708bfc6403be52d840d7b6b",
+        "cached": true
+      },
+      {
+        "id": "9be95d6762fb967d035f9ca5ed9954f565aecde9a2ea6d8a991e59bbfac1fae3",
+        "url": "https://api.tvmaze.com/shows/52343?embed[]=episodeswithspecials&embed[]=cast",
+        "retrievedAt": "2026-11-09T20:36:15.859Z",
+        "sha256": "1bfd14d6da8e08f2f68205e411abe2fb823436230271afb0fa2c1afa9e014625",
+        "cached": true
+      },
+      {
+        "id": "0018a74a08a9241173b22117d714d7af0f611e5996adba0191af843396332c1c",
+        "url": "https://api.tvmaze.com/shows/52343/images",
+        "retrievedAt": "2026-11-09T20:36:16.370Z",
+        "sha256": "eb21f9635d5e2eee530ac7968d743acc635215ce5148345371c40366adda21d8",
+        "cached": true
+      },
+      {
+        "id": "21a873941a4f5cf8ff4b14391076f8328ac4620a4699d2b20711026a20c804fd",
+        "url": "https://starwars-databank-server.onrender.com/api/v1/characters?page=1&limit=100",
+        "retrievedAt": "2026-11-09T20:36:14.848Z",
+        "sha256": "d4c7fc1034bec894bc51c4e88ce38f9ee5b30e9af25889372e2a5531c5f5763d",
+        "cached": true
+      },
+      {
+        "id": "9e075ff479b506ceb819bc2645328beae613147140e7f8e0928d60b2d902b855",
+        "url": "https://starwars-databank-server.onrender.com/api/v1/characters?page=2&limit=100",
+        "retrievedAt": "2026-11-09T20:36:15.425Z",
+        "sha256": "c3f25e9b5a00af8d7d69f64d09974075f67569f35bf73dae4d3b9960c0e75258",
+        "cached": true
+      },
+      {
+        "id": "37dddcbcf6b8455cec01ec4e28bc23543bfe8819ea13f908c00beb3fd9527499",
+        "url": "https://api.tvmaze.com/shows/52260/images",
+        "retrievedAt": "2026-11-09T20:36:17.389Z",
+        "sha256": "571a06382abe8f7eeca6cbdf630875d036435f3db46d3d69b881bf2e4cd15530",
+        "cached": true
+      },
+      {
+        "id": "e507815b16ec51b22d6f59dec2ee8736d8e529e97a6b3e0c4399166a8a515d25",
+        "url": "https://starwars-databank-server.onrender.com/api/v1/characters?page=3&limit=100",
+        "retrievedAt": "2026-11-09T20:36:16.052Z",
+        "sha256": "1f28005f9dde96474b1b1aa0990273b9e59335ae6b783f4a90d6e623c9fc4d87",
+        "cached": true
+      },
+      {
+        "id": "020e46c7f5a7d8e4a63b70b73610893fcdd0040cab0426082b208aa34cbd7643",
+        "url": "https://api.tvmaze.com/shows/52260?embed[]=episodeswithspecials&embed[]=cast",
+        "retrievedAt": "2026-11-09T20:36:16.896Z",
+        "sha256": "aea1843632e2130b0c773a8235ec1027731f17494da14d556f5efdb3ccc7436a",
+        "cached": true
+      },
+      {
+        "id": "18e4b60004942c5fe06513a22595412c6b64039e75c8c51d100a5b33b8d3d6f7",
+        "url": "https://starwars-databank-server.onrender.com/api/v1/characters?page=4&limit=100",
+        "retrievedAt": "2026-11-09T20:36:16.662Z",
+        "sha256": "d54f752d4b6cfa6d7829ca6353d9869d3665d140e4f39ef651cab8342a8485ce",
+        "cached": true
+      },
+      {
+        "id": "57fd1595ad5c291a6acf97751e6786b102f694e5752a2ce093032eae3ab1f815",
+        "url": "https://api.tvmaze.com/shows/52523/images",
+        "retrievedAt": "2026-11-09T20:36:18.406Z",
+        "sha256": "cb013877a2650a43d9b77bdb775585a3e2b2e92b30f185b1dad4fc8419afaa9b",
+        "cached": true
+      },
+      {
+        "id": "97d8d145439064f7ed49f22cede2761915c7c6e8180796e1c51b58fc38bebc63",
+        "url": "https://api.tvmaze.com/shows/52523?embed[]=episodeswithspecials&embed[]=cast",
+        "retrievedAt": "2026-11-09T20:36:17.903Z",
+        "sha256": "725ff0cb466a515b2e6ec13f9f225b686bf14d56afceb2c69d59caf927a8d05b",
+        "cached": true
+      },
+      {
+        "id": "2b35e9f2248f25c59a19ba14c8f0240ebf4a2bff1752c697b3491724a6aca8cb",
+        "url": "https://starwars-databank-server.onrender.com/api/v1/characters?page=5&limit=100",
+        "retrievedAt": "2026-11-09T20:36:17.314Z",
+        "sha256": "80d8862678ee48db9dea9dd1b8f00e8f4f9c884b56b28ec72afde471c37b8307",
+        "cached": true
+      },
+      {
+        "id": "c043f641ac004885d641552f583932575180d0ae3876465b7980155bc55b765a",
+        "url": "https://api.tvmaze.com/shows/38963?embed[]=episodeswithspecials&embed[]=cast",
+        "retrievedAt": "2026-11-09T20:36:18.931Z",
+        "sha256": "e7d8655c4300283482f0c1d217434d83393f425fe6bdf18eb395a5c2383dfd73",
+        "cached": true
+      },
+      {
+        "id": "247015b92a9f002c68743732989b1f641cb06044f4b2728a31fc7c4ac37a08e4",
+        "url": "https://api.tvmaze.com/shows/38963/images",
+        "retrievedAt": "2026-11-09T20:36:19.450Z",
+        "sha256": "5f05b3c40fbc01a69c3d9bf53af5d98143a4803ddc6808fde8ba99b46e127237",
+        "cached": true
+      },
+      {
+        "id": "cfb2e943debf598b6c2561464c0da49f0ebef0d4cd8b2c635226b7d250b0a051",
+        "url": "https://api.tvmaze.com/shows/52341/images",
+        "retrievedAt": "2026-11-09T20:36:20.461Z",
+        "sha256": "45f71200da252c84fee458c7a14732fdcdf36f993672606dd1eb71480a769432",
+        "cached": true
+      },
+      {
+        "id": "d6b13f62d827b4bbcbaf2eff0efcc47d27e9c11f71933f9f3aac49768b69a16d",
+        "url": "https://starwars-databank-server.onrender.com/api/v1/characters?page=6&limit=100",
+        "retrievedAt": "2026-11-09T20:36:17.878Z",
+        "sha256": "539ce407a66535cc1304457d627a902197f3d0fba0308b7bed3767e449eebc79",
+        "cached": true
+      },
+      {
+        "id": "a9c20b874c21c23ed2fbe0ac6706211d3481b73280eeee8f56972fa8b43d3663",
+        "url": "https://api.tvmaze.com/shows/52341?embed[]=episodeswithspecials&embed[]=cast",
+        "retrievedAt": "2026-11-09T20:36:19.962Z",
+        "sha256": "0771f20917c4ab9b30f45eda49e5daebec5b785c86ab48f371180e8738e9a22a",
+        "cached": true
+      },
+      {
+        "id": "ce1cb6040a4a7ec4b9ebfd007876fccf6afa01601f5c51e0b806f3280ab10344",
+        "url": "https://starwars-databank-server.onrender.com/api/v1/characters?page=7&limit=100",
+        "retrievedAt": "2026-11-09T20:36:18.479Z",
+        "sha256": "cea541f2d0c47a0fcf0f1b9dcccc910357849ee11b70558f40ac41232aada1d8",
+        "cached": true
+      },
+      {
+        "id": "a19e3d6c796e0907d5ed09b6088e249c4fc94bac78acd77df75759d987b5c041",
+        "url": "https://starwars-databank-server.onrender.com/api/v1/characters?page=8&limit=100",
+        "retrievedAt": "2026-11-09T20:36:19.068Z",
+        "sha256": "dd96afa9f10b117dc4f6ab18b219fd7721ac1d8aee14bcf3d7a278e3301f0f32",
+        "cached": true
+      },
+      {
+        "id": "ed1914cd7441e889ae10f7bec458c8f164709f26223337efbd7482070ad6b937",
+        "url": "https://starwars-databank-server.onrender.com/api/v1/characters?page=9&limit=100",
+        "retrievedAt": "2026-11-09T20:36:19.650Z",
+        "sha256": "0e00142e97304fa8eaa0fb4daba0484274f743f64c277c5c0c2ba6c6d5c73c6e",
+        "cached": true
+      },
+      {
+        "id": "dd026c9eda1f344d026bd4d0d1796aa61bb61acf8d25221ab4d23ac098989dfd",
+        "url": "https://starwars-databank-server.onrender.com/api/v1/characters?page=10&limit=100",
+        "retrievedAt": "2026-11-09T20:36:20.253Z",
+        "sha256": "fb8de109fff2b4cc97d5bab18e6664d741a509ee4bf71d30703e70b08c5b440b",
+        "cached": true
+      }
+    ]
+  },
+  "providers": [
+    {
+      "id": "databank",
+      "provider": "databank",
+      "stats": {
+        "collections": {
+          "locations": {
+            "advertisedTotal": 326,
+            "records": 326,
+            "requests": 4,
+            "truncated": false
+          },
+          "characters": {
+            "advertisedTotal": 964,
+            "records": 964,
+            "requests": 10,
+            "truncated": false
+          }
+        },
+        "records": 1290,
+        "mediaCandidates": 1290
+      },
+      "errors": []
+    },
+    {
+      "id": "tvmaze",
+      "provider": "tvmaze",
+      "stats": {
+        "requestsAttempted": 16,
+        "requestedShows": 8,
+        "collectedShows": 8,
+        "seriesRecords": 8,
+        "episodeRecords": 337,
+        "personRecords": 82,
+        "mediaReferences": 559,
+        "partial": false,
+        "perShow": [
+          {
+            "showId": 563,
+            "seriesId": "clone-wars",
+            "name": "Star Wars: The Clone Wars",
+            "rawEpisodeCount": 141,
+            "stagedEpisodeCount": 141,
+            "episodeImageCount": 141,
+            "regularEpisodeCount": 133,
+            "specialEpisodeCount": 8,
+            "futureOrUndatedEpisodeCount": 0,
+            "castCount": 20,
+            "rawGalleryImageCount": 4,
+            "stagedSeriesImageCount": 4,
+            "unclassifiedGalleryImageCount": 0
+          },
+          {
+            "showId": 117,
+            "seriesId": "rebels",
+            "name": "Star Wars: Rebels",
+            "rawEpisodeCount": 76,
+            "stagedEpisodeCount": 76,
+            "episodeImageCount": 71,
+            "regularEpisodeCount": 69,
+            "specialEpisodeCount": 7,
+            "futureOrUndatedEpisodeCount": 0,
+            "castCount": 7,
+            "rawGalleryImageCount": 11,
+            "stagedSeriesImageCount": 6,
+            "unclassifiedGalleryImageCount": 5
+          },
+          {
+            "showId": 49190,
+            "seriesId": "bad-batch",
+            "name": "Star Wars: The Bad Batch",
+            "rawEpisodeCount": 47,
+            "stagedEpisodeCount": 47,
+            "episodeImageCount": 47,
+            "regularEpisodeCount": 47,
+            "specialEpisodeCount": 0,
+            "futureOrUndatedEpisodeCount": 0,
+            "castCount": 7,
+            "rawGalleryImageCount": 19,
+            "stagedSeriesImageCount": 16,
+            "unclassifiedGalleryImageCount": 3
+          },
+          {
+            "showId": 52343,
+            "seriesId": "ahsoka",
+            "name": "Ahsoka",
+            "rawEpisodeCount": 9,
+            "stagedEpisodeCount": 9,
+            "episodeImageCount": 8,
+            "regularEpisodeCount": 9,
+            "specialEpisodeCount": 0,
+            "futureOrUndatedEpisodeCount": 1,
+            "castCount": 14,
+            "rawGalleryImageCount": 10,
+            "stagedSeriesImageCount": 9,
+            "unclassifiedGalleryImageCount": 1
+          },
+          {
+            "showId": 52260,
+            "seriesId": "obi-wan",
+            "name": "Obi-Wan Kenobi",
+            "rawEpisodeCount": 7,
+            "stagedEpisodeCount": 7,
+            "episodeImageCount": 7,
+            "regularEpisodeCount": 6,
+            "specialEpisodeCount": 1,
+            "futureOrUndatedEpisodeCount": 0,
+            "castCount": 1,
+            "rawGalleryImageCount": 12,
+            "stagedSeriesImageCount": 10,
+            "unclassifiedGalleryImageCount": 2
+          },
+          {
+            "showId": 52523,
+            "seriesId": "boba-fett",
+            "name": "The Book of Boba Fett",
+            "rawEpisodeCount": 8,
+            "stagedEpisodeCount": 8,
+            "episodeImageCount": 8,
+            "regularEpisodeCount": 7,
+            "specialEpisodeCount": 1,
+            "futureOrUndatedEpisodeCount": 0,
+            "castCount": 3,
+            "rawGalleryImageCount": 18,
+            "stagedSeriesImageCount": 16,
+            "unclassifiedGalleryImageCount": 2
+          },
+          {
+            "showId": 38963,
+            "seriesId": "mandalorian",
+            "name": "The Mandalorian",
+            "rawEpisodeCount": 24,
+            "stagedEpisodeCount": 24,
+            "episodeImageCount": 24,
+            "regularEpisodeCount": 24,
+            "specialEpisodeCount": 0,
+            "futureOrUndatedEpisodeCount": 0,
+            "castCount": 2,
+            "rawGalleryImageCount": 66,
+            "stagedSeriesImageCount": 59,
+            "unclassifiedGalleryImageCount": 7
+          },
+          {
+            "showId": 52341,
+            "seriesId": "andor",
+            "name": "Andor",
+            "rawEpisodeCount": 25,
+            "stagedEpisodeCount": 25,
+            "episodeImageCount": 24,
+            "regularEpisodeCount": 24,
+            "specialEpisodeCount": 1,
+            "futureOrUndatedEpisodeCount": 0,
+            "castCount": 41,
+            "rawGalleryImageCount": 30,
+            "stagedSeriesImageCount": 28,
+            "unclassifiedGalleryImageCount": 2
+          }
+        ],
+        "normalizationCaveats": [
+          "Staging only: provider records do not alter the reviewed catalog or appearance graph.",
+          "Specials, future placeholders and split/combined episodes require explicit reconciliation; do not join by season/episode alone.",
+          "Show cast is not proof of a person or character appearing in every episode.",
+          "Character portraits remain in raw cast data and are not mislabeled as actor photographs.",
+          "Banner/typography gallery items remain in raw imageGallery; they are not mislabeled as posters or backdrops.",
+          "TVmaze API metadata requires attribution/ShareAlike compliance; image attribution is not a claim of underlying copyright ownership."
+        ]
+      },
+      "errors": []
+    },
+    {
+      "id": "wookieepedia",
+      "provider": "wookieepedia",
+      "stats": {
+        "requestedTitles": 4,
+        "records": 4,
+        "requests": 2,
+        "featuredImagesQueried": 5,
+        "mediaCandidates": 6,
+        "continuity": {
+          "canon": 3,
+          "legends": 1,
+          "unknown": 0
+        }
+      },
+      "errors": []
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "No source record overwrites curated facts. Name-only matches require reconciliation.",
+    "TV numbering, combined releases and specials are staged separately from canonical watch records.",
+    "Wookieepedia is a bounded page/revision/media pilot, not a full-wiki crawl.",
+    "Media references are not downloaded, resized, delivered, or licensed merely by collection.",
+    "Unknown galactic coordinates remain null; no additional map points are created."
+  ]
+}
