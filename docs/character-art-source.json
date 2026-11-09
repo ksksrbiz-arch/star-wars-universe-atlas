@@ -1,0 +1,189 @@
+{
+  "checkedAt": "2026-11-09T21:45:50.841Z",
+  "items": [
+    {
+      "id": "han-solo",
+      "name": "Han Solo",
+      "databankName": "Han Solo",
+      "framing": "full-body",
+      "sourceUrl": "https://disney.fandom.com/wiki/File:Han-Solo-Fathead-01.png",
+      "imageUrl": "https://static.wikia.nocookie.net/disney/images/f/f8/Han-Solo-Fathead-01.png/revision/latest?cb=20170217051112",
+      "sourceWidth": 2620,
+      "sourceHeight": 4000,
+      "revisionId": 2588599,
+      "revisionTimestamp": "2017-02-17T05:11:12Z",
+      "sourceSha1": "330b755b407e81551538b9b557f6924be425a93c",
+      "originProvider": "Disney Wiki",
+      "credit": "Character artwork via Disney Wiki · Lucasfilm and original rights holders",
+      "useBasis": "User-requested personal noncommercial fan atlas reference artwork; source attribution retained. Underlying Lucasfilm and source creator copyrights retained; no general redistribution license asserted.",
+      "verifiedAlpha": {
+        "sha256": "301725186785b49b139eb3cac44829493b71d3058d29bc7b76a75a3a46fd7b09",
+        "mime": "image/webp",
+        "width": 2620,
+        "height": 4000,
+        "transparentFraction": 0.7355
+      }
+    },
+    {
+      "id": "darth-vader",
+      "name": "Darth Vader",
+      "databankName": "Darth Vader",
+      "framing": "full-body",
+      "sourceUrl": "https://starwars.fandom.com/wiki/File:Darth_Vader_Promo_Rogue_One.png",
+      "imageUrl": "https://static.wikia.nocookie.net/starwars/images/b/b1/Darth_Vader_Promo_Rogue_One.png/revision/latest?cb=20260114054939",
+      "sourceWidth": 700,
+      "sourceHeight": 1280,
+      "revisionId": 15363388,
+      "revisionTimestamp": "2026-01-14T05:49:39Z",
+      "sourceSha1": "2aee30ecdcc2320da42fb1f1d806fa82efe0c0e9",
+      "originProvider": "Wookieepedia",
+      "credit": "Character artwork via Wookieepedia · Lucasfilm and original rights holders",
+      "useBasis": "User-requested personal noncommercial fan atlas reference artwork; source attribution retained. Underlying Lucasfilm and source creator copyrights retained; no general redistribution license asserted.",
+      "verifiedAlpha": {
+        "sha256": "26a9343d8dd08717062866d4427de4b23ab0bbfc8e59ff02edef6f1fcd245534",
+        "mime": "image/webp",
+        "width": 700,
+        "height": 1280,
+        "transparentFraction": 0.3487
+      }
+    },
+    {
+      "id": "luke-skywalker",
+      "name": "Luke Skywalker",
+      "databankName": "Luke Skywalker",
+      "framing": "bust",
+      "sourceUrl": "https://starwars.fandom.com/wiki/File:LukeSkywalker-Insider217.png",
+      "imageUrl": "https://static.wikia.nocookie.net/starwars/images/1/17/LukeSkywalker-Insider217.png/revision/latest?cb=20240130192944",
+      "sourceWidth": 1250,
+      "sourceHeight": 1650,
+      "revisionId": 13189791,
+      "revisionTimestamp": "2024-01-30T21:28:08Z",
+      "sourceSha1": "1d62448bd7d522f10ddc8fa18a4e541cc4d93bfa",
+      "originProvider": "Wookieepedia",
+      "credit": "Character artwork via Wookieepedia · Lucasfilm and original rights holders",
+      "useBasis": "User-requested personal noncommercial fan atlas reference artwork; source attribution retained. Underlying Lucasfilm and source creator copyrights retained; no general redistribution license asserted.",
+      "verifiedAlpha": {
+        "sha256": "f50a92a8dc002671343de2742731fbfb8ee8a0413a717d0f209517e662b4fe21",
+        "mime": "image/webp",
+        "width": 1250,
+        "height": 1650,
+        "transparentFraction": 0.3821
+      }
+    },
+    {
+      "id": "leia-organa",
+      "name": "Leia Organa",
+      "databankName": "Leia Organa",
+      "framing": "full-body",
+      "sourceUrl": "https://starwars.fandom.com/wiki/File:ArmedWithAttitudeLeia-OfficialPix.png",
+      "imageUrl": "https://static.wikia.nocookie.net/starwars/images/c/c2/ArmedWithAttitudeLeia-OfficialPix.png/revision/latest?cb=20221030062154",
+      "sourceWidth": 500,
+      "sourceHeight": 960,
+      "revisionId": 15428281,
+      "revisionTimestamp": "2026-03-04T04:50:55Z",
+      "sourceSha1": "8737a17b520058381ed3e918717a13417457ddb6",
+      "originProvider": "Wookieepedia",
+      "credit": "Character artwork via Wookieepedia · Lucasfilm and original rights holders",
+      "useBasis": "User-requested personal noncommercial fan atlas reference artwork; source attribution retained. Underlying Lucasfilm and source creator copyrights retained; no general redistribution license asserted.",
+      "verifiedAlpha": {
+        "sha256": "0a253db9459df9f6cdae0fc9ef4cb52bf8b7626faf434b3110417a3a0fec4c2c",
+        "mime": "image/webp",
+        "width": 500,
+        "height": 960,
+        "transparentFraction": 0.5541
+      }
+    },
+    {
+      "id": "ahsoka-tano",
+      "name": "Ahsoka Tano",
+      "databankName": "Ahsoka Tano",
+      "framing": "bust",
+      "sourceUrl": "https://starwars.fandom.com/wiki/File:Ahsoka-Tano-AG-2023.png",
+      "imageUrl": "https://static.wikia.nocookie.net/starwars/images/2/27/Ahsoka-Tano-AG-2023.png/revision/latest?cb=20231009063143",
+      "sourceWidth": 2362,
+      "sourceHeight": 3089,
+      "revisionId": 15337132,
+      "revisionTimestamp": "2025-12-24T19:41:11Z",
+      "sourceSha1": "8106506fdcc30fcca0a3ee73a5e4394f6da39017",
+      "originProvider": "Wookieepedia",
+      "credit": "Character artwork via Wookieepedia · Lucasfilm and original rights holders",
+      "useBasis": "User-requested personal noncommercial fan atlas reference artwork; source attribution retained. Underlying Lucasfilm and source creator copyrights retained; no general redistribution license asserted.",
+      "verifiedAlpha": {
+        "sha256": "d716288db077590cff077dd9ac11e4a71c1b0794f545dc0a0f96087ae7b8c59d",
+        "mime": "image/webp",
+        "width": 1280,
+        "height": 1674,
+        "transparentFraction": 0.3516
+      }
+    },
+    {
+      "id": "chewbacca",
+      "name": "Chewbacca",
+      "databankName": "Chewbacca",
+      "framing": "full-body",
+      "sourceUrl": "https://starwars.fandom.com/wiki/File:Chewbacca-Fathead.png",
+      "imageUrl": "https://static.wikia.nocookie.net/starwars/images/1/1e/Chewbacca-Fathead.png/revision/latest?cb=20161108052810",
+      "sourceWidth": 2250,
+      "sourceHeight": 4100,
+      "revisionId": 14365051,
+      "revisionTimestamp": "2025-02-09T06:23:22Z",
+      "sourceSha1": "e74b028c08c0435a55392ebd65bb6a863a5600b5",
+      "originProvider": "Wookieepedia",
+      "credit": "Character artwork via Wookieepedia · Lucasfilm and original rights holders",
+      "useBasis": "User-requested personal noncommercial fan atlas reference artwork; source attribution retained. Underlying Lucasfilm and source creator copyrights retained; no general redistribution license asserted.",
+      "verifiedAlpha": {
+        "sha256": "ea200631043bb8c61d81649579d14786e28b2742575c8c088a707adc1df0d11c",
+        "mime": "image/webp",
+        "width": 1280,
+        "height": 2332,
+        "transparentFraction": 0.5787
+      }
+    },
+    {
+      "id": "din-djarin",
+      "name": "Din Djarin",
+      "databankName": "Din Djarin (The Mandalorian)",
+      "framing": "bust",
+      "sourceUrl": "https://starwars.fandom.com/wiki/File:DinDjarinArmor-CGSWG.png",
+      "imageUrl": "https://static.wikia.nocookie.net/starwars/images/4/46/DinDjarinArmor-CGSWG.png/revision/latest?cb=20241206044557",
+      "sourceWidth": 725,
+      "sourceHeight": 900,
+      "revisionId": 14310161,
+      "revisionTimestamp": "2025-02-01T04:46:49Z",
+      "sourceSha1": "9a8ab46709b3c87929c2e67e0282750c82dcf8bd",
+      "originProvider": "Wookieepedia",
+      "credit": "Character artwork via Wookieepedia · Lucasfilm and original rights holders",
+      "useBasis": "User-requested personal noncommercial fan atlas reference artwork; source attribution retained. Underlying Lucasfilm and source creator copyrights retained; no general redistribution license asserted.",
+      "verifiedAlpha": {
+        "sha256": "1ca92c29bd28d5cfe3fd250754247ac52bcde16b80de3949290b217b66060fb8",
+        "mime": "image/webp",
+        "width": 725,
+        "height": 900,
+        "transparentFraction": 0.3533
+      }
+    },
+    {
+      "id": "rey",
+      "name": "Rey",
+      "databankName": "Rey",
+      "framing": "full-body",
+      "sourceUrl": "https://disney.fandom.com/wiki/File:Rey-Fathead.png",
+      "imageUrl": "https://static.wikia.nocookie.net/disney/images/c/c0/Rey-Fathead.png/revision/latest?cb=20160207011337",
+      "sourceWidth": 3100,
+      "sourceHeight": 3915,
+      "revisionId": 2097527,
+      "revisionTimestamp": "2016-02-07T01:13:37Z",
+      "sourceSha1": "ac55b2ad8f22065ccf586964c7a30ab7c5e562bb",
+      "originProvider": "Disney Wiki",
+      "credit": "Character artwork via Disney Wiki · Lucasfilm and original rights holders",
+      "useBasis": "User-requested personal noncommercial fan atlas reference artwork; source attribution retained. Underlying Lucasfilm and source creator copyrights retained; no general redistribution license asserted.",
+      "verifiedAlpha": {
+        "sha256": "2831066cd9f44bae6d7083291b934bf11f9df605d744f969129b69d7221e443c",
+        "mime": "image/webp",
+        "width": 1280,
+        "height": 1617,
+        "transparentFraction": 0.6559
+      }
+    }
+  ]
+}

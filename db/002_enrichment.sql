@@ -34,11 +34,16 @@ CREATE TABLE IF NOT EXISTS atlas_ingestion_runs (
 CREATE OR REPLACE VIEW atlas_databank_public AS
 SELECT r.provider,r.provider_id,r.entity_type,r.name,
   r.public_payload || CASE WHEN m.payload IS NULL THEN '{}'::jsonb ELSE jsonb_build_object('image',jsonb_strip_nulls(jsonb_build_object(
-    'src',m.payload->>'src','srcSet',m.payload->>'srcSet','credit',m.payload->>'credit','sourceUrl',m.payload->>'sourceUrl'))) END AS payload
+    'src',m.payload->>'src','srcSet',m.payload->>'srcSet','credit',m.payload->>'credit','sourceUrl',m.payload->>'sourceUrl'))) END
+  || CASE WHEN c.payload IS NULL THEN '{}'::jsonb ELSE jsonb_build_object('cutout',jsonb_strip_nulls(jsonb_build_object(
+    'src',c.payload->>'src','srcSet',c.payload->>'srcSet','credit',c.payload->>'credit','sourceUrl',c.payload->>'sourceUrl'))) END AS payload
 FROM atlas_source_records r
 LEFT JOIN LATERAL (SELECT payload FROM atlas_source_media
-  WHERE provider=r.provider AND provider_id=r.provider_id AND delivered
+  WHERE provider=r.provider AND provider_id=r.provider_id AND delivered AND COALESCE(payload->>'kind','')<>'character-cutout'
   ORDER BY payload->>'deliveredAt' DESC NULLS LAST,id LIMIT 1) m ON true
+LEFT JOIN LATERAL (SELECT payload FROM atlas_source_media
+  WHERE provider=r.provider AND provider_id=r.provider_id AND delivered AND r.entity_type='character' AND payload->>'kind'='character-cutout'
+  ORDER BY payload->>'deliveredAt' DESC NULLS LAST,id LIMIT 1) c ON true
 WHERE r.provider='databank' AND r.entity_type IN ('location','character');
 CREATE OR REPLACE VIEW atlas_media_public AS
 SELECT l.canonical_id,l.canonical_type,l.provider,

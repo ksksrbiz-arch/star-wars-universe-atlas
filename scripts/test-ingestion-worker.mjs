@@ -75,6 +75,13 @@ test('HTML, SVG and incomplete PNG signatures cannot become published raster med
   assert.throws(() => imageDetails(new Uint8Array([137, 80, 78, 71, ...new Array(40).fill(0)])));
 });
 
+test('lossless WebP artwork dimensions are preserved for original-resolution delivery', () => {
+  const bytes = new Uint8Array(30), view = new DataView(bytes.buffer);
+  bytes.set(new TextEncoder().encode('RIFF'),0);bytes.set(new TextEncoder().encode('WEBP'),8);bytes.set(new TextEncoder().encode('VP8L'),12);bytes[20]=0x2f;
+  view.setUint32(21,(3999<<14)|2619,true);
+  assert.deepEqual(imageDetails(bytes),{mime:'image/webp',extension:'webp',width:2620,height:4000});
+});
+
 test('delivery publishes content-addressed assets with measured responsive widths and credits', async () => {
   const puts = [], fetches = [];
   // Minimal JPEG SOF header sufficient to inspect declared dimensions without a browser decoder.
@@ -98,6 +105,32 @@ test('media endpoint validates item count before opening database connection', a
   const secret = 'z'.repeat(48);
   const response = await worker.fetch(new Request('https://private/media', { method: 'POST', headers: { Authorization: `Bearer ${secret}` }, body: JSON.stringify({ items: new Array(17).fill({}) }) }), { INGESTION_TOKEN: secret });
   assert.equal(response.status, 400);
+});
+
+test('character cutout delivery retains actual source provenance and rejects JPEG substitution', async () => {
+  const item = { provider: 'databank', providerId: 'character-1', kind: 'character-cutout', originProvider: 'Disney Wiki', provenance: { filePage: 'https://disney.fandom.com/wiki/File:Character.png', revision: 'reviewed-revision' }, sourceUrl: 'https://static.wikia.nocookie.net/disney/images/a/a1/Character.png/revision/latest', sourcePageUrl: 'https://disney.fandom.com/wiki/Han_Solo/Gallery', credit: 'Lucasfilm / Disney Wiki' };
+  const png = width => {
+    const bytes = new Uint8Array(33), view = new DataView(bytes.buffer);
+    bytes.set([137,80,78,71,13,10,26,10]);view.setUint32(8,13);bytes.set([73,72,68,82],12);view.setUint32(16,width);view.setUint32(20,1800);bytes[24]=8;bytes[25]=6;
+    return bytes;
+  };
+  const env = { PUBLISHED_ASSETS: { async put() {} } };
+  const fetched = [];
+  const output = await deliverMediaItem(item, env, async (url, options) => {
+    fetched.push(url);
+    assert.equal(options.headers.Accept, 'image/png,image/webp');
+    return new Response(png(url.endsWith('/640') ? 640 : 2620), { headers: { 'Content-Type': 'image/png' } });
+  });
+  assert.equal(output.kind, item.kind);
+  assert.equal(output.provider, 'databank', 'Association identity remains the existing Databank character');
+  assert.equal(output.originProvider, 'Disney Wiki', 'Artwork source is retained independently from association provider');
+  assert.deepEqual(output.provenance,item.provenance);
+  assert.equal(output.sourceUrl,item.sourcePageUrl);
+  assert.equal(output.credit,item.credit);
+  assert.equal(fetched[0],item.sourceUrl,'Primary cutout uses the original asset URL without resizing');
+  assert.equal(output.width,2620);
+  assert.match(output.srcSet,/640w, .*2620w/);
+  await assert.rejects(() => deliverMediaItem(item,env,async()=>new Response(new Uint8Array([255,216,255,217]),{headers:{'Content-Type':'image/jpeg'}})),/alpha-capable raster format/);
 });
 
 test('default media fetch retains the native global receiver used by Workers', async () => {

@@ -90,6 +90,10 @@ export function imageDetails(bytes) {
   if (bytes.length >= 30 && String.fromCharCode(...bytes.slice(0, 4)) === 'RIFF' && String.fromCharCode(...bytes.slice(8, 12)) === 'WEBP') {
     const type = String.fromCharCode(...bytes.slice(12, 16));
     if (type === 'VP8X') return { mime: 'image/webp', extension: 'webp', width: 1 + bytes[24] + (bytes[25] << 8) + (bytes[26] << 16), height: 1 + bytes[27] + (bytes[28] << 8) + (bytes[29] << 16) };
+    if (type === 'VP8L' && bytes[20] === 0x2f) {
+      const dimensions = view.getUint32(21, true);
+      return { mime: 'image/webp', extension: 'webp', width: (dimensions & 0x3fff) + 1, height: ((dimensions >>> 14) & 0x3fff) + 1 };
+    }
     if (type === 'VP8 ' && bytes.length >= 30) return { mime: 'image/webp', extension: 'webp', width: view.getUint16(26, true) & 0x3fff, height: view.getUint16(28, true) & 0x3fff };
     return { mime: 'image/webp', extension: 'webp' };
   }
@@ -98,19 +102,23 @@ export function imageDetails(bytes) {
 
 export async function deliverMediaItem(item, env, fetchImpl = (url, options) => globalThis.fetch(url, options)) {
   if (!item || !['databank', 'tvmaze', 'wookieepedia'].includes(item.provider) || typeof item.providerId !== 'string') throw new Error('Invalid media identity');
+  const cutout = item.kind === 'character-cutout';
   const original = approvedImageUrl(item.sourceUrl).href;
   if (item.sourcePageUrl && new URL(item.sourcePageUrl).protocol !== 'https:') throw new Error('Invalid source page');
   const variants = [];
   let phase = 'fetch';
-  for (const target of [1280, 320]) {
-    const imageUrl = variantUrl(original, target);
+  const targets = cutout ? [0, 640] : [1280, 320];
+  for (const target of targets) {
+    // Full-resolution cutouts are the primary artwork, not a capped derivative.
+    const imageUrl = target === 0 ? original : variantUrl(original, target);
     if (variants.some(variant => variant.fetchUrl === imageUrl)) continue;
     try {
       phase = 'fetch';
-      const response = await fetchImpl(imageUrl, { redirect: 'manual', headers: { Accept: 'image/jpeg,image/webp,image/png' }, signal: AbortSignal.timeout(30000) });
+      const response = await fetchImpl(imageUrl, { redirect: 'manual', headers: { Accept: cutout ? 'image/png,image/webp' : 'image/jpeg,image/webp,image/png' }, signal: AbortSignal.timeout(30000) });
       if (!response.ok) { await response.body?.cancel(); throw new Error(`Image returned HTTP ${response.status}`); }
       const mime = response.headers.get('content-type')?.split(';')[0].trim();
       if (!['image/jpeg', 'image/webp', 'image/png'].includes(mime)) { await response.body?.cancel(); throw new Error('Image MIME rejected'); }
+      if (cutout && mime === 'image/jpeg') { await response.body?.cancel(); throw new Error('Character cutout requires an alpha-capable raster format'); }
       phase = 'read';
       const bytes = await readBounded(response, 8 * 1024 * 1024);
       phase = 'signature';
@@ -122,13 +130,14 @@ export async function deliverMediaItem(item, env, fetchImpl = (url, options) => 
       await env.PUBLISHED_ASSETS.put(key, bytes, { httpMetadata: { contentType: mime, cacheControl: 'public, max-age=31536000, immutable' }, customMetadata: { source: original, usage: 'personal-fan-atlas', provider: item.provider } });
       variants.push({ src: `/media/${key}`, fetchUrl: imageUrl, sha256, bytes: bytes.byteLength, ...details });
     } catch (error) {
-      if (target === 1280) { error.deliveryPhase = phase; throw error; }
+      if (target === targets[0]) { error.deliveryPhase = phase; throw error; }
       // A provider may lack a thumbnail derivative; the successfully delivered image remains usable.
     }
   }
   const primary = variants[0];
   const sizes = [...new Map(variants.filter(row => row.width).map(row => [row.width, row])).values()].sort((a, b) => a.width - b.width);
   return { id: typeof item.id === 'string' ? item.id : await digest(original), provider: item.provider, providerId: item.providerId,
+    ...(cutout ? { kind: 'character-cutout', ...(typeof item.originProvider === 'string' && item.originProvider.trim() ? { originProvider: item.originProvider.trim().slice(0, 100) } : {}), ...(item.provenance && typeof item.provenance === 'object' && !Array.isArray(item.provenance) ? { provenance: item.provenance } : {}) } : {}),
     ...(item.canonicalId ? { canonicalId: item.canonicalId, canonicalType: item.canonicalType } : {}),
     ...(item.reviewEvidence ? { reviewEvidence: item.reviewEvidence } : {}),
     src: primary.src, ...(sizes.length > 1 ? { srcSet: sizes.map(row => `${row.src} ${row.width}w`).join(', ') } : {}),
@@ -167,11 +176,15 @@ async function saveRecords(client, provider, rows) {
 export async function storeDelivered(client, item) {
   await client.query('BEGIN');
   try {
+    if (item.kind === 'character-cutout') {
+      const source = await client.query('SELECT entity_type FROM atlas_source_records WHERE provider=$1 AND provider_id=$2', [item.provider, item.providerId]);
+      if (source.rows[0]?.entity_type !== 'character') throw new Error('Character cutout requires a character source identity');
+    }
     await client.query(`INSERT INTO atlas_source_media(id,provider,provider_id,payload,delivered) VALUES($1,$2,$3,$4::jsonb,true)
       ON CONFLICT(id,provider,provider_id) DO UPDATE SET payload=excluded.payload,delivered=true`, [item.id, item.provider, item.providerId, JSON.stringify(item)]);
     // A provider may change its image URL while the reviewed entity identity
     // stays the same. Move existing accepted links only after delivery succeeds.
-    await client.query('UPDATE atlas_source_links SET media_id=$1 WHERE provider=$2 AND provider_id=$3 AND accepted', [item.id, item.provider, item.providerId]);
+    if (item.kind !== 'character-cutout') await client.query('UPDATE atlas_source_links SET media_id=$1 WHERE provider=$2 AND provider_id=$3 AND accepted', [item.id, item.provider, item.providerId]);
     await client.query('COMMIT');
   } catch (error) { await client.query('ROLLBACK'); throw error; }
 }

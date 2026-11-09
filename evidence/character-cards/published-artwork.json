@@ -1,0 +1,101 @@
+{
+  "verifiedAlpha": true,
+  "items": [
+    {
+      "name": "Han Solo",
+      "src": "/media/sources/301725186785b49b139eb3cac44829493b71d3058d29bc7b76a75a3a46fd7b09.webp",
+      "sourceUrl": "https://disney.fandom.com/wiki/File:Han-Solo-Fathead-01.png",
+      "sha256": "301725186785b49b139eb3cac44829493b71d3058d29bc7b76a75a3a46fd7b09",
+      "framing": "full-body",
+      "width": 2620,
+      "height": 4000,
+      "actualFormat": "WEBP",
+      "transparentFraction": 0.744,
+      "bytes": 688692
+    },
+    {
+      "name": "Darth Vader",
+      "src": "/media/sources/26a9343d8dd08717062866d4427de4b23ab0bbfc8e59ff02edef6f1fcd245534.webp",
+      "sourceUrl": "https://starwars.fandom.com/wiki/File:Darth_Vader_Promo_Rogue_One.png",
+      "sha256": "26a9343d8dd08717062866d4427de4b23ab0bbfc8e59ff02edef6f1fcd245534",
+      "framing": "full-body",
+      "width": 700,
+      "height": 1280,
+      "actualFormat": "WEBP",
+      "transparentFraction": 0.3569,
+      "bytes": 89328
+    },
+    {
+      "name": "Luke Skywalker",
+      "src": "/media/sources/f50a92a8dc002671343de2742731fbfb8ee8a0413a717d0f209517e662b4fe21.webp",
+      "sourceUrl": "https://starwars.fandom.com/wiki/File:LukeSkywalker-Insider217.png",
+      "sha256": "f50a92a8dc002671343de2742731fbfb8ee8a0413a717d0f209517e662b4fe21",
+      "framing": "bust",
+      "width": 1250,
+      "height": 1650,
+      "actualFormat": "WEBP",
+      "transparentFraction": 0.3962,
+      "bytes": 300922
+    },
+    {
+      "name": "Leia Organa",
+      "src": "/media/sources/0a253db9459df9f6cdae0fc9ef4cb52bf8b7626faf434b3110417a3a0fec4c2c.webp",
+      "sourceUrl": "https://starwars.fandom.com/wiki/File:ArmedWithAttitudeLeia-OfficialPix.png",
+      "sha256": "0a253db9459df9f6cdae0fc9ef4cb52bf8b7626faf434b3110417a3a0fec4c2c",
+      "framing": "full-body",
+      "width": 500,
+      "height": 960,
+      "actualFormat": "WEBP",
+      "transparentFraction": 0.5699,
+      "bytes": 66062
+    },
+    {
+      "name": "Ahsoka Tano",
+      "src": "/media/sources/6248c08f6c22722b1538e5e263772dd2c6db34f2df606c7d5db3690c53d4c632.webp",
+      "sourceUrl": "https://starwars.fandom.com/wiki/File:Ahsoka-Tano-AG-2023.png",
+      "sha256": "6248c08f6c22722b1538e5e263772dd2c6db34f2df606c7d5db3690c53d4c632",
+      "framing": "bust",
+      "width": 2362,
+      "height": 3089,
+      "actualFormat": "WEBP",
+      "transparentFraction": 0.3653,
+      "bytes": 548954
+    },
+    {
+      "name": "Chewbacca",
+      "src": "/media/sources/605611c76356418cc63d33ff281c5e96e5a2bc69f1a3a352e2d85e9e0b1e716d.webp",
+      "sourceUrl": "https://starwars.fandom.com/wiki/File:Chewbacca-Fathead.png",
+      "sha256": "605611c76356418cc63d33ff281c5e96e5a2bc69f1a3a352e2d85e9e0b1e716d",
+      "framing": "full-body",
+      "width": 2250,
+      "height": 4100,
+      "actualFormat": "WEBP",
+      "transparentFraction": 0.5863,
+      "bytes": 1071206
+    },
+    {
+      "name": "Din Djarin",
+      "src": "/media/sources/1ca92c29bd28d5cfe3fd250754247ac52bcde16b80de3949290b217b66060fb8.webp",
+      "sourceUrl": "https://starwars.fandom.com/wiki/File:DinDjarinArmor-CGSWG.png",
+      "sha256": "1ca92c29bd28d5cfe3fd250754247ac52bcde16b80de3949290b217b66060fb8",
+      "framing": "bust",
+      "width": 725,
+      "height": 900,
+      "actualFormat": "WEBP",
+      "transparentFraction": 0.3644,
+      "bytes": 136186
+    },
+    {
+      "name": "Rey",
+      "src": "/media/sources/e1ffcc98a029ec9829bf001c75c05bc7f6d9316fd97396978236b4bb8fd80da9.webp",
+      "sourceUrl": "https://disney.fandom.com/wiki/File:Rey-Fathead.png",
+      "sha256": "e1ffcc98a029ec9829bf001c75c05bc7f6d9316fd97396978236b4bb8fd80da9",
+      "framing": "full-body",
+      "width": 3100,
+      "height": 3915,
+      "actualFormat": "WEBP",
+      "transparentFraction": 0.668,
+      "bytes": 793834
+    }
+  ]
+}

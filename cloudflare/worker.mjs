@@ -21,14 +21,15 @@ const hasTraversal = key => key.split(/[\\/]/).includes('..');
 
 export function databankParameters(url) {
   const type=url.searchParams.get('type')||null;
+  const artwork=url.searchParams.get('artwork')||null;
   const q=(url.searchParams.get('q')||'').trim();
   const offsetText=url.searchParams.get('offset')??'0',limitText=url.searchParams.get('limit')??'30';
-  if(type&&!['location','character'].includes(type)||q.length>100||!/^\d+$/.test(offsetText)||!/^\d+$/.test(limitText))return null;
+  if(type&&!['location','character'].includes(type)||artwork&&artwork!=='cutout'||q.length>100||!/^\d+$/.test(offsetText)||!/^\d+$/.test(limitText))return null;
   const offset=Number(offsetText),limit=Number(limitText);
-  return offset<=100000&&limit>=1&&limit<=100?{type,q,offset,limit}:null;
+  return offset<=100000&&limit>=1&&limit<=100?{type,q,offset,limit,...(artwork?{artwork}:{})}:null;
 }
 const databankQuery = `WITH filtered AS (SELECT provider,provider_id,name,payload FROM atlas_databank_public
- WHERE ($1::text IS NULL OR entity_type=$1) AND ($2::text='' OR strpos(lower(name),lower($2))>0))
+ WHERE ($1::text IS NULL OR entity_type=$1) AND ($2::text='' OR strpos(lower(name),lower($2))>0) AND ($5::text IS NULL OR payload ? 'cutout'))
  SELECT (SELECT count(*)::int FROM filtered) AS total,
  COALESCE((SELECT jsonb_agg(payload) FROM (SELECT payload FROM filtered ORDER BY lower(name),provider,provider_id LIMIT $3 OFFSET $4) page),'[]'::jsonb) AS items`;
 
@@ -63,8 +64,8 @@ async function handleRequest(request, env, ctx) {
           return json({status:'ok',database:'connected',...result.rows[0]});
         }
         if(path==='/api/databank'){
-          const {type,q,offset,limit}=parameters;
-          const result=await client.query(databankQuery,[type,q,limit,offset]);
+          const {type,q,offset,limit,artwork}=parameters;
+          const result=await client.query(databankQuery,[type,q,limit,offset,artwork??null]);
           return json({...result.rows[0],offset,limit},200,'public, max-age=60, s-maxage=300');
         }
         const result=await client.query(publicQueries[path]);

@@ -1,0 +1,31 @@
+{
+  "checkedAt": "2026-11-09T21:49:01.875Z",
+  "base": "http://localhost:4186",
+  "checks": [
+    {
+      "width": 1440,
+      "reducedMotion": "no-preference",
+      "touch": false,
+      "apiCalls": 7,
+      "mediaCalls": 25,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "reducedMotion": "reduce",
+      "touch": true,
+      "apiCalls": 7,
+      "mediaCalls": 25,
+      "errors": []
+    },
+    {
+      "width": 320,
+      "reducedMotion": "reduce",
+      "touch": true,
+      "apiCalls": 7,
+      "mediaCalls": 25,
+      "errors": []
+    }
+  ],
+  "limitation": "Fixture-backed Chromium browser coverage; screenshots use fixture art and are not a character-art quality audit."
+}
