@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ExternalLink, Eye, ImageOff } from 'lucide-react';
 import './source-media.css';
+import {useSpoilerPreference} from './spoilerPreference';
 
 export type SourceImage = { src: string; srcSet?: string; credit: string; sourceUrl: string };
 type MediaEntry = SourceImage & { entityId: string; entityType: 'episode' | 'world' | 'series'; provider: string };
@@ -38,12 +39,13 @@ export function CreditedImage({ image, alt, className = '' }: { image: SourceIma
 
 /** Reference imagery never changes map placement or establishes an appearance link. */
 export default function SourceMedia({ entityId, entityType, title, revealed = false }: { entityId: string; entityType: MediaEntry['entityType']; title: string; revealed?: boolean }) {
+  const {hideSpoilers}=useSpoilerPreference();
   const [entries, setEntries] = useState<MediaEntry[]>([]);
   const [revealedId, setRevealedId] = useState<string | null>(null);
   useEffect(() => { let active = true; void loadMedia().then(items => { if (active) setEntries(items); }); return () => { active = false; }; }, []);
   const entry = entries.find(item => item.entityId === entityId && item.entityType === entityType && localMedia(item.src));
   if (!entry) return null;
-  const visible = revealed || revealedId === entityId;
+  const visible = !hideSpoilers || revealed || revealedId === entityId;
   return <section className={`source-media source-media-${entityType}`} aria-label={`${title} source imagery`}>
     {visible ? <><span className="source-media-kicker">{entityType === 'episode' ? 'FROM THIS CHAPTER' : 'REFERENCE IMAGE'}</span><CreditedImage image={entry} alt={entityType === 'episode' ? `A scene from ${title}` : `${title} source reference`}/></> : <div className="source-media-gate"><Eye size={17} aria-hidden="true"/><div><strong>{entityType === 'episode' ? 'A frame from this chapter' : 'Explore a source image'}</strong><p>Source imagery may reveal story details.</p><button onClick={() => setRevealedId(entityId)}>{entityType === 'episode' ? 'Reveal image for this title' : 'Reveal reference image'}</button></div></div>}
   </section>;

@@ -1,10 +1,11 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
 const out=process.env.ATLAS_EVIDENCE_DIR||'evidence/priority-labels';await mkdir(out,{recursive:true});
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});const results=[];
 try { for(const [width,fontCase] of [[1440,'normal'],[390,'normal'],[320,'normal'],[320,'unavailable']]) {
- const page=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const page=await newSpoilerProtectedPage(browser, {viewport:{width,height:900},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
  if(fontCase==='unavailable')await page.route(/fonts\.(googleapis|gstatic)\.com/,route=>route.abort());
  await page.addInitScript(()=>{window.__draws=0;for(const C of [window.WebGLRenderingContext,window.WebGL2RenderingContext])if(C)for(const key of ['drawArrays','drawElements','drawArraysInstanced','drawElementsInstanced'])if(Object.hasOwn(C.prototype,key)){const fn=C.prototype[key];C.prototype[key]=function(...args){window.__draws++;return fn.apply(this,args)};}});
  await page.goto((process.env.ATLAS_URL||'http://localhost:4173')+'/#journey/pt-revenge-of-the-sith');

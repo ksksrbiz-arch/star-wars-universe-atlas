@@ -4,7 +4,7 @@
 
 Keep claim evidence distinct: screen appearance, parent system, published grid, and illustrative appearance are separate assertions. Published chronology must distinguish release order, story order, exact dates, and uncertain intervals. Future Canon/Legends and edition fields must not be inferred from names alone.
 
-World descriptions are mild setting context, but the prototype is not certified spoiler-safe. Before expanding content, attach watched-title visibility rules to descriptions, relationships, thumbnails, and search results.
+Content is visible by default at the owner’s request. The optional “Hide spoilers” setting conceals unwatched story connections and source imagery; per-title reveals remain available in that mode. Watch progress is separate from visibility. Broad setting descriptions still mean the prototype is not certified spoiler-safe.
 
 Conflicting or missing evidence remains explicit. Do not invent coordinates, routes, dates, or character appearances to complete the visual.
 

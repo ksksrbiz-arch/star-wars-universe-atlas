@@ -1,3 +1,4 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 import {ALL_WORLDS} from '../src/journeyWorlds.ts';
@@ -6,7 +7,7 @@ const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
 const base=process.env.ATLAS_URL||'http://localhost:4173';
 try {
  for(const width of [1440,390,320]){
-  const page=await browser.newPage({viewport:{width,height:1000},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  const page=await newSpoilerProtectedPage(browser, {viewport:{width,height:1000},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
   for(const [id,dossier] of Object.entries(WORLD_DOSSIERS)){
    const mapped=ALL_WORLDS.some(world=>world.id===id);
    await page.goto(base+'/#galaxy/'+(mapped?id:''));await page.reload();

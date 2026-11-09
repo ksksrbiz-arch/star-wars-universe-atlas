@@ -1,3 +1,4 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -14,7 +15,7 @@ const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
 const checks=[];
 try{
  for(const settings of [{width:1440,reducedMotion:'no-preference',touch:false},{width:390,reducedMotion:'reduce',touch:true},{width:320,reducedMotion:'reduce',touch:true}]){
-  const page=await browser.newPage({viewport:{width:settings.width,height:1000},reducedMotion:settings.reducedMotion,isMobile:settings.touch,hasTouch:settings.touch});
+  const page=await newSpoilerProtectedPage(browser, {viewport:{width:settings.width,height:1000},reducedMotion:settings.reducedMotion,isMobile:settings.touch,hasTouch:settings.touch});
   const errors=[];let apiCalls=0,mediaCalls=0;
   page.on('pageerror',error=>errors.push(error.message));
   await page.route('**/media/card-test/**',route=>{mediaCalls++;return route.fulfill(route.request().url().includes('/missing')?{status:404,body:''}:{contentType:'image/png',body:pixel});});

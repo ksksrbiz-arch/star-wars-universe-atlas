@@ -1,3 +1,4 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 const base = process.env.ATLAS_URL || 'http://localhost:4186';
@@ -6,7 +7,7 @@ const pixel = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQ
 const image = { src: '/media/test/reference.png', credit: 'Lucasfilm / source fixture', sourceUrl: 'https://www.starwars.com/databank/tatooine' };
 try {
   for (const width of [1440, 390, 320]) {
-    const page = await browser.newPage({ viewport: { width, height: 1000 }, reducedMotion: 'reduce' });
+    const page = await newSpoilerProtectedPage(browser, { viewport: { width, height: 1000 }, reducedMotion: 'reduce' });
     const errors = [], requests = [];
     page.on('pageerror', error => errors.push(error.message));
     await page.route('**/media/test/**', async route => {

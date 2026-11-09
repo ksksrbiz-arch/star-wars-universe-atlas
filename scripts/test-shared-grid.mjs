@@ -1,9 +1,10 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import {writeFile} from 'node:fs/promises';
 import { expandPanel } from './lib-journey-ui.mjs';
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
-const page=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+const page=await newSpoilerProtectedPage(browser, {viewport:{width:390,height:844},isMobile:true,hasTouch:true});
 const errors=[];page.on('pageerror',e=>errors.push(e.message));
 try{
 await page.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#journey/clone-wars-s02e06");

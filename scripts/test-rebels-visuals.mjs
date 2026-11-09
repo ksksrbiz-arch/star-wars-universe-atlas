@@ -1,3 +1,4 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -6,7 +7,7 @@ const out=process.env.ATLAS_EVIDENCE_DIR||'evidence/rebels-visuals';await mkdir(
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});const results=[];
 try{
  for(const width of [1440,390,320]){
-  const page=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  const page=await newSpoilerProtectedPage(browser, {viewport:{width,height:900},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.addInitScript(()=>{window.__draws=0;for(const C of [window.WebGLRenderingContext,window.WebGL2RenderingContext])if(C)for(const key of ['drawArrays','drawElements','drawArraysInstanced','drawElementsInstanced'])if(Object.hasOwn(C.prototype,key)){const fn=C.prototype[key];C.prototype[key]=function(...args){window.__draws++;return fn.apply(this,args)};}});
   await page.goto(base+'/#journey/andor-s01e01');await page.getByRole('button',{name:'Explore Tatooine',exact:true}).waitFor();
   const key=page.getByRole('complementary',{name:'Map symbols'});assert.equal(await key.getAttribute('data-story-count'),'0');assert.equal(await key.getByText(/story marker/).count(),0);

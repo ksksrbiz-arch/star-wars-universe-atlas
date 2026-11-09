@@ -152,7 +152,8 @@
     "ingest:deliver-media": "node scripts/deliver-source-media.mjs",
     "deploy:ingestion": "node scripts/build-ingestion-worker.mjs && node scripts/deploy-ingestion-cloudflare.mjs",
     "test:character-cards": "node scripts/test-character-cards.mjs",
-    "ingest:character-art": "node scripts/ingest-character-art.mjs"
+    "ingest:character-art": "node scripts/ingest-character-art.mjs",
+    "test:content-visibility": "node scripts/test-content-visibility.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",

@@ -1,8 +1,9 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import {STORY_SEQUENCES} from '../src/chronology.ts';
 import {chromium} from 'playwright';import assert from 'node:assert/strict';import {CONNECTIONS} from '../src/connections.ts';
 const base=process.env.ATLAS_URL||'http://localhost:4173';const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
 try{for(const width of [1440,390,320]){
- const page=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const page=await newSpoilerProtectedPage(browser, {viewport:{width,height:900},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
  const expand=async()=>{if(width<721&&await page.locator('.sheet-toggle').getAttribute('aria-expanded')==='false')await page.locator('.sheet-toggle').click();};
  await page.goto(base+'/#galaxy');await page.getByRole('button',{name:'Search the atlas',exact:true}).click();const search=page.getByRole('combobox',{name:'World, location, movie, episode or collection'});await search.fill('Solo');const options=page.getByRole('dialog').getByRole('option');assert.equal(await options.count(),2,'film and distinct collection');await options.filter({hasText:/Movie/i}).click();await page.waitForURL('**/#journey/solo');await expand();await page.waitForFunction(()=>document.querySelector('.journey-item-meta')?.textContent==='FEATURE FILM');
  assert.equal(await page.locator('.journey-collection').count(),STORY_SEQUENCES.length);assert.equal(await page.getByRole('button',{name:'Previous story chapter',exact:true}).isDisabled(),true);assert.equal(await page.getByRole('button',{name:'Next story chapter',exact:true}).isDisabled(),true);assert.equal(await page.locator('.journey-stop').count(),0);

@@ -1,8 +1,9 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});const base=process.env.ATLAS_URL||'http://localhost:4173';
 try {
- const page=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const page=await newSpoilerProtectedPage(browser, {viewport:{width:390,height:844},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto(base+'/#galaxy/ferrix');const stories=page.locator('.world-stories-panel .world-stories');
  assert.equal(await stories.locator('.related-worlds').count(),0,'hidden titles must not expose their worlds');
  await stories.getByRole('button',{name:'Reveal linked unwatched titles'}).click();await stories.getByRole('searchbox').fill('S01E01');
