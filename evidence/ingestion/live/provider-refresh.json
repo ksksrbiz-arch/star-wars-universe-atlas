@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-11-09T21:24:33.964Z",
+  "runs": [
+    {
+      "httpStatus": 200,
+      "id": "a92648b0-0756-4173-baa2-9e192fda1c7b",
+      "task": "databank",
+      "status": "complete",
+      "records": 1290,
+      "errors": []
+    },
+    {
+      "httpStatus": 200,
+      "id": "1956bdfc-83c7-4c67-b710-cbdf541e2679",
+      "task": "tvmaze",
+      "status": "complete",
+      "records": 427,
+      "errors": []
+    }
+  ]
+}

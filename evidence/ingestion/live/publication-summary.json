@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-11-09T21:30:53.427Z",
+  "sourceRecords": 1721,
+  "deliveredMediaEntries": 1558,
+  "distinctPrimaryFiles": 1555,
+  "responsiveEntries": 1551,
+  "primaryBytes": 266273357,
+  "byProvider": {
+    "databank": 1290,
+    "tvmaze": 268
+  },
+  "acceptedLinks": {
+    "episode": 260,
+    "world": 14,
+    "series": 8
+  },
+  "manifestSha256": "48f120f6fd15bb692b84c9875c0989aab857fbe548a5ff0aa2e18abd5b7dc2f8",
+  "failedEntries": 0,
+  "workersPaid": {
+    "approved": true,
+    "checkoutVerified": true,
+    "baseMonthlyUSD": 5,
+    "meteredUsageAdditional": true
+  },
+  "schedule": "*/15 * * * *",
+  "canonicalWrites": 0,
+  "note": "PrimaryBytes excludes smaller responsive derivatives. Shared images may back multiple source records. Directory locations do not imply mapped-world or episode coverage."
+}

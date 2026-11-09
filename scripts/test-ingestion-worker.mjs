@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { PGlite } from '@electric-sql/pglite';
-import worker, { scheduledTask, isAuthorized, readBounded, variantUrl, approvedImageUrl, imageDetails, deliverMediaItem, digest, storeDelivered, storeDeliveryFailure, pendingMedia } from '../cloudflare/ingestion-worker.mjs';
+import worker, { scheduledTask, isAuthorized, readBounded, variantUrl, approvedImageUrl, imageDetails, deliverMediaItem, digest, storeDelivered, storeDeliveryFailure, pendingMedia, mediaBatch, runMetadata } from '../cloudflare/ingestion-worker.mjs';
 import { publishRecords } from './ingestion/publication-plan.mjs';
 
 test('one cron phases daily refreshes and resumes media between refreshes', () => {
@@ -11,6 +11,38 @@ test('one cron phases daily refreshes and resumes media between refreshes', () =
   assert.equal(scheduledTask(Date.parse('2026-11-09T04:30:00Z')), 'wookieepedia');
   assert.equal(scheduledTask(Date.parse('2026-11-09T04:45:00Z')), 'media');
   assert.equal(scheduledTask(Date.parse('2026-11-09T14:00:00Z')), 'media');
+});
+
+test('execution metadata distinguishes real scheduled timestamps from manual operation', () => {
+  assert.deepEqual(runMetadata(), { trigger: 'manual' });
+  assert.deepEqual(runMetadata({ scheduledTime: Date.now() }), { trigger: 'manual' });
+  assert.deepEqual(runMetadata({ trigger: 'scheduled', scheduledTime: Date.parse('2026-11-09T22:15:00Z') }), { trigger: 'scheduled', scheduledTime: '2026-11-09T22:15:00.000Z' });
+  assert.throws(() => runMetadata({ trigger: 'scheduled', scheduledTime: 'invalid' }), /valid timestamp/);
+});
+
+test('media batch bounds concurrent deliveries to three, serializes transactions, and awaits failures and results', async () => {
+  const items = Array.from({ length: 8 }, (_, index) => ({ id: String(index), provider: 'databank', providerId: `record-${index}` }));
+  let active = 0, peak = 0, dbActive = 0, dbPeak = 0;
+  const saved = [], failures = [];
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+  const output = await mediaBatch({}, {}, items, {
+    async deliver(item) {
+      active++; peak = Math.max(peak, active);
+      await delay(8 + Number(item.id) % 3);
+      active--;
+      if (item.id === '2') throw new Error('Unavailable source');
+      return { ...item, src: `/media/${item.id}.jpg` };
+    },
+    async persist(client, item) { dbActive++; dbPeak = Math.max(dbPeak, dbActive); await delay(3); saved.push(item.id); dbActive--; },
+    async fail(client, item) { dbActive++; dbPeak = Math.max(dbPeak, dbActive); await delay(3); failures.push(item.id); dbActive--; throw new Error('Backoff write unavailable'); },
+  });
+  assert.equal(peak, 3);
+  assert.equal(dbPeak, 1, 'transactions sharing a connection never overlap');
+  assert.equal(active, 0); assert.equal(dbActive, 0);
+  assert.equal(saved.length, 7); assert.deepEqual(failures, ['2']);
+  assert.deepEqual(output.items.map(row => row.id), ['0', '1', '3', '4', '5', '6', '7']);
+  assert.deepEqual(output.errors.map(row => row.id), ['2']);
+  assert.equal(output.errors[0].backoffStored, false, 'a backoff-write failure does not abandon the other in-flight deliveries');
 });
 
 test('private endpoints reject missing, short and incorrect tokens without touching bindings', async () => {

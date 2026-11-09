@@ -37,7 +37,9 @@ try{
   await page.locator('.map-stage').screenshot({path:`evidence/deployment/live-${mobile?'mobile':'desktop'}-warp.png`});
   await page.getByRole('button',{name:'Skip animation'}).click();await page.clock.runFor(100);
   assert.equal(await page.locator('.current-location strong').innerText(),'Hoth');
-  await page.clock.resume();await page.getByRole('link',{name:'Journey',exact:true}).click();await page.locator('.journey-current h2').waitFor();
+  await page.clock.resume();await page.getByRole('link',{name:'Journey',exact:true}).click();
+  if(mobile&&await page.locator('.sheet-toggle').getAttribute('aria-expanded')==='false')await page.locator('.sheet-toggle').click();
+  await page.locator('.journey-current h2').waitFor();
   checks.push(`Live ${mobile?'390px mobile':'1440px desktop'} map,${expected.worlds}worlds,warp/skip,Journey navigation and nooverflow`);
   await page.close();
  }

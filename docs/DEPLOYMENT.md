@@ -4,6 +4,12 @@ The application uses Cloudflare Workers Static Assets. `cloudflare/deployment.js
 
 Live URL: https://star-wars-universe-atlas.skdev-371.workers.dev
 
+The separate private service is `star-wars-atlas-ingestion`, using Hyperdrive `5e8308659b7d44489bce305a4c7cbaee` and role `atlas_ingestor` without canonical-table write permission. Public `atlas_reader` can read two published enrichment views but has explicit revocations on private source/snapshot/media/link/run tables. See [source-service operations](INGESTION-AUTOMATION.md).
+
+Workers Paid was activated November9 with explicit user approval ($5/month base plus usage). The private service has a30-second CPU cap and one `*/15 * * * *` Cron Trigger. Existing projects' schedules were preserved. Daily provider refreshes and incremental image delivery run separately from visitor requests. Configuration is distinct from proof of the first Cron event; private run records identify scheduled/manual triggers and the scheduled timestamp.
+
+Private service deployment is connected to main through build trigger `a051d294-2b43-428f-ad88-7729227e0c29`. Relevant ingestion changes build, run ingestion/publication tests, and deploy through `scripts/deploy-ingestion-cloudflare.mjs`. Existing Worker secrets are preserved. `npm run deploy:ingestion` provides the same repeatable deployment with an environment-injected Cloudflare token.
+
 Automatic Cloudflare build trigger: `b6b0e600-fa22-4aec-93b2-c8dfd38b6467`, connected to main. It runs the production builds, ICM checks, catalog, connection, chronology, journey-data, and reference-data validations before deploying. GitHub Actions (`.github/workflows/ci.yml`) is manual-only (`workflow_dispatch`) because the GitHub account is locked by a billing issue; Cloudflare Builds runs the automatic checks until push/pull_request triggers are restored. Documentation/evidence-only changes do not redeploy the app.
 
 The server bundle explicitly selects the `workerd` package condition, so pg-cloudflare's real socket implementation is included. It uses a Worker-compatible createRequire fallback for Node built-ins. `node scripts/test-deployment.mjs` verifies the deployed database endpoints and desktop/mobile map transitions.

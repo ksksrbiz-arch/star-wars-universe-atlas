@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-11-09T21:22:03.838Z",
+  "url": "https://star-wars-universe-atlas.skdev-371.workers.dev",
+  "locations": 326,
+  "characters": 964,
+  "media": {
+    "episode": 260,
+    "world": 14,
+    "series": 8
+  },
+  "sampledImageResponses": 14,
+  "browserWidths": [
+    1440,
+    390
+  ],
+  "errors": [],
+  "checks": [
+    "Live database-backed search and pagination",
+    "Stored R2 raster delivery",
+    "Title and global spoiler consent",
+    "Attribution and fallbacks",
+    "Read-only public API and authenticated private service"
+  ],
+  "limitations": [
+    "Desktop Chromium with software WebGL and mobile emulation; no physical-device claim",
+    "Source media does not expand verified episode-to-planet coverage"
+  ]
+}

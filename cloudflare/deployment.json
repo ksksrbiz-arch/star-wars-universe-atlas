@@ -12,5 +12,6 @@
   "databaseName": "atlas",
   "ingestionWorkerName": "star-wars-atlas-ingestion",
   "ingestionHyperdriveId": "5e8308659b7d44489bce305a4c7cbaee",
-  "ingestionCron": "*/15 * * * *"
+  "ingestionCron": "*/15 * * * *",
+  "ingestionBuildTriggerId": "a051d294-2b43-428f-ad88-7729227e0c29"
 }

@@ -17,6 +17,13 @@ export function scheduledTask(time) {
   return 'media';
 }
 
+export function runMetadata(options = {}) {
+  if (options.trigger !== 'scheduled') return { trigger: 'manual' };
+  const scheduledTime = new Date(options.scheduledTime);
+  if (!Number.isFinite(scheduledTime.getTime())) throw new Error('Scheduled execution requires a valid timestamp');
+  return { trigger: 'scheduled', scheduledTime: scheduledTime.toISOString() };
+}
+
 export async function isAuthorized(request, secret) {
   const supplied = request.headers.get('Authorization') ?? '';
   // Fixed-size digest comparison avoids returning token material or comparing a prefix.
@@ -176,21 +183,36 @@ export async function storeDeliveryFailure(client, item, now = Date.now()) {
   [item.id, item.provider, item.providerId, JSON.stringify({ sourceUrl: item.sourceUrl, failedAt: new Date(now).toISOString(), retryAfter: new Date(now + 86400000).toISOString() })]);
 }
 
-async function mediaBatch(client, env, items) {
-  const delivered = [], errors = [];
-  for (const item of items) {
-    try {
-      const result = await deliverMediaItem(item, env);
-      await storeDelivered(client, result);
-      delivered.push(result);
-    } catch (error) {
-      // Persist backoff without exposing upstream response bodies or credentials.
-      if (item.id && item.provider && item.providerId) await storeDeliveryFailure(client, item);
-      const upstreamStatus = String(error?.message).match(/Image returned HTTP (\d{3})/)?.[1];
-      errors.push({ id: item.id, provider: item.provider, providerId: item.providerId, error: 'Media delivery failed; retry after source cooldown', phase: error?.deliveryPhase ?? 'database', ...(error?.deliveryPhase === 'fetch' ? { fetchDetail: String(error?.message).replace(/[\r\n]/g, ' ').slice(0, 180) } : {}), ...(upstreamStatus ? { upstreamStatus: Number(upstreamStatus) } : {}), ...(typeof error?.code === 'string' && /^[A-Z0-9_]{1,30}$/.test(error.code) ? { code: error.code } : {}), category: error?.name === 'TypeError' ? 'type-error' : error?.name === 'TimeoutError' ? 'timeout' : 'source-or-storage' });
+export async function mediaBatch(client, env, items, { deliver = deliverMediaItem, persist = storeDelivered, fail = storeDeliveryFailure } = {}) {
+  const delivered = new Array(items.length), errors = new Array(items.length);
+  let cursor = 0, databaseQueue = Promise.resolve();
+  // Fetch/R2 work may overlap, but transactions on the one PostgreSQL session
+  // must not interleave BEGIN/COMMIT boundaries across image tasks.
+  const database = operation => {
+    const result = databaseQueue.then(operation);
+    databaseQueue = result.catch(() => {});
+    return result;
+  };
+  await Promise.all(Array.from({ length: Math.min(3, items.length) }, async () => {
+    while (cursor < items.length) {
+      const index = cursor++, item = items[index];
+      try {
+        const result = await deliver(item, env);
+        await database(() => persist(client, result));
+        delivered[index] = result;
+      } catch (error) {
+        // Persist backoff without exposing upstream response bodies or credentials.
+        let backoffStored = true;
+        if (item.id && item.provider && item.providerId) {
+          try { await database(() => fail(client, item)); }
+          catch { backoffStored = false; }
+        }
+        const upstreamStatus = String(error?.message).match(/Image returned HTTP (\d{3})/)?.[1];
+        errors[index] = { id: item.id, provider: item.provider, providerId: item.providerId, error: 'Media delivery failed; retry after source cooldown', phase: error?.deliveryPhase ?? 'database', ...(!backoffStored ? { backoffStored: false } : {}), ...(error?.deliveryPhase === 'fetch' ? { fetchDetail: String(error?.message).replace(/[\r\n]/g, ' ').slice(0, 180) } : {}), ...(upstreamStatus ? { upstreamStatus: Number(upstreamStatus) } : {}), ...(typeof error?.code === 'string' && /^[A-Z0-9_]{1,30}$/.test(error.code) ? { code: error.code } : {}), category: error?.name === 'TypeError' ? 'type-error' : error?.name === 'TimeoutError' ? 'timeout' : 'source-or-storage' };
+      }
     }
-  }
-  return { items: delivered, errors };
+  }));
+  return { items: delivered.filter(Boolean), errors: errors.filter(Boolean) };
 }
 
 export async function pendingMedia(client, limit, now = Date.now()) {
@@ -220,7 +242,7 @@ export async function pendingMedia(client, limit, now = Date.now()) {
 
 export async function runTask(task, env, options = {}) {
   const client = new Client({ connectionString: env.INGESTION_DB.connectionString, connectionTimeoutMillis: 10000, query_timeout: 30000 });
-  const id = crypto.randomUUID(), startedAt = new Date().toISOString();
+  const id = crypto.randomUUID(), startedAt = new Date().toISOString(), metadata = runMetadata(options);
   await client.connect();
   let locked = false;
   try {
@@ -229,9 +251,9 @@ export async function runTask(task, env, options = {}) {
     // discovery and source refreshes share a lock to prevent competing cursors.
     if (!options.items) {
       locked = (await client.query('SELECT pg_try_advisory_lock(735923110) AS locked')).rows[0].locked;
-      if (!locked) return { status: 'busy', task };
+      if (!locked) return { status: 'busy', task, ...metadata };
     }
-    await client.query('INSERT INTO atlas_ingestion_runs(id,started_at,status,payload) VALUES($1,$2,$3,$4::jsonb)', [id, startedAt, 'running', JSON.stringify({ task })]);
+    await client.query('INSERT INTO atlas_ingestion_runs(id,started_at,status,payload) VALUES($1,$2,$3,$4::jsonb)', [id, startedAt, 'running', JSON.stringify({ task, ...metadata })]);
     let output;
     if (task === 'media') output = await mediaBatch(client, env, options.items ?? await pendingMedia(client, 16));
     else {
@@ -248,10 +270,10 @@ export async function runTask(task, env, options = {}) {
       output = { records: records.length, errors: result.errors.map(() => ({ error: 'Source batch incomplete; retained prior records and retry next pass' })) };
     }
     const status = output.errors?.length ? 'partial' : 'complete';
-    await client.query('UPDATE atlas_ingestion_runs SET completed_at=now(),status=$2,payload=$3::jsonb WHERE id=$1', [id, status, JSON.stringify({ task, ...output, items: output.items?.map(({ id, provider, providerId, bytes }) => ({ id, provider, providerId, bytes })) })]);
-    return { id, task, status, ...output };
+    await client.query('UPDATE atlas_ingestion_runs SET completed_at=now(),status=$2,payload=$3::jsonb WHERE id=$1', [id, status, JSON.stringify({ task, ...metadata, ...output, items: output.items?.map(({ id, provider, providerId, bytes }) => ({ id, provider, providerId, bytes })) })]);
+    return { id, task, status, ...metadata, ...output };
   } catch {
-    try { await client.query('UPDATE atlas_ingestion_runs SET completed_at=now(),status=$2,payload=$3::jsonb WHERE id=$1', [id, 'failed', JSON.stringify({ task, error: 'Ingestion failed; no canonical data was changed' })]); } catch {}
+    try { await client.query('UPDATE atlas_ingestion_runs SET completed_at=now(),status=$2,payload=$3::jsonb WHERE id=$1', [id, 'failed', JSON.stringify({ task, ...metadata, error: 'Ingestion failed; no canonical data was changed' })]); } catch {}
     throw new Error('Ingestion task failed');
   } finally {
     if (locked) { try { await client.query('SELECT pg_advisory_unlock(735923110)'); } catch {} }
@@ -285,6 +307,6 @@ export default {
     catch { return json({ error: 'Ingestion task failed; inspect private run status' }, 503); }
   },
   async scheduled(controller, env, ctx) {
-    ctx.waitUntil(runTask(scheduledTask(controller.scheduledTime), env).catch(() => console.error('Scheduled atlas ingestion failed')));
+    ctx.waitUntil(runTask(scheduledTask(controller.scheduledTime), env, { trigger: 'scheduled', scheduledTime: controller.scheduledTime }).catch(() => console.error('Scheduled atlas ingestion failed')));
   },
 };
