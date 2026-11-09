@@ -1,6 +1,7 @@
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
+import { openMapSettings } from './lib-ui.mjs';
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
 const base=process.env.ATLAS_URL||'http://localhost:4173';
 const checks=[];
@@ -24,11 +25,11 @@ try {
   console.log(width,stats);
   assert.equal(stats.overlaps,0,'visible optional labels must not collide');
   assert(stats.culled>0,'dense zoom should cull overlapping or clipped optional labels');
-  await page.getByLabel('Find a mapped world').selectOption('naboo');
+  await openMapSettings(page);await page.getByLabel('Find a mapped world').selectOption('naboo');
   const selected=page.getByRole('button',{name:'Explore Naboo',exact:true});
   await selected.waitFor();assert.equal(await selected.getAttribute('data-label-priority'),'3');assert.equal(await selected.getAttribute('data-decluttered'),'false');
   await page.getByRole('button',{name:'Reset map view',exact:true}).click();await page.keyboard.press('Tab');await selected.focus();assert.equal(await selected.evaluate(e=>getComputedStyle(e).outlineStyle),'solid');
-  await page.getByLabel('Find a mapped world').selectOption('lothal');
+  await openMapSettings(page);await page.getByLabel('Find a mapped world').selectOption('lothal');
   await page.getByRole('button',{name:'Reset map view',exact:true}).click();await page.waitForTimeout(300);
   const edge = await page.getByRole('button',{name:'Explore Lothal',exact:true}).boundingBox();const frame = await page.locator('.galaxy-canvas canvas').boundingBox();
   assert(edge.x>=frame.x && edge.x+edge.width<=frame.x+frame.width+1,'Lothal edge label fits canvas');

@@ -1,6 +1,7 @@
 import { ALL_WORLDS } from '../src/journeyWorlds.ts';
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
+import { openMapSettings } from './lib-ui.mjs';
 
 const browser = await chromium.launch({ args: ['--enable-unsafe-swiftshader'] });
 try {
@@ -12,13 +13,16 @@ try {
     const search = page.getByRole('searchbox', { name: 'Search worlds' });
     const finder = page.getByRole('combobox', { name: 'Find a mapped world' });
     const region = page.getByRole('combobox', { name: 'Region', exact: true });
+    await openMapSettings(page);
     await search.waitFor();
     assert.equal(await finder.locator('option').count(), ALL_WORLDS.length);
     await search.fill('hOtH');
     assert.equal(await finder.locator('option[value="hoth"]').count(), 1);
+    await openMapSettings(page);
     await finder.selectOption('hoth');
     assert.equal(await page.locator('.world-title h2').textContent(), 'Hoth');
     assert.equal(await page.locator('.current-location strong').textContent(), 'Tatooine', 'search previews without committing arrival');
+    await openMapSettings(page);
     await search.fill('K-18');
     assert.ok(await finder.locator('option[value="hoth"]').count());
     assert.ok(await finder.locator('option[value="bespin"]').count());

@@ -2,6 +2,7 @@ import { ALL_WORLDS } from '../src/journeyWorlds.ts';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
+import { openMapSettings, expandDossierSheet } from './lib-ui.mjs';
 
 await mkdir('evidence', { recursive: true });
 const browser = await chromium.launch({ args: ['--enable-unsafe-swiftshader'] });
@@ -12,10 +13,13 @@ try {
     console.log(`Checking expanded map at ${viewport.width}px`);
     const page = await browser.newPage({ viewport, isMobile: viewport.width < 500, hasTouch: viewport.width < 500 });
     const errors = [];
+    // The dossier is a labelled div (.world-dossier), not a complementary landmark; the aside is the 'Exploration panel'.
+    const dossier = name => page.locator(`.world-dossier[aria-label="${name} destination details"]`);
     page.on('pageerror', e => errors.push(e.message));
     await page.clock.install();
     await page.goto(base);
     const finder = page.getByRole('combobox', { name: 'Find a mapped world' });
+    await openMapSettings(page);
     await finder.waitFor();
     await page.getByRole('button', { name: 'Explore Mandalore', exact: true }).waitFor();
     const destinations = await finder.locator('option').evaluateAll(options => options.map(option => ({ id: option.value, name: option.textContent.split(' · ')[0] })));
@@ -25,8 +29,10 @@ try {
     const select = async name => {
       const world = destinations.find(entry => entry.name === name);
       assert.ok(world, `Destination ${name} exists`);
+      await openMapSettings(page);
       await finder.selectOption(world.id);
-      await page.getByRole('complementary', { name: `${name} destination details`, exact: true }).waitFor();
+      await expandDossierSheet(page);
+      await dossier(name).waitFor();
     };
     for (const world of destinations) {
       await select(world.name);
@@ -36,13 +42,14 @@ try {
     // overview scale. The finder must provide an accessible route to every world.
     await page.getByRole('button', { name: 'Reset map view', exact: true }).click();
     await select('Hoth');
-    await page.clock.pauseAt(await page.evaluate(() => Date.now() + 100));
+    await page.clock.pauseAt(await page.evaluate(() => Date.now() + 1000));
     await page.getByRole('button', { name: 'Jump to Hoth', exact: true }).first().click();
     await page.locator('.transit-panel').waitFor();
     await page.clock.runFor(400);
     await page.getByRole('button', { name: 'Cancel', exact: true }).click();
     assert.equal(await page.locator('.current-location strong').innerText(), 'Tatooine');
-    await page.getByRole('complementary', { name: 'Tatooine destination details', exact: true }).waitFor();
+    await expandDossierSheet(page);
+    await dossier('Tatooine').waitFor();
     assert.equal(await page.locator('.transit-panel').count(), 0);
     await page.clock.runFor(2500);
     assert.equal(await page.locator('.current-location strong').innerText(), 'Tatooine', 'Cancelled animation cannot later commit arrival');
@@ -60,6 +67,7 @@ try {
     await page.waitForFunction(() => document.querySelector('.current-location strong')?.textContent === 'Hoth');
     await page.getByRole('link', { name: 'Library', exact: true }).click();
     await page.getByRole('link', { name: 'Galaxy', exact: true }).click();
+    await openMapSettings(page);
     await finder.waitFor();
     assert.equal(await page.locator('.current-location strong').innerText(), 'Hoth', 'Section roundtrip preserves current world');
     await select('Bespin');
