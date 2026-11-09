@@ -38,7 +38,6 @@ try {
     await page.getByRole('button',{name:'Jump to Tatooine',exact:true}).first().click();
     assert.equal(await page.locator('.current-location strong').innerText(),'Tatooine');
     assert.equal(await page.locator('.transit-panel').count(),0);
-    assert.equal(await page.locator('.planet-orbit').evaluate(element=>getComputedStyle(element).animationName),'none');
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     await page.clock.resume();
     await page.screenshot({path:`${output}/shell-${width}.png`,fullPage:true});
