@@ -40,6 +40,7 @@ import { STORY_SEQUENCES } from './chronology';
 import './episode-highlights.css';
 import './workspace.css';
 import './galaxy-immersion.css';
+import './flight-console.css';
 import TransitStatus from './TransitStatus';
 import type { MapCommand } from './Galaxy';
 import EpisodeLocationControls from './EpisodeLocationControls';
