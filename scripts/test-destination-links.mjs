@@ -26,12 +26,17 @@ try {
   await page.getByRole('button',{name:'Copy destination link'}).click();
   assert.equal(await page.getByLabel('Destination link').inputValue(),base+'/#galaxy/bespin');
   await page.evaluate(()=>location.hash='galaxy/not-a-world');
+  // hashchange is async: wait for the new route to render before touching the sheet, or the
+  // helper can inspect the previous route's still-expanded sheet and skip the click.
+  await page.getByRole('heading',{name:'Tatooine',exact:true,includeHidden:true}).waitFor({state:'attached'});
   await expandDossierSheet(page);
   await page.getByRole('heading',{name:'Tatooine',exact:true}).waitFor();
   await page.evaluate(()=>location.hash='journey/ot-empire-strikes-back');
+  await page.locator('.journey-current h2').filter({hasText:'The Empire Strikes Back'}).waitFor({state:'attached'});
   await expandDossierSheet(page);
   await page.locator('.journey-current h2').filter({hasText:'The Empire Strikes Back'}).waitFor();
   await page.getByRole('link',{name:'Galaxy',exact:true}).click();
+  await page.getByRole('heading',{name:'Tatooine',exact:true,includeHidden:true}).waitFor({state:'attached'});
   await expandDossierSheet(page);
   await page.getByRole('heading',{name:'Tatooine',exact:true}).waitFor();
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
