@@ -1,0 +1,30 @@
+{
+  "checkedAt": "2026-11-09T22:20:29.096Z",
+  "url": "https://star-wars-universe-atlas.skdev-371.workers.dev",
+  "sourceCommit": "644646bd4f0c9917c1a0d13603fe319d658e88e8",
+  "checks": [
+    {
+      "width": 1440,
+      "defaultDatabankOpen": true,
+      "descriptionsAndImagesVisible": true,
+      "characterArtVisible": true,
+      "episodeLocationsVisible": true,
+      "worldStoriesVisible": true,
+      "watchProgressUnchanged": true,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "defaultDatabankOpen": true,
+      "descriptionsAndImagesVisible": true,
+      "characterArtVisible": true,
+      "episodeLocationsVisible": true,
+      "worldStoriesVisible": true,
+      "watchProgressUnchanged": true,
+      "errors": []
+    }
+  ],
+  "limitations": [
+    "Desktop Chromium and mobile emulation, not physical-device performance testing"
+  ]
+}
