@@ -1,0 +1,38 @@
+{
+  "base": "https://star-wars-universe-atlas.skdev-371.workers.dev",
+  "checkedAt": "2026-11-09T20:15:08.110Z",
+  "results": [
+    {
+      "id": "serenno",
+      "kind": "terrestrial",
+      "pixels": 2048
+    },
+    {
+      "id": "bothawui",
+      "kind": "gas",
+      "pixels": 2048
+    },
+    {
+      "id": "pantora",
+      "kind": "terrestrial",
+      "pixels": 2048
+    },
+    {
+      "id": "quarzite",
+      "kind": "clouded",
+      "pixels": 2048
+    },
+    {
+      "id": "quell",
+      "kind": "clouded",
+      "pixels": 2048
+    },
+    {
+      "id": "teth",
+      "kind": "terrestrial",
+      "pixels": 2048
+    }
+  ],
+  "errors": [],
+  "limitation": "Software Chromium, desktop emulation; patterns are illustrative."
+}

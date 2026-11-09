@@ -9,6 +9,7 @@ try{
   await p.goto(base+'/#galaxy/'+id);const portrait=p.locator('.workspace-panel .atlas-portrait');
   await p.waitForFunction(id=>document.querySelector(`.workspace-panel [data-profile-id="${id}"] canvas`)?.dataset.resolution==='1024',id);
   assert.equal(await portrait.locator('.planet-globe').getAttribute('data-family'),kind);
+  if(id==='serenno')assert.match(await p.locator('.world-facts').innerText(),/Forests, mountains and plains/);
   if(kind==='gas')assert.match(await portrait.innerText(),/illustrative bands/);
   await portrait.screenshot({path:`${out}/profile-${id}.png`});
   await portrait.getByRole('button',{name:'Explore from orbit',exact:true}).click();const dialog=p.getByRole('dialog');

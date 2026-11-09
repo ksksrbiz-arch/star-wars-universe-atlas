@@ -6,6 +6,7 @@ import ImmersiveDossier from './ImmersiveDossier';
 import AtlasHero from './AtlasHero';
 import AtlasAudio from './AtlasAudio';
 import PlanetPortrait from './PlanetPortrait';
+import { WORLD_TERRAIN } from './worldDossiers';
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { motion, MotionConfig } from 'motion/react';
 
@@ -155,7 +156,8 @@ export default function App() {
 
   const destination = ALL_WORLDS.find(w => w.id === targetId);
 
-  const detail = DETAILS[preview.id] || {subtitle: 'A stop on your story journey',terrain: 'Not cataloged',kind: 'System grid'};
+  const terrain = WORLD_TERRAIN[preview.id];
+  const detail = DETAILS[preview.id] || {subtitle: 'A stop on your story journey',terrain: terrain?.label ?? 'Not cataloged',kind: terrain ? 'Reviewed setting' : 'System grid'};
   const displayedJourneyId = activeItemId ?? STORY_SEQUENCES[0]?.itemIds[0];
   const locationsDisclosed = view === 'journey' && journeyDisclosure?.itemId === displayedJourneyId && (journeyDisclosure.revealed || watchedIds.has(displayedJourneyId));
   const episodeWorldIds = useMemo(() => new Set(locationsDisclosed ? CONNECTIONS.filter(link => link.itemId === displayedJourneyId).map(link => link.worldId) : []), [locationsDisclosed, displayedJourneyId]);
