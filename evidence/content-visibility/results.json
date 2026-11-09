@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-11-09T22:10:59.441Z",
+  "url": "http://localhost:4186",
+  "checks": [
+    {
+      "width": 1440,
+      "defaultVisible": true,
+      "optionalProtectionPersists": true,
+      "watchProgressUnchanged": true,
+      "errors": []
+    },
+    {
+      "width": 390,
+      "defaultVisible": true,
+      "optionalProtectionPersists": true,
+      "watchProgressUnchanged": true,
+      "errors": []
+    },
+    {
+      "width": 320,
+      "defaultVisible": true,
+      "optionalProtectionPersists": true,
+      "watchProgressUnchanged": true,
+      "errors": []
+    },
+    {
+      "storageMode": "both",
+      "sessionToggleWorks": true,
+      "errors": []
+    },
+    {
+      "storageMode": "writes",
+      "sessionToggleWorks": true,
+      "errors": []
+    }
+  ],
+  "limitations": [
+    "Databank and source-image APIs use controlled fixtures; this suite verifies visibility behavior rather than source artwork quality.",
+    "Chromium desktop and mobile emulation, not physical-device performance measurements."
+  ]
+}

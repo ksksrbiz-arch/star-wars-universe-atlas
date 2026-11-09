@@ -2,6 +2,7 @@ import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { DATABANK_GUIDES } from '../src/databankGuides.ts';
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 
 const base = process.env.ATLAS_URL || 'http://localhost:4173';
 const out = process.env.ATLAS_EVIDENCE_DIR || 'evidence/databank-expansion/local';
@@ -10,7 +11,19 @@ const browser = await chromium.launch({ args: ['--enable-unsafe-swiftshader', '-
 const results = [];
 try {
   for (const width of [1440, 390, 320]) {
-    const page = await browser.newPage({ viewport: { width, height: 1000 }, reducedMotion: 'reduce' });
+    const fresh = await browser.newPage({ viewport: { width, height: 1000 }, reducedMotion: 'reduce' });
+    await fresh.goto(base + '/#galaxy/naboo');
+    if (width < 721) await fresh.locator('.sheet-toggle').click();
+    const defaultGuide = fresh.getByRole('region', { name: 'Naboo official Databank guide', exact: true });
+    await defaultGuide.waitFor();
+    assert.equal(await defaultGuide.getByRole('link', { name: 'Padmé Amidala', exact: true }).count(), 1, 'Current default exposes reviewed connections');
+    assert.equal(await defaultGuide.locator('.databank-media li').count(), 2);
+    await fresh.evaluate(() => { localStorage.setItem('atlas:hide-spoilers:v1', 'true'); window.dispatchEvent(new StorageEvent('storage', { key: 'atlas:hide-spoilers:v1', newValue: 'true' })); });
+    await defaultGuide.getByRole('button', { name: 'Reveal Databank connections and media for Naboo', exact: true }).waitFor();
+    assert.equal(await defaultGuide.getByRole('link', { name: 'Padmé Amidala', exact: true }).count(), 0, 'Shared spoiler preference also protects this guide');
+    assert.equal(await fresh.evaluate(() => localStorage.getItem('galactic-atlas.watch.v1')), null);
+    await fresh.close();
+    const page = await newSpoilerProtectedPage(browser, { viewport: { width, height: 1000 }, reducedMotion: 'reduce' });
     const errors = [];
     let externalRequests = 0;
     page.on('pageerror', error => errors.push(error.message));
@@ -68,7 +81,7 @@ try {
     assert.equal(await directoryNaboo.getByRole('link', { name: 'Padmé Amidala', exact: true }).count(), 0);
     assert.equal(externalRequests, 0, 'Bundled guide and link fallback work without third-party media requests');
     assert.deepEqual(errors, []);
-    results.push({ width, keyboardRevealHide: true, sourceLinks: true, noWatchMutation: true, noMediaRequestsRequired: true, directoryAccess: true, noOverflow: true, errors });
+    results.push({ width, defaultVisible: true, sharedPreferenceHonored: true, keyboardRevealHide: true, sourceLinks: true, noWatchMutation: true, noMediaRequestsRequired: true, directoryAccess: true, noOverflow: true, errors });
     console.log(`PASS ${width}px Databank destination and directory checks`);
     await page.close();
   }

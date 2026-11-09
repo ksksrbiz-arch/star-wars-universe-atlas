@@ -1,3 +1,4 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
@@ -8,7 +9,7 @@ const browser = await chromium.launch({ args: ['--enable-unsafe-swiftshader'] })
 const checks = [];
 try {
   for (const width of [1440, 390, 320]) {
-    const page = await browser.newPage({ viewport: { width, height: 844 }, reducedMotion: 'reduce' });
+    const page = await newSpoilerProtectedPage(browser, { viewport: { width, height: 844 }, reducedMotion: 'reduce' });
     const errors = []; page.on('pageerror', error => errors.push(error.message));
     await page.goto(base + '/#galaxy');
     const trigger = page.getByRole('button', { name: 'Search the atlas', exact: true });
@@ -88,7 +89,7 @@ try {
     checks.push({ width, keyboard: true, titleAndCollectionSearch: true, episodeCode: true, boundedResults: 12, unmappedIdentity: true, watchUnchanged: true });
     await page.close();
   }
-  const travelPage = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  const travelPage = await newSpoilerProtectedPage(browser, { viewport: { width: 1440, height: 900 } });
   await travelPage.goto(base + '/#galaxy/lothal');
   await travelPage.getByRole('button', { name: 'Explore Tatooine', exact: true }).waitFor();
   await travelPage.clock.install();

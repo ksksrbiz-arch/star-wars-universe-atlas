@@ -25,3 +25,7 @@ Local browser screenshots/results are in local/, galaxy/, hyperspace/, planet-ar
 No full Databank import, complete world/episode coverage, direct media reuse right or supported embed is claimed. Official media remains on StarWars.com; some landing-page retrievals timed out and external video playback was not tested. Parent Databank entries are the fallback. Existing external PostgreSQL publication integration is skipped without ATLAS_TEST_DATABASE_URL; embedded PostgreSQL sequence tests pass. No database writes or migrations are part of this batch.
 
 Production deployment and live checks will be recorded after merge, separately from these local results.
+
+## Upstream reconciliation
+
+Main advanced during verification to 11780ddce8eb3579718318eaf934f7e4906768ef (including 644646bd default visibility and shared optional spoiler preference). Preserved all upstream source/contracts/tests, merged package/context changes, and made the guide follow useSpoilerPreference: visible by default, explicit per-world reveal in optional protected mode. The initial screenshots and map/travel/artwork checks above apply to the original tested base plus the guide. Final build and affected default/protected-mode browser checks are recorded in the reconciliation results before publication.

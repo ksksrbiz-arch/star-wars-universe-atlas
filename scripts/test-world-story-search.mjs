@@ -1,9 +1,10 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { expandPanel } from './lib-journey-ui.mjs';
 const browser = await chromium.launch({args:['--enable-unsafe-swiftshader']});
 try {
-  const page = await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});
+  const page = await newSpoilerProtectedPage(browser, {viewport:{width:390,height:844},reducedMotion:'reduce'});
   const errors=[]; page.on('pageerror',e=>errors.push(e.message));
   await page.goto((process.env.ATLAS_URL||'http://localhost:4173')+'/#galaxy');
   await expandPanel(page);

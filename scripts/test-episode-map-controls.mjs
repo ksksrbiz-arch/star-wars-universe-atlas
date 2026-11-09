@@ -1,9 +1,10 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 import {mkdir} from 'node:fs/promises';
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
 try {
- const page=await browser.newPage({viewport:{width:1440,height:1000},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const page=await newSpoilerProtectedPage(browser, {viewport:{width:1440,height:1000},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto((process.env.ATLAS_URL||'http://localhost:4173')+'/#journey/andor-s01e01');
  await page.getByRole('button',{name:'Reveal locations for this title'}).click();
  const group=page.getByRole('group',{name:'Highlighted episode worlds'});const buttons=group.getByRole('button');

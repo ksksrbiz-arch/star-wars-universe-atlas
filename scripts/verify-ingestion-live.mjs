@@ -1,3 +1,4 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import assert from 'node:assert/strict';
 import {chromium} from 'playwright';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -17,7 +18,7 @@ assert.equal((await fetch(base+'/api/databank',{method:'POST'})).status,405);
 assert.equal((await fetch('https://star-wars-atlas-ingestion.skdev-371.workers.dev/status')).status,404);
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});const errors=[];
 try{for(const width of [1440,390]){
- const page=await browser.newPage({viewport:{width,height:1000},reducedMotion:'reduce'});
+ const page=await newSpoilerProtectedPage(browser, {viewport:{width,height:1000},reducedMotion:'reduce'});
  page.on('pageerror',error=>errors.push(error.message));
  await page.goto(base+'/#library');await page.locator('.galactic-databank summary').click();
  assert.equal(await page.locator('.databank-card').count(),0);

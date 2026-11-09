@@ -21,6 +21,8 @@ Non-browser tests (a snapshot of the steps in `.github/workflows/ci.yml`; if the
 
 Browser tests (Playwright/Chromium): start a build preview with `npm run build && npm run preview -- --port 4173`, then run for example `ATLAS_URL=http://localhost:4173 npm run test:ui`. Most `test-*.mjs` browser scripts read `ATLAS_URL`; a few default to port 4174 or 4175 when it is unset, so always set it explicitly. Against the live preview, set `ATLAS_URL` to the deployed origin and see `npm run verify:live-publication`.
 
+Content is visible by default. `npm run test:content-visibility` checks fresh-browser images/details/locations, optional spoiler protection, reload and cross-tab persistence, storage failure, and unchanged watch progress. Legacy reveal-flow tests explicitly opt into protection through [the testing helper](../../../scripts/lib-spoiler-testing.mjs); they exercise the optional mode rather than the default experience.
+
 ## Process
 
 Run the applicable commands above, inspect browser behavior, and record viewport/device/build identity (source revision, `ATLAS_URL`, viewport). Separate observed results from untested scenarios. Agent judgment evaluates whether evidence supports release claims.

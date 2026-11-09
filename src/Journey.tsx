@@ -15,6 +15,7 @@ import { ALL_WORLDS } from './journeyWorlds';
 
 import './journey.css';
 import SourceMedia from './SourceMedia';
+import { useSpoilerPreference } from './spoilerPreference';
 
 const CONTEXT_LABELS = {surface: 'Surface setting', orbit: 'Orbital setting', flashback: 'Flashback', vision: 'Vision', destruction: 'Destruction scene'};
 
@@ -46,6 +47,7 @@ function LocationDisclosure({ itemId, revealed, onChange }: { itemId: string; re
 export default function Journey({ onInspectLocation, onLocationDisclosure, watchedIds, onSelectStop, activeItemId, onActiveItemChange, onToggleWatched }: Props) {
 
   const reduceMotion = useReducedMotion();
+  const { hideSpoilers } = useSpoilerPreference();
   const [sequenceId, setSequenceId] = useState(STORY_SEQUENCES[0]?.id ?? '');
 
   const [query, setQuery] = useState('');
@@ -93,7 +95,7 @@ export default function Journey({ onInspectLocation, onLocationDisclosure, watch
   const isWatched = watchedIds.has(item.id);
   const firstUnwatched = items.find(entry => !watchedIds.has(entry.id));
 
-  const showLocations = isWatched || revealedIds.has(item.id);
+  const showLocations = !hideSpoilers || isWatched || revealedIds.has(item.id);
 
   const storyLinks = STORY_CONNECTIONS.filter(link => link.afterItemId === item.id || link.beforeItemId === item.id || link.itemIds?.includes(item.id) || link.includedItemIds?.includes(item.id));
 
@@ -134,7 +136,7 @@ export default function Journey({ onInspectLocation, onLocationDisclosure, watch
 
 
   return <section className="journey-panel" aria-label="Story journeys">
-    <LocationDisclosure itemId={item.id} revealed={revealedIds.has(item.id)} onChange={onLocationDisclosure}/>
+    <LocationDisclosure itemId={item.id} revealed={showLocations} onChange={onLocationDisclosure}/>
 
     <div className="journey-intro"><div><span className="journey-kicker"><Compass size={13}/> FOLLOW THE STORY</span><h1>A galaxy, one chapter at a time.</h1><p>Choose a story. Discover its worlds. Keep your place.</p><p className="journey-coverage">{linkedIds.size} / {CATALOG.length} titles with sourced location links · Partial appearance coverage</p></div><span className="journey-mode-badge">CURATED STORY ORDER</span></div>
 
@@ -180,7 +182,7 @@ export default function Journey({ onInspectLocation, onLocationDisclosure, watch
           {onToggleWatched && <><button className="journey-complete" onClick={completeChapter}><Check size={15}/>{isWatched ? (index < items.length - 1 ? 'Continue to next chapter' : 'Confirm collection progress') : (index < items.length - 1 ? 'Mark watched & continue' : 'Mark final chapter watched')}</button>{isWatched && <button className="journey-unwatch" onClick={() => { onToggleWatched(item.id); setProgressMessage(`${item.title} marked unwatched.`); }}>Mark unwatched</button>}</>}
           <p className="journey-action-status" role="status" aria-live="polite">{progressMessage}</p>
         </div>
-        <details className="story-chapter-picker"><summary>Browse chapters &amp; watch progress</summary><div className="journey-resume"><div><span>{firstUnwatched ? 'NEXT UNWATCHED IN STORY ORDER' : 'COLLECTION COMPLETE'}</span><strong>{firstUnwatched?.title ?? 'Every chapter watched'}</strong><small>{firstUnwatched ? 'First unwatched chapter in this collection; locations stay hidden.' : 'Revisit any chapter below.'}</small></div>{firstUnwatched && <button disabled={firstUnwatched.id === item.id} onClick={() => selectItem(firstUnwatched.id)}>{firstUnwatched.id === item.id ? 'You are here' : 'Resume'}<ArrowRight size={15}/></button>}</div>
+        <details className="story-chapter-picker"><summary>Browse chapters &amp; watch progress</summary><div className="journey-resume"><div><span>{firstUnwatched ? 'NEXT UNWATCHED IN STORY ORDER' : 'COLLECTION COMPLETE'}</span><strong>{firstUnwatched?.title ?? 'Every chapter watched'}</strong><small>{firstUnwatched ? hideSpoilers ? 'First unwatched chapter in this collection; reveal its locations when ready.' : 'First unwatched chapter in this collection; sourced locations are visible.' : 'Revisit any chapter below.'}</small></div>{firstUnwatched && <button disabled={firstUnwatched.id === item.id} onClick={() => selectItem(firstUnwatched.id)}>{firstUnwatched.id === item.id ? 'You are here' : 'Resume'}<ArrowRight size={15}/></button>}</div>
 
         <div className="journey-search"><label htmlFor="journey-title-search"><Search size={15}/><span>Find a chapter</span></label><input id="journey-title-search" type="search" placeholder="Title or episode code, e.g. S01E02" value={query} onChange={event => { setQuery(event.target.value); setResultLimit(6); }} aria-controls={browsing ? 'journey-search-results' : undefined} autoComplete="off"/>
 

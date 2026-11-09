@@ -1,3 +1,4 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { CONNECTIONS } from '../src/connections.ts';
@@ -7,7 +8,7 @@ const ids = ['pt-phantom-menace', 'pt-attack-of-the-clones', 'pt-revenge-of-the-
 const browser = await chromium.launch({ args: ['--enable-unsafe-swiftshader'] });
 try {
   for (const width of [1440, 390, 320]) {
-    const page = await browser.newPage({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
+    const page = await newSpoilerProtectedPage(browser, { viewport: { width, height: 900 }, reducedMotion: 'reduce' });
     const errors = []; page.on('pageerror', error => errors.push(error.message));
     await page.goto(`${base}/#journey/${ids[0]}`);
     if (width < 721) await page.locator('.sheet-toggle').click();

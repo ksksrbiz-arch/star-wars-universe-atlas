@@ -1,3 +1,4 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -5,7 +6,7 @@ const base=process.env.ATLAS_URL||'http://localhost:4173';
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
 const checks=[],errors=[];
 try {
- const page=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});page.on('pageerror',e=>errors.push(e.message));
+ const page=await newSpoilerProtectedPage(browser, {viewport:{width:390,height:844},reducedMotion:'reduce'});page.on('pageerror',e=>errors.push(e.message));
  await page.goto(base+'/#journey/andor-s01e02');
  assert.equal(await page.locator('.appearance-context').count(),0);
  await page.getByRole('button',{name:'Reveal locations for this title'}).click();

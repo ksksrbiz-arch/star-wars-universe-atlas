@@ -1,3 +1,4 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
@@ -9,7 +10,7 @@ const browser = await chromium.launch({ args: ['--enable-unsafe-swiftshader'] })
 const checks = [], errors = [];
 try {
   for (const width of [320, 390, 1440]) {
-    const page = await browser.newPage({ viewport: { width, height: 1000 }, reducedMotion: 'no-preference' });
+    const page = await newSpoilerProtectedPage(browser, { viewport: { width, height: 1000 }, reducedMotion: 'no-preference' });
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(`${base}/#galaxy`);
     await page.locator('.world-directory>summary').click();
@@ -54,7 +55,7 @@ try {
     checks.push({ width, ...styles, overflow: false, revealBoundary: true, keyboardSources: true, motionToggle: true });
     await page.close();
   }
-  const reduced = await browser.newPage({ viewport: { width: 390, height: 1000 }, reducedMotion: 'reduce' });
+  const reduced = await newSpoilerProtectedPage(browser, { viewport: { width: 390, height: 1000 }, reducedMotion: 'reduce' });
   await reduced.goto(`${base}/#journey/andor-s01e01`);
   await reduced.getByRole('button', { name: 'Reveal locations for this title' }).click();
   assert.equal(await reduced.locator('.journey-stop').first().evaluate(el => getComputedStyle(el).animationName), 'none');

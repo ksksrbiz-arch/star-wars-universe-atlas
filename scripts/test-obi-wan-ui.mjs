@@ -1,8 +1,9 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import {STORY_SEQUENCES} from '../src/chronology.ts';
 import {chromium} from 'playwright';import assert from 'node:assert/strict';import {CONNECTIONS} from '../src/connections.ts';
 const base=process.env.ATLAS_URL||'http://localhost:4173';const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
 try{for(const width of [1440,390,320]){
- const page=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const page=await newSpoilerProtectedPage(browser, {viewport:{width,height:900},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
  const expand=async()=>{if(width<721&&await page.locator('.sheet-toggle').getAttribute('aria-expanded')==='false')await page.locator('.sheet-toggle').click();};
  await page.goto(base+'/#galaxy');await page.getByRole('button',{name:'Search the atlas',exact:true}).click();const search=page.getByRole('combobox',{name:'World, location, movie, episode or collection'});
  await search.fill('Obi Wan S01E04');assert.equal(await page.getByRole('dialog').getByRole('option').count(),1);await search.press('Enter');await page.waitForURL('**/#journey/obi-wan-s01e04');await expand();await page.waitForFunction(()=>document.querySelector('.journey-item-meta')?.textContent?.endsWith('EPISODE 4'));

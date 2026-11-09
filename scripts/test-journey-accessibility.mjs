@@ -1,3 +1,4 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { writeFile } from 'node:fs/promises';
@@ -5,7 +6,7 @@ import { CONNECTIONS } from '../src/connections.ts';
 import { readFile } from 'node:fs/promises';
 import {ALL_WORLDS} from '../src/journeyWorlds.ts';
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
-const page=await browser.newPage({viewport:{width:390,height:844}});
+const page=await newSpoilerProtectedPage(browser, {viewport:{width:390,height:844}});
 const checks=[],errors=[];page.on('pageerror',error=>errors.push(error.message));
 const open=async id=>{await page.goto(`${process.env.ATLAS_URL || 'http://localhost:4173'}/#journey/${id}`);if(await page.locator('.sheet-toggle').isVisible() && await page.locator('.sheet-toggle').getAttribute('aria-expanded')==='false')await page.locator('.sheet-toggle').click();await page.locator('.journey-current h2').waitFor();};
 try {

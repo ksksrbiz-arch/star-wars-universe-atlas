@@ -4,6 +4,7 @@ import { CreditedImage, sourceLink, type SourceImage } from './SourceMedia';
 import './databank.css';
 import CharacterCard,{type CharacterCardEntry} from './CharacterCard';
 import CharacterDossier from './CharacterDossier';
+import {useSpoilerPreference} from './spoilerPreference';
 
 type Entry = CharacterCardEntry & { provider: string; entityType: string; image?: SourceImage };
 type Result = { items: Entry[]; total: number; offset: number; limit: number };
@@ -11,7 +12,8 @@ const PAGE_SIZE = 12;
 const plainText = (value = '') => value.replace(/<[^>]*>/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/\s+/g, ' ').trim();
 
 export default function Databank() {
-  const [open, setOpen] = useState(false);
+  const {hideSpoilers}=useSpoilerPreference();
+  const [open, setOpen] = useState(!hideSpoilers);
   const [revealed, setRevealed] = useState(false);
   const [query, setQuery] = useState('');
   const [type, setType] = useState<'location' | 'character'>('location');
@@ -20,8 +22,10 @@ export default function Databank() {
   const [result, setResult] = useState<Result | null>(null);
   const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>('idle');
   const [selectedCharacter,setSelectedCharacter]=useState<Entry|null>(null);
+  const showDetails=!hideSpoilers||revealed;
+  useEffect(()=>{setRevealed(false);setSelectedCharacter(null);if(!hideSpoilers)setOpen(true);},[hideSpoilers]);
   useEffect(() => {
-    if (!open || !revealed) return;
+    if (!open || !showDetails) return;
     const controller = new AbortController();
     setStatus('loading'); setResult(null);
     const timer = setTimeout(() => {
@@ -35,14 +39,14 @@ export default function Databank() {
       }).catch(() => { if (!controller.signal.aborted) setStatus('error'); });
     }, query ? 250 : 0);
     return () => { clearTimeout(timer); controller.abort(); };
-  }, [open, revealed, query, type, offset,artworkOnly]);
+  }, [open, showDetails, query, type, offset,artworkOnly]);
 
   return <details className="galactic-databank" open={open} onToggle={event => setOpen(event.currentTarget.open)}>
     <summary><span className="databank-emblem"><Database size={23} strokeWidth={1.3} aria-hidden="true"/></span><span><span className="eyebrow">BEYOND THE MAP</span><strong>Explore the Galactic Databank</strong><small>Worlds, places and characters from across the saga.</small></span><ArrowRight className="databank-summary-arrow" size={21} aria-hidden="true"/></summary>
     {open && <div className="databank-content">
       <p className="databank-intro">Explore source-backed reference entries. These are separate from the atlas’s verified episode connections and mapped destinations.</p>
-      <label className="databank-reveal"><input type="checkbox" checked={revealed} onChange={event => setRevealed(event.target.checked)}/><Eye size={17} aria-hidden="true"/><span><strong>Reveal story imagery and details</strong><small>Entries may include spoilers from across the saga. This choice lasts while this view is open.</small></span></label>
-      {revealed && <>
+      {hideSpoilers&&<label className="databank-reveal"><input type="checkbox" checked={revealed} onChange={event => setRevealed(event.target.checked)}/><Eye size={17} aria-hidden="true"/><span><strong>Reveal story imagery and details</strong><small>Show this Databank while spoiler hiding is enabled. This choice lasts while this view is open.</small></span></label>}
+      {showDetails && <>
         <div className="databank-toolbar"><div className="databank-types" role="group" aria-label="Databank entry type">{(['location', 'character'] as const).map(value => <button key={value} aria-pressed={type === value} onClick={() => { setType(value); setArtworkOnly(value==='character'); setQuery(''); setOffset(0); }}>{value === 'location' ? 'Worlds & places' : 'Characters'}</button>)}</div><label className="databank-search"><Search size={16} aria-hidden="true"/><span className="sr-only">Search the Galactic Databank</span><input type="search" value={query} maxLength={100} onChange={event => { setQuery(event.target.value); setOffset(0); }} placeholder={type === 'location' ? 'Find a world or place…' : 'Find a character…'}/></label></div>
         <p className="databank-status" role="status" aria-live="polite">{status === 'loading' ? 'Searching the Databank…' : status === 'error' ? 'The Databank is temporarily unavailable. Your story library is still available below.' : result ? `${result.total.toLocaleString()} ${type === 'location' ? 'worlds and places' : 'characters'}${query ? ' matching your search' : type==='character'&&artworkOnly ? ' with transparent artwork' : ' in the Databank'}` : ''}</p>
         {result && <>{type==='character'&&<div className="character-archive-intro"><span className="eyebrow">FACES OF THE GALAXY</span><h2>The character archive</h2><p>Open a portrait to explore the character.</p><div className="character-artwork-filters" role="group" aria-label="Character artwork"><button aria-pressed={artworkOnly} onClick={()=>{setArtworkOnly(true);setOffset(0);}}>Transparent artwork</button><button aria-pressed={!artworkOnly} onClick={()=>{setArtworkOnly(false);setOffset(0);}}>All characters</button></div></div>}<div className={`databank-grid${type==='character'?' character-archive-grid':''}`}>{result.items.map(entry => entry.entityType==='character'?<article className="databank-card character-entry" key={entry.id}><CharacterCard entry={entry} onOpen={()=>setSelectedCharacter(entry)}/></article>:<article className="databank-card" key={entry.id}>

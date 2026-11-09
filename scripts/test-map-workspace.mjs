@@ -1,3 +1,4 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -5,7 +6,7 @@ const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});cons
 await mkdir(evidenceDir,{recursive:true});
 try{
  for(const width of[1440,390,320]){
-  const page=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  const page=await newSpoilerProtectedPage(browser, {viewport:{width,height:900},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
   for(const route of['galaxy','journey/andor-s01e01']){
    await page.goto(base+'/#'+route);await page.locator('.galaxy-canvas canvas').waitFor();const map=page.locator('.map-stage');const top=(await map.boundingBox()).y;assert(top<250,`${route} ${width}px map top ${top}`);assert.equal(await page.locator('.galaxy-canvas canvas').count(),1);
    assert.equal(await page.locator('.workspace-settings').getAttribute('open'),null);

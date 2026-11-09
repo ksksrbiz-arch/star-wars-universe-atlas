@@ -1,8 +1,9 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
 try {
- const page=await browser.newPage({viewport:{width:1280,height:900},reducedMotion:'reduce'});
+ const page=await newSpoilerProtectedPage(browser, {viewport:{width:1280,height:900},reducedMotion:'reduce'});
  const errors=[];page.on('pageerror',error=>errors.push(error.message));
  const url=process.env.ATLAS_URL || 'http://localhost:4173';
  await page.goto(`${url}/#journey/andor-s01e01`);

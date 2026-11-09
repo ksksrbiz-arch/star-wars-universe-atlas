@@ -9,6 +9,7 @@ import { getLocation } from './locations';
 import WorldDirectoryCard, { type DirectoryWorld } from './WorldDirectoryCard';
 import { WORLD_TERRAIN } from './worldDossiers';
 import './world-directory.css';
+import { useSpoilerPreference } from './spoilerPreference';
 
 const worlds = new Map<string, DirectoryWorld>(ALL_WORLDS.map(world => [world.id, { id: world.id, name: world.name, mapped: true, region: world.region, color: world.color }]));
 for (const link of CONNECTIONS) if (!worlds.has(link.worldId)) worlds.set(link.worldId, { id: link.worldId, name: link.worldName, mapped: false });
@@ -19,6 +20,7 @@ const catalogSeries = new Map(CATALOG.map(item => [item.id,item.seriesId]));
 const normalize = (value: string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
 export default function WorldDirectory({ watchedIds }: { watchedIds: ReadonlySet<string> }) {
+  const { hideSpoilers } = useSpoilerPreference();
   const [query, setQuery] = useState('');
   const [placement, setPlacement] = useState('all');
   const [series, setSeries] = useState('all');
@@ -30,7 +32,7 @@ export default function WorldDirectory({ watchedIds }: { watchedIds: ReadonlySet
   const [limit, setLimit] = useState(12);
   const storyHeading = useRef<HTMLHeadingElement>(null);
   useEffect(() => { if (selected) storyHeading.current?.focus(); }, [selected]);
-  const accessible = useMemo(() => CONNECTIONS.filter(link => revealCollections || watchedIds.has(link.itemId)), [revealCollections, watchedIds]);
+  const accessible = useMemo(() => CONNECTIONS.filter(link => !hideSpoilers || revealCollections || watchedIds.has(link.itemId)), [hideSpoilers, revealCollections, watchedIds]);
   const worldsInSeries = useMemo(() => { if (series === 'all') return null; const ids = new Set<string>(); for (const link of accessible) if (catalogSeries.get(link.itemId) === series) ids.add(link.worldId); return ids; }, [accessible, series]);
   const watchedCounts = useMemo(() => { const groups = new Map<string, Set<string>>(); for (const link of CONNECTIONS) if(watchedIds.has(link.itemId)) { if(!groups.has(link.worldId)) groups.set(link.worldId,new Set()); groups.get(link.worldId)!.add(link.itemId); } return new Map([...groups].map(([id,items])=>[id,items.size])); }, [watchedIds]);
   const results = directory.filter(world => normalize(world.name).includes(normalize(query.trim())) && (placement === 'all' || world.mapped === (placement === 'mapped')) && (!worldsInSeries || worldsInSeries.has(world.id)) && (region === 'all' || (region === 'unknown' ? !world.region : world.region === region)) && (terrain === 'all' || (WORLD_TERRAIN[world.id]?.category || 'unreviewed') === terrain) && (watched === 'all' || (watched === 'watched' ? (watchedCounts.get(world.id) || 0) > 0 : !watchedCounts.get(world.id))));
@@ -48,10 +50,10 @@ export default function WorldDirectory({ watchedIds }: { watchedIds: ReadonlySet
         <label>Terrain<select aria-label="Terrain" value={terrain} onChange={event => {setTerrain(event.target.value);setLimit(12);}}><option value="all">All terrain</option>{terrainOptions.map(([category,label])=><option key={category} value={category}>{label}</option>)}<option value="unreviewed">Not reviewed</option></select></label>
         <label>Watch progress<select aria-label="Watch progress" value={watched} onChange={event => {setWatched(event.target.value);setLimit(12);}}><option value="all">All worlds</option><option value="watched">Has watched title links</option><option value="no-watched">No watched title links</option></select></label>
       </div>
-      <p>{revealCollections ? 'Collection filters include unwatched titles. Individual title lists remain hidden until revealed.' : 'Collection filters use watched titles only. All collections shows every world without exposing title links.'}</p>
-      {!revealCollections && <button onClick={() => setRevealCollections(true)}>Include unwatched collection links</button>}
+      <p>{!hideSpoilers ? 'Collection filters include all sourced title links.' : revealCollections ? 'Collection filters include unwatched titles. Individual title lists remain hidden until revealed.' : 'Collection filters use watched titles only. All collections shows every world without exposing title links.'}</p>
+      {hideSpoilers && !revealCollections && <button onClick={() => setRevealCollections(true)}>Include unwatched collection links</button>}
       <p role="status">{results.length} matching locations · {Math.min(limit, results.length)} shown</p>
-      {!results.length && <p>No worlds match. Try another name, clear filters, or include unwatched collection links.</p>}
+      {!results.length && <p>{hideSpoilers && !revealCollections ? 'No worlds match. Try another name, clear filters, or include unwatched collection links.' : 'No worlds match. Try another name or clear filters.'}</p>}
       <button onClick={reset}>Clear directory filters</button>
       <div className="directory-grid">{results.slice(0, limit).map(world => <WorldDirectoryCard key={world.id} world={world} terrain={WORLD_TERRAIN[world.id]} watchedCount={watchedCounts.get(world.id) || 0} selected={selected === world.id} onSelect={() => setSelected(world.id)}/>)}</div>
       {results.length > limit && <button onClick={() => setLimit(limit + 12)}>Show more worlds ({results.length - limit} remaining)</button>}

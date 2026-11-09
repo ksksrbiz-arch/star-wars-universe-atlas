@@ -1,9 +1,10 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { writeFile } from 'node:fs/promises';
 import { expandPanel, jumpAndSkip, openStoryTab } from './lib-journey-ui.mjs';
 const browser = await chromium.launch({args:['--enable-unsafe-swiftshader']});
-const page = await browser.newPage({viewport:{width:1440,height:1000}});
+const page = await newSpoilerProtectedPage(browser, {viewport:{width:1440,height:1000}});
 const errors=[];page.on('pageerror',e=>errors.push(e.message));const checks=[];
 try {
 await page.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#journey/ot-empire-strikes-back");

@@ -47,6 +47,8 @@ import type { MapCommand } from './Galaxy';
 import EpisodeLocationControls from './EpisodeLocationControls';
 
 import { useWatchProgress } from './useWatchProgress';
+import {useSpoilerPreference} from './spoilerPreference';
+import './spoiler-preference.css';
 
 
 
@@ -93,6 +95,7 @@ const DETAILS: Record<string, { subtitle: string; terrain: string; kind: string 
 
 
 export default function App() {
+  const {hideSpoilers,setHideSpoilers}=useSpoilerPreference();
 
   const [view, setView] = useState<View>(readView);
   const [inspectedLocationId, setInspectedLocationId] = useState<string | null>(null);
@@ -110,7 +113,7 @@ export default function App() {
 
   const [activeItemId, setActiveItemId] = useState<string | null>(() => { const id = location.hash.split('/')[1]; return CATALOG.some(item => item.id === id) ? id : null; });
   const [journeyDisclosure, setJourneyDisclosure] = useState<{ itemId: string; revealed: boolean } | null>(null);
-  const [journeyStatus, setJourneyStatus] = useState('Choose a story, reveal its locations, then select a mapped stop.');
+  const [journeyStatus, setJourneyStatus] = useState('Choose a story, then select a mapped stop.');
   const [currentId, setCurrentId] = useState(WORLDS[0].id);
 
   const [previewId, setPreviewId] = useState(() => readWorld() ?? WORLDS[0].id);
@@ -161,7 +164,7 @@ export default function App() {
   const terrain = WORLD_TERRAIN[preview.id];
   const detail = DETAILS[preview.id] || {subtitle: 'A stop on your story journey',terrain: terrain?.label ?? 'Not cataloged',kind: terrain ? 'Reviewed setting' : 'System grid'};
   const displayedJourneyId = activeItemId ?? STORY_SEQUENCES[0]?.itemIds[0];
-  const locationsDisclosed = view === 'journey' && journeyDisclosure?.itemId === displayedJourneyId && (journeyDisclosure.revealed || watchedIds.has(displayedJourneyId));
+  const locationsDisclosed = view === 'journey' && !!displayedJourneyId && (!hideSpoilers || journeyDisclosure?.itemId === displayedJourneyId && (journeyDisclosure.revealed || watchedIds.has(displayedJourneyId)));
   const episodeWorldIds = useMemo(() => new Set(locationsDisclosed ? CONNECTIONS.filter(link => link.itemId === displayedJourneyId).map(link => link.worldId) : []), [locationsDisclosed, displayedJourneyId]);
   const highlightedWorlds = ALL_WORLDS.filter(world => episodeWorldIds.has(world.id));
   const mapWorlds = useMemo(() => view === 'journey' ? ALL_WORLDS.filter(w => [currentId, previewId, targetId].includes(w.id) || episodeWorldIds.has(w.id)) : ALL_WORLDS, [view, currentId, previewId, targetId, episodeWorldIds]);
@@ -363,7 +366,7 @@ export default function App() {
 
     <nav className="platform-nav" aria-label="Atlas sections">{(['galaxy','journey','library','timeline','watch'] as View[]).map(item => <a key={item} href={`#${item}`} aria-current={view === item ? 'page' : undefined} onClick={() => { if (phase === 'warping') cancel(); }}>{(() => { const Icon = {galaxy:Orbit,journey:Route,library:BookOpen,timeline:Clock3,watch:BookmarkCheck}[item]; return <Icon size={16} aria-hidden="true"/>; })()}{item === 'watch' ? 'My watchlist' : item === 'timeline' ? 'Release timeline' : item[0].toUpperCase()+item.slice(1)}{item === 'watch' && <span>{watchedIds.size}</span>}</a>)}<span className="catalog-count">{ALL_WORLDS.length} MAPPED WORLDS · {CATALOG.length} STORIES</span></nav>
 
-      {showInfo && <section className="about-panel" aria-label="About this prototype"><div><strong>A small window into a much larger galaxy.</strong><p>This explorer connects {ALL_WORLDS.length} mapped worlds with a curated {CATALOG.length}-title catalog and sourced story journeys. Positions represent published grid cells on a schematic map; transitions are cinematic, not measured routes. It is not a complete Star Wars catalog.</p><p>Original interface and planet illustrations. Star Wars belongs to Lucasfilm. This is an unofficial fan project.</p></div><button className="icon-button" onClick={() => setShowInfo(false)} aria-label="Close prototype information"><X size={18}/></button></section>}
+      {showInfo && <section className="about-panel" aria-label="About this prototype"><div><strong>A small window into a much larger galaxy.</strong><p>This explorer connects {ALL_WORLDS.length} mapped worlds with a curated {CATALOG.length}-title catalog and sourced story journeys. Positions represent published grid cells on a schematic map; transitions are cinematic, not measured routes. It is not a complete Star Wars catalog.</p><p>Original interface and planet illustrations. Star Wars belongs to Lucasfilm. This is an unofficial fan project.</p><div className="spoiler-preference"><label><input type="checkbox" aria-label="Hide spoilers" checked={hideSpoilers} onChange={event=>setHideSpoilers(event.target.checked)}/>Hide spoilers</label><p>{hideSpoilers?'Spoiler protection is on. Reveal content individually as needed.':'All images and story details are shown.'}</p></div></div><button className="icon-button" onClick={() => setShowInfo(false)} aria-label="Close prototype information"><X size={18}/></button></section>}
 
     {storageWarning && <p className="storage-warning" role="status">{storageWarning}</p>}
 
@@ -414,7 +417,7 @@ export default function App() {
           <button className="sheet-toggle" aria-expanded={sheetExpanded} aria-controls="workspace-panel-content" onClick={() => setSheetExpanded(value => !value)}><span><small>{view === 'journey' ? 'STORY & DESTINATION' : 'DESTINATION FILE'}</small><strong>{panelTab === 'story' ? CATALOG.find(item => item.id === displayedJourneyId)?.title : (inspectedLocationId ? getLocation(inspectedLocationId)?.name : preview.name)}</strong></span><ChevronDown size={20}/><span className="sr-only">{sheetExpanded ? 'Collapse exploration panel' : 'Expand exploration panel'}</span></button>
           <div id="workspace-panel-content" className="workspace-panel-content">
             <div className="workspace-tabs" role="group" aria-label="Exploration panel views">{view === 'journey' && <button aria-pressed={panelTab === 'story'} onClick={() => setPanelTab('story')}>Story</button>}<button aria-pressed={panelTab === 'destination'} onClick={() => setPanelTab('destination')}>Destination</button>{view !== 'journey' && <a href="#journey">Choose a story <ArrowRight size={14}/></a>}</div>
-            <div hidden={panelTab !== 'story'} className="workspace-story">{view === 'journey' && <><Journey onInspectLocation={id => {setInspectedLocationId(id);setPanelTab('destination');setSheetExpanded(true);}} onLocationDisclosure={setJourneyDisclosure} onToggleWatched={toggleWatched} watchedIds={watchedIds} onSelectStop={selectJourneyStop} activeItemId={activeItemId} onActiveItemChange={id => {if(phase === 'warping') cancel();setInspectedLocationId(null);setActiveItemId(id);setPreviewId(currentId);window.history.replaceState(null, '', `#journey/${id}`);setJourneyStatus('Choose a revealed mapped location to preview your next stop.');}}/><p className="journey-map-status" role="status">{journeyStatus}</p></>}      {locationsDisclosed && <EpisodeLocationControls worlds={highlightedWorlds} unmappedCount={episodeWorldIds.size - highlightedWorlds.length} disabled={phase === 'warping'} mapUnavailable={mapUnavailable} onFit={() => {setEpisodeFitKey(key => key + 1);setAnnouncement('Map fitted to this chapter’s sourced mapped locations.');document.querySelector('.map-stage')?.scrollIntoView({behavior: 'instant', block: 'start'});}} onSelect={id => selectJourneyStop(displayedJourneyId!, id)}/>}
+            <div hidden={panelTab !== 'story'} className="workspace-story">{view === 'journey' && <><Journey onInspectLocation={id => {setInspectedLocationId(id);setPanelTab('destination');setSheetExpanded(true);}} onLocationDisclosure={setJourneyDisclosure} onToggleWatched={toggleWatched} watchedIds={watchedIds} onSelectStop={selectJourneyStop} activeItemId={activeItemId} onActiveItemChange={id => {if(phase === 'warping') cancel();setInspectedLocationId(null);setActiveItemId(id);setPreviewId(currentId);window.history.replaceState(null, '', `#journey/${id}`);setJourneyStatus('Choose a mapped location to preview your next stop.');}}/><p className="journey-map-status" role="status">{journeyStatus}</p></>}      {locationsDisclosed && <EpisodeLocationControls worlds={highlightedWorlds} unmappedCount={episodeWorldIds.size - highlightedWorlds.length} disabled={phase === 'warping'} mapUnavailable={mapUnavailable} onFit={() => {setEpisodeFitKey(key => key + 1);setAnnouncement('Map fitted to this chapter’s sourced mapped locations.');document.querySelector('.map-stage')?.scrollIntoView({behavior: 'instant', block: 'start'});}} onSelect={id => selectJourneyStop(displayedJourneyId!, id)}/>}
 </div>
             <div hidden={panelTab !== 'destination'}>
             {inspectedLocationId ? <LocationDossier id={inspectedLocationId} reducedMotion={reducedMotion}/> : <>

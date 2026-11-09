@@ -1,10 +1,11 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { expandPanel, openChapterPicker } from './lib-journey-ui.mjs';
 const base = process.env.ATLAS_URL || 'http://localhost:4173';
 const browser = await chromium.launch({args:['--enable-unsafe-swiftshader']});
 try {
- const page = await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});
+ const page = await newSpoilerProtectedPage(browser, {viewport:{width:390,height:844},reducedMotion:'reduce'});
  const errors=[]; page.on('pageerror',error=>errors.push(error.message));
  await page.goto(`${base}/#journey/ot-a-new-hope`);
  await page.evaluate(()=>localStorage.removeItem('galactic-atlas.watch.v1'));

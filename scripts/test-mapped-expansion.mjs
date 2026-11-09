@@ -1,3 +1,4 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -7,7 +8,7 @@ const base=process.env.ATLAS_URL||'http://localhost:4173';
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});const checks=[],errors=[];
 try {
  for(const width of [1440,390]) {
-  const page=await browser.newPage({viewport:{width,height:1000},reducedMotion:'reduce'});page.on('pageerror',e=>errors.push(e.message));
+  const page=await newSpoilerProtectedPage(browser, {viewport:{width,height:1000},reducedMotion:'reduce'});page.on('pageerror',e=>errors.push(e.message));
   await page.goto(base+'/#galaxy');const finder=page.getByLabel('Find a mapped world');await finder.waitFor();
   assert.equal(await finder.locator('option').count(),ALL_WORLDS.length);
   for(const w of MAPPED_WORLDS_EXPANSION){await finder.selectOption(w.id);assert.equal((await page.locator('.world-title h2').textContent()).trim(),w.name);assert.match(await page.locator('.position-note').textContent(),new RegExp(w.grid));assert.equal(await page.locator('.current-location strong').textContent(),'Tatooine');}

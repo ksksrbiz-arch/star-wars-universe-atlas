@@ -1,10 +1,11 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { expandPanel } from './lib-journey-ui.mjs';
 const base = process.env.ATLAS_URL || 'http://localhost:4173';
 const browser = await chromium.launch({args:['--enable-unsafe-swiftshader']});
 const context = await browser.newContext({viewport:{width:390,height:844}});
-const page = await context.newPage();
+const page = await newSpoilerProtectedPage(context);
 const errors = [];
 context.on('page', tab => tab.on('pageerror', error => errors.push(error.message)));
 page.on('pageerror', error => errors.push(error.message));
@@ -24,7 +25,7 @@ try {
   await page.locator('.collection-tabs').getByRole('button',{name:/Andor/}).click();
   console.log('PASS: library searches by compact, padded, and full episode numbers');
   await search.fill('S1E1');
-  const other = await context.newPage();
+  const other = await newSpoilerProtectedPage(context);
   await other.goto(`${base}/#library`);
   await page.locator('.watched-button').click();
   await other.waitForFunction(() => document.querySelector('.library-footer')?.textContent.includes('1 watched'));
@@ -32,7 +33,7 @@ try {
   await page.waitForFunction(() => document.querySelector('.library-footer')?.textContent.includes('2 watched'));
   await page.reload();
   assert.match(await page.locator('.library-footer').innerText(),/2 watched/);
-  await other.evaluate(() => localStorage.clear());
+  await other.evaluate(() => { localStorage.clear(); localStorage.setItem('atlas:hide-spoilers:v1', 'true'); });
   await page.waitForFunction(() => document.querySelector('.library-footer')?.textContent.includes('0 watched'));
   console.log('PASS: cross-tab progress synchronizes, retains both edits on reload, and handles clear');
   await page.goto(`${base}/#galaxy`);

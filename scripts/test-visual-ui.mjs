@@ -1,5 +1,6 @@
+import { newSpoilerProtectedPage } from './lib-spoiler-testing.mjs';
 import{chromium}from'playwright';import assert from'node:assert/strict';import{writeFile}from'node:fs/promises';import{expandPanel}from'./lib-journey-ui.mjs';
-const b=await chromium.launch({args:['--enable-unsafe-swiftshader']});const p=await b.newPage({viewport:{width:390,height:844},reducedMotion:'no-preference'});const errors=[],checks=[];p.on('pageerror',e=>errors.push(e.message));
+const b=await chromium.launch({args:['--enable-unsafe-swiftshader']});const p=await newSpoilerProtectedPage(b, {viewport:{width:390,height:844},reducedMotion:'no-preference'});const errors=[],checks=[];p.on('pageerror',e=>errors.push(e.message));
 try{
 await p.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#journey/andor-s01e01");await expandPanel(p);await p.getByRole('switch',{name:'Reduce motion'}).click();
 assert.equal(await p.getByRole('switch',{name:'Reduce motion'}).getAttribute('aria-checked'),'true');

@@ -5,15 +5,17 @@ import { CONNECTIONS } from './connections';
 import { CATALOG, SERIES } from './catalog';
 import './world-stories.css';
 import RelatedWorlds from './RelatedWorlds';
+import { useSpoilerPreference } from './spoilerPreference';
 
 export default function WorldStories({ worldId, worldName, watchedIds }: { worldId: string; worldName: string; watchedIds: ReadonlySet<string> }) {
+  const { hideSpoilers } = useSpoilerPreference();
   const [revealed, setRevealed] = useState<Set<string>>(() => new Set());
   const [expandedWorlds, setExpandedWorlds] = useState<Set<string>>(() => new Set());
   const [filters, setFilters] = useState({ worldId, query: '', series: 'all' });
   const current = filters.worldId === worldId ? filters : { worldId, query: '', series: 'all' };
   const update = (patch: Partial<typeof filters>) => setFilters({ ...current, ...patch, worldId });
   const ids = [...new Set(CONNECTIONS.filter(link => link.worldId === worldId).map(link => link.itemId))];
-  const visible = ids.filter(id => watchedIds.has(id) || revealed.has(worldId));
+  const visible = ids.filter(id => !hideSpoilers || watchedIds.has(id) || revealed.has(worldId));
 
   const items = CATALOG.filter(item => visible.includes(item.id));
   const matching = items.filter(item => (current.series === 'all' || item.seriesId === current.series) && `${item.title} ${SERIES.find(series => series.id === item.seriesId)?.title} ${item.season ? episodeAliases(item) : ''}`.toLowerCase().includes(current.query.trim().toLowerCase()));
@@ -27,7 +29,7 @@ export default function WorldStories({ worldId, worldName, watchedIds }: { world
         <label>Collection<select value={current.series} onChange={event => update({ series: event.target.value })}><option value="all">All collections</option>{SERIES.filter(series => items.some(item => item.seriesId === series.id)).map(series => <option key={series.id} value={series.id}>{series.title}</option>)}</select></label>
       </div>}
       {items.length > 0 && <p role="status">{matching.length} matching {matching.length === 1 ? 'title' : 'titles'}{visible.length < ids.length ? ' · Unwatched titles remain hidden' : ''}</p>}
-      {items.length > 0 && matching.length === 0 && <p>No revealed titles match these filters. <button onClick={() => update({ query: '', series: 'all' })}>Clear filters</button></p>}
+      {items.length > 0 && matching.length === 0 && <p>{hideSpoilers ? 'No revealed titles match these filters.' : 'No linked titles match these filters.'} <button onClick={() => update({ query: '', series: 'all' })}>Clear filters</button></p>}
       <div className="world-story-grid">{matching.slice(0, expandedWorlds.has(worldId) ? undefined : 6).map(item => {
         const id = item.id;
         return <article className="world-story-card" key={`${worldId}:${id}`}><a href={`#journey/${id}`}>
