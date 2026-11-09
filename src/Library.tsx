@@ -6,6 +6,9 @@ import { CATALOG, CATALOG_METADATA, SERIES, type CatalogItem } from './catalog';
 import './library.css';
 import { STORY_SEQUENCES } from './chronology';
 import Databank from './Databank';
+import CatalogArtwork from './CatalogArtwork';
+import {useSourceMediaIndex} from './SourceMedia';
+import {useSpoilerPreference} from './spoilerPreference';
 
 type Props = {
   watchedIds: ReadonlySet<string>;
@@ -20,6 +23,9 @@ const releaseSort = (a: CatalogItem,b:CatalogItem) => a.releaseDate.localeCompar
 
 export default function Library({watchedIds,onToggleWatched,initialQuery='',mode='library'}:Props) {
   const reduceMotion = useReducedMotion();
+  const sourceMedia = useSourceMediaIndex();
+  const mediaByEntity = useMemo(() => new Map(sourceMedia.map(entry => [`${entry.entityType}:${entry.entityId}`, entry])), [sourceMedia]);
+  const {hideSpoilers} = useSpoilerPreference();
   const [query,setQuery] = useState(initialQuery);
   const [seriesId,setSeriesId] = useState('all');
   const [status,setStatus] = useState<'all'|'watched'|'unwatched'>('all');
@@ -72,13 +78,13 @@ export default function Library({watchedIds,onToggleWatched,initialQuery='',mode
       const year = item.releaseDate.slice(0,4);
       const showYear = mode==='timeline' && actualOrder==='release' && (index===0 || visible[index-1].releaseDate.slice(0,4)!==year);
       return <div key={item.id} className="catalog-entry-group">{showYear && <div className="timeline-year"><span/>{year||'UNDATED'}</div>}<motion.article initial={reduceMotion || index >= 8 ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : .2, delay: reduceMotion ? 0 : Math.min(index, 7) * .018 }} className={`catalog-item ${watched?'is-watched':''}`} style={{'--series-color':series?.color||'#8bd6e4'} as CSSProperties}>
-        <div className={`catalog-art catalog-art-${item.kind}`} aria-hidden="true"><span className="catalog-art-orbit"/><span className="catalog-art-small">{item.kind==='film'?'FEATURE':'CHAPTER'}</span><strong>{item.kind==='film'?<Film size={26} strokeWidth={1.2}/>:episodeRange(item, true)}</strong><span className="catalog-art-bottom">{item.kind==='film'?item.releaseDate.slice(0,4):`SEASON ${String(item.season||0).padStart(2,'0')}`}</span></div>
+        <CatalogArtwork item={item} media={mediaByEntity} protectStory={hideSpoilers && !watched}/>
         <div className="catalog-item-body"><div className="catalog-kicker"><span>{series?.title||item.seriesId}</span><i/>{item.kind==='film'?'Film':`S${String(item.season).padStart(2,'0')} · E${episodeRange(item, true)}`}</div><h2>{item.title}</h2><div className="catalog-meta"><span><CalendarDays size={11}/>{dateLabel(item.releaseDate)}</span><span><Clock3 size={11}/>{item.runtimeMinutes===null?'Runtime unverified':`${item.runtimeMinutes} min`}</span>{actualOrder==='story' && <span>Story #{storyRanks.get(item.id)}</span>}</div><details className="catalog-details"><summary>Record details <ChevronDown size={11}/></summary><div><p>{item.runtimeNote || (item.runtimeMinutes===null?'A reliable runtime has not been assigned to this record.':'Runtime is provider metadata; editions and platform presentations may vary.')}</p>{(item.kind==='film' ? FILM_DATE_NOTES[item.id] : CATALOG_METADATA.episodeReleaseDateNote) && <p>{item.kind==='film' ? FILM_DATE_NOTES[item.id] : CATALOG_METADATA.episodeReleaseDateNote}</p>}<p>{storySequence ? storySequence.caveats.join(' ') : 'Release dates are not scene chronology. Select a collection for its sourced viewing sequence.'}</p><a href={item.sourceUrl} target="_blank" rel="noreferrer">View source record <ExternalLink size={11}/></a><a className="follow-story-link" href={`#journey/${item.id}`}>Follow this story on the map →</a></div></details></div>
         <button className={`watched-button ${watched?'checked':''}`} onClick={()=>onToggleWatched(item.id)} aria-label={`${watched?'Mark unwatched':'Mark watched'}: ${item.title}`}>{watched?<Check size={17}/>:<Circle size={17}/>}<span>{watched?'Watched':'Mark watched'}</span></button>
       </motion.article></div>;
     })}</div>
     {filtered.length===0 && <div className="catalog-empty"><div className="catalog-empty-icon"><Search size={28} strokeWidth={1.2}/></div><span className="eyebrow">SEARCH THE ARCHIVE</span><h2>No stories in this selection.</h2><p>{query ? <>No matches for <strong>“{query}”</strong> in {selectionTitle.toLowerCase()}. Try a different title or reset your filters.</> : 'Try another collection or change your progress filter.'}</p><button onClick={()=>{setQuery('');setStatus('all');setSeriesId('all');}}>Reset filters <ArrowRight size={14}/></button></div>}
     {filtered.length>limit && <div className="catalog-load-more"><span>Showing {visible.length} of {filtered.length} stories</span><button onClick={()=>setLimit(value=>value+PAGE_SIZE)}>Load {Math.min(PAGE_SIZE,filtered.length-limit)} more <ChevronDown size={15}/></button></div>}
-    <footer className="library-footer"><BookmarkCheck size={14}/><span>{watchedCount} watched · {CATALOG.length-watchedCount} still to explore</span><span>Story cards use original typographic artwork</span></footer>
+    <footer className="library-footer"><BookmarkCheck size={14}/><span>{watchedCount} watched · {CATALOG.length-watchedCount} still to explore</span><span>Film posters, episode images and labeled series-poster fallbacks · sources beside artwork</span></footer>
   </section>;
 }

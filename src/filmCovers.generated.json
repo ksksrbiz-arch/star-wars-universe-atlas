@@ -1,0 +1,436 @@
+{
+  "items": [
+    {
+      "entityId": "ot-a-new-hope",
+      "entityType": "film",
+      "provider": "starwars",
+      "title": "A New Hope",
+      "src": "/media/sources/df64f1829cd705b4b6857de44a016e1ed119c70571ad56e1f79f1d1b085bbfa0.jpg",
+      "srcSet": "/media/sources/49d4e0bb420260b1880c3ac5e7f925d85878b32699aa85936b0a0b1a1197c665.jpg 320w, /media/sources/df64f1829cd705b4b6857de44a016e1ed119c70571ad56e1f79f1d1b085bbfa0.jpg 640w",
+      "credit": "Poster © Lucasfilm Ltd. / StarWars.com",
+      "sourceUrl": "https://www.starwars.com/films/star-wars-episode-iv-a-new-hope",
+      "originalSourceUrl": "https://lumiere-a.akamaihd.net/v1/images/EP4_POS_2_D-RESIZED_f977074a.jpeg",
+      "useBasis": "User-authorized personal noncommercial fan atlas; underlying rights retained by their owners.",
+      "retrievedAt": "2026-11-09T22:32:13.448Z",
+      "pageSha256": "a5eb1cdfc097673081adc0e00eff4d0927b1a8a732110bb950937108667338ab",
+      "variants": [
+        {
+          "src": "/media/sources/49d4e0bb420260b1880c3ac5e7f925d85878b32699aa85936b0a0b1a1197c665.jpg",
+          "key": "sources/49d4e0bb420260b1880c3ac5e7f925d85878b32699aa85936b0a0b1a1197c665.jpg",
+          "sha256": "49d4e0bb420260b1880c3ac5e7f925d85878b32699aa85936b0a0b1a1197c665",
+          "bytes": 45972,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 478,
+          "width": 320
+        },
+        {
+          "src": "/media/sources/df64f1829cd705b4b6857de44a016e1ed119c70571ad56e1f79f1d1b085bbfa0.jpg",
+          "key": "sources/df64f1829cd705b4b6857de44a016e1ed119c70571ad56e1f79f1d1b085bbfa0.jpg",
+          "sha256": "df64f1829cd705b4b6857de44a016e1ed119c70571ad56e1f79f1d1b085bbfa0",
+          "bytes": 167832,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 956,
+          "width": 640
+        }
+      ]
+    },
+    {
+      "entityId": "ot-empire-strikes-back",
+      "entityType": "film",
+      "provider": "starwars",
+      "title": "The Empire Strikes Back",
+      "src": "/media/sources/ef1a4131bda2e30ee3354664a593008e7623e72cb8b9295708c6e09461501a3f.jpg",
+      "srcSet": "/media/sources/50dc3f3d4e6af0a4ddc2e7f308b142092217d5db88cad652da3172eda913350a.jpg 320w, /media/sources/ef1a4131bda2e30ee3354664a593008e7623e72cb8b9295708c6e09461501a3f.jpg 640w",
+      "credit": "Poster © Lucasfilm Ltd. / StarWars.com",
+      "sourceUrl": "https://www.starwars.com/films/star-wars-episode-v-the-empire-strikes-back",
+      "originalSourceUrl": "https://lumiere-a.akamaihd.net/v1/images/image_ca7910bd.jpeg",
+      "useBasis": "User-authorized personal noncommercial fan atlas; underlying rights retained by their owners.",
+      "retrievedAt": "2026-11-09T22:32:19.298Z",
+      "pageSha256": "d1fc79877faefddef8c7a06f523154cf40a76cc079f63496adcd79d08177d2e5",
+      "variants": [
+        {
+          "src": "/media/sources/50dc3f3d4e6af0a4ddc2e7f308b142092217d5db88cad652da3172eda913350a.jpg",
+          "key": "sources/50dc3f3d4e6af0a4ddc2e7f308b142092217d5db88cad652da3172eda913350a.jpg",
+          "sha256": "50dc3f3d4e6af0a4ddc2e7f308b142092217d5db88cad652da3172eda913350a",
+          "bytes": 53104,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 485,
+          "width": 320
+        },
+        {
+          "src": "/media/sources/ef1a4131bda2e30ee3354664a593008e7623e72cb8b9295708c6e09461501a3f.jpg",
+          "key": "sources/ef1a4131bda2e30ee3354664a593008e7623e72cb8b9295708c6e09461501a3f.jpg",
+          "sha256": "ef1a4131bda2e30ee3354664a593008e7623e72cb8b9295708c6e09461501a3f",
+          "bytes": 198283,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 971,
+          "width": 640
+        }
+      ]
+    },
+    {
+      "entityId": "ot-return-of-the-jedi",
+      "entityType": "film",
+      "provider": "starwars",
+      "title": "Return of the Jedi",
+      "src": "/media/sources/9179f63309c7c09bc8043c3de4050f897398ffe58090e1f003444e83e576c45b.jpg",
+      "srcSet": "/media/sources/d70de27554d2b8a5eaf7787db546a7c8107a383b270175bb7f5387562e349b39.jpg 320w, /media/sources/9179f63309c7c09bc8043c3de4050f897398ffe58090e1f003444e83e576c45b.jpg 640w",
+      "credit": "Poster © Lucasfilm Ltd. / StarWars.com",
+      "sourceUrl": "https://www.starwars.com/films/star-wars-episode-vi-return-of-the-jedi",
+      "originalSourceUrl": "https://lumiere-a.akamaihd.net/v1/images/EP6_POS_21_R-RESIZED_2873dc04.jpeg",
+      "useBasis": "User-authorized personal noncommercial fan atlas; underlying rights retained by their owners.",
+      "retrievedAt": "2026-11-09T22:32:25.088Z",
+      "pageSha256": "7143cd14a959b096c896a571e156cbc10473f0957edb7efa98b0d0d89da16410",
+      "variants": [
+        {
+          "src": "/media/sources/d70de27554d2b8a5eaf7787db546a7c8107a383b270175bb7f5387562e349b39.jpg",
+          "key": "sources/d70de27554d2b8a5eaf7787db546a7c8107a383b270175bb7f5387562e349b39.jpg",
+          "sha256": "d70de27554d2b8a5eaf7787db546a7c8107a383b270175bb7f5387562e349b39",
+          "bytes": 59875,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 496,
+          "width": 320
+        },
+        {
+          "src": "/media/sources/9179f63309c7c09bc8043c3de4050f897398ffe58090e1f003444e83e576c45b.jpg",
+          "key": "sources/9179f63309c7c09bc8043c3de4050f897398ffe58090e1f003444e83e576c45b.jpg",
+          "sha256": "9179f63309c7c09bc8043c3de4050f897398ffe58090e1f003444e83e576c45b",
+          "bytes": 211590,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 992,
+          "width": 640
+        }
+      ]
+    },
+    {
+      "entityId": "pt-phantom-menace",
+      "entityType": "film",
+      "provider": "starwars",
+      "title": "Star Wars: The Phantom Menace",
+      "src": "/media/sources/710e7efdee8e041e0739c64fd133749ee1a98e3c560e132633fb6610cbd31781.jpg",
+      "srcSet": "/media/sources/9724908a43e9b9f96138ad19cd1f0d5b4ab790f13ac5b34607651ffabfd88136.jpg 320w, /media/sources/710e7efdee8e041e0739c64fd133749ee1a98e3c560e132633fb6610cbd31781.jpg 640w",
+      "credit": "Poster © Lucasfilm Ltd. / StarWars.com",
+      "sourceUrl": "https://www.starwars.com/films/star-wars-episode-i-the-phantom-menace",
+      "originalSourceUrl": "https://lumiere-a.akamaihd.net/v1/images/EP1-IA-99993-RESIZED_f9ae99b6.jpeg",
+      "useBasis": "User-authorized personal noncommercial fan atlas; underlying rights retained by their owners.",
+      "retrievedAt": "2026-11-09T22:32:29.216Z",
+      "pageSha256": "da96063629a59305ffde8b8edc2c6aa682d017c640a6746639b9690a8d23e81a",
+      "variants": [
+        {
+          "src": "/media/sources/9724908a43e9b9f96138ad19cd1f0d5b4ab790f13ac5b34607651ffabfd88136.jpg",
+          "key": "sources/9724908a43e9b9f96138ad19cd1f0d5b4ab790f13ac5b34607651ffabfd88136.jpg",
+          "sha256": "9724908a43e9b9f96138ad19cd1f0d5b4ab790f13ac5b34607651ffabfd88136",
+          "bytes": 38693,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 472,
+          "width": 320
+        },
+        {
+          "src": "/media/sources/710e7efdee8e041e0739c64fd133749ee1a98e3c560e132633fb6610cbd31781.jpg",
+          "key": "sources/710e7efdee8e041e0739c64fd133749ee1a98e3c560e132633fb6610cbd31781.jpg",
+          "sha256": "710e7efdee8e041e0739c64fd133749ee1a98e3c560e132633fb6610cbd31781",
+          "bytes": 147893,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 944,
+          "width": 640
+        }
+      ]
+    },
+    {
+      "entityId": "pt-attack-of-the-clones",
+      "entityType": "film",
+      "provider": "starwars",
+      "title": "Star Wars: Attack of the Clones",
+      "src": "/media/sources/f159254420b31c6f2cc2e03d4b463d603b06ea82e1aaa4d6a8c9890a9fdfac7b.jpg",
+      "srcSet": "/media/sources/8a6d7b2de4e1bbafb425b39bf07b0e07564a120f711dc38e2956882dc3112022.jpg 320w, /media/sources/f159254420b31c6f2cc2e03d4b463d603b06ea82e1aaa4d6a8c9890a9fdfac7b.jpg 640w",
+      "credit": "Poster © Lucasfilm Ltd. / StarWars.com",
+      "sourceUrl": "https://www.starwars.com/films/star-wars-episode-ii-attack-of-the-clones",
+      "originalSourceUrl": "https://lumiere-a.akamaihd.net/v1/images/EP2-IA-69221-RESIZED_1e8e0971.jpeg",
+      "useBasis": "User-authorized personal noncommercial fan atlas; underlying rights retained by their owners.",
+      "retrievedAt": "2026-11-09T22:32:32.784Z",
+      "pageSha256": "820fef7ed98c5ef012d5d4a5fdb3a1c3bceb74edb4b9752906a98d0347f38b67",
+      "variants": [
+        {
+          "src": "/media/sources/8a6d7b2de4e1bbafb425b39bf07b0e07564a120f711dc38e2956882dc3112022.jpg",
+          "key": "sources/8a6d7b2de4e1bbafb425b39bf07b0e07564a120f711dc38e2956882dc3112022.jpg",
+          "sha256": "8a6d7b2de4e1bbafb425b39bf07b0e07564a120f711dc38e2956882dc3112022",
+          "bytes": 40616,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 472,
+          "width": 320
+        },
+        {
+          "src": "/media/sources/f159254420b31c6f2cc2e03d4b463d603b06ea82e1aaa4d6a8c9890a9fdfac7b.jpg",
+          "key": "sources/f159254420b31c6f2cc2e03d4b463d603b06ea82e1aaa4d6a8c9890a9fdfac7b.jpg",
+          "sha256": "f159254420b31c6f2cc2e03d4b463d603b06ea82e1aaa4d6a8c9890a9fdfac7b",
+          "bytes": 147742,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 944,
+          "width": 640
+        }
+      ]
+    },
+    {
+      "entityId": "pt-revenge-of-the-sith",
+      "entityType": "film",
+      "provider": "starwars",
+      "title": "Star Wars: Revenge of the Sith",
+      "src": "/media/sources/f70c482018578ee72737f3a8643a7d7f221374fde5ec16817a09700ab0dd2c1a.jpg",
+      "srcSet": "/media/sources/42af4949fe56cf23b7beddbc37a2c77f2fbbfbec37af8097fa3225d83c27bc05.jpg 320w, /media/sources/f70c482018578ee72737f3a8643a7d7f221374fde5ec16817a09700ab0dd2c1a.jpg 640w",
+      "credit": "Poster © Lucasfilm Ltd. / StarWars.com",
+      "sourceUrl": "https://www.starwars.com/films/star-wars-episode-iii-revenge-of-the-sith",
+      "originalSourceUrl": "https://lumiere-a.akamaihd.net/v1/images/image_ff356cdb.jpeg",
+      "useBasis": "User-authorized personal noncommercial fan atlas; underlying rights retained by their owners.",
+      "retrievedAt": "2026-11-09T22:32:37.039Z",
+      "pageSha256": "0e88df68d17a047dfd2faac8b88a3bfdb9060af72a36aa80583842da6891b11d",
+      "variants": [
+        {
+          "src": "/media/sources/42af4949fe56cf23b7beddbc37a2c77f2fbbfbec37af8097fa3225d83c27bc05.jpg",
+          "key": "sources/42af4949fe56cf23b7beddbc37a2c77f2fbbfbec37af8097fa3225d83c27bc05.jpg",
+          "sha256": "42af4949fe56cf23b7beddbc37a2c77f2fbbfbec37af8097fa3225d83c27bc05",
+          "bytes": 39034,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 472,
+          "width": 320
+        },
+        {
+          "src": "/media/sources/f70c482018578ee72737f3a8643a7d7f221374fde5ec16817a09700ab0dd2c1a.jpg",
+          "key": "sources/f70c482018578ee72737f3a8643a7d7f221374fde5ec16817a09700ab0dd2c1a.jpg",
+          "sha256": "f70c482018578ee72737f3a8643a7d7f221374fde5ec16817a09700ab0dd2c1a",
+          "bytes": 133505,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 944,
+          "width": 640
+        }
+      ]
+    },
+    {
+      "entityId": "clone-wars-film",
+      "entityType": "film",
+      "provider": "starwars",
+      "title": "Star Wars: The Clone Wars",
+      "src": "/media/sources/fd354cc6729a512f6085978f0fe973f97bb04a4c1e688b677cba55dbe3b53271.jpg",
+      "srcSet": "/media/sources/6c449e3ea87b73489ddd8dc291084b6f52dc20cd60acfc11ff08693dee7c8ba7.jpg 320w, /media/sources/fd354cc6729a512f6085978f0fe973f97bb04a4c1e688b677cba55dbe3b53271.jpg 640w",
+      "credit": "Poster © Lucasfilm Ltd. / StarWars.com",
+      "sourceUrl": "https://www.starwars.com/films/star-wars-the-clone-wars",
+      "originalSourceUrl": "https://lumiere-a.akamaihd.net/v1/images/star-wars-the-clone-wars-poster_eca245da.jpeg",
+      "useBasis": "User-authorized personal noncommercial fan atlas; underlying rights retained by their owners.",
+      "retrievedAt": "2026-11-09T22:32:41.716Z",
+      "pageSha256": "6f9966fc913a49b9cfd54a71486065e8aeacc8d34ca0a272edc8378cf8014c6d",
+      "variants": [
+        {
+          "src": "/media/sources/6c449e3ea87b73489ddd8dc291084b6f52dc20cd60acfc11ff08693dee7c8ba7.jpg",
+          "key": "sources/6c449e3ea87b73489ddd8dc291084b6f52dc20cd60acfc11ff08693dee7c8ba7.jpg",
+          "sha256": "6c449e3ea87b73489ddd8dc291084b6f52dc20cd60acfc11ff08693dee7c8ba7",
+          "bytes": 55797,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 480,
+          "width": 320
+        },
+        {
+          "src": "/media/sources/fd354cc6729a512f6085978f0fe973f97bb04a4c1e688b677cba55dbe3b53271.jpg",
+          "key": "sources/fd354cc6729a512f6085978f0fe973f97bb04a4c1e688b677cba55dbe3b53271.jpg",
+          "sha256": "fd354cc6729a512f6085978f0fe973f97bb04a4c1e688b677cba55dbe3b53271",
+          "bytes": 172764,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 960,
+          "width": 640
+        }
+      ]
+    },
+    {
+      "entityId": "st-force-awakens",
+      "entityType": "film",
+      "provider": "starwars",
+      "title": "Star Wars: The Force Awakens",
+      "src": "/media/sources/fcb838d8bd72c12515881ae058b90d90e95034dd56e2c6b38fdeb03522d11c68.jpg",
+      "srcSet": "/media/sources/8cdb56870b008568dd282095be80c5a775c777649f3b2a4986948180668515e6.jpg 320w, /media/sources/fcb838d8bd72c12515881ae058b90d90e95034dd56e2c6b38fdeb03522d11c68.jpg 640w",
+      "credit": "Poster © Lucasfilm Ltd. / StarWars.com",
+      "sourceUrl": "https://www.starwars.com/films/star-wars-episode-vii-the-force-awakens",
+      "originalSourceUrl": "https://lumiere-a.akamaihd.net/v1/images/avco_payoff_1-sht_v7_lg_32e68793.jpeg",
+      "useBasis": "User-authorized personal noncommercial fan atlas; underlying rights retained by their owners.",
+      "retrievedAt": "2026-11-09T22:32:46.758Z",
+      "pageSha256": "b67796938246f2193b9cedad47de0fa0c70b312ad1e94f64ef5402ebcab65bbc",
+      "variants": [
+        {
+          "src": "/media/sources/8cdb56870b008568dd282095be80c5a775c777649f3b2a4986948180668515e6.jpg",
+          "key": "sources/8cdb56870b008568dd282095be80c5a775c777649f3b2a4986948180668515e6.jpg",
+          "sha256": "8cdb56870b008568dd282095be80c5a775c777649f3b2a4986948180668515e6",
+          "bytes": 54957,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 474,
+          "width": 320
+        },
+        {
+          "src": "/media/sources/fcb838d8bd72c12515881ae058b90d90e95034dd56e2c6b38fdeb03522d11c68.jpg",
+          "key": "sources/fcb838d8bd72c12515881ae058b90d90e95034dd56e2c6b38fdeb03522d11c68.jpg",
+          "sha256": "fcb838d8bd72c12515881ae058b90d90e95034dd56e2c6b38fdeb03522d11c68",
+          "bytes": 203105,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 948,
+          "width": 640
+        }
+      ]
+    },
+    {
+      "entityId": "rogue-one",
+      "entityType": "film",
+      "provider": "starwars",
+      "title": "Rogue One: A Star Wars Story",
+      "src": "/media/sources/0d3725769d3e48d099caf8df6141396180465781f7bfac4cdcf2f4a75d36de67.jpg",
+      "srcSet": "/media/sources/10a328ac3f0db223801bd614c2d84d3e2723b2bbb6e3fe8a61b72148fd583642.jpg 320w, /media/sources/0d3725769d3e48d099caf8df6141396180465781f7bfac4cdcf2f4a75d36de67.jpg 640w",
+      "credit": "Poster © Lucasfilm Ltd. / StarWars.com",
+      "sourceUrl": "https://www.starwars.com/films/rogue-one",
+      "originalSourceUrl": "https://lumiere-a.akamaihd.net/v1/images/5adfd0618fdfb900016b5ca6-image_64bc2f8e.jpeg",
+      "useBasis": "User-authorized personal noncommercial fan atlas; underlying rights retained by their owners.",
+      "retrievedAt": "2026-11-09T22:32:51.959Z",
+      "pageSha256": "4d357fa8578aaac248275c945ed8fa32f55238e83a5a1f9a2b265acbd99963a9",
+      "variants": [
+        {
+          "src": "/media/sources/10a328ac3f0db223801bd614c2d84d3e2723b2bbb6e3fe8a61b72148fd583642.jpg",
+          "key": "sources/10a328ac3f0db223801bd614c2d84d3e2723b2bbb6e3fe8a61b72148fd583642.jpg",
+          "sha256": "10a328ac3f0db223801bd614c2d84d3e2723b2bbb6e3fe8a61b72148fd583642",
+          "bytes": 44952,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 474,
+          "width": 320
+        },
+        {
+          "src": "/media/sources/0d3725769d3e48d099caf8df6141396180465781f7bfac4cdcf2f4a75d36de67.jpg",
+          "key": "sources/0d3725769d3e48d099caf8df6141396180465781f7bfac4cdcf2f4a75d36de67.jpg",
+          "sha256": "0d3725769d3e48d099caf8df6141396180465781f7bfac4cdcf2f4a75d36de67",
+          "bytes": 162096,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 948,
+          "width": 640
+        }
+      ]
+    },
+    {
+      "entityId": "st-last-jedi",
+      "entityType": "film",
+      "provider": "starwars",
+      "title": "Star Wars: The Last Jedi",
+      "src": "/media/sources/2a1815ac309cc6398e91307349e3f60c23d5f64cc2c2a4b416a14308d784ca81.jpg",
+      "srcSet": "/media/sources/5f133c5195a3fd6ab912ab4556de242a92871ce823cb4c76dd6028e04ad23e90.jpg 320w, /media/sources/2a1815ac309cc6398e91307349e3f60c23d5f64cc2c2a4b416a14308d784ca81.jpg 640w",
+      "credit": "Poster © Lucasfilm Ltd. / StarWars.com",
+      "sourceUrl": "https://www.starwars.com/films/star-wars-episode-viii-the-last-jedi",
+      "originalSourceUrl": "https://lumiere-a.akamaihd.net/v1/images/sb_teaser2_1-sht_v3a_online_lg_86f89198.jpeg",
+      "useBasis": "User-authorized personal noncommercial fan atlas; underlying rights retained by their owners.",
+      "retrievedAt": "2026-11-09T22:32:56.847Z",
+      "pageSha256": "1e78e9626767ff9d82db0c3342d4fab3509c764e80ab7844bb297ac3688f66ef",
+      "variants": [
+        {
+          "src": "/media/sources/5f133c5195a3fd6ab912ab4556de242a92871ce823cb4c76dd6028e04ad23e90.jpg",
+          "key": "sources/5f133c5195a3fd6ab912ab4556de242a92871ce823cb4c76dd6028e04ad23e90.jpg",
+          "sha256": "5f133c5195a3fd6ab912ab4556de242a92871ce823cb4c76dd6028e04ad23e90",
+          "bytes": 18889,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 474,
+          "width": 320
+        },
+        {
+          "src": "/media/sources/2a1815ac309cc6398e91307349e3f60c23d5f64cc2c2a4b416a14308d784ca81.jpg",
+          "key": "sources/2a1815ac309cc6398e91307349e3f60c23d5f64cc2c2a4b416a14308d784ca81.jpg",
+          "sha256": "2a1815ac309cc6398e91307349e3f60c23d5f64cc2c2a4b416a14308d784ca81",
+          "bytes": 65264,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 948,
+          "width": 640
+        }
+      ]
+    },
+    {
+      "entityId": "solo",
+      "entityType": "film",
+      "provider": "starwars",
+      "title": "Solo: A Star Wars Story",
+      "src": "/media/sources/d2d1c7ef177fe7f2525ac29cc5e8c89922aec6c37661ac1d0a551419e8b17bee.jpg",
+      "srcSet": "/media/sources/d5cb29b29c5b93cda2152b6372a6b027fb785d84fb8a915d041c8face20ae882.jpg 320w, /media/sources/d2d1c7ef177fe7f2525ac29cc5e8c89922aec6c37661ac1d0a551419e8b17bee.jpg 640w",
+      "credit": "Poster © Lucasfilm Ltd. / StarWars.com",
+      "sourceUrl": "https://www.starwars.com/films/solo",
+      "originalSourceUrl": "https://lumiere-a.akamaihd.net/v1/images/solo-theatrical-poster_f98a86eb_62fc4b3c.jpeg",
+      "useBasis": "User-authorized personal noncommercial fan atlas; underlying rights retained by their owners.",
+      "retrievedAt": "2026-11-09T22:33:01.385Z",
+      "pageSha256": "5ed597101ee6b389402c7b4e6aef5856562f5338cd963ec08d37d415da0448f4",
+      "variants": [
+        {
+          "src": "/media/sources/d5cb29b29c5b93cda2152b6372a6b027fb785d84fb8a915d041c8face20ae882.jpg",
+          "key": "sources/d5cb29b29c5b93cda2152b6372a6b027fb785d84fb8a915d041c8face20ae882.jpg",
+          "sha256": "d5cb29b29c5b93cda2152b6372a6b027fb785d84fb8a915d041c8face20ae882",
+          "bytes": 32459,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 474,
+          "width": 320
+        },
+        {
+          "src": "/media/sources/d2d1c7ef177fe7f2525ac29cc5e8c89922aec6c37661ac1d0a551419e8b17bee.jpg",
+          "key": "sources/d2d1c7ef177fe7f2525ac29cc5e8c89922aec6c37661ac1d0a551419e8b17bee.jpg",
+          "sha256": "d2d1c7ef177fe7f2525ac29cc5e8c89922aec6c37661ac1d0a551419e8b17bee",
+          "bytes": 97091,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 948,
+          "width": 640
+        }
+      ]
+    },
+    {
+      "entityId": "st-rise-of-skywalker",
+      "entityType": "film",
+      "provider": "starwars",
+      "title": "Star Wars: The Rise of Skywalker",
+      "src": "/media/sources/ae74588f7cb037a3b61f3b914dbd71aca859e61b3b10b1ef441fc46ee10cbc95.jpg",
+      "srcSet": "/media/sources/1c5c232f499e654585dd2978e9a4f7421adfa21fac7c1d72d53dee02730ca392.jpg 320w, /media/sources/ae74588f7cb037a3b61f3b914dbd71aca859e61b3b10b1ef441fc46ee10cbc95.jpg 640w",
+      "credit": "Poster © Lucasfilm Ltd. / StarWars.com",
+      "sourceUrl": "https://www.starwars.com/films/star-wars-episode-ix-the-rise-of-skywalker",
+      "originalSourceUrl": "https://lumiere-a.akamaihd.net/v1/images/the-rise-of-skywalker-films-poster-catalog_c46adc71.jpeg",
+      "useBasis": "User-authorized personal noncommercial fan atlas; underlying rights retained by their owners.",
+      "retrievedAt": "2026-11-09T22:33:05.235Z",
+      "pageSha256": "2742b2d17227eb88f2bffa1cb7ce95ffcc484615082fad6f5fd97b890bd7146e",
+      "variants": [
+        {
+          "src": "/media/sources/1c5c232f499e654585dd2978e9a4f7421adfa21fac7c1d72d53dee02730ca392.jpg",
+          "key": "sources/1c5c232f499e654585dd2978e9a4f7421adfa21fac7c1d72d53dee02730ca392.jpg",
+          "sha256": "1c5c232f499e654585dd2978e9a4f7421adfa21fac7c1d72d53dee02730ca392",
+          "bytes": 49139,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 480,
+          "width": 320
+        },
+        {
+          "src": "/media/sources/ae74588f7cb037a3b61f3b914dbd71aca859e61b3b10b1ef441fc46ee10cbc95.jpg",
+          "key": "sources/ae74588f7cb037a3b61f3b914dbd71aca859e61b3b10b1ef441fc46ee10cbc95.jpg",
+          "sha256": "ae74588f7cb037a3b61f3b914dbd71aca859e61b3b10b1ef441fc46ee10cbc95",
+          "bytes": 139011,
+          "mime": "image/jpeg",
+          "extension": "jpg",
+          "height": 960,
+          "width": 640
+        }
+      ]
+    }
+  ]
+}

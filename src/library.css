@@ -176,3 +176,19 @@
 @media (max-width: 370px) {
   .library-select-controls { grid-template-columns: 1fr; gap: 8px; }
 }
+
+/* Real artwork keeps its own proportions; poster lettering is never cropped. */
+.catalog-cover { margin: 0; flex: 0 0 auto; width: 104px; align-self: center; min-width: 0; }
+.catalog-cover img { display: block; width: 100%; height: auto; aspect-ratio: 2 / 3; object-fit: contain; background: #03080d; border: 1px solid #91bbd32b; border-radius: 5px; box-shadow: 0 6px 18px #0005; }
+.catalog-cover-still { width: 160px; }
+.catalog-cover-still img { aspect-ratio: 16 / 9; object-fit: cover; }
+.catalog-cover figcaption { margin-top: 6px; font-size: 9px; line-height: 1.5; color: #adc3d2; }
+.catalog-cover a { display: inline-flex; align-items: center; min-height: 28px; color: inherit; text-decoration: none; }
+.catalog-cover a:hover { color: #e4f5ff; text-decoration: underline; }
+.catalog-cover a:focus-visible { outline: 2px solid #b6e9fa; outline-offset: 3px; }
+@media (max-width: 720px) {
+  .catalog-cover { width: 64px; align-self: flex-start; }
+  .catalog-cover-still { width: 88px; }
+  .catalog-cover figcaption { font-size: 8px; }
+  .catalog-cover a { min-height: 36px; }
+}

@@ -1,0 +1,12 @@
+{
+  "base": "http://localhost:4187",
+  "checkedAt": "2026-11-09T22:37:53.198Z",
+  "checks": [
+    "All 327 records resolve to film artwork, an episode still or a labeled series poster; all 24 film derivatives delivered with exact hashes",
+    "Decoded all 12 film posters and a real image from each of eight series in the browser",
+    "1440px default artwork decoded, labeled sources, no horizontal overflow or changed watch progress",
+    "390px default artwork decoded, labeled sources, no horizontal overflow or changed watch progress",
+    "320px default artwork decoded, labeled sources, no horizontal overflow or changed watch progress",
+    "Episode-load failure falls back to series art; optional protection uses series posters; both missing preserves usable typographic fallback"
+  ]
+}

@@ -155,7 +155,9 @@
     "ingest:character-art": "node scripts/ingest-character-art.mjs",
     "test:content-visibility": "node scripts/test-content-visibility.mjs",
     "test:databank-guides": "node scripts/test-databank-guides.mjs",
-    "test:databank-guide-ui": "node scripts/test-databank-guide-ui.mjs"
+    "test:databank-guide-ui": "node scripts/test-databank-guide-ui.mjs",
+    "test:library-covers": "node scripts/test-library-covers.mjs",
+    "ingest:film-covers": "node scripts/ingest-film-covers.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",
