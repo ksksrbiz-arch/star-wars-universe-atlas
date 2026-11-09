@@ -1,6 +1,7 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { writeFile } from 'node:fs/promises';
+import { openMapSettings, closeMapSettings } from './lib-ui.mjs';
 
 const browser = await chromium.launch({ args: ['--enable-unsafe-swiftshader'] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1050 } });
@@ -24,14 +25,18 @@ try {
   await page.clock.install();
   await page.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#galaxy");
   await page.locator('canvas').waitFor();
+  await openMapSettings(page);
   await page.getByRole('combobox', { name: 'Graphics quality' }).selectOption('balanced');
+  await closeMapSettings(page); // the open settings panel overlays map controls
   const initial = await current();
   // Freeze travel time while scheduling controls; advance frames explicitly for partial warps.
   await page.clock.pauseAt(await page.evaluate(() => Date.now() + 1000));
   for (let i = 0; i < 3; i++) {
     stage = `cancel cycle ${i + 1}`;
     await start('Alderaan');
+    await openMapSettings(page);
     assert.equal(await page.getByRole('combobox', { name: 'Graphics quality' }).isDisabled(), true);
+    await closeMapSettings(page);
     await page.clock.runFor(150);
     await page.getByRole('button', { name: 'Cancel', exact: true }).click();
     await settled();
@@ -68,14 +73,18 @@ try {
   checks.push('Enabling reduced motion mid-warp settles immediately; the old animation cannot produce a delayed second arrival.');
 
   stage = 'cinematic quality and resize';
+  await openMapSettings(page);
   await page.getByRole('combobox', { name: 'Graphics quality' }).selectOption('cinematic');
+  await closeMapSettings(page); // the open settings panel overlays map controls
   await start('Yavin 4');
   await page.setViewportSize({ width: 390, height: 844 });
   await page.clock.runFor(100);
   await page.setViewportSize({ width: 844, height: 390 });
   await page.clock.resume();
   await waitCurrent('Yavin 4'); await settled();
+  await openMapSettings(page);
   assert.equal(await page.getByRole('combobox', { name: 'Graphics quality' }).isEnabled(), true);
+  await closeMapSettings(page);
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
   await page.setViewportSize({ width: 1440, height: 1050 });
   await page.getByRole('button', { name: 'Return to previous world', exact: true }).click();

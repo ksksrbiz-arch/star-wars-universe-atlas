@@ -1,6 +1,7 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
+import { openMapSettings, closeMapSettings } from './lib-ui.mjs';
 
 await mkdir('evidence', { recursive: true });
 const browser = await chromium.launch({ args: ['--enable-unsafe-swiftshader'] });
@@ -27,6 +28,7 @@ try {
     await page.goto(process.env.ATLAS_URL || 'http://localhost:4173');
     await page.getByRole('button',{name:'Explore Hoth',exact:true}).waitFor();
     assert.equal(await page.locator('canvas').count(),1);
+    await openMapSettings(page);
     const quality = page.getByLabel('Graphics quality');
     assert.equal(await quality.inputValue(),mobile ? 'balanced' : 'cinematic');
     const idle = {};
@@ -34,12 +36,19 @@ try {
       await quality.selectOption(value);
       assert.equal(await page.locator('.map-stage').getAttribute('data-quality'),value);
       await page.waitForTimeout(2500);
-      const before = await page.evaluate(() => window.__drawCalls);
-      await page.waitForTimeout(600);
-      idle[value] = (await page.evaluate(() => window.__drawCalls)) - before;
+      // Software WebGL can need several seconds to finish the post-switch settle. Measure
+      // consecutive 600ms windows; the assertion below still requires a fully idle window,
+      // so a map that never stops drawing keeps failing after the bounded settle period.
+      for (let attempt = 0; attempt < 12; attempt++) {
+        const before = await page.evaluate(() => window.__drawCalls);
+        await page.waitForTimeout(600);
+        idle[value] = (await page.evaluate(() => window.__drawCalls)) - before;
+        if (idle[value] === 0) break;
+      }
       assert.equal(idle[value],0,`${mode}/${value}: settled idle must not keep drawing`);
     }
     if (mobile) await quality.selectOption('balanced');
+    await closeMapSettings(page); // the open settings panel overlays map markers
     await page.screenshot({path:`evidence/visual-graphics-${mode}-map.png`});
     await page.getByRole('button',{name:'Explore Hoth',exact:true}).click();
     if (mode !== 'reduced') await page.clock.pauseAt(await page.evaluate(() => Date.now() + 1000));
@@ -60,7 +69,10 @@ try {
       assert.equal(await page.locator('canvas').count(),1);
       await page.screenshot({path:`evidence/visual-graphics-${mode}-warp.png`});
       await page.clock.resume();
-      await page.waitForTimeout(2200);
+      // The cinematic flight runs 4.2s, longer than the old fixed 800+2200ms; wait for the actual arrival.
+      await page.locator('.transit-panel').waitFor({ state: 'detached' });
+      // Arrival leaves the camera zoomed on the destination; reset to the overview so the origin marker is reachable.
+      await page.getByRole('button',{name:'Reset map view',exact:true}).click();
       await page.getByRole('button',{name:'Explore Tatooine',exact:true}).click();
       await page.clock.pauseAt(await page.evaluate(() => Date.now() + 1000));
       await page.getByRole('button',{name:'Jump to Tatooine',exact:true}).first().click();
@@ -68,6 +80,8 @@ try {
       await page.getByRole('button',{name:'Cancel',exact:true}).click();
       await page.clock.runFor(100);
       assert.equal(await page.locator('.current-location strong').textContent(),'Hoth');
+      // Arrival leaves the camera zoomed on the destination; reset to the overview so the origin marker is reachable.
+      await page.getByRole('button',{name:'Reset map view',exact:true}).click();
       await page.getByRole('button',{name:'Explore Tatooine',exact:true}).click();
       await page.getByRole('button',{name:'Jump to Tatooine',exact:true}).first().click();
       await page.clock.runFor(200);
