@@ -1,6 +1,7 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
+import { openMapSettings } from './lib-ui.mjs';
 
 const base = process.env.ATLAS_URL || 'http://localhost:4173';
 const output = process.env.ATLAS_EVIDENCE_DIR || 'work/audit-shell';
@@ -23,17 +24,23 @@ try {
       const rect=element.getBoundingClientRect();return {width:rect.width,height:rect.height};
     }));
     assert((await bounds('.map-tools button')).every(rect=>rect.width>=44&&rect.height>=44));
+    await openMapSettings(page);
     await page.getByLabel('Find a mapped world').selectOption('hoth');
     assert((await bounds('.map-jump-bar button')).every(rect=>rect.height>=44));
     await page.clock.pauseAt(await page.evaluate(()=>Date.now()+1000));
     await page.getByRole('button',{name:'Jump to Hoth',exact:true}).first().click();
     await page.clock.runFor(500);
     assert((await bounds('.transit-panel button')).every(rect=>rect.width>=44&&rect.height>=44),'Cancel and Skip need usable touch targets');
-    assert.equal(await page.locator('.warp-progress span').evaluate(element=>getComputedStyle(element).animationName),'warp-progress');
+    // The transit HUD drives its progress bar from JS (scaleX follows progress), not a CSS animation.
+    const hudProgress=()=>page.locator('.transit-hud-track span').evaluate(element=>new DOMMatrix(getComputedStyle(element).transform).a);
+    const progressBefore=await hudProgress();
+    await page.clock.runFor(700);
+    assert((await hudProgress())>progressBefore,'Warp progress must advance while the transit HUD is shown');
     await page.locator('.map-stage').screenshot({path:`${output}/travel-${width}.png`});
     await page.getByRole('button',{name:'Skip animation',exact:true}).click();
     assert.equal(await page.locator('.current-location strong').innerText(),'Hoth');
     await page.getByRole('switch',{name:'Reduce motion'}).click();
+    await openMapSettings(page);
     await page.getByLabel('Find a mapped world').selectOption('tatooine');
     await page.getByRole('button',{name:'Jump to Tatooine',exact:true}).first().click();
     assert.equal(await page.locator('.current-location strong').innerText(),'Tatooine');
