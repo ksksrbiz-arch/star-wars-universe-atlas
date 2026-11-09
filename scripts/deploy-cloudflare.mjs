@@ -18,7 +18,7 @@ export const contentTypes={
 export function contentTypeFor(file){return contentTypes[path.extname(file).toLowerCase()]||'application/octet-stream';}
 
 // Policy derived from the built dist/: one same-origin module script and stylesheet, React inline style attributes,
-// a Google Fonts @import in the stylesheet, same-origin WebP/JPEG textures loaded by three.js (fetch/ImageBitmap, possibly blob: URLs),
+// the Google Fonts stylesheet <link> in index.html (fonts.googleapis.com / fonts.gstatic.com), same-origin WebP/JPEG textures loaded by three.js (fetch/ImageBitmap, possibly blob: URLs),
 // data:/blob: images, and no inline scripts, iframes, plugins or third-party network calls.
 export const contentSecurityPolicy=[
   "default-src 'self'",
