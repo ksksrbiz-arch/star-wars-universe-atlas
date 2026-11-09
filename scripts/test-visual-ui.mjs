@@ -1,13 +1,13 @@
-import{chromium}from'playwright';import assert from'node:assert/strict';import{writeFile}from'node:fs/promises';
+import{chromium}from'playwright';import assert from'node:assert/strict';import{writeFile}from'node:fs/promises';import{expandPanel}from'./lib-journey-ui.mjs';
 const b=await chromium.launch({args:['--enable-unsafe-swiftshader']});const p=await b.newPage({viewport:{width:390,height:844},reducedMotion:'no-preference'});const errors=[],checks=[];p.on('pageerror',e=>errors.push(e.message));
 try{
-await p.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#journey/andor-s01e01");await p.getByRole('switch',{name:'Reduce motion'}).click();
+await p.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#journey/andor-s01e01");await expandPanel(p);await p.getByRole('switch',{name:'Reduce motion'}).click();
 assert.equal(await p.getByRole('switch',{name:'Reduce motion'}).getAttribute('aria-checked'),'true');
 await p.getByRole('button',{name:'Next story chapter'}).focus();await p.keyboard.press('Enter');
 assert.equal(await p.evaluate(()=>document.activeElement?.getAttribute('aria-label')),'Next story chapter');assert.equal(await p.locator('.journey-current h2').count(),1);
 const sample=async selector=>p.evaluate(async selector=>{const samples=[];for(let i=0;i<12;i++){await new Promise(requestAnimationFrame);samples.push([...document.querySelectorAll(selector)].map(e=>getComputedStyle(e).transform));}return samples},selector);
 const journeyTransforms=await sample('.journey-current>div:first-child');assert.ok(journeyTransforms.flat().every(t=>t==='none'||t==='matrix(1, 0, 0, 1, 0, 0)'),JSON.stringify(journeyTransforms));checks.push('Manual reduced motion suppresses chapter transforms; keyboard Next retains focus; one current heading');
-await p.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#journey/andor-s01e01");await p.getByRole('button',{name:'Reveal locations for this title'}).focus();await p.keyboard.press('Enter');
+await p.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#journey/andor-s01e01");await expandPanel(p);await p.getByRole('button',{name:'Reveal locations for this title'}).focus();await p.keyboard.press('Enter');
 for(const width of [1440,390,320]){await p.setViewportSize({width,height:1000});assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));if(width!==320)await p.screenshot({path:`evidence/visual-ui-journey-${width}.png`,fullPage:true});}
 await p.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "/#library");await p.getByRole('textbox',{name:'Search films and episodes'}).fill('Andor');
 const libraryTransforms=await sample('.catalog-item');assert.ok(libraryTransforms.flat().every(t=>t==='none'||t==='matrix(1, 0, 0, 1, 0, 0)'),JSON.stringify(libraryTransforms));
