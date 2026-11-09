@@ -1,5 +1,6 @@
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
+import { expandPanel } from './lib-journey-ui.mjs';
 const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
 const base=process.env.ATLAS_URL||'http://localhost:4173';
 try {
@@ -18,7 +19,7 @@ try {
   assert.equal(await guide.getByLabel('Journey collection').inputValue(),'ot');
   await guide.getByRole('button',{name:'Dismiss guide'}).click();assert.equal(await guide.getAttribute('open'),null);assert.equal(await summary.evaluate(e=>document.activeElement===e),true);
   await summary.click();await guide.getByLabel('Journey collection').selectOption('clone-wars');await guide.getByRole('button',{name:'Choose starting point →'}).click();await guide.getByRole('link',{name:'Open chapter →'}).click();
-  await page.locator('.journey-current h2').waitFor();assert.match(await page.locator('.journey-current h2').innerText(),/Cat and Mouse/);assert.equal(await page.locator('.journey-stop').count(),0,'Guide must not reveal locations');
+  await expandPanel(page);await page.locator('.journey-current h2').waitFor();assert.match(await page.locator('.journey-current h2').innerText(),/Cat and Mouse/);assert.equal(await page.locator('.journey-stop').count(),0,'Guide must not reveal locations');
   assert.equal(await page.evaluate(()=>localStorage.getItem('galactic-atlas.watch.v1')),before,'Guide must not modify watch progress');
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);assert.deepEqual(errors,[]);await page.close();
  }
