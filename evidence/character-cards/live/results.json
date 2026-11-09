@@ -36,5 +36,11 @@
     "startedAt": "2026-11-09T21:45:36.311Z",
     "completedAt": "2026-11-09T21:45:38.835Z",
     "status": "complete"
+  },
+  "visualEvidence": {
+    "renderer": "Chromium software rasterization (--disable-gpu)",
+    "imageDecodeAwaited": true,
+    "fontReadinessAwaited": true,
+    "reason": "SwiftShader headless screenshots intermittently omitted raster/text layers despite valid DOM geometry and image decode; final captures use stable software rasterization."
   }
 }
