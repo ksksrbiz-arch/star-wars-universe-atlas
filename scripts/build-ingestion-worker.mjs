@@ -1,0 +1,2 @@
+import { build } from 'esbuild';
+await build({ entryPoints: ['cloudflare/ingestion-worker.mjs'], outfile: 'dist-worker/ingestion-worker.mjs', bundle: true, platform: 'node', conditions: ['workerd'], format: 'esm', target: 'es2022', external: ['pg-native', 'cloudflare:*'], banner: { js: "import { createRequire } from 'node:module'; const require = createRequire(import.meta.url || 'file:///ingestion-worker.mjs');" }, minify: true });

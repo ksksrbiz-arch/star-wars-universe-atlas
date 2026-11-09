@@ -9,5 +9,8 @@
   "hyperdriveId": "deaad056eda2484fb6a15537a923676e",
   "databaseProject": "young-hall-18334569",
   "databaseBranch": "br-bitter-violet-ak7la0ve",
-  "databaseName": "atlas"
+  "databaseName": "atlas",
+  "ingestionWorkerName": "star-wars-atlas-ingestion",
+  "ingestionHyperdriveId": "5e8308659b7d44489bce305a4c7cbaee",
+  "ingestionCron": "*/15 * * * *"
 }

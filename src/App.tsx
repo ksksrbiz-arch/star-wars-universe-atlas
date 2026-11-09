@@ -6,6 +6,7 @@ import ImmersiveDossier from './ImmersiveDossier';
 import AtlasHero from './AtlasHero';
 import AtlasAudio from './AtlasAudio';
 import PlanetPortrait from './PlanetPortrait';
+import SourceMedia from './SourceMedia';
 import { WORLD_TERRAIN } from './worldDossiers';
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { motion, MotionConfig } from 'motion/react';
@@ -426,6 +427,7 @@ export default function App() {
           <motion.div key={`title-${preview.id}`} initial={{opacity:0,x:8}} animate={{opacity:1,x:0}} className="world-title"><span className="world-region">{preview.region}</span><h2>{preview.name}</h2><p>{detail.subtitle}</p></motion.div>
 
           <p className="world-description">{preview.description}</p>
+          <SourceMedia key={`source-${preview.id}`} entityId={preview.id} entityType="world" title={preview.name}/>
 
           <dl className="world-facts"><div><dt>GRID REFERENCE</dt><dd>{preview.grid}<span>Official atlas</span></dd></div><div><dt>LANDSCAPE</dt><dd>{detail.terrain}<span>{detail.kind}</span></dd></div></dl>
 

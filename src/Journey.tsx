@@ -14,6 +14,7 @@ import { STORY_SEQUENCES, STORY_CONNECTIONS } from './chronology';
 import { ALL_WORLDS } from './journeyWorlds';
 
 import './journey.css';
+import SourceMedia from './SourceMedia';
 
 const CONTEXT_LABELS = {surface: 'Surface setting', orbit: 'Orbital setting', flashback: 'Flashback', vision: 'Vision', destruction: 'Destruction scene'};
 
@@ -172,6 +173,8 @@ export default function Journey({ onInspectLocation, onLocationDisclosure, watch
         <div className="journey-current"><motion.div key={item.id} initial={reduceMotion ? false : { opacity: 0, y: 7 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : .22, ease: "easeOut" }}><span className="journey-item-meta">{item.kind === 'film' ? 'FEATURE FILM' : `SEASON ${item.season} · EPISODE${item.episodeEnd ? 'S' : ''} ${episodeRange(item)}`}</span><h2>{item.title}</h2><span className={`journey-watch-status ${isWatched ? 'is-watched' : ''}`}>{isWatched ? <Check size={12}/> : <span className="journey-empty-dot"/>}{isWatched ? 'Watched' : 'Not marked watched'}</span></motion.div><div className="journey-step-controls"><button disabled={index === 0} aria-label="Previous story chapter" onClick={() => selectItem(items[index - 1].id)}><ArrowLeft size={19}/></button><button disabled={index === items.length - 1} aria-label="Next story chapter" onClick={() => selectItem(items[index + 1].id)}><ArrowRight size={19}/></button></div></div>
 
 
+
+        {item.kind === 'episode' && <SourceMedia key={item.id} entityId={item.id} entityType="episode" title={item.title} revealed={showLocations}/>}
 
         <div className="journey-watch-actions">
           {onToggleWatched && <><button className="journey-complete" onClick={completeChapter}><Check size={15}/>{isWatched ? (index < items.length - 1 ? 'Continue to next chapter' : 'Confirm collection progress') : (index < items.length - 1 ? 'Mark watched & continue' : 'Mark final chapter watched')}</button>{isWatched && <button className="journey-unwatch" onClick={() => { onToggleWatched(item.id); setProgressMessage(`${item.title} marked unwatched.`); }}>Mark unwatched</button>}</>}

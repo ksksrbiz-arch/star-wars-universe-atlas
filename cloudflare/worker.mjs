@@ -7,6 +7,7 @@ const publicQueries = {
   '/api/sequences': 'SELECT payload FROM atlas_sequences ORDER BY id',
   '/api/regions': "SELECT payload FROM atlas_map_layers WHERE kind='region' ORDER BY id",
   '/api/routes': "SELECT payload FROM atlas_map_layers WHERE kind='route' ORDER BY id",
+  '/api/media-index': 'SELECT payload FROM atlas_media_public ORDER BY canonical_type,canonical_id,provider',
 };
 const json = (body, status=200, cache='no-store') => Response.json(body,{status,headers:{'Cache-Control':cache,'X-Content-Type-Options':'nosniff'}});
 
@@ -17,6 +18,19 @@ const mediaSecurity = {...nosniff,'Content-Security-Policy':"default-src 'none';
 const mediaError = (body, status, extra={}) => new Response(body,{status,headers:{...mediaSecurity,...extra}});
 // Reject only real traversal: a '..' path segment (either separator style) in the decoded key.
 const hasTraversal = key => key.split(/[\\/]/).includes('..');
+
+export function databankParameters(url) {
+  const type=url.searchParams.get('type')||null;
+  const q=(url.searchParams.get('q')||'').trim();
+  const offsetText=url.searchParams.get('offset')??'0',limitText=url.searchParams.get('limit')??'30';
+  if(type&&!['location','character'].includes(type)||q.length>100||!/^\d+$/.test(offsetText)||!/^\d+$/.test(limitText))return null;
+  const offset=Number(offsetText),limit=Number(limitText);
+  return offset<=100000&&limit>=1&&limit<=100?{type,q,offset,limit}:null;
+}
+const databankQuery = `WITH filtered AS (SELECT provider,provider_id,name,payload FROM atlas_databank_public
+ WHERE ($1::text IS NULL OR entity_type=$1) AND ($2::text='' OR strpos(lower(name),lower($2))>0))
+ SELECT (SELECT count(*)::int FROM filtered) AS total,
+ COALESCE((SELECT jsonb_agg(payload) FROM (SELECT payload FROM filtered ORDER BY lower(name),provider,provider_id LIMIT $3 OFFSET $4) page),'[]'::jsonb) AS items`;
 
 function failedPrecondition(headers, object) {
   const match = headers.get('If-Match');
@@ -34,10 +48,12 @@ export default {
 };
 
 async function handleRequest(request, env, ctx) {
-    const path = new URL(request.url).pathname;
+    const url = new URL(request.url),path=url.pathname;
     if (!['GET','HEAD'].includes(request.method)) return plain('Method not allowed',405,{Allow:'GET, HEAD'});
     if (path.startsWith('/api/')) {
-      if (path !== '/api/health' && !publicQueries[path]) return json({error:'Not found'},404);
+      if (path !== '/api/health' && path !== '/api/databank' && !publicQueries[path]) return json({error:'Not found'},404);
+      const parameters=path==='/api/databank'?databankParameters(url):null;
+      if(path==='/api/databank'&&!parameters)return json({error:'Invalid Databank filters'},400);
       let client;
       try {
         client = new Client({connectionString:env.HYPERDRIVE.connectionString,connectionTimeoutMillis:10000,query_timeout:10000});
@@ -45,6 +61,11 @@ async function handleRequest(request, env, ctx) {
         if (path === '/api/health') {
           const result=await client.query('SELECT (SELECT count(*)::int FROM atlas_works) AS works,(SELECT count(*)::int FROM atlas_worlds) AS worlds,(SELECT count(*)::int FROM atlas_appearances) AS appearances');
           return json({status:'ok',database:'connected',...result.rows[0]});
+        }
+        if(path==='/api/databank'){
+          const {type,q,offset,limit}=parameters;
+          const result=await client.query(databankQuery,[type,q,limit,offset]);
+          return json({...result.rows[0],offset,limit},200,'public, max-age=60, s-maxage=300');
         }
         const result=await client.query(publicQueries[path]);
         return json({items:result.rows.map(row=>row.payload)},200,'public, max-age=60, s-maxage=300');

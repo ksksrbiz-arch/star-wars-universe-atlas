@@ -141,7 +141,16 @@
     "test:planet-appearance": "node scripts/test-planet-appearance.mjs",
     "test:planet-renderer": "node scripts/test-planet-renderer.mjs",
     "test:planet-artwork": "node scripts/test-planet-artwork.mjs",
-    "test:orbit-viewer": "node scripts/test-orbit-viewer.mjs"
+    "test:orbit-viewer": "node scripts/test-orbit-viewer.mjs",
+    "db:publish-ingestion": "node scripts/publish-ingestion.mjs --apply",
+    "db:check-ingestion": "node scripts/publish-ingestion.mjs",
+    "test:ingestion-publication": "node scripts/test-ingestion-publication.mjs",
+    "test:ingestion-worker": "node --test scripts/test-ingestion-worker.mjs",
+    "test:ingestion-ui": "node scripts/test-ingestion-ui.mjs",
+    "build:ingestion-worker": "node scripts/build-ingestion-worker.mjs",
+    "ingest:prepare-media": "node scripts/prepare-source-delivery.mjs",
+    "ingest:deliver-media": "node scripts/deliver-source-media.mjs",
+    "deploy:ingestion": "node scripts/build-ingestion-worker.mjs && node scripts/deploy-ingestion-cloudflare.mjs"
   },
   "dependencies": {
     "@react-three/drei": "10.7.9",
