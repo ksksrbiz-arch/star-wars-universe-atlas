@@ -14,6 +14,7 @@
     "preview": "vite preview --host 0.0.0.0",
     "check:icm": "node scripts/icm-check.mjs .",
     "test:ui": "node scripts/test-ui.mjs",
+    "test:qa-audit": "node scripts/test-qa-audit-fixes.mjs",
     "test:catalog": "node scripts/test-catalog.mjs",
     "test:platform": "node scripts/test-platform.mjs",
     "test:map": "node scripts/test-expanded-map.mjs",

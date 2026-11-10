@@ -214,8 +214,37 @@ function LabelDeclutter() {
     const reflow = () => { if (active) invalidate() }
     document.fonts.ready.then(reflow)
     document.fonts.addEventListener('loadingdone', reflow)
-    return () => { active = false; document.fonts.removeEventListener('loadingdone', reflow) }
-  }, [invalidate])
+    // The canvas renders on demand, so layout changes that do not resize the canvas itself
+    // (returning to Galaxy from Journey, panel/sheet expansion, overlay cards appearing or
+    // collapsing) must still trigger a declutter pass. Run it for two frames so labels
+    // measured mid-transition settle once the layout has finished.
+    const stage = gl.domElement.closest<HTMLElement>('.map-stage')
+    let raf = 0
+    const settle = () => {
+      if (!active || raf) return
+      raf = requestAnimationFrame(() => { raf = requestAnimationFrame(() => { raf = 0; reflow() }) })
+    }
+    const resizeObserver = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(settle)
+    const intersectionObserver = typeof IntersectionObserver === 'undefined' ? null : new IntersectionObserver(settle)
+    const mutationObserver = typeof MutationObserver === 'undefined' ? null : new MutationObserver(settle)
+    if (stage) {
+      resizeObserver?.observe(stage)
+      intersectionObserver?.observe(stage)
+      stage.querySelectorAll('.map-tools,.map-pan-controls,.galaxy-symbol-key,.map-jump-bar,.current-location,.mini-map').forEach(element => resizeObserver?.observe(element))
+      mutationObserver?.observe(stage, { childList: true, subtree: false, attributes: true, attributeFilter: ['hidden', 'class', 'data-presentation'] })
+      stage.querySelectorAll('.map-pan-controls,.map-bottom').forEach(element => mutationObserver?.observe(element, { childList: true, subtree: true, attributes: true, attributeFilter: ['hidden', 'class'] }))
+    }
+    window.addEventListener('resize', settle)
+    window.addEventListener('hashchange', settle)
+    settle()
+    return () => {
+      active = false
+      cancelAnimationFrame(raf)
+      document.fonts.removeEventListener('loadingdone', reflow)
+      resizeObserver?.disconnect(); intersectionObserver?.disconnect(); mutationObserver?.disconnect()
+      window.removeEventListener('resize', settle); window.removeEventListener('hashchange', settle)
+    }
+  }, [invalidate, gl])
   useFrame(() => {
     const root = gl.domElement.parentElement
     if (!root) return
@@ -652,7 +681,7 @@ export default function Galaxy(props: Props) {
   const storyCount = props.worlds.filter(world => props.highlightedIds?.has(world.id)).length
   const hasPreview = Boolean(props.previewId && props.previewId !== props.selectedId)
   return <div style={{ position: 'absolute', inset: 0, background: '#050c12', isolation: 'isolate' }} aria-label="Interactive schematic galaxy map">
-    <Canvas orthographic camera={{ position: [0, 0, 22], zoom: 32, near: .1, far: 100 }} dpr={props.phase === 'warping' ? 1 : props.quality === 'cinematic' && !props.reducedMotion ? [1, 2] : [1, 1.5]} frameloop="demand" gl={{ antialias: true, alpha: false, powerPreference: 'default' }} fallback={<div style={{ padding: 32, color: '#d7e4e8' }}>The galaxy view needs WebGL. Choose a world using the destination list.</div>}>
+    <Canvas orthographic camera={{ position: [0, 0, 22], zoom: 32, near: .1, far: 100 }} dpr={props.phase === 'warping' ? 1 : props.quality === 'cinematic' && !props.reducedMotion ? [1, 2] : [1, 1.5]} frameloop="demand" gl={{ antialias: true, alpha: false, powerPreference: 'default' }}>
       <Scene {...props} />
     </Canvas>
     <aside className="galaxy-symbol-key" aria-label="Map symbols" data-story-count={storyCount} data-travelling={props.phase === 'warping'}>
