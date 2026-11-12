@@ -6,7 +6,10 @@ const page=await browser.newPage({viewport:{width:390,height:844},isMobile:true,
 await page.goto((process.env.ATLAS_URL || 'http://localhost:4173') + "");
 await page.getByRole('button',{name:'Explore Alderaan',exact:true}).waitFor();
 const cdp=await page.context().newCDPSession(page);
-const marker=()=>page.getByRole('button',{name:'Explore Alderaan',exact:true}).boundingBox();
+// Measure each world's projected anchor (the map-html container's translate3d), not its label box:
+// label boxes are moved by collision avoidance and the planetary-body clearance, so they are not a zoom/pan metric.
+const anchor=name=>page.getByRole('button',{name:`Explore ${name}`,exact:true}).evaluate(button=>{const m=button.closest('[data-map-html]').style.transform.match(/translate3d\(([-\d.]+)px,\s*([-\d.]+)px/);return {x:+m[1],y:+m[2]}});
+const marker=()=>anchor('Alderaan');
 await page.waitForTimeout(700);
 const bounds=await page.locator('.galaxy-canvas canvas').boundingBox();
 const touchY=Math.round(bounds.y+bounds.height*.42);
@@ -16,7 +19,7 @@ for(let i=1;i<=6;i++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove
 await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await page.waitForTimeout(300);
 const moved=await marker();assert.ok(Math.abs(moved.x-start.x)>20);
 await page.getByRole('button',{name:'Reset map view',exact:true}).click();await page.waitForTimeout(200);
-const separation=async()=>{const a=await marker(),b=await page.getByRole('button',{name:'Explore Tatooine',exact:true}).boundingBox();return Math.hypot(a.x-b.x,a.y-b.y)};
+const separation=async()=>{const a=await marker(),b=await anchor('Tatooine');return Math.hypot(a.x-b.x,a.y-b.y)};
 const before=await separation();
 await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:130,y:touchY,id:1},{x:230,y:touchY,id:2}]});
 for(let i=1;i<=5;i++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:130-i*7,y:touchY,id:1},{x:230+i*7,y:touchY,id:2}]});await page.waitForTimeout(16)}
